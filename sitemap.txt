@@ -1,8 +1,9 @@
-http://example.com/HTML/%E6%96%B0%E5%BB%BA%20%E6%96%87%E6%9C%AC%E6%96%87%E6%A1%A3.html
-http://example.com/2023/12/10/%E5%91%9C%E5%91%9C%E5%91%9C/
-http://example.com/tags/index.html
-http://example.com/categories/index.html
-http://example.com/about/index.html
-http://example.com/archives/index.html
-http://example.com/2023/12/09/hello-world/
-http://example.com/
+http://201001why.com/2023/12/12/%E5%A5%BD%E9%9A%BE%E5%95%8A%EF%BC%81%EF%BC%81%EF%BC%81/
+http://201001why.com/HTML/%E6%96%B0%E5%BB%BA%20%E6%96%87%E6%9C%AC%E6%96%87%E6%A1%A3.html
+http://201001why.com/2023/12/10/%E5%91%9C%E5%91%9C%E5%91%9C/
+http://201001why.com/tags/index.html
+http://201001why.com/categories/index.html
+http://201001why.com/about/index.html
+http://201001why.com/archives/index.html
+http://201001why.com/2023/12/09/hello-world/
+http://201001why.com/

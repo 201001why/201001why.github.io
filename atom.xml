@@ -3,11 +3,11 @@
   <title>why</title>
   
   <subtitle>真的很懒，不想努力</subtitle>
-  <link href="http://example.com/atom.xml" rel="self"/>
+  <link href="http://201001why.com/atom.xml" rel="self"/>
   
-  <link href="http://example.com/"/>
-  <updated>2023-12-10T08:32:41.048Z</updated>
-  <id>http://example.com/</id>
+  <link href="http://201001why.com/"/>
+  <updated>2023-12-12T12:55:54.274Z</updated>
+  <id>http://201001why.com/</id>
   
   <author>
     <name>why</name>
@@ -17,9 +17,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>好难啊！！！</title>
+    <link href="http://201001why.com/2023/12/12/%E5%A5%BD%E9%9A%BE%E5%95%8A%EF%BC%81%EF%BC%81%EF%BC%81/"/>
+    <id>http://201001why.com/2023/12/12/%E5%A5%BD%E9%9A%BE%E5%95%8A%EF%BC%81%EF%BC%81%EF%BC%81/</id>
+    <published>2023-12-12T12:55:09.000Z</published>
+    <updated>2023-12-12T12:55:54.274Z</updated>
+    
+    <content type="html"><![CDATA[<p>啊啊啊啊！！！怎么能这么难</p><p>PHP真看不懂啊！！！怎么扯到传输上去了啊！！</p><p>呜呜呜！！！</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;啊啊啊啊！！！怎么能这么难&lt;/p&gt;
+&lt;p&gt;PHP真看不懂啊！！！怎么扯到传输上去了啊！！&lt;/p&gt;
+&lt;p&gt;呜呜呜！！！&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>呜呜呜</title>
-    <link href="http://example.com/2023/12/10/%E5%91%9C%E5%91%9C%E5%91%9C/"/>
-    <id>http://example.com/2023/12/10/%E5%91%9C%E5%91%9C%E5%91%9C/</id>
+    <link href="http://201001why.com/2023/12/10/%E5%91%9C%E5%91%9C%E5%91%9C/"/>
+    <id>http://201001why.com/2023/12/10/%E5%91%9C%E5%91%9C%E5%91%9C/</id>
     <published>2023-12-10T08:20:30.000Z</published>
     <updated>2023-12-10T08:32:41.048Z</updated>
     
@@ -39,8 +62,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://example.com/2023/12/09/hello-world/"/>
-    <id>http://example.com/2023/12/09/hello-world/</id>
+    <link href="http://201001why.com/2023/12/09/hello-world/"/>
+    <id>http://201001why.com/2023/12/09/hello-world/</id>
     <published>2023-12-09T14:20:36.032Z</published>
     <updated>2023-12-09T14:20:36.032Z</updated>
     
