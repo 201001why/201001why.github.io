@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>密码 | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>密码</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/5/13
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>常用的base编码、url编码等以及各种加密都有</p>
+<p><a target="_blank" rel="noopener" href="http://www.hiencode.com/">http://www.hiencode.com/</a></p>
+<p><a target="_blank" rel="noopener" href="https://tool.lu/">https://tool.lu/</a></p>
+<p><a target="_blank" rel="noopener" href="https://ctf.bugku.com/tools.html">https://ctf.bugku.com/tools.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ctftools.com/down/">https://www.ctftools.com/down/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.idcd.com/">https://www.idcd.com/</a></p>
+<p>bugku的旧在线工具可以用来枚举栅栏密码和凯撒密码</p>
+<p>md5解密</p>
+<p><a target="_blank" rel="noopener" href="https://www.cmd5.com/">https://www.cmd5.com/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.somd5.com/">https://www.somd5.com/</a></p>
+<p><a target="_blank" rel="noopener" href="https://pmd5.com/">https://pmd5.com/</a></p>
+<p>维吉尼亚解密</p>
+<p>很多时候可以直接跑出明文</p>
+<p><a target="_blank" rel="noopener" href="https://www.guballa.de/vigenere-solver">https://www.guballa.de/vigenere-solver</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.dcode.fr/vigenere-cipher">https://www.dcode.fr/vigenere-cipher</a> (要科学上网)</p>
+<p>rot5&#x2F;13&#x2F;18&#x2F;47</p>
+<p><a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/bianma/ROT5-13-18-47.php">https://www.qqxiuzi.cn/bianma/ROT5-13-18-47.php</a></p>
+<p>emoji加密</p>
+<p>常见的就是base100和emoji-aes</p>
+<p><a target="_blank" rel="noopener" href="https://aghorler.github.io/emoji-aes/">https://aghorler.github.io/emoji-aes/</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.atoolbox.net/Tool.php?Id=937">http://www.atoolbox.net/Tool.php?Id=937</a></p>
+<p><a target="_blank" rel="noopener" href="https://ctf.bugku.com/tool/base100">https://ctf.bugku.com/tool/base100</a></p>
+<p>brainfuck&#x2F;Ook！</p>
+<p><a target="_blank" rel="noopener" href="https://www.splitbrain.org/services/ook">https://www.splitbrain.org/services/ook</a></p>
+<p>零宽字符解密</p>
+<p><a target="_blank" rel="noopener" href="http://330k.github.io/misc_tools/unicode_steganography.html">http://330k.github.io/misc_tools/unicode_steganography.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://yuanfux.github.io/zero-width-web/">https://yuanfux.github.io/zero-width-web/</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.atoolbox.net/Tool.php?Id=829">http://www.atoolbox.net/Tool.php?Id=829</a></p>
+<p>熊曰&#x2F;兽音&#x2F;佛曰</p>
+<p><a target="_blank" rel="noopener" href="http://hi.pcmoe.net/index.html">http://hi.pcmoe.net/index.html</a></p>
+<p>需要key的佛曰</p>
+<p><a target="_blank" rel="noopener" href="https://talk-with-buddha.netlify.app/">https://talk-with-buddha.netlify.app/</a></p>
+<p>解音频里的莫斯密码</p>
+<p><a target="_blank" rel="noopener" href="https://morsecode.world/international/decoder/audio-decoder-adaptive.html">https://morsecode.world/international/decoder/audio-decoder-adaptive.html</a></p>
+<p>Quoted-printable</p>
+<p><a target="_blank" rel="noopener" href="http://web.chacuo.net/charsetquotedprintable/">http://web.chacuo.net/charsetquotedprintable/</a></p>
+<p>Rabbit解码</p>
+<p><a target="_blank" rel="noopener" href="https://www.sojson.com/encrypt_rabbit.html">https://www.sojson.com/encrypt_rabbit.html</a></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>

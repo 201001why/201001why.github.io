@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>rsa | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>rsa</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/5/13
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>RSA加密算法是一种非对称加密算法。RSA是1977年由罗纳德·李维斯特（Ron Rivest）、阿迪·萨莫尔（Adi Shamir）和伦纳德·阿德曼（Leonard Adleman）一起提出的。当时他们三人都在麻省理工学院工作。RSA就是他们三人姓氏开头字母拼在一起组成的。</p>
+<p>1973年，在英国政府通讯总部工作的数学家克利福德·柯克斯（Clifford Cocks）在一个内部文件中提出了一个相同的算法，但他的发现被列入机密，一直到1997年才被发表。</p>
+<p><strong>对极大整数做因数分解的难度决定了RSA算法的可靠性。</strong> 换言之，对一极大整数做因数分解愈困难，RSA算法愈可靠。<strong>假如有人找到一种快速因数分解的算法的话，那么用RSA加密的信息的可靠性就肯定会极度下降。</strong> 但找到这样的算法的可能性是非常小的。今天只有短的RSA钥匙才可能被强力方式解破。到目前为止，世界上还没有任何可靠的攻击RSA算法的方式。只要其钥匙的长度足够长，用RSA加密的信息实际上是不能被解破的。</p>
+<h2 id="一、举一个通俗易懂的例子"><a href="#一、举一个通俗易懂的例子" class="headerlink" title="一、举一个通俗易懂的例子"></a>一、举一个通俗易懂的例子</h2><p>看一个数学小魔术：</p>
+<p><strong>让A写下一个任意3位数，并将这个数和91相乘；然后将积的最后三位数告诉B，这样B就可以计算出A写下的是什么数字了。</strong></p>
+<ul>
+<li>比如A写下的是123，并且A计算出123 * 91等于11193，并把结果的末三位193告诉B ；</li>
+<li>B只需要把193再乘以11，193 * 11 &#x3D; 2123 末三位就是A写下的数字了；</li>
+</ul>
+<p><strong>道理很简单，91乘以11等于1001，而任何一个三位数乘以1001后，末三位显然都不变（例如123乘以1001就等于123123）。</strong></p>
+<p>知道原理后，可以构造一个定义域和值域更大的加密解密系统。<br>例如：</p>
+<ul>
+<li>任意一个数乘以400000001后，末8位都不变，而400000001 &#x3D; 19801 * 20201。于是A来乘以19801，B来乘以20201，又一个加密解密不对称的系统就构造好了；</li>
+<li>甚至可以构造得更大一些 4000000000000000000000000000001 &#x3D; 1199481995446957 * 3334772856269093，这样我们就成功构造了一个30位的加密系统；</li>
+</ul>
+<p>如果仅仅按照上面的思路，如果对方知道原理，非常容易穷举出400000001这个目标值；<strong>RSA算法使用的是指数和取模运算，本质上就是上面这套思想。</strong></p>
+<p>此段落转载自：<br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/33645891">如何用通俗易懂的话来解释非对称加密?</a></p>
+<h2 id="二、一句话："><a href="#二、一句话：" class="headerlink" title="二、一句话："></a>二、一句话：</h2><p>对极大整数做因数分解的难度决定了RSA算法的可靠性。</p>
+<h2 id="三、RSA加密算法"><a href="#三、RSA加密算法" class="headerlink" title="三、RSA加密算法"></a>三、RSA加密算法</h2><h3 id="3-1、维基百科——RSA加密算法"><a href="#3-1、维基百科——RSA加密算法" class="headerlink" title="3.1、维基百科——RSA加密算法"></a>3.1、维基百科——RSA加密算法</h3><p>先看一下维基百科的算法描述：</p>
+<h4 id="公钥与私钥的产生"><a href="#公钥与私钥的产生" class="headerlink" title="公钥与私钥的产生"></a>公钥与私钥的产生</h4><ul>
+<li>1、随意选择两个大的质数 p和 q，p不等于 q，计算 N&#x3D;pq</li>
+<li>2、根据欧拉函数，求得 r</li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">r</span> = φ(N) = φ(p)φ(q) = (p-<span class="number">1</span>)(q-<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>3、选择一个小于r并与r互质的整数e，求得e关于r的模反元素，命名为d （ ed ≡ 1(mod r) 模反元素存在，当且仅当e与r互质 ）；</li>
+<li>4、销毁p和q，此时 (N , e)是公钥，(N, d)为私钥；</li>
+</ul>
+<h4 id="加密消息"><a href="#加密消息" class="headerlink" title="加密消息"></a>加密消息</h4><p>假设Bob想给Alice发送一个消息 <code>n</code>，他知道Alice产生的 <code>N</code>和 <code>e</code> ；用下面这个公式他可以将 <code>n</code>加密为 <code>c</code> ：</p>
+<figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">c ≡ n^e (<span class="built_in">mod</span> N)</span><br></pre></td></tr></table></figure>
+
+<p>计算 <code>c</code>并不复杂。Bob算出 <code>c</code>后就可以将它传递给Alice。</p>
+<h4 id="解密消息"><a href="#解密消息" class="headerlink" title="解密消息"></a>解密消息</h4><p>Alice得到Bob的消息 <code>c</code>后就可以利用她的密钥<code>d</code>来解码。可以用以下这个公式来将 <code>c</code>转换为 <code>n</code>：</p>
+<figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">n ≡ c^d (<span class="built_in">mod</span> N)</span><br></pre></td></tr></table></figure>
+
+<p>此段落转载自：<br><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/RSA%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95">维基百科——RSA加密算法</a></p>
+<h3 id="3-2、依照算法公式举个例子"><a href="#3-2、依照算法公式举个例子" class="headerlink" title="3.2、依照算法公式举个例子"></a>3.2、依照算法公式举个例子</h3><p>依照算法公式来举个例子</p>
+<h4 id="1、随意选择两个大的质数-p和-q，p不等于-q，计算-N-pq"><a href="#1、随意选择两个大的质数-p和-q，p不等于-q，计算-N-pq" class="headerlink" title="1、随意选择两个大的质数 p和 q，p不等于 q，计算 N&#x3D;pq"></a>1、随意选择两个大的质数 p和 q，p不等于 q，计算 N&#x3D;pq</h4><p><strong>质数</strong> 定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">除了1和该数自身外，无法被其他自然数整除的数。</span><br></pre></td></tr></table></figure>
+
+<p>举例：</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">p</span> = <span class="number">3</span>；</span><br><span class="line"><span class="attr">q</span> = <span class="number">5</span><span class="comment">;</span></span><br><span class="line"><span class="attr">N</span> = <span class="number">3</span>*<span class="number">5</span> = <span class="number">15</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2、根据欧拉函数，求得-r"><a href="#2、根据欧拉函数，求得-r" class="headerlink" title="2、根据欧拉函数，求得 r"></a>2、根据欧拉函数，求得 r</h4><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">r</span> = φ(N) = φ(p)φ(q) = (p-<span class="number">1</span>)(q-<span class="number">1</span>)。</span><br></pre></td></tr></table></figure>
+
+<p><strong>欧拉函数</strong> 定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">欧拉函数 φ(n)是小于或等于n的正整数中与n互质的数的数目。</span><br><span class="line"></span><br><span class="line">例如：φ(8) = 4，因为1,3,5,7均和8互质。</span><br></pre></td></tr></table></figure>
+
+<p>举例：</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">r</span> = φ(N) = φ(p)φ(q) = (p-<span class="number">1</span>)(q-<span class="number">1</span>) <span class="comment">;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">r</span> = φ(<span class="number">15</span>) = φ(<span class="number">3</span>)φ(<span class="number">5</span>) = (<span class="number">3</span>-<span class="number">1</span>)(<span class="number">5</span>-<span class="number">1</span>) <span class="comment">;</span></span><br><span class="line"><span class="attr">r</span> = <span class="number">8</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3、选择一个小于r并与r互质的整数e，求得e关于r的模反元素，命名为d-（-ed-≡-1-mod-r-模反元素存在，当且仅当e与r互质-）；"><a href="#3、选择一个小于r并与r互质的整数e，求得e关于r的模反元素，命名为d-（-ed-≡-1-mod-r-模反元素存在，当且仅当e与r互质-）；" class="headerlink" title="3、选择一个小于r并与r互质的整数e，求得e关于r的模反元素，命名为d （ ed ≡ 1(mod r) 模反元素存在，当且仅当e与r互质 ）；"></a>3、选择一个小于r并与r互质的整数e，求得e关于r的模反元素，命名为d （ ed ≡ 1(mod r) 模反元素存在，当且仅当e与r互质 ）；</h4><p><strong>互质</strong> 定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">如果两个或两个以上的整数的最大公约数是 1，则称它们为互质</span><br><span class="line"></span><br><span class="line">例如：1,3,5,7均和8互质</span><br></pre></td></tr></table></figure>
+
+<p><strong>模反元素</strong> 定义：</p>
+<figure class="highlight perl"><table><tr><td class="code"><pre><span class="line">如果两个正整数a和n互质，那么一定可以找到整数b，使得 ab-<span class="number">1</span> 被n整除，或者说ab被n除的余数是<span class="number">1</span>。</span><br><span class="line"></span><br><span class="line">例如：比如<span class="number">3</span>和<span class="number">5</span>互质，<span class="number">3</span>关于<span class="number">5</span>的模反元素就可能是<span class="number">2</span>，因为 (<span class="number">3</span>*<span class="number">2</span>)%5=<span class="number">1</span> 。</span><br></pre></td></tr></table></figure>
+
+<p>举例：</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 选择一个小于r并与r互质的整数e (1,3,5,7均和8互质)：</span></span><br><span class="line">e = <span class="number">7</span>;</span><br><span class="line"><span class="comment">// 求得e关于r的模反元素，命名为d （    ed ≡ 1(mod r)     ) </span></span><br><span class="line"></span><br><span class="line">ed ≡ <span class="number">1</span>(<span class="keyword">mod</span> r) ;</span><br><span class="line"></span><br><span class="line"><span class="number">7</span>*d ≡ <span class="number">1</span>(<span class="keyword">mod</span> <span class="number">8</span>) ;</span><br><span class="line"><span class="number">7</span>*d%<span class="number">8</span> = <span class="number">1</span>; </span><br><span class="line"><span class="comment">// 这里取d = 15</span></span><br><span class="line">d = <span class="number">15</span>；</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、销毁p和q，此时-N-e-是公钥，-N-d-为私钥"><a href="#4、销毁p和q，此时-N-e-是公钥，-N-d-为私钥" class="headerlink" title="4、销毁p和q，此时 (N , e)是公钥，(N, d)为私钥"></a>4、销毁p和q，此时 (N , e)是公钥，(N, d)为私钥</h4><figure class="highlight scss"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 公钥  (N , e)</span></span><br><span class="line">( <span class="number">15</span>,<span class="number">7</span> )</span><br><span class="line"><span class="comment">// 私钥 (N, d)</span></span><br><span class="line">( <span class="number">15</span>,<span class="number">15</span> )</span><br></pre></td></tr></table></figure>
+
+<h4 id="5、加密"><a href="#5、加密" class="headerlink" title="5、加密"></a>5、加密</h4><p>假设Bob想给Alice发送一个消息 <code>n</code>，他知道Alice产生的 <code>N</code>和 <code>e</code> ；用下面这个公式他可以将 <code>n</code>加密为 <code>c</code></p>
+<p>举例：</p>
+<figure class="highlight perl"><table><tr><td class="code"><pre><span class="line">// 假设 </span><br><span class="line">n = <span class="number">2</span>;</span><br><span class="line"><span class="regexp">//</span> 计算c</span><br><span class="line">c ≡ n^e (mod N) ;</span><br><span class="line"></span><br><span class="line">(c^-<span class="number">1</span> * n^e)%N = <span class="number">1</span> ; </span><br><span class="line">(c^-<span class="number">1</span> * <span class="number">2</span>^<span class="number">7</span>)%15 = <span class="number">1</span> ;</span><br><span class="line"><span class="regexp">//</span> </span><br><span class="line">c = <span class="number">8</span>；</span><br></pre></td></tr></table></figure>
+
+<h4 id="6、解密"><a href="#6、解密" class="headerlink" title="6、解密"></a>6、解密</h4><p>Alice得到Bob的消息 <code>c</code>后就可以利用她的密钥<code>d</code>来解码。可以用以下这个公式来将 <code>c</code>转换为 <code>n</code>：</p>
+<p>举例：</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 计算n</span></span><br><span class="line">n ≡ c^<span class="title function_ invoke__">d</span> (<span class="keyword">mod</span> N)</span><br><span class="line"></span><br><span class="line">n ≡ <span class="number">8</span>^<span class="number">15</span> (<span class="keyword">mod</span> <span class="number">15</span>) ；</span><br><span class="line">(n^-<span class="number">1</span> * <span class="number">8</span>^<span class="number">15</span>)%<span class="number">15</span> = <span class="number">1</span> ;</span><br><span class="line"><span class="comment">//</span></span><br><span class="line">n = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>
