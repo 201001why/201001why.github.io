@@ -1,190 +1,195 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="utf-8" />
-    <title>why</title>
-    <meta name="author" content="why" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <link rel="icon" href="/images/avatar.jpg" />
-    <link rel="preconnect" href="https://s4.zstatic.net" />
-<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
-<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-<link rel="preconnect" href="https://fonts.loli.net" />
-<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
-<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
-<script> const mixins = {}; </script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.1.1">
 
-<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-
-<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
-<link
-    rel="stylesheet"
-    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
-/>
-<script src="/js/lib/highlight.js"></script>
+<link rel="stylesheet" href="/css/main.css">
 
 
 
-<script src="/js/lib/preview.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="website">
+<meta property="og:title" content="why">
+<meta property="og:url" content="http://example.com/page/2/index.html">
+<meta property="og:site_name" content="why">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="why">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/page/2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"page/2/index.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>why</title>
+  
 
 
 
 
 
-<script src="/js/lib/home.js"></script>
 
-<link rel="stylesheet" href="/css/main.css" />
 
-<meta name="generator" content="Hexo 7.1.1"></head>
-<body>
-    <div id="layout">
-        <transition name="fade">
-            <div id="loading" v-show="loading">
-                <div id="loading-circle">
-                    <h2>LOADING</h2>
-                    <p>加载过慢请开启缓存 浏览器默认开启</p>
-                    <img src="/images/loading.gif" />
-                </div>
-            </div>
-        </transition>
-        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
-    <nav id="desktop-menu">
-        <a class="title" href="/">
-            <span>WHY</span>
-        </a>
-        
-        <a href="/">
-            <i class="fa-solid fa-house fa-fw"></i>
-            <span>&ensp;Home</span>
-        </a>
-        
-        <a href="/about">
-            <i class="fa-solid fa-id-card fa-fw"></i>
-            <span>&ensp;About</span>
-        </a>
-        
-        <a href="/archives">
-            <i class="fa-solid fa-box-archive fa-fw"></i>
-            <span>&ensp;Archives</span>
-        </a>
-        
-        <a href="/categories">
-            <i class="fa-solid fa-bookmark fa-fw"></i>
-            <span>&ensp;Categories</span>
-        </a>
-        
-        <a href="/tags">
-            <i class="fa-solid fa-tags fa-fw"></i>
-            <span>&ensp;Tags</span>
-        </a>
-        
-    </nav>
-    <nav id="mobile-menu">
-        <div class="title" @click="showMenuItems = !showMenuItems">
-            <i class="fa-solid fa-bars fa-fw"></i>
-            <span>&emsp;WHY</span>
-        </div>
-        <transition name="slide">
-            <div class="items" v-show="showMenuItems">
-                
-                <a href="/">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-house fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
-                    </div>
-                </a>
-                
-                <a href="/about">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-id-card fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
-                    </div>
-                </a>
-                
-                <a href="/archives">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-box-archive fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
-                    </div>
-                </a>
-                
-                <a href="/categories">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
-                    </div>
-                </a>
-                
-                <a href="/tags">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-tags fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
-                    </div>
-                </a>
-                
-            </div>
-        </transition>
-    </nav>
-</div>
-<transition name="fade">
-    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
-</transition>
 
-        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="home-head">
-    <div id="home-background" ref="homeBackground" data-images="/images/background.jpg"></div>
-    <div id="home-info" @click="homeClick">
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="info">
-            <div class="wrap">
-                <h1>why</h1>
-                <h3>疯疯癫癫的小辣鸡</h3>
-                <h5></h5>
-            </div>
-        </span>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
     </div>
-</div>
-<div id="home-posts-wrap" true ref="homePostsWrap">
-    <div id="home-posts">
-        
+  </div>
 
-<div class="post">
-    <a href="/2024/10/23/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
-        <h2 class="post-title"></h2>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">why</h1>
+      <i class="logo-line"></i>
     </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/10/23
-        </span>
-        
-        
+      <p class="site-subtitle" itemprop="description">疯疯癫癫的小辣鸡</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
     </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h3 id="程序设计语言基础知识"><a href="#程序设计语言基础知识" class="headerlink" title="程序设计语言基础知识"></a>程序设计语言基础知识</h3><h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20241011203938740.png" alt="image-20241011203938740"></p>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">why</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">117</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/23/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="why">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="why">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | why">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/10/23/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-10-23 20:34:11" itemprop="dateCreated datePublished" datetime="2024-10-23T20:34:11+08:00">2024-10-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-10-11 21:12:32" itemprop="dateModified" datetime="2024-10-11T21:12:32+08:00">2024-10-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="程序设计语言基础知识"><a href="#程序设计语言基础知识" class="headerlink" title="程序设计语言基础知识"></a>程序设计语言基础知识</h3><h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20241011203938740.png" alt="image-20241011203938740"></p>
 <h5 id="语言的分类"><a href="#语言的分类" class="headerlink" title="语言的分类"></a>语言的分类</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20241011204123385.png" alt="image-20241011204123385"></p>
 <h5 id="基本成分"><a href="#基本成分" class="headerlink" title="基本成分"></a>基本成分</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20241011204218351.png" alt="image-20241011204218351"></p>
 <h4 id="编译与解释"><a href="#编译与解释" class="headerlink" title="编译与解释"></a>编译与解释</h4><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20241011204324610.png" alt="image-20241011204324610"></p>
@@ -208,36 +213,81 @@
 <p>答案：d</p>
 <h4 id="各种语言特点"><a href="#各种语言特点" class="headerlink" title="各种语言特点"></a>各种语言特点</h4><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20241011211117429.png" alt="image-20241011211117429"></p>
 
-            
-        </div>
+      
     </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/10/23/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="go-post">阅读全文</a>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
 </div>
 
-<div class="post">
-    <a href="/2024/10/23/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">
-        <h2 class="post-title"></h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/10/23
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h3 id="操作系统基本原理"><a href="#操作系统基本原理" class="headerlink" title="操作系统基本原理"></a>操作系统基本原理</h3><h4 id="操作系统概念"><a href="#操作系统概念" class="headerlink" title="操作系统概念"></a>操作系统概念</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171550009.png" alt="image-20240917155006845"></p>
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/23/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="why">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="why">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | why">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/10/23/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-10-23 20:34:11" itemprop="dateCreated datePublished" datetime="2024-10-23T20:34:11+08:00">2024-10-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-09-23 22:47:25" itemprop="dateModified" datetime="2024-09-23T22:47:25+08:00">2024-09-23</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="操作系统基本原理"><a href="#操作系统基本原理" class="headerlink" title="操作系统基本原理"></a>操作系统基本原理</h3><h4 id="操作系统概念"><a href="#操作系统概念" class="headerlink" title="操作系统概念"></a>操作系统概念</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171550009.png" alt="image-20240917155006845"></p>
 <h4 id="功能与目标"><a href="#功能与目标" class="headerlink" title="功能与目标"></a>功能与目标</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171551533.png" alt="image-20240917155105446"></p>
 <h4 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171551885.png" alt="image-20240917155133833"></p>
 <h4 id="发展与分类"><a href="#发展与分类" class="headerlink" title="发展与分类"></a>发展与分类</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171553384.png" alt="image-20240917155323354"></p>
@@ -287,36 +337,81 @@
 <h4 id="i-o控制方式"><a href="#i-o控制方式" class="headerlink" title="i&#x2F;o控制方式"></a>i&#x2F;o控制方式</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232246835.png" alt="image-20240923224600766"></p>
 <h4 id="微内核操作系统"><a href="#微内核操作系统" class="headerlink" title="微内核操作系统"></a>微内核操作系统</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232247771.png" alt="image-20240923224717713"></p>
 
-            
-        </div>
+      
     </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/10/23/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" class="go-post">阅读全文</a>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
 </div>
 
-<div class="post">
-    <a href="/2024/10/23/UML%E5%BB%BA%E6%A8%A1/">
-        <h2 class="post-title"></h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/10/23
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h3 id="UML建模"><a href="#UML建模" class="headerlink" title="UML建模"></a>UML建模</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410222156371.png" alt="image-20241022215555214"></p>
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/23/UML%E5%BB%BA%E6%A8%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="why">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="why">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | why">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/10/23/UML%E5%BB%BA%E6%A8%A1/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-10-23 20:34:11" itemprop="dateCreated datePublished" datetime="2024-10-23T20:34:11+08:00">2024-10-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-10-22 22:29:16" itemprop="dateModified" datetime="2024-10-22T22:29:16+08:00">2024-10-22</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="UML建模"><a href="#UML建模" class="headerlink" title="UML建模"></a>UML建模</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410222156371.png" alt="image-20241022215555214"></p>
 <h5 id="事物"><a href="#事物" class="headerlink" title="事物"></a>事物</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410222156727.png" alt="image-20241022215643593"></p>
 <h5 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410222200179.png" alt="image-20241022220003052"></p>
 <h5 id="图"><a href="#图" class="headerlink" title="图"></a>图</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410222201560.png" alt="image-20241022220105512"></p>
@@ -332,36 +427,75 @@
 <h4 id="通信图"><a href="#通信图" class="headerlink" title="通信图"></a>通信图</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410222228671.png" alt="image-20241022222811557"></p>
 <h4 id="构件图"><a href="#构件图" class="headerlink" title="构件图"></a>构件图</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410222228056.png" alt="image-20241022222850955"></p>
 
-            
-        </div>
+      
     </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/10/23/UML%E5%BB%BA%E6%A8%A1/" class="go-post">阅读全文</a>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
 </div>
 
-<div class="post">
-    <a href="/2024/10/23/%E4%B8%93%E4%B8%9A%E8%8B%B1%E8%AF%AD%E8%AF%8D%E6%B1%87%E7%9F%A5%E8%AF%86/">
-        <h2 class="post-title"></h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/10/23
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h3 id="专业英语词汇知识"><a href="#专业英语词汇知识" class="headerlink" title="专业英语词汇知识"></a>专业英语词汇知识</h3><h4 id="试题分析"><a href="#试题分析" class="headerlink" title="试题分析"></a>试题分析</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232027695.png" alt="image-20241023202723547"></p>
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/23/%E4%B8%93%E4%B8%9A%E8%8B%B1%E8%AF%AD%E8%AF%8D%E6%B1%87%E7%9F%A5%E8%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="why">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="why">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | why">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/10/23/%E4%B8%93%E4%B8%9A%E8%8B%B1%E8%AF%AD%E8%AF%8D%E6%B1%87%E7%9F%A5%E8%AF%86/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-10-23 20:34:11 / 修改时间：20:32:56" itemprop="dateCreated datePublished" datetime="2024-10-23T20:34:11+08:00">2024-10-23</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="专业英语词汇知识"><a href="#专业英语词汇知识" class="headerlink" title="专业英语词汇知识"></a>专业英语词汇知识</h3><h4 id="试题分析"><a href="#试题分析" class="headerlink" title="试题分析"></a>试题分析</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232027695.png" alt="image-20241023202723547"></p>
 <h5 id="完形填空句法"><a href="#完形填空句法" class="headerlink" title="完形填空句法"></a>完形填空句法</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232027569.png" alt="image-20241023202757423"></p>
 <h4 id="答题要领"><a href="#答题要领" class="headerlink" title="答题要领"></a>答题要领</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232028352.png" alt="image-20241023202824188"></p>
 <h4 id="答题步骤"><a href="#答题步骤" class="headerlink" title="答题步骤"></a>答题步骤</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232028161.png" alt="image-20241023202844011"></p>
@@ -382,66 +516,143 @@
 <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232032568.png" alt="image-20241023203238522"></p>
 <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232032588.png" alt="image-20241023203248545"></p>
 
-            
-        </div>
+      
     </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/10/23/%E4%B8%93%E4%B8%9A%E8%8B%B1%E8%AF%AD%E8%AF%8D%E6%B1%87%E7%9F%A5%E8%AF%86/" class="go-post">阅读全文</a>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
 </div>
 
-<div class="post">
-    <a href="/2024/07/17/SUCTF-2018-GetShell/">
-        <h2 class="post-title">[SUCTF 2018]GetShell</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/7/17
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/07/17/SUCTF-2018-GetShell/" class="go-post">阅读全文</a>
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/07/17/SUCTF-2018-GetShell/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="why">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="why">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | why">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/07/17/SUCTF-2018-GetShell/" class="post-title-link" itemprop="url">[SUCTF 2018]GetShell</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-07-17 22:12:57" itemprop="dateCreated datePublished" datetime="2024-07-17T22:12:57+08:00">2024-07-17</time>
+    </span>
+
+  
 </div>
 
-<div class="post">
-    <a href="/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/HFCTF2020-JustEscape/">
-        <h2 class="post-title">[HFCTF2020]JustEscape</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/6/21
-        </span>
-        
-        
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          
+      
     </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212114789.png" alt="image-20240621211441703"></p>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/HFCTF2020-JustEscape/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="why">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="why">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | why">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/HFCTF2020-JustEscape/" class="post-title-link" itemprop="url">[HFCTF2020]JustEscape</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-06-21 21:11:44 / 修改时间：21:28:04" itemprop="dateCreated datePublished" datetime="2024-06-21T21:11:44+08:00">2024-06-21</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212114789.png" alt="image-20240621211441703"></p>
 <p>真的是php？</p>
 <p>不懂</p>
 <p>看到wp中大佬说是vm沙盒，先照着做吧</p>
@@ -466,36 +677,75 @@
 <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212127520.png" alt="image-20240621212758486"></p>
 <p>得到flag</p>
 
-            
-        </div>
+      
     </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/HFCTF2020-JustEscape/" class="go-post">阅读全文</a>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
 </div>
 
-<div class="post">
-    <a href="/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/%E7%BE%8A%E5%9F%8E%E6%9D%AF2020-easyphp/">
-        <h2 class="post-title">[羊城杯2020]easyphp</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/6/21
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $files = scandir(&#x27;./&#x27;); </span><br><span class="line">    foreach($files as $file) &#123;</span><br><span class="line">        if(is_file($file))&#123;</span><br><span class="line">            if ($file !== &quot;index.php&quot;) &#123;</span><br><span class="line">                unlink($file);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if(!isset($_GET[&#x27;content&#x27;]) || !isset($_GET[&#x27;filename&#x27;])) &#123;</span><br><span class="line">        highlight_file(__FILE__);</span><br><span class="line">        die();</span><br><span class="line">    &#125;</span><br><span class="line">    $content = $_GET[&#x27;content&#x27;];</span><br><span class="line">    if(stristr($content,&#x27;on&#x27;) || stristr($content,&#x27;html&#x27;) || stristr($content,&#x27;type&#x27;) || stristr($content,&#x27;flag&#x27;) || stristr($content,&#x27;upload&#x27;) || stristr($content,&#x27;file&#x27;)) &#123;</span><br><span class="line">        echo &quot;Hacker&quot;;</span><br><span class="line">        die();</span><br><span class="line">    &#125;</span><br><span class="line">    $filename = $_GET[&#x27;filename&#x27;];</span><br><span class="line">    if(preg_match(&quot;/[^a-z\.]/&quot;, $filename) == 1) &#123;</span><br><span class="line">        echo &quot;Hacker&quot;;</span><br><span class="line">        die();</span><br><span class="line">    &#125;</span><br><span class="line">    $files = scandir(&#x27;./&#x27;); </span><br><span class="line">    foreach($files as $file) &#123;</span><br><span class="line">        if(is_file($file))&#123;</span><br><span class="line">            if ($file !== &quot;index.php&quot;) &#123;</span><br><span class="line">                unlink($file);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    file_put_contents($filename, $content . &quot;\nHello, world&quot;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/%E7%BE%8A%E5%9F%8E%E6%9D%AF2020-easyphp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="why">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="why">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | why">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/%E7%BE%8A%E5%9F%8E%E6%9D%AF2020-easyphp/" class="post-title-link" itemprop="url">[羊城杯2020]easyphp</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-06-21 20:27:28 / 修改时间：20:57:44" itemprop="dateCreated datePublished" datetime="2024-06-21T20:27:28+08:00">2024-06-21</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $files = scandir(&#x27;./&#x27;); </span><br><span class="line">    foreach($files as $file) &#123;</span><br><span class="line">        if(is_file($file))&#123;</span><br><span class="line">            if ($file !== &quot;index.php&quot;) &#123;</span><br><span class="line">                unlink($file);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if(!isset($_GET[&#x27;content&#x27;]) || !isset($_GET[&#x27;filename&#x27;])) &#123;</span><br><span class="line">        highlight_file(__FILE__);</span><br><span class="line">        die();</span><br><span class="line">    &#125;</span><br><span class="line">    $content = $_GET[&#x27;content&#x27;];</span><br><span class="line">    if(stristr($content,&#x27;on&#x27;) || stristr($content,&#x27;html&#x27;) || stristr($content,&#x27;type&#x27;) || stristr($content,&#x27;flag&#x27;) || stristr($content,&#x27;upload&#x27;) || stristr($content,&#x27;file&#x27;)) &#123;</span><br><span class="line">        echo &quot;Hacker&quot;;</span><br><span class="line">        die();</span><br><span class="line">    &#125;</span><br><span class="line">    $filename = $_GET[&#x27;filename&#x27;];</span><br><span class="line">    if(preg_match(&quot;/[^a-z\.]/&quot;, $filename) == 1) &#123;</span><br><span class="line">        echo &quot;Hacker&quot;;</span><br><span class="line">        die();</span><br><span class="line">    &#125;</span><br><span class="line">    $files = scandir(&#x27;./&#x27;); </span><br><span class="line">    foreach($files as $file) &#123;</span><br><span class="line">        if(is_file($file))&#123;</span><br><span class="line">            if ($file !== &quot;index.php&quot;) &#123;</span><br><span class="line">                unlink($file);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    file_put_contents($filename, $content . &quot;\nHello, world&quot;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
 <p>简单直接的代码题，我不是说简单</p>
 <p>看看代码</p>
@@ -511,70 +761,148 @@
 
 <p>之后就是</p>
 
-            
-        </div>
+      
     </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/%E7%BE%8A%E5%9F%8E%E6%9D%AF2020-easyphp/" class="go-post">阅读全文</a>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
 </div>
 
-<div class="post">
-    <a href="/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/GXYCTF2019-StrongestMind/">
-        <h2 class="post-title">[GXYCTF2019]StrongestMind</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/6/21
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212012626.png" alt="image-20240621201241587"></p>
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/GXYCTF2019-StrongestMind/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="why">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="why">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | why">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/GXYCTF2019-StrongestMind/" class="post-title-link" itemprop="url">[GXYCTF2019]StrongestMind</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-06-21 20:11:47 / 修改时间：20:13:20" itemprop="dateCreated datePublished" datetime="2024-06-21T20:11:47+08:00">2024-06-21</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212012626.png" alt="image-20240621201241587"></p>
 <p>我一开始想过会很难，但是没想到真是写一千次，直接脚本运行！</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from requests import *</span><br><span class="line">import time</span><br><span class="line">import re</span><br><span class="line">url = &quot;http://dbbc5a26-5ac4-43d7-8540-ecfdbd1f1879.node5.buuoj.cn:81/&quot;</span><br><span class="line">s=session()</span><br><span class="line">kk = re.compile(r&#x27;\d+ [-|+] \d+&#x27;)</span><br><span class="line">r=s.get(url)</span><br><span class="line"></span><br><span class="line">for i in range(1001):</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    zz=kk.findall(r.text)[0]</span><br><span class="line">    #print(zz)</span><br><span class="line">    zzz=eval(zz)</span><br><span class="line">    #print(zzz)</span><br><span class="line">    data=&#123;&quot;answer&quot;:zzz&#125;</span><br><span class="line">    time.sleep(0.1)</span><br><span class="line">    </span><br><span class="line">    r=s.post(url,data=data)</span><br><span class="line">    </span><br><span class="line">    r.encoding=&#x27;utf-8&#x27;</span><br><span class="line">    </span><br><span class="line">    print((r.text))</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
-            
-        </div>
+      
     </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/GXYCTF2019-StrongestMind/" class="go-post">阅读全文</a>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
 </div>
 
-<div class="post">
-    <a href="/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/GKCTF-2021-easycms/">
-        <h2 class="post-title">[GKCTF 2021]easycms</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/6/21
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406211945743.png" alt="image-20240621194533640"></p>
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/GKCTF-2021-easycms/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="why">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="why">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | why">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/GKCTF-2021-easycms/" class="post-title-link" itemprop="url">[GKCTF 2021]easycms</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-06-21 19:11:20 / 修改时间：20:05:54" itemprop="dateCreated datePublished" datetime="2024-06-21T19:11:20+08:00">2024-06-21</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406211945743.png" alt="image-20240621194533640"></p>
 <p>给我整懵了，我差点以为我点到了其它网站了。</p>
 <p>看了眼提示，弱密码五位</p>
 <p>在界面四处找了找，发现没有登陆界面，所以扫文件</p>
@@ -618,36 +946,75 @@
 <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212005045.png" alt="image-20240621200540019"></p>
 <p>我是放在友链里，在其它板块也是可以的</p>
 
-            
-        </div>
+      
     </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/GKCTF-2021-easycms/" class="go-post">阅读全文</a>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
 </div>
 
-<div class="post">
-    <a href="/2024/06/20/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/BJDCTF2020-EzPHP/">
-        <h2 class="post-title">[BJDCTF2020]EzPHP</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/6/20
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>查看源代码</p>
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/20/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/BJDCTF2020-EzPHP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="why">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="why">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | why">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/06/20/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/BJDCTF2020-EzPHP/" class="post-title-link" itemprop="url">[BJDCTF2020]EzPHP</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-06-20 20:41:35 / 修改时间：21:20:05" itemprop="dateCreated datePublished" datetime="2024-06-20T20:41:35+08:00">2024-06-20</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>查看源代码</p>
 <p>发现</p>
 <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202042149.png" alt="image-20240620204218107"></p>
 <p>base32解码，得1nD3x.php</p>
@@ -711,104 +1078,80 @@
 <p>base64解码得flag</p>
 <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202120490.png"></p>
 
-            
-        </div>
+      
     </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/06/20/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/BJDCTF2020-EzPHP/" class="go-post">阅读全文</a>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
 </div>
 
 
-        <div class="page-current">
-    
-    <a class="page-num" href="/">
-        <i class="fa-solid fa-caret-left fa-fw"></i>
-    </a>
-    <a class="page-num" href="/">1</a>
-    <span class="page-omit">...</span>
-    
-    <span class="current">2</span>
-    
-    <a class="page-num" href="/page/3">3</a>
-    
-    
-    <a class="page-num" href="/page/4">4</a>
-    
-    
-    <span class="page-omit">...</span>
-    <a class="page-num" href="/page/12">12</a>
-    
-    
-    <a class="page-num" href="/page/3/">
-        <i class="fa-solid fa-caret-right fa-fw"></i>
-    </a>
-    
+
+
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">why</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
 
     </div>
-    
-    <div id="home-card">
-        <div id="card-style">
-    <div id="card-div">
-        <div class="avatar">
-            <img src="/images/avatar.jpg" alt="avatar" />
-        </div>
-        <div class="name">why</div>
-        <div class="description">
-            <p>Description<br>…</p>
+  </footer>
 
-        </div>
-        
-        
-        <div class="friend-links">
-            
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="https://argvchs.github.io">Argvchs</a>
-            </div>
-            
-        </div>
-        
-    </div>
-</div>
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
 
-    </div>
-    
-</div>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-            <footer id="footer">
-    <div id="footer-wrap">
-        <div>
-            &copy;
-            2022 - 2024 why
-            <span id="footer-icon">
-                <i class="fa-solid fa-font-awesome fa-fw"></i>
-            </span>
-            &commat;why
-        </div>
-        <div>
-            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
-            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
-        </div>
-        
-    </div>
-</footer>
 
-        </div>
-        
-        <transition name="fade">
-            <div id="preview" ref="preview" v-show="previewShow">
-                <img id="preview-content" ref="previewContent" />
-            </div>
-        </transition>
-        
-    </div>
-    <script src="/js/main.js"></script>
-    
-<script src="/js/<file>"></script>
-<link rel="stylesheet" href="/css/<file>" />
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
 </body>
 </html>

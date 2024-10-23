@@ -1,36 +1,90 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="utf-8" />
-    <title> | why</title>
-    <meta name="author" content="why" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <link rel="icon" href="/images/avatar.jpg" />
-    <link rel="preconnect" href="https://s4.zstatic.net" />
-<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
-<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-<link rel="preconnect" href="https://fonts.loli.net" />
-<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
-<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
-<script> const mixins = {}; </script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.1.1">
 
-<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-
-<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
-<link
-    rel="stylesheet"
-    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
-/>
-<script src="/js/lib/highlight.js"></script>
+<link rel="stylesheet" href="/css/main.css">
 
 
 
-<script src="/js/lib/preview.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="软件工程基础知识软件工程概述 能力成熟度模型cmm cmmi   统一过程模型  软件开发模型 瀑布模型 演化模型（主要用于对于软件需求缺乏准确认识） 增量模型（引入增量包） 螺旋模型（增加风险分析） 演化模型  以上圆形模型，增量模型，螺旋模型 V模型（瀑布变体） 喷泉模型（面向对象，迭代和无间隙） 基于构件的开发模型（迭代方式构建软件） 软件开发方法结构化方法 Jackson方法 原型化方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="why">
+<meta property="og:url" content="http://example.com/2024/10/23/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name" content="why">
+<meta property="og:description" content="软件工程基础知识软件工程概述 能力成熟度模型cmm cmmi   统一过程模型  软件开发模型 瀑布模型 演化模型（主要用于对于软件需求缺乏准确认识） 增量模型（引入增量包） 螺旋模型（增加风险分析） 演化模型  以上圆形模型，增量模型，螺旋模型 V模型（瀑布变体） 喷泉模型（面向对象，迭代和无间隙） 基于构件的开发模型（迭代方式构建软件） 软件开发方法结构化方法 Jackson方法 原型化方法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352655.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352656.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352657.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352658.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352659.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352660.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352661.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352662.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352663.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352664.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352666.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352667.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352668.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352669.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352670.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352671.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162354913.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162357476.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162358758.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162358723.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162359904.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410170000610.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410170000221.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410170001159.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410170002247.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410170002015.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410170003715.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410170005801.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410170006971.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212027145.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212028123.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212028863.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212029846.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212030414.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212031327.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212035536.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212036207.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212036637.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212037540.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212038429.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212038906.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212038504.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212039220.png">
+<meta property="article:published_time" content="2024-10-23T12:34:11.624Z">
+<meta property="article:modified_time" content="2024-10-21T12:44:29.450Z">
+<meta property="article:author" content="why">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352655.png">
+
+
+<link rel="canonical" href="http://example.com/2024/10/23/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2024/10/23/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/","path":"2024/10/23/软件工程基础知识/","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> | why</title>
+  
 
 
 
@@ -39,132 +93,152 @@
 
 
 
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
 
-<link rel="stylesheet" href="/css/main.css" />
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-<meta name="generator" content="Hexo 7.1.1"></head>
-<body>
-    <div id="layout">
-        <transition name="fade">
-            <div id="loading" v-show="loading">
-                <div id="loading-circle">
-                    <h2>LOADING</h2>
-                    <p>加载过慢请开启缓存 浏览器默认开启</p>
-                    <img src="/images/loading.gif" />
-                </div>
-            </div>
-        </transition>
-        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
-    <nav id="desktop-menu">
-        <a class="title" href="/">
-            <span>WHY</span>
-        </a>
-        
-        <a href="/">
-            <i class="fa-solid fa-house fa-fw"></i>
-            <span>&ensp;Home</span>
-        </a>
-        
-        <a href="/about">
-            <i class="fa-solid fa-id-card fa-fw"></i>
-            <span>&ensp;About</span>
-        </a>
-        
-        <a href="/archives">
-            <i class="fa-solid fa-box-archive fa-fw"></i>
-            <span>&ensp;Archives</span>
-        </a>
-        
-        <a href="/categories">
-            <i class="fa-solid fa-bookmark fa-fw"></i>
-            <span>&ensp;Categories</span>
-        </a>
-        
-        <a href="/tags">
-            <i class="fa-solid fa-tags fa-fw"></i>
-            <span>&ensp;Tags</span>
-        </a>
-        
-    </nav>
-    <nav id="mobile-menu">
-        <div class="title" @click="showMenuItems = !showMenuItems">
-            <i class="fa-solid fa-bars fa-fw"></i>
-            <span>&emsp;WHY</span>
-        </div>
-        <transition name="slide">
-            <div class="items" v-show="showMenuItems">
-                
-                <a href="/">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-house fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
-                    </div>
-                </a>
-                
-                <a href="/about">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-id-card fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
-                    </div>
-                </a>
-                
-                <a href="/archives">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-box-archive fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
-                    </div>
-                </a>
-                
-                <a href="/categories">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
-                    </div>
-                </a>
-                
-                <a href="/tags">
-                    <div class="item">
-                        <div style="min-width: 20px; max-width: 50px; width: 10%">
-                            <i class="fa-solid fa-tags fa-fw"></i>
-                        </div>
-                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
-                    </div>
-                </a>
-                
-            </div>
-        </transition>
-    </nav>
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">why</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">疯疯癫癫的小辣鸡</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
 </div>
-<transition name="fade">
-    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
-</transition>
 
-        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div class="article">
-    <div>
-        <h1></h1>
-    </div>
-    <div class="info">
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/10/23
-        </span>
+
+
+
+
+
+
+</header>
         
-        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">软件工程基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">软件工程概述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%83%BD%E5%8A%9B%E6%88%90%E7%86%9F%E5%BA%A6%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.1.1.</span> <span class="nav-text">能力成熟度模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#cmm"><span class="nav-number">1.1.2.</span> <span class="nav-text">cmm</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#cmmi"><span class="nav-number">1.1.3.</span> <span class="nav-text">cmmi</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%9F%E4%B8%80%E8%BF%87%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.1.4.</span> <span class="nav-text">统一过程模型</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">软件开发模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%80%91%E5%B8%83%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.1.</span> <span class="nav-text">瀑布模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%BC%94%E5%8C%96%E6%A8%A1%E5%9E%8B%EF%BC%88%E4%B8%BB%E8%A6%81%E7%94%A8%E4%BA%8E%E5%AF%B9%E4%BA%8E%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E7%BC%BA%E4%B9%8F%E5%87%86%E7%A1%AE%E8%AE%A4%E8%AF%86%EF%BC%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">演化模型（主要用于对于软件需求缺乏准确认识）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A2%9E%E9%87%8F%E6%A8%A1%E5%9E%8B%EF%BC%88%E5%BC%95%E5%85%A5%E5%A2%9E%E9%87%8F%E5%8C%85%EF%BC%89"><span class="nav-number">1.2.3.</span> <span class="nav-text">增量模型（引入增量包）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%9E%BA%E6%97%8B%E6%A8%A1%E5%9E%8B%EF%BC%88%E5%A2%9E%E5%8A%A0%E9%A3%8E%E9%99%A9%E5%88%86%E6%9E%90%EF%BC%89"><span class="nav-number">1.2.4.</span> <span class="nav-text">螺旋模型（增加风险分析）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%BC%94%E5%8C%96%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.5.</span> <span class="nav-text">演化模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#V%E6%A8%A1%E5%9E%8B%EF%BC%88%E7%80%91%E5%B8%83%E5%8F%98%E4%BD%93%EF%BC%89"><span class="nav-number">1.2.6.</span> <span class="nav-text">V模型（瀑布变体）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%96%B7%E6%B3%89%E6%A8%A1%E5%9E%8B%EF%BC%88%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%8C%E8%BF%AD%E4%BB%A3%E5%92%8C%E6%97%A0%E9%97%B4%E9%9A%99%EF%BC%89"><span class="nav-number">1.2.7.</span> <span class="nav-text">喷泉模型（面向对象，迭代和无间隙）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%9E%84%E4%BB%B6%E7%9A%84%E5%BC%80%E5%8F%91%E6%A8%A1%E5%9E%8B%EF%BC%88%E8%BF%AD%E4%BB%A3%E6%96%B9%E5%BC%8F%E6%9E%84%E5%BB%BA%E8%BD%AF%E4%BB%B6%EF%BC%89"><span class="nav-number">1.2.8.</span> <span class="nav-text">基于构件的开发模型（迭代方式构建软件）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">软件开发方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E5%8C%96%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.1.</span> <span class="nav-text">结构化方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Jackson%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.2.</span> <span class="nav-text">Jackson方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E5%8C%96%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.3.</span> <span class="nav-text">原型化方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.4.</span> <span class="nav-text">面向对象方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.5.</span> <span class="nav-text">敏捷开发方法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9E%81%E9%99%90%E7%BC%96%E7%A8%8B%EF%BC%88XP%EF%BC%89"><span class="nav-number">1.3.5.1.</span> <span class="nav-text">极限编程（XP）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="nav-number">1.4.</span> <span class="nav-text">需求分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">1.4.1.</span> <span class="nav-text">分类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.2.</span> <span class="nav-text">获取方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.5.</span> <span class="nav-text">系统设计</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%87%87%E7%94%A8%E4%BA%86%E7%BB%93%E6%9E%84%E5%8C%96%E6%96%B9%E6%B3%95%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.5.1.</span> <span class="nav-text">采用了结构化方法的结构化设计</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E8%81%9A%E5%92%8C%E8%80%A6%E5%90%88"><span class="nav-number">1.5.2.</span> <span class="nav-text">内聚和耦合</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E6%B5%8B%E8%AF%95"><span class="nav-number">1.6.</span> <span class="nav-text">系统测试</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8E%9F%E5%88%99%E4%B8%8E%E7%9B%AE%E7%9A%84"><span class="nav-number">1.6.1.</span> <span class="nav-text">原则与目的</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95"><span class="nav-number">1.6.2.</span> <span class="nav-text">测试方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">1.6.3.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E9%98%B6%E6%AE%B5"><span class="nav-number">1.6.4.</span> <span class="nav-text">测试阶段</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86"><span class="nav-number">1.7.</span> <span class="nav-text">软件开发项目管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Gantt%E5%9B%BE"><span class="nav-number">1.7.1.</span> <span class="nav-text">Gantt图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PERT%E5%9B%BE"><span class="nav-number">1.7.2.</span> <span class="nav-text">PERT图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BE%8B"><span class="nav-number">1.7.3.</span> <span class="nav-text">例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86"><span class="nav-number">1.7.4.</span> <span class="nav-text">风险管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E8%B4%A8%E9%87%8F%E7%89%B9%E6%80%A7"><span class="nav-number">1.7.5.</span> <span class="nav-text">软件质量特性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%BA%A6%E9%87%8F"><span class="nav-number">1.8.</span> <span class="nav-text">软件度量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#McCabe%E5%BA%A6%E9%87%8F%E6%B3%95"><span class="nav-number">1.8.1.</span> <span class="nav-text">McCabe度量法</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">why</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">117</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
     </div>
+
     
-    <div class="content" v-pre>
-        <h3 id="软件工程基础知识"><a href="#软件工程基础知识" class="headerlink" title="软件工程基础知识"></a>软件工程基础知识</h3><h4 id="软件工程概述"><a href="#软件工程概述" class="headerlink" title="软件工程概述"></a>软件工程概述</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352655.png" alt="image-20241011211519071"></p>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/23/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="why">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="why">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | why">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-10-23 20:34:11" itemprop="dateCreated datePublished" datetime="2024-10-23T20:34:11+08:00">2024-10-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-10-21 20:44:29" itemprop="dateModified" datetime="2024-10-21T20:44:29+08:00">2024-10-21</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h3 id="软件工程基础知识"><a href="#软件工程基础知识" class="headerlink" title="软件工程基础知识"></a>软件工程基础知识</h3><h4 id="软件工程概述"><a href="#软件工程概述" class="headerlink" title="软件工程概述"></a>软件工程概述</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352655.png" alt="image-20241011211519071"></p>
 <h5 id="能力成熟度模型"><a href="#能力成熟度模型" class="headerlink" title="能力成熟度模型"></a>能力成熟度模型</h5><h5 id="cmm"><a href="#cmm" class="headerlink" title="cmm"></a>cmm</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352656.png" alt="image-20241011211724471"></p>
 <h5 id="cmmi"><a href="#cmmi" class="headerlink" title="cmmi"></a>cmmi</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352657.png" alt="image-20241011211750883"></p>
 <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352658.png" alt="image-20241011211805976"></p>
@@ -210,51 +284,89 @@
 <h4 id="软件度量"><a href="#软件度量" class="headerlink" title="软件度量"></a>软件度量</h4><h5 id="McCabe度量法"><a href="#McCabe度量法" class="headerlink" title="McCabe度量法"></a>McCabe度量法</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212039220.png" alt="image-20241021203950062"></p>
 
     </div>
+
     
     
     
-    
-    
-    
-    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/10/23/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%8A%80%E6%9C%AF/" rel="prev" title="">
+                  <i class="fa fa-angle-left"></i> 
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/10/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/" rel="next" title="">
+                   <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
 </div>
 
-            <footer id="footer">
-    <div id="footer-wrap">
-        <div>
-            &copy;
-            2022 - 2024 why
-            <span id="footer-icon">
-                <i class="fa-solid fa-font-awesome fa-fw"></i>
-            </span>
-            &commat;why
-        </div>
-        <div>
-            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
-            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
-        </div>
-        
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">why</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
     </div>
-</footer>
+  </footer>
 
-        </div>
-        
-        <transition name="fade">
-            <div id="preview" ref="preview" v-show="previewShow">
-                <img id="preview-content" ref="previewContent" />
-            </div>
-        </transition>
-        
-    </div>
-    <script src="/js/main.js"></script>
-    
-    
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
 
 
 
 
-    
-<script src="/js/<file>"></script>
-<link rel="stylesheet" href="/css/<file>" />
+
+
+  
+
+
+
+
+
 </body>
 </html>
