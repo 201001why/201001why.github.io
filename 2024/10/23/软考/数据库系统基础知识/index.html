@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title> | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1></h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/10/23
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h3 id="数据库系统基础知识"><a href="#数据库系统基础知识" class="headerlink" title="数据库系统基础知识"></a>数据库系统基础知识</h3><h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409241959413.png" alt="image-20240924195948292"></p>
+<h5 id="DBMS的特征和分类"><a href="#DBMS的特征和分类" class="headerlink" title="DBMS的特征和分类"></a>DBMS的特征和分类</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242001261.png" alt="image-20240924200147135"></p>
+<h4 id="数据库三级模式两级映像"><a href="#数据库三级模式两级映像" class="headerlink" title="数据库三级模式两级映像"></a>数据库三级模式两级映像</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242003439.png" alt="image-20240924200349382"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242006163.png" alt="image-20240924200615012"></p>
+<h4 id="数据库的分析与设计过程"><a href="#数据库的分析与设计过程" class="headerlink" title="数据库的分析与设计过程"></a>数据库的分析与设计过程</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242010264.png" alt="image-20240924201056223"></p>
+<h4 id="数据模型"><a href="#数据模型" class="headerlink" title="数据模型"></a>数据模型</h4><h5 id="基本概念-1"><a href="#基本概念-1" class="headerlink" title="基本概念"></a>基本概念</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242012913.png" alt="image-20240924201251800"></p>
+<h5 id="E-R模型"><a href="#E-R模型" class="headerlink" title="E-R模型"></a>E-R模型</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242013642.png" alt="image-20240924201330550"></p>
+<h5 id="关系模型"><a href="#关系模型" class="headerlink" title="关系模型"></a>关系模型</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242015473.png" alt="image-20240924201535361"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242016106.png" alt="image-20240924201602013"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242017426.png" alt="image-20240924201732379"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242017671.png" alt="image-20240924201759569"></p>
+<h4 id="关系代数"><a href="#关系代数" class="headerlink" title="关系代数"></a>关系代数</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409252346169.png" alt="image-20240925234636008"></p>
+<h5 id="关系的三种类型"><a href="#关系的三种类型" class="headerlink" title="关系的三种类型"></a>关系的三种类型</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925234953090.png" alt="image-20240925234953090"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409260009298.png" alt="image-20240925235159600"></p>
+<h5 id="七种基本运算"><a href="#七种基本运算" class="headerlink" title="七种基本运算"></a>七种基本运算</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409260010738.png" alt="image-20240925235305146"></p>
+<p>下图根据顺序排列</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925235259061.png" alt="image-20240925235259061"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925235352501.png" alt="image-20240925235352501"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925235440943.png" alt="image-20240925235440943"></p>
+<p>连接</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925235500719.png" alt="image-20240925235500719"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925235535193.png" alt="image-20240925235535193"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925235722940.png" alt="image-20240925235722940"></p>
+<h5 id="查询优化原则"><a href="#查询优化原则" class="headerlink" title="查询优化原则"></a>查询优化原则</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926000317375.png" alt="image-20240926000317375"></p>
+<h4 id="数据库的完整性约束"><a href="#数据库的完整性约束" class="headerlink" title="数据库的完整性约束"></a>数据库的完整性约束</h4><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925234838260.png" alt="image-20240925234838260"></p>
+<h4 id="sql简介"><a href="#sql简介" class="headerlink" title="sql简介"></a>sql简介</h4><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926000446625.png" alt="image-20240926000446625"></p>
+<h4 id="关系数据库的规范化"><a href="#关系数据库的规范化" class="headerlink" title="关系数据库的规范化"></a>关系数据库的规范化</h4><h5 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202040184.png" alt="image-20240926202040184"></p>
+<p>左为部分函数依赖，右为传递函数依赖</p>
+<h5 id="求候选码"><a href="#求候选码" class="headerlink" title="求候选码"></a>求候选码</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202225098.png" alt="image-20240926202225098"></p>
+<h6 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h6><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202257424.png" alt="image-20240926202257424"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202432086.png" alt="image-20240926202432086"></p>
+<h5 id="规范化理论（非规范化存在的问题）"><a href="#规范化理论（非规范化存在的问题）" class="headerlink" title="规范化理论（非规范化存在的问题）"></a>规范化理论（非规范化存在的问题）</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202450404.png" alt="image-20240926202450404"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202532610.png" alt="image-20240926202532610"></p>
+<h5 id="规范化理论（范式）"><a href="#规范化理论（范式）" class="headerlink" title="规范化理论（范式）"></a>规范化理论（范式）</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202623943.png" alt="image-20240926202623943"></p>
+<h6 id="第一范式（1NF）"><a href="#第一范式（1NF）" class="headerlink" title="第一范式（1NF）"></a>第一范式（1NF）</h6><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202749988.png" alt="image-20240926202749988"></p>
+<p>上图为反例</p>
+<h6 id="第二范式（2NF）"><a href="#第二范式（2NF）" class="headerlink" title="第二范式（2NF）"></a>第二范式（2NF）</h6><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202910544.png" alt="image-20240926202910544"></p>
+<h6 id="第三范式（3NF）"><a href="#第三范式（3NF）" class="headerlink" title="第三范式（3NF）"></a>第三范式（3NF）</h6><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926203050458.png" alt="image-20240926203050458"></p>
+<h6 id="BCNF（巴斯克斯范式）"><a href="#BCNF（巴斯克斯范式）" class="headerlink" title="BCNF（巴斯克斯范式）"></a>BCNF（巴斯克斯范式）</h6><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926203244239.png" alt="image-20240926203244239"></p>
+<p>例题：</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926203443032.png" alt="image-20240926203443032"></p>
+<h5 id="关系模式分解"><a href="#关系模式分解" class="headerlink" title="关系模式分解"></a>关系模式分解</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926203733262.png" alt="image-20240926203733262"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926203907466.png" alt="image-20240926203907466"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926203924881.png" alt="image-20240926203924881"></p>
+<h4 id="数据库控制功能"><a href="#数据库控制功能" class="headerlink" title="数据库控制功能"></a>数据库控制功能</h4><h5 id="事务管理"><a href="#事务管理" class="headerlink" title="事务管理"></a>事务管理</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926204146849.png" alt="image-20240926204146849"></p>
+<h5 id="并发控制"><a href="#并发控制" class="headerlink" title="并发控制"></a>并发控制</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926204406623.png" alt="image-20240926204406623"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926204650209.png" alt="image-20240926204650209"></p>
+<h5 id="备份与恢复"><a href="#备份与恢复" class="headerlink" title="备份与恢复"></a>备份与恢复</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926212449022.png" alt="image-20240926212449022"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926212604748.png" alt="image-20240926212604748"></p>
+<h4 id="数据仓库和数据挖掘"><a href="#数据仓库和数据挖掘" class="headerlink" title="数据仓库和数据挖掘"></a>数据仓库和数据挖掘</h4><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926212636791.png" alt="image-20240926212636791"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926212759892.png" alt="image-20240926212759892"></p>
+<h4 id="大数据基本概念"><a href="#大数据基本概念" class="headerlink" title="大数据基本概念"></a>大数据基本概念</h4><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926212832624.png" alt="image-20240926212832624"></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>

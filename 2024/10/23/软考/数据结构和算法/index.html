@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title> | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1></h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/10/23
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><h4 id="数据元素、数据项"><a href="#数据元素、数据项" class="headerlink" title="数据元素、数据项"></a>数据元素、数据项</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051737931.png" alt="image-20240905173704813"></p>
+<h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051737569.png" alt="image-20240905173715535"></p>
+<h4 id="数据结构三要素"><a href="#数据结构三要素" class="headerlink" title="数据结构三要素"></a>数据结构三要素</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051737013.png" alt="image-20240905173746939"></p>
+<h5 id="逻辑结构"><a href="#逻辑结构" class="headerlink" title="逻辑结构"></a>逻辑结构</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051738821.png" alt="image-20240905173834783"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051738118.png" alt="image-20240905173846023"></p>
+<h5 id="物理结构"><a href="#物理结构" class="headerlink" title="物理结构"></a>物理结构</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051739975.png" alt="image-20240905173930940"></p>
+<h4 id="算法的五个特性"><a href="#算法的五个特性" class="headerlink" title="算法的五个特性"></a>算法的五个特性</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051742128.png" alt="image-20240905174200015"></p>
+<h4 id="算法效率的度量"><a href="#算法效率的度量" class="headerlink" title="算法效率的度量"></a>算法效率的度量</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051743177.png" alt="image-20240905174321147"></p>
+<h5 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051745467.png" alt="image-20240905174527372"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051746329.png" alt="image-20240905174644270"></p>
+<h5 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051747008.png" alt="image-20240905174719900"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409051821205.png" alt="image-20240905182119116"></p>
+<h4 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409052048224.png" alt="image-20240905204853154"></p>
+<h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092115631.png" alt="image-20240909211458440"></p>
+<h5 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092115160.png" alt="image-20240909211512113"></p>
+<h5 id="性能区别"><a href="#性能区别" class="headerlink" title="性能区别"></a>性能区别</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092116884.png" alt="image-20240909211610822"></p>
+<h5 id="插入与删除"><a href="#插入与删除" class="headerlink" title="插入与删除"></a>插入与删除</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092116107.png" alt="image-20240909211648022"></p>
+<h4 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092118954.png" alt="image-20240909211854841"></p>
+<h4 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092119725.png" alt="image-20240909211937626"></p>
+<h5 id="循环队列"><a href="#循环队列" class="headerlink" title="循环队列"></a>循环队列</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092256149.png" alt="image-20240909225612074"></p>
+<h4 id="串"><a href="#串" class="headerlink" title="串"></a>串</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092257766.png" alt="image-20240909225747658"></p>
+<h5 id="串的赋值"><a href="#串的赋值" class="headerlink" title="串的赋值"></a>串的赋值</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092259372.png" alt="image-20240909225907307"></p>
+<h5 id="串的存储结构"><a href="#串的存储结构" class="headerlink" title="串的存储结构"></a>串的存储结构</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092259571.png" alt="image-20240909225925518"></p>
+<h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092259811.png" alt="image-20240909225954763"></p>
+<h4 id="稀疏矩阵"><a href="#稀疏矩阵" class="headerlink" title="稀疏矩阵"></a>稀疏矩阵</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092301555.png" alt="image-20240909230111506"></p>
+<h4 id="广义表"><a href="#广义表" class="headerlink" title="广义表"></a>广义表</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409092303632.png" alt="image-20240909230318559"></p>
+<h4 id="树"><a href="#树" class="headerlink" title="树"></a>树</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110007743.png" alt="image-20240911000743608"></p>
+<h4 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h4><h5 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110011881.png" alt="image-20240911001140855"></p>
+<h5 id="二叉树的遍历"><a href="#二叉树的遍历" class="headerlink" title="二叉树的遍历"></a>二叉树的遍历</h5><p>前序遍历：根、左、右</p>
+<p>中序遍历：左、根、右</p>
+<p>后序遍历：左、右、根</p>
+<h5 id="反向构造二叉树"><a href="#反向构造二叉树" class="headerlink" title="反向构造二叉树"></a>反向构造二叉树</h5><h5 id="树转二叉树"><a href="#树转二叉树" class="headerlink" title="树转二叉树"></a>树转二叉树</h5><p>左子树节点作为同届中的根节点，孩子节点往左放，兄弟节点作为新孩子节点往右放</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110022883.png" alt="image-20240911002216837"></p>
+<h5 id="查找二叉树（二叉排序树）"><a href="#查找二叉树（二叉排序树）" class="headerlink" title="查找二叉树（二叉排序树）"></a>查找二叉树（二叉排序树）</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110024512.png" alt="image-20240911002417393"></p>
+<h5 id="构造霍夫曼数（最优）"><a href="#构造霍夫曼数（最优）" class="headerlink" title="构造霍夫曼数（最优）"></a>构造霍夫曼数（最优）</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110025904.png" alt="image-20240911002544800"></p>
+<p>带权路径：路径长度乘数据（叶子节点）</p>
+<p>例（答案）：</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110027943.png" alt="image-20240911002742909"></p>
+<h5 id="线索二叉树！！！"><a href="#线索二叉树！！！" class="headerlink" title="线索二叉树！！！"></a>线索二叉树！！！</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110029220.png" alt="image-20240911002953152"></p>
+<h5 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110030936.png" alt="image-20240911003033849"></p>
+<p>上图前两个不是平衡二叉树，后两个是</p>
+<h4 id="图"><a href="#图" class="headerlink" title="图"></a>图</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110031129.png" alt="image-20240911003151037"></p>
+<h5 id="存储结构（邻接矩阵）"><a href="#存储结构（邻接矩阵）" class="headerlink" title="存储结构（邻接矩阵）"></a>存储结构（邻接矩阵）</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110032419.png" alt="image-20240911003235347"></p>
+<h5 id="邻接表"><a href="#邻接表" class="headerlink" title="邻接表"></a>邻接表</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110033314.png" alt="image-20240911003345250"></p>
+<h5 id="图的遍历"><a href="#图的遍历" class="headerlink" title="图的遍历"></a>图的遍历</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110034057.png" alt="image-20240911003419004"></p>
+<h5 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110034356.png" alt="image-20240911003455273"></p>
+<h5 id="最小生成树（普利姆算法）"><a href="#最小生成树（普利姆算法）" class="headerlink" title="最小生成树（普利姆算法）"></a>最小生成树（普利姆算法）</h5><p>连到了的数据成为根，搜寻所有根附近的权值，不能成环</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110037851.png" alt="image-20240911003716809"></p>
+<h5 id="克鲁斯卡尔算法"><a href="#克鲁斯卡尔算法" class="headerlink" title="克鲁斯卡尔算法"></a>克鲁斯卡尔算法</h5><p>先连接所有最小的权值，不管是否连接，最后在考虑连接问题</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409110039385.png" alt="image-20240911003944345"></p>
+<h4 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120006558.png" alt="image-20240912000649359"></p>
+<p> <img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120014670.png" alt="image-20240912001436633"></p>
+<h5 id="顺序查找"><a href="#顺序查找" class="headerlink" title="顺序查找"></a>顺序查找</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120014899.png" alt="image-20240912001453804"></p>
+<h5 id="折半查找"><a href="#折半查找" class="headerlink" title="折半查找"></a>折半查找</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120015684.png" alt="image-20240912001528625"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120016766.png" alt="image-20240912001653718"></p>
+<h5 id="分块查找"><a href="#分块查找" class="headerlink" title="分块查找"></a>分块查找</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120017675.png" alt="image-20240912001712573"></p>
+<h5 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120017065.png" alt="image-20240912001751968"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120018987.png" alt="image-20240912001821954"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120018390.png" alt="image-20240912001843363"></p>
+<h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120019073.png" alt="image-20240912001913966"></p>
+<h5 id="直接插入排序"><a href="#直接插入排序" class="headerlink" title="直接插入排序"></a>直接插入排序</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120020662.png" alt="image-20240912002010559"></p>
+<h5 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120021414.png" alt="image-20240912002117332"></p>
+<h5 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120025865.png" alt="image-20240912002526756"></p>
+<h5 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120026320.png" alt="image-20240912002626235"></p>
+<h5 id="简单选择排序"><a href="#简单选择排序" class="headerlink" title="简单选择排序"></a>简单选择排序</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120027375.png" alt="image-20240912002733290"></p>
+<h5 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120028801.png" alt="image-20240912002819730"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120029118.png" alt="image-20240912002916054"></p>
+<h5 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120030491.png" alt="image-20240912003037419"></p>
+<h5 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120031277.png" alt="image-20240912003106200"></p>
+<h5 id="评价指标"><a href="#评价指标" class="headerlink" title="评价指标"></a>评价指标</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409120032988.png" alt="image-20240912003236931"></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>

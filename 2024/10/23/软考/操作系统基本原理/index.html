@@ -1,0 +1,265 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title> | why</title>
+    <meta name="author" content="why" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WHY</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WHY</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1></h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/10/23
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h3 id="操作系统基本原理"><a href="#操作系统基本原理" class="headerlink" title="操作系统基本原理"></a>操作系统基本原理</h3><h4 id="操作系统概念"><a href="#操作系统概念" class="headerlink" title="操作系统概念"></a>操作系统概念</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171550009.png" alt="image-20240917155006845"></p>
+<h4 id="功能与目标"><a href="#功能与目标" class="headerlink" title="功能与目标"></a>功能与目标</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171551533.png" alt="image-20240917155105446"></p>
+<h4 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171551885.png" alt="image-20240917155133833"></p>
+<h4 id="发展与分类"><a href="#发展与分类" class="headerlink" title="发展与分类"></a>发展与分类</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171553384.png" alt="image-20240917155323354"></p>
+<h3 id="进度管理"><a href="#进度管理" class="headerlink" title="进度管理"></a>进度管理</h3><h4 id="状态转换图"><a href="#状态转换图" class="headerlink" title="状态转换图"></a>状态转换图</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171556743.png" alt="image-20240917155631642"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171558113.png" alt="image-20240917155826995"></p>
+<h4 id="前驱图"><a href="#前驱图" class="headerlink" title="前驱图"></a>前驱图</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171600825.png" alt="image-20240917160010794"></p>
+<h4 id="进程同步机制"><a href="#进程同步机制" class="headerlink" title="进程同步机制"></a>进程同步机制</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171600872.png" alt="image-20240917160048772"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171601298.png" alt="image-20240917160143255"></p>
+<h4 id="进程互斥机制"><a href="#进程互斥机制" class="headerlink" title="进程互斥机制"></a>进程互斥机制</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171602685.png" alt="image-20240917160233592"></p>
+<p> <img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171603820.png" alt="image-20240917160324737"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171604152.png" alt="image-20240917160424059"></p>
+<h4 id="信号量机制"><a href="#信号量机制" class="headerlink" title="信号量机制"></a>信号量机制</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171605489.png" alt="image-20240917160523376"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171605101.png" alt="image-20240917160556991"></p>
+<h4 id="pv操作"><a href="#pv操作" class="headerlink" title="pv操作"></a>pv操作</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171607146.png" alt="image-20240917160755080"></p>
+<h4 id="pv操作实现前驱操作"><a href="#pv操作实现前驱操作" class="headerlink" title="pv操作实现前驱操作"></a>pv操作实现前驱操作</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171609130.png" alt="image-20240917160922020"></p>
+<h4 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171612377.png" alt="image-20240917161255255"></p>
+<h4 id="死锁产生的必要条件"><a href="#死锁产生的必要条件" class="headerlink" title="死锁产生的必要条件"></a>死锁产生的必要条件</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171614548.png" alt="image-20240917161437438"></p>
+<h4 id="死锁的处理策略"><a href="#死锁的处理策略" class="headerlink" title="死锁的处理策略"></a>死锁的处理策略</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171615753.png" alt="image-20240917161529687"></p>
+<h4 id="银行家算法"><a href="#银行家算法" class="headerlink" title="银行家算法"></a>银行家算法</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171617769.png" alt="image-20240917161705671"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409171618663.png" alt="image-20240917161801619"></p>
+<h3 id="存储管理"><a href="#存储管理" class="headerlink" title="存储管理"></a>存储管理</h3><h4 id="一些小问题和回答"><a href="#一些小问题和回答" class="headerlink" title="一些小问题和回答"></a>一些小问题和回答</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232157245.png" alt="image-20240923215736089"></p>
+<h4 id="内存的分配与回收"><a href="#内存的分配与回收" class="headerlink" title="内存的分配与回收"></a>内存的分配与回收</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232158746.png" alt="image-20240923215844705"></p>
+<h4 id="首次适应算法"><a href="#首次适应算法" class="headerlink" title="首次适应算法"></a>首次适应算法</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232159073.png" alt="image-20240923215918969"></p>
+<h4 id="最佳适应算法"><a href="#最佳适应算法" class="headerlink" title="最佳适应算法"></a>最佳适应算法</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232206669.png" alt="image-20240923220611556"></p>
+<h4 id="最差适应算法"><a href="#最差适应算法" class="headerlink" title="最差适应算法"></a>最差适应算法</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232207481.png" alt="image-20240923220702371"></p>
+<h4 id="邻近适应算法"><a href="#邻近适应算法" class="headerlink" title="邻近适应算法"></a>邻近适应算法</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232208283.png" alt="image-20240923220818165"></p>
+<h4 id="分页存储管理"><a href="#分页存储管理" class="headerlink" title="分页存储管理"></a>分页存储管理</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232208355.png" alt="image-20240923220851302"></p>
+<p>页表的作用是<strong>实现从页号到物理块号的地址映射</strong></p>
+<p>地址变换机构的基本任务是利用页表把<strong>用户程序中的逻辑地址变换成内存中的物理地址</strong></p>
+<h4 id="分段存储管理"><a href="#分段存储管理" class="headerlink" title="分段存储管理"></a>分段存储管理</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232215334.png" alt="image-20240923221509286"></p>
+<h4 id="段页式存储管理"><a href="#段页式存储管理" class="headerlink" title="段页式存储管理"></a>段页式存储管理</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232217204.png" alt="image-20240923221717156"></p>
+<h5 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h5><p>空间浪费小、存储共享容易、存储保护容易、能动态链接</p>
+<h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h5><p>由于管理软件的层架，复杂度和开销也随之增加，需要的硬件以及占用的内容干有所增加，是的执行速度大大下降</p>
+<h4 id="页面置换算法"><a href="#页面置换算法" class="headerlink" title="页面置换算法"></a>页面置换算法</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232220755.png" alt="image-20240923222048659"></p>
+<h5 id="最佳置换算法（opt）"><a href="#最佳置换算法（opt）" class="headerlink" title="最佳置换算法（opt）"></a>最佳置换算法（opt）</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232221131.png" alt="image-20240923222131030"></p>
+<p>往后寻找，最后一个出现的页号就是要淘汰的页面</p>
+<h5 id="先进先出算法（fifo）"><a href="#先进先出算法（fifo）" class="headerlink" title="先进先出算法（fifo）"></a>先进先出算法（fifo）</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232223982.png" alt="image-20240923222344901"></p>
+<h5 id="最近最久未使用算法（lru）"><a href="#最近最久未使用算法（lru）" class="headerlink" title="最近最久未使用算法（lru）"></a>最近最久未使用算法（lru）</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232224483.png" alt="image-20240923222433389"></p>
+<h3 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h3><h4 id="文件管理总领"><a href="#文件管理总领" class="headerlink" title="文件管理总领"></a>文件管理总领</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232225618.png" alt="image-20240923222558582"></p>
+<h4 id="文件目录"><a href="#文件目录" class="headerlink" title="文件目录"></a>文件目录</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232226437.png" alt="image-20240923222642398"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232237047.png" alt="image-20240923223750001"></p>
+<h4 id="文件的结构"><a href="#文件的结构" class="headerlink" title="文件的结构"></a>文件的结构</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232238433.png" alt="image-20240923223807399"></p>
+<h5 id="索引分配"><a href="#索引分配" class="headerlink" title="索引分配"></a>索引分配</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232238851.png" alt="image-20240923223830796"></p>
+<h4 id="空闲存储空间的管理（位示图法）"><a href="#空闲存储空间的管理（位示图法）" class="headerlink" title="空闲存储空间的管理（位示图法）"></a>空闲存储空间的管理（位示图法）</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232242168.png" alt="image-20240923224233074"></p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232243538.png" alt="image-20240923224327477"></p>
+<h4 id="i-o设备基本概念"><a href="#i-o设备基本概念" class="headerlink" title="i&#x2F;o设备基本概念"></a>i&#x2F;o设备基本概念</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232245099.png" alt="image-20240923224526066"></p>
+<h4 id="i-o控制方式"><a href="#i-o控制方式" class="headerlink" title="i&#x2F;o控制方式"></a>i&#x2F;o控制方式</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232246835.png" alt="image-20240923224600766"></p>
+<h4 id="微内核操作系统"><a href="#微内核操作系统" class="headerlink" title="微内核操作系统"></a>微内核操作系统</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409232247771.png" alt="image-20240923224717713"></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 why
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;why
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+<script src="/js/<file>"></script>
+<link rel="stylesheet" href="/css/<file>" />
+</body>
+</html>
