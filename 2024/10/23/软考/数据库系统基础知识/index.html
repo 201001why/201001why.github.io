@@ -22,7 +22,7 @@
     <meta name="description" content="数据库系统基础知识基本概念 DBMS的特征和分类 数据库三级模式两级映像  数据库的分析与设计过程 数据模型基本概念 E-R模型 关系模型    关系代数 关系的三种类型  七种基本运算 下图根据顺序排列    连接    查询优化原则 数据库的完整性约束 sql简介 关系数据库的规范化函数依赖 左为部分函数依赖，右为传递函数依赖 求候选码 例题  规范化理论（非规范化存在的问题）  规范化理论（">
 <meta property="og:type" content="article">
 <meta property="og:title" content="why">
-<meta property="og:url" content="http://example.com/2024/10/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:url" content="http://example.com/2024/10/23/%E8%BD%AF%E8%80%83/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
 <meta property="og:site_name" content="why">
 <meta property="og:description" content="数据库系统基础知识基本概念 DBMS的特征和分类 数据库三级模式两级映像  数据库的分析与设计过程 数据模型基本概念 E-R模型 关系模型    关系代数 关系的三种类型  七种基本运算 下图根据顺序排列    连接    查询优化原则 数据库的完整性约束 sql简介 关系数据库的规范化函数依赖 左为部分函数依赖，右为传递函数依赖 求候选码 例题  规范化理论（非规范化存在的问题）  规范化理论（">
 <meta property="og:locale" content="zh_CN">
@@ -38,53 +38,53 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242017426.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242017671.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409252346169.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240925234953090.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039264.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409260009298.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409260010738.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240925235259061.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240925235352501.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240925235440943.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240925235500719.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240925235535193.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240925235722940.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926000317375.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240925234838260.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926000446625.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926202040184.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926202225098.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926202257424.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926202432086.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926202450404.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926202532610.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926202623943.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926202749988.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926202910544.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926203050458.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926203244239.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926203443032.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926203733262.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926203907466.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926203924881.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926204146849.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926204406623.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926204650209.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926212449022.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926212604748.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926212636791.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926212759892.png">
-<meta property="og:image" content="c:\Users\%E6%B1%AA%E6%B6%B5%E8%A3%95\AppData\Roaming\Typora\typora-user-images\image-20240926212832624.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039265.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039266.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039267.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039268.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039269.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039270.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039271.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039272.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039273.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039274.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039275.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039276.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039277.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039278.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039279.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039280.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039281.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039282.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039283.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039284.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039285.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039286.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039287.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039288.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039289.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039290.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039291.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039292.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039293.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039294.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039295.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039296.png">
 <meta property="article:published_time" content="2024-10-23T12:34:11.628Z">
-<meta property="article:modified_time" content="2024-09-26T13:28:32.937Z">
+<meta property="article:modified_time" content="2024-10-24T12:39:53.601Z">
 <meta property="article:author" content="why">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409241959413.png">
 
 
-<link rel="canonical" href="http://example.com/2024/10/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+<link rel="canonical" href="http://example.com/2024/10/23/%E8%BD%AF%E8%80%83/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2024/10/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/","path":"2024/10/23/数据库系统基础知识/","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2024/10/23/%E8%BD%AF%E8%80%83/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/","path":"2024/10/23/软考/数据库系统基础知识/","title":""}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title> | why</title>
@@ -166,7 +166,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">117</span>
+          <span class="site-state-item-count">118</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -194,7 +194,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/23/%E8%BD%AF%E8%80%83/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -230,7 +230,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-09-26 21:28:32" itemprop="dateModified" datetime="2024-09-26T21:28:32+08:00">2024-09-26</time>
+      <time title="修改时间：2024-10-24 20:39:53" itemprop="dateModified" datetime="2024-10-24T20:39:53+08:00">2024-10-24</time>
     </span>
 
   
@@ -254,46 +254,46 @@
 <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242017426.png" alt="image-20240924201732379"></p>
 <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409242017671.png" alt="image-20240924201759569"></p>
 <h4 id="关系代数"><a href="#关系代数" class="headerlink" title="关系代数"></a>关系代数</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409252346169.png" alt="image-20240925234636008"></p>
-<h5 id="关系的三种类型"><a href="#关系的三种类型" class="headerlink" title="关系的三种类型"></a>关系的三种类型</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925234953090.png" alt="image-20240925234953090"></p>
+<h5 id="关系的三种类型"><a href="#关系的三种类型" class="headerlink" title="关系的三种类型"></a>关系的三种类型</h5><p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039264.png" alt="image-20240925234953090"></p>
 <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409260009298.png" alt="image-20240925235159600"></p>
 <h5 id="七种基本运算"><a href="#七种基本运算" class="headerlink" title="七种基本运算"></a>七种基本运算</h5><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202409260010738.png" alt="image-20240925235305146"></p>
 <p>下图根据顺序排列</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925235259061.png" alt="image-20240925235259061"></p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925235352501.png" alt="image-20240925235352501"></p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925235440943.png" alt="image-20240925235440943"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039265.png" alt="image-20240925235259061"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039266.png" alt="image-20240925235352501"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039267.png" alt="image-20240925235440943"></p>
 <p>连接</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925235500719.png" alt="image-20240925235500719"></p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925235535193.png" alt="image-20240925235535193"></p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925235722940.png" alt="image-20240925235722940"></p>
-<h5 id="查询优化原则"><a href="#查询优化原则" class="headerlink" title="查询优化原则"></a>查询优化原则</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926000317375.png" alt="image-20240926000317375"></p>
-<h4 id="数据库的完整性约束"><a href="#数据库的完整性约束" class="headerlink" title="数据库的完整性约束"></a>数据库的完整性约束</h4><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240925234838260.png" alt="image-20240925234838260"></p>
-<h4 id="sql简介"><a href="#sql简介" class="headerlink" title="sql简介"></a>sql简介</h4><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926000446625.png" alt="image-20240926000446625"></p>
-<h4 id="关系数据库的规范化"><a href="#关系数据库的规范化" class="headerlink" title="关系数据库的规范化"></a>关系数据库的规范化</h4><h5 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202040184.png" alt="image-20240926202040184"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039268.png" alt="image-20240925235500719"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039269.png" alt="image-20240925235535193"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039270.png" alt="image-20240925235722940"></p>
+<h5 id="查询优化原则"><a href="#查询优化原则" class="headerlink" title="查询优化原则"></a>查询优化原则</h5><p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039271.png" alt="image-20240926000317375"></p>
+<h4 id="数据库的完整性约束"><a href="#数据库的完整性约束" class="headerlink" title="数据库的完整性约束"></a>数据库的完整性约束</h4><p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039272.png" alt="image-20240925234838260"></p>
+<h4 id="sql简介"><a href="#sql简介" class="headerlink" title="sql简介"></a>sql简介</h4><p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039273.png" alt="image-20240926000446625"></p>
+<h4 id="关系数据库的规范化"><a href="#关系数据库的规范化" class="headerlink" title="关系数据库的规范化"></a>关系数据库的规范化</h4><h5 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h5><p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039274.png" alt="image-20240926202040184"></p>
 <p>左为部分函数依赖，右为传递函数依赖</p>
-<h5 id="求候选码"><a href="#求候选码" class="headerlink" title="求候选码"></a>求候选码</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202225098.png" alt="image-20240926202225098"></p>
-<h6 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h6><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202257424.png" alt="image-20240926202257424"></p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202432086.png" alt="image-20240926202432086"></p>
-<h5 id="规范化理论（非规范化存在的问题）"><a href="#规范化理论（非规范化存在的问题）" class="headerlink" title="规范化理论（非规范化存在的问题）"></a>规范化理论（非规范化存在的问题）</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202450404.png" alt="image-20240926202450404"></p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202532610.png" alt="image-20240926202532610"></p>
-<h5 id="规范化理论（范式）"><a href="#规范化理论（范式）" class="headerlink" title="规范化理论（范式）"></a>规范化理论（范式）</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202623943.png" alt="image-20240926202623943"></p>
-<h6 id="第一范式（1NF）"><a href="#第一范式（1NF）" class="headerlink" title="第一范式（1NF）"></a>第一范式（1NF）</h6><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202749988.png" alt="image-20240926202749988"></p>
+<h5 id="求候选码"><a href="#求候选码" class="headerlink" title="求候选码"></a>求候选码</h5><p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039275.png" alt="image-20240926202225098"></p>
+<h6 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h6><p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039276.png" alt="image-20240926202257424"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039277.png" alt="image-20240926202432086"></p>
+<h5 id="规范化理论（非规范化存在的问题）"><a href="#规范化理论（非规范化存在的问题）" class="headerlink" title="规范化理论（非规范化存在的问题）"></a>规范化理论（非规范化存在的问题）</h5><p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039278.png" alt="image-20240926202450404"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039279.png" alt="image-20240926202532610"></p>
+<h5 id="规范化理论（范式）"><a href="#规范化理论（范式）" class="headerlink" title="规范化理论（范式）"></a>规范化理论（范式）</h5><p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039280.png" alt="image-20240926202623943"></p>
+<h6 id="第一范式（1NF）"><a href="#第一范式（1NF）" class="headerlink" title="第一范式（1NF）"></a>第一范式（1NF）</h6><p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039281.png" alt="image-20240926202749988"></p>
 <p>上图为反例</p>
-<h6 id="第二范式（2NF）"><a href="#第二范式（2NF）" class="headerlink" title="第二范式（2NF）"></a>第二范式（2NF）</h6><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926202910544.png" alt="image-20240926202910544"></p>
-<h6 id="第三范式（3NF）"><a href="#第三范式（3NF）" class="headerlink" title="第三范式（3NF）"></a>第三范式（3NF）</h6><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926203050458.png" alt="image-20240926203050458"></p>
-<h6 id="BCNF（巴斯克斯范式）"><a href="#BCNF（巴斯克斯范式）" class="headerlink" title="BCNF（巴斯克斯范式）"></a>BCNF（巴斯克斯范式）</h6><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926203244239.png" alt="image-20240926203244239"></p>
+<h6 id="第二范式（2NF）"><a href="#第二范式（2NF）" class="headerlink" title="第二范式（2NF）"></a>第二范式（2NF）</h6><p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039282.png" alt="image-20240926202910544"></p>
+<h6 id="第三范式（3NF）"><a href="#第三范式（3NF）" class="headerlink" title="第三范式（3NF）"></a>第三范式（3NF）</h6><p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039283.png" alt="image-20240926203050458"></p>
+<h6 id="BCNF（巴斯克斯范式）"><a href="#BCNF（巴斯克斯范式）" class="headerlink" title="BCNF（巴斯克斯范式）"></a>BCNF（巴斯克斯范式）</h6><p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039284.png" alt="image-20240926203244239"></p>
 <p>例题：</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926203443032.png" alt="image-20240926203443032"></p>
-<h5 id="关系模式分解"><a href="#关系模式分解" class="headerlink" title="关系模式分解"></a>关系模式分解</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926203733262.png" alt="image-20240926203733262"></p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926203907466.png" alt="image-20240926203907466"></p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926203924881.png" alt="image-20240926203924881"></p>
-<h4 id="数据库控制功能"><a href="#数据库控制功能" class="headerlink" title="数据库控制功能"></a>数据库控制功能</h4><h5 id="事务管理"><a href="#事务管理" class="headerlink" title="事务管理"></a>事务管理</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926204146849.png" alt="image-20240926204146849"></p>
-<h5 id="并发控制"><a href="#并发控制" class="headerlink" title="并发控制"></a>并发控制</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926204406623.png" alt="image-20240926204406623"></p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926204650209.png" alt="image-20240926204650209"></p>
-<h5 id="备份与恢复"><a href="#备份与恢复" class="headerlink" title="备份与恢复"></a>备份与恢复</h5><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926212449022.png" alt="image-20240926212449022"></p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926212604748.png" alt="image-20240926212604748"></p>
-<h4 id="数据仓库和数据挖掘"><a href="#数据仓库和数据挖掘" class="headerlink" title="数据仓库和数据挖掘"></a>数据仓库和数据挖掘</h4><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926212636791.png" alt="image-20240926212636791"></p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926212759892.png" alt="image-20240926212759892"></p>
-<h4 id="大数据基本概念"><a href="#大数据基本概念" class="headerlink" title="大数据基本概念"></a>大数据基本概念</h4><p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240926212832624.png" alt="image-20240926212832624"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039285.png" alt="image-20240926203443032"></p>
+<h5 id="关系模式分解"><a href="#关系模式分解" class="headerlink" title="关系模式分解"></a>关系模式分解</h5><p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039286.png" alt="image-20240926203733262"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039287.png" alt="image-20240926203907466"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039288.png" alt="image-20240926203924881"></p>
+<h4 id="数据库控制功能"><a href="#数据库控制功能" class="headerlink" title="数据库控制功能"></a>数据库控制功能</h4><h5 id="事务管理"><a href="#事务管理" class="headerlink" title="事务管理"></a>事务管理</h5><p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039289.png" alt="image-20240926204146849"></p>
+<h5 id="并发控制"><a href="#并发控制" class="headerlink" title="并发控制"></a>并发控制</h5><p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039290.png" alt="image-20240926204406623"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039291.png" alt="image-20240926204650209"></p>
+<h5 id="备份与恢复"><a href="#备份与恢复" class="headerlink" title="备份与恢复"></a>备份与恢复</h5><p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039292.png" alt="image-20240926212449022"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039293.png" alt="image-20240926212604748"></p>
+<h4 id="数据仓库和数据挖掘"><a href="#数据仓库和数据挖掘" class="headerlink" title="数据仓库和数据挖掘"></a>数据仓库和数据挖掘</h4><p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039294.png" alt="image-20240926212636791"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039295.png" alt="image-20240926212759892"></p>
+<h4 id="大数据基本概念"><a href="#大数据基本概念" class="headerlink" title="大数据基本概念"></a>大数据基本概念</h4><p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410242039296.png" alt="image-20240926212832624"></p>
 
     </div>
 
@@ -307,12 +307,12 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/10/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/" rel="prev" title="">
+                <a href="/2024/10/23/%E8%BD%AF%E8%80%83/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/" rel="prev" title="">
                   <i class="fa fa-angle-left"></i> 
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2024/10/23/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/" rel="next" title="">
+                <a href="/2024/10/23/%E8%BD%AF%E8%80%83/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/" rel="next" title="">
                    <i class="fa fa-angle-right"></i>
                 </a>
             </div>
