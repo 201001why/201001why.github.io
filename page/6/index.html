@@ -113,7 +113,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">118</span>
+          <span class="site-state-item-count">119</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -131,6 +131,81 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/02/buu%E5%88%B7%E9%A2%98%E9%9B%86-crypto/%E8%BF%98%E5%8E%9F%E5%A4%A7%E5%B8%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="why">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="why">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | why">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/06/02/buu%E5%88%B7%E9%A2%98%E9%9B%86-crypto/%E8%BF%98%E5%8E%9F%E5%A4%A7%E5%B8%88/" class="post-title-link" itemprop="url">还原大师</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-06-02 21:24:40 / 修改时间：21:26:43" itemprop="dateCreated datePublished" datetime="2024-06-02T21:24:40+08:00">2024-06-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240602212501216.png" alt="image-20240602212501216"></p>
+<p>我一开始还在想是不是要了解MD5的编码规则然后自己写</p>
+<p>然后突然发现，我将问号设成未知数然后遍历可能的范围，将其解码之后在此编码不就可以了，woc，天才</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import hashlib</span><br><span class="line">import string</span><br><span class="line"></span><br><span class="line">def md5(str):</span><br><span class="line">    m = hashlib.md5()</span><br><span class="line">    m.update(str.encode(&quot;utf8&quot;))</span><br><span class="line">    return m.hexdigest()</span><br><span class="line"></span><br><span class="line">for i in string.ascii_uppercase:</span><br><span class="line">    for j in string.ascii_uppercase:</span><br><span class="line">        for k in string.ascii_uppercase:</span><br><span class="line">            c = &#x27;TASC&#x27; + i + &#x27;O3RJMV&#x27; + j + &#x27;WDJKX&#x27; + k + &#x27;ZM&#x27;</span><br><span class="line">            x = md5(c).upper()</span><br><span class="line">            if &#x27;E903&#x27; in x and &#x27;4DAB&#x27; in x and &#x27;08&#x27; in x and &#x27;51&#x27; in x and &#x27;80&#x27; in x and &#x27;8A&#x27; in x:</span><br><span class="line">                print(c)</span><br><span class="line">                print(x)</span><br><span class="line">                break</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>OK了</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -935,82 +1010,6 @@
 <p>直接</p>
 <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240602144156759.png" alt="image-20240602144156759"></p>
 <p>拿下！！！</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/31/buu%E5%88%B7%E9%A2%98%E9%9B%86-crypto/rsarsa/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="why">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="why">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | why">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/05/31/buu%E5%88%B7%E9%A2%98%E9%9B%86-crypto/rsarsa/" class="post-title-link" itemprop="url">rsarsa</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2024-05-31 21:07:52 / 修改时间：21:37:04" itemprop="dateCreated datePublished" datetime="2024-05-31T21:07:52+08:00">2024-05-31</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240531210804650.png" alt="image-20240531210804650"></p>
-<p>翻译一下</p>
-<p>数学很酷！使用RSA算法对机密消息进行解码，c、p、q和e是RSA算法的参数。</p>
-<p>看到这么大的数别慌，什么都告诉你了慌个集贸啊</p>
-<p>直接秒杀</p>
-<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240531213657994.png" alt="image-20240531213657994"></p>
-<p>ok了老铁</p>
 
       
     </div>

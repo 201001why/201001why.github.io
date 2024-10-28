@@ -19,12 +19,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="真题汇总（软考）计算机系统知识">
+    <meta name="description" content="真题汇总（软考）计算机系统知识                        补充（串行总线和并行总线）   补充（指令周期）   考点解析：寻址方式   考点解析：访问速度比较  考点分析：小数补码  考点解析：带宽计算  考点解析：流水线异步控制  考点解析：分级储存  考点解析：RISC和CISC  考点解析：数据流">
 <meta property="og:type" content="article">
 <meta property="og:title" content="软考真题（计算机组成基本知识）">
 <meta property="og:url" content="http://example.com/2024/10/27/%E8%BD%AF%E8%80%83/%E8%BD%AF%E8%80%83%E7%9C%9F%E9%A2%98%EF%BC%88%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%EF%BC%89/index.html">
 <meta property="og:site_name" content="why">
-<meta property="og:description" content="真题汇总（软考）计算机系统知识">
+<meta property="og:description" content="真题汇总（软考）计算机系统知识                        补充（串行总线和并行总线）   补充（指令周期）   考点解析：寻址方式   考点解析：访问速度比较  考点分析：小数补码  考点解析：带宽计算  考点解析：流水线异步控制  考点解析：分级储存  考点解析：RISC和CISC  考点解析：数据流">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410272306684.png">
 <meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410272306685.png">
@@ -44,8 +44,28 @@
 <meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410272306699.png">
 <meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410272306700.png">
 <meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410272306701.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148886.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148887.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148888.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148889.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148890.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148892.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148893.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148894.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148895.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148896.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148897.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148898.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148899.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148900.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148901.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148902.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148903.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148904.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148905.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148906.png">
 <meta property="article:published_time" content="2024-10-27T14:57:04.000Z">
-<meta property="article:modified_time" content="2024-10-27T15:06:28.875Z">
+<meta property="article:modified_time" content="2024-10-28T13:49:15.413Z">
 <meta property="article:author" content="why">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410272306684.png">
@@ -124,7 +144,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9C%9F%E9%A2%98%E6%B1%87%E6%80%BB%EF%BC%88%E8%BD%AF%E8%80%83%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">真题汇总（软考）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86"><span class="nav-number">1.1.</span> <span class="nav-text">计算机系统知识</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9C%9F%E9%A2%98%E6%B1%87%E6%80%BB%EF%BC%88%E8%BD%AF%E8%80%83%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">真题汇总（软考）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86"><span class="nav-number">1.1.</span> <span class="nav-text">计算机系统知识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%EF%BC%88%E4%B8%B2%E8%A1%8C%E6%80%BB%E7%BA%BF%E5%92%8C%E5%B9%B6%E8%A1%8C%E6%80%BB%E7%BA%BF%EF%BC%89"><span class="nav-number">1.1.1.</span> <span class="nav-text">补充（串行总线和并行总线）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%EF%BC%88%E6%8C%87%E4%BB%A4%E5%91%A8%E6%9C%9F%EF%BC%89"><span class="nav-number">1.1.2.</span> <span class="nav-text">补充（指令周期）</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -137,7 +157,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">118</span>
+          <span class="site-state-item-count">119</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -193,9 +213,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2024-10-27 22:57:04 / 修改时间：23:06:28" itemprop="dateCreated datePublished" datetime="2024-10-27T22:57:04+08:00">2024-10-27</time>
+      <time title="创建时间：2024-10-27 22:57:04" itemprop="dateCreated datePublished" datetime="2024-10-27T22:57:04+08:00">2024-10-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-10-28 21:49:15" itemprop="dateModified" datetime="2024-10-28T21:49:15+08:00">2024-10-28</time>
     </span>
 
   
@@ -225,6 +251,34 @@
 <p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410272306699.png" alt="image-20241027230052054"></p>
 <p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410272306700.png" alt="image-20241027230154626"></p>
 <p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410272306701.png" alt="image-20241027230252868"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148886.png" alt="image-20241028204948073"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148887.png" alt="image-20241028205000597"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148888.png" alt="image-20241028205012144"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148889.png" alt="image-20241028205339259"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148890.png" alt="image-20241028205516376"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148892.png" alt="image-20241028205858467"></p>
+<h4 id="补充（串行总线和并行总线）"><a href="#补充（串行总线和并行总线）" class="headerlink" title="补充（串行总线和并行总线）"></a>补充（串行总线和并行总线）</h4><p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148893.png" alt="image-20241028211744137"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148894.png" alt="image-20241028212151980"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148895.png" alt="image-20241028212339861"></p>
+<h4 id="补充（指令周期）"><a href="#补充（指令周期）" class="headerlink" title="补充（指令周期）"></a>补充（指令周期）</h4><p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148896.png" alt="image-20241028212457988"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148897.png" alt="image-20241028212523655"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148898.png" alt="image-20241028213035632"></p>
+<p>考点解析：寻址方式</p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148899.png" alt="image-20241028213230472"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148900.png" alt="image-20241028213236662"></p>
+<p>考点解析：访问速度比较</p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148901.png" alt="image-20241028213450003"></p>
+<p>考点分析：小数补码</p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148902.png" alt="image-20241028214325833"></p>
+<p>考点解析：带宽计算</p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148903.png" alt="image-20241028214407377"></p>
+<p>考点解析：流水线异步控制</p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148904.png" alt="image-20241028214605350"></p>
+<p>考点解析：分级储存</p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148905.png" alt="image-20241028214709297"></p>
+<p>考点解析：RISC和CISC</p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410282148906.png" alt="image-20241028214757509"></p>
+<p>考点解析：数据流</p>
 
     </div>
 
@@ -243,6 +297,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2024/10/28/%E8%BD%AF%E8%80%83%EF%BC%88%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%EF%BC%89/" rel="next" title="软考（程序设计基础知识）">
+                  软考（程序设计基础知识） <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>

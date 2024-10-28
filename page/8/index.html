@@ -113,7 +113,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">118</span>
+          <span class="site-state-item-count">119</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -131,6 +131,134 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/23/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/MRCTF2020-%E5%A5%97%E5%A8%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="why">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="why">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | why">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/05/23/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/MRCTF2020-%E5%A5%97%E5%A8%83/" class="post-title-link" itemprop="url">[MRCTF2020]套娃</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-05-23 21:35:25" itemprop="dateCreated datePublished" datetime="2024-05-23T21:35:25+08:00">2024-05-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-05-24 20:27:26" itemprop="dateModified" datetime="2024-05-24T20:27:26+08:00">2024-05-24</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240523213604915.png" alt="image-20240523213604915"></p>
+<p>查看源码发现第一关的相关</p>
+<p>补充：</p>
+<h4 id="substr-count函数"><a href="#substr-count函数" class="headerlink" title="substr_count函数"></a>substr_count函数</h4><p>计算字符串出现的次数。%5f就是”_”的十六进制。</p>
+<p>也就是，不能出现下划线的同时，我们要上传23333的同时不能上传23333</p>
+<p>你在干什么？，</p>
+<p>所以我们使用url编码代替下划线（%20）</p>
+<p>再通过%0a构造23333%0a去绕过preg</p>
+<p>tips：preg函数忽略行尾的%0a，但是%0a仍然可以发挥效果。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?b%20u%20p%20t=23333%0a</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240523214407871.png" alt="image-20240523214407871"></p>
+<p>好耶！</p>
+<p>那就前往这个网址吧！！</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240524191543641.png" alt="image-20240524191543641"></p>
+<p>不能进入，要使用本地，我第一个想法就是xff</p>
+<p>抓包试试</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240524192052256.png" alt="image-20240524192052256"></p>
+<p>但是吧，还有一个</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Client-Ip:127.0.0.1</span><br></pre></td></tr></table></figure>
+
+<p>试试</p>
+<p>有反应了，但不多，我们也可以看到在回显的底下有一串奇奇怪怪的东西</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240524192227680.png" alt="image-20240524192227680"></p>
+<p>啊？</p>
+<p>这是啥？</p>
+<p>去查一下</p>
+<p>是js代码！！！</p>
+<p>震惊！！！！</p>
+<p>所以找一个跑js代码的网站试试</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240524194114123.png" alt="image-20240524194114123"></p>
+<p>所以还要传一个merak上去？</p>
+<p>试试</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240524194706602.png" alt="image-20240524194706602"></p>
+<p>OK了老铁！！！</p>
+<p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240524194806704.png" alt="image-20240524194806704"></p>
+<p>这里也就是一个绕过，一个是2333，一个是file</p>
+<p>首先先看2333</p>
+<p>读取文件，对比文件中是否含有那串字符串？</p>
+<p>所以这里要使用data伪协议读取file</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2333=data://text/plain,todat+is+a+happy+day</span><br></pre></td></tr></table></figure>
+
+<p>之后就是file</p>
+<p>主要是前面的change函数，将每个字符都加上i*2</p>
+<p>所以，我们直接就是写一个脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//逆向代码</span><br><span class="line">&lt;?php</span><br><span class="line">$v=&quot;flag.php&quot;;</span><br><span class="line">$re=&#x27;&#x27;;</span><br><span class="line">for($i=0;$i&lt;strlen($v);$i++)</span><br><span class="line">&#123;</span><br><span class="line">    $re.=chr(ord($v[$i])-$i*2);</span><br><span class="line">&#125;</span><br><span class="line">$v1=base64_encode($re);</span><br><span class="line">echo $v1;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>先把它就是先减一个i*2就行了</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">flag=ZmpdYSZmXGI=</span><br></pre></td></tr></table></figure>
+
+<p>将这两个一起使用get传上去就好了</p>
+<p>但是要注意一点，就是说，要把之前传的post删掉或者直接关掉，否则程序会直接停止。</p>
+<p>拿到flag</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1124,89 +1252,6 @@ NaN
 <p>尝试xff：127.0.0.1</p>
 <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240514220940423.png" alt="image-20240514220940423"></p>
 <p>拿下！！！！</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/14/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/ASIS-2019-Unicorn-shop/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="why">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="why">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | why">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/05/14/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/ASIS-2019-Unicorn-shop/" class="post-title-link" itemprop="url">[ASIS 2019]Unicorn shop</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2024-05-14 21:04:29 / 修改时间：22:11:18" itemprop="dateCreated datePublished" datetime="2024-05-14T21:04:29+08:00">2024-05-14</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240514211603682.png" alt="image-20240514211603682"></p>
-<p>怎么说这道题呢？</p>
-<p>我只能说，不是哥们</p>
-<p>我真的是醉了</p>
-<p>买 1 输入9也不行，我在想是不是有问题</p>
-<p>我觉得就是9输进去之后就不是9了，所以不对</p>
-<p>所以到处看看</p>
-<p>看到unicorn</p>
-<p>emm</p>
-<p>应该是提示的unicode吧，我实在找不到线索了</p>
-<p>所以呢，也就是说，emm，这个去找一个code解码之后很大的字符试试</p>
-<p>找了个10000</p>
-<h1 id="፼"><a href="#፼" class="headerlink" title="፼"></a>፼</h1><p>好好好</p>
-<p>拿到flag</p>
 
       
     </div>
