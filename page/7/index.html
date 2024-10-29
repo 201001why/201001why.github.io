@@ -113,7 +113,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -131,6 +131,108 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/01/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/GWCTF-2019-%E6%9E%AF%E7%87%A5%E7%9A%84%E6%8A%BD%E5%A5%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="why">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="why">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | why">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/06/01/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/GWCTF-2019-%E6%9E%AF%E7%87%A5%E7%9A%84%E6%8A%BD%E5%A5%96/" class="post-title-link" itemprop="url">[GWCTF 2019]枯燥的抽奖</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-06-01 01:11:34" itemprop="dateCreated datePublished" datetime="2024-06-01T01:11:34+08:00">2024-06-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-02 14:42:01" itemprop="dateModified" datetime="2024-06-02T14:42:01+08:00">2024-06-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240602143438527.png" alt="image-20240602143438527"></p>
+<p>我枯燥你（）</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240602143503314.png" alt="image-20240602143503314"></p>
+<p>源代码让我们查看check.php</p>
+<p>听话</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240602143535942.png" alt="image-20240602143535942"></p>
+<p>mt_srand</p>
+<p>伪随机数是吧</p>
+<h4 id="mt-srand"><a href="#mt-srand" class="headerlink" title="mt_srand"></a>mt_srand</h4><p>mt_srand() 函数播种 Mersenne Twister <a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%94%9F%E6%88%90%E5%99%A8&spm=1001.2101.3001.7020">随机数生成器</a>。<br>提示：从 PHP 4.2.0 开始，随机数生成器自动播种，因此没有必要使用该函数。当不使用随机数播种函数srand时，php也会自动为随机数播种，因此是否确定种子都不会影响正常运行。</p>
+<p>也就是我们所说的种子</p>
+<p>一个种子对应一串字符</p>
+<p>知道种子就能知道字符，知道字符就能知道种子</p>
+<p>所以我们开始求种子</p>
+<h4 id="下载php-mt-seed工具并且使用"><a href="#下载php-mt-seed工具并且使用" class="headerlink" title="下载php_mt_seed工具并且使用"></a>下载php_mt_seed工具并且使用</h4><p>下载链接：<a target="_blank" rel="noopener" href="https://www.openwall.com/php_mt_seed/">php_mt_seed - PHP mt_rand() seed cracker</a></p>
+<p><img src="https://img-blog.csdnimg.cn/d75c66b483de4f28a0151f7759479ff6.png" alt="在这里插入图片描述"><br>下载后，放入linux环境，并且运行</p>
+<p>在此之前，要先将字符转化为mt_seed可识别的样子</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$allowable_characters = &#x27;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&#x27;;</span><br><span class="line">$len = strlen($allowable_characters) - 1;</span><br><span class="line">$pass = &quot;Yb5Uor04iN&quot;;</span><br><span class="line">for ($i = 0; $i &lt; strlen($pass); $i++) &#123;</span><br><span class="line">    $number = strpos($allowable_characters, $pass[$i]);</span><br><span class="line">    echo &quot;$number $number 0 $len  &quot;;</span><br><span class="line">&#125;</span><br><span class="line">echo &quot;\n&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240602143844987.png" alt="image-20240602143844987"></p>
+<p>发现种子</p>
+<p>之后执行代码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">mt_srand(467497519);</span><br><span class="line">$str_long1 = &quot;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;;</span><br><span class="line">$str=&#x27;&#x27;;</span><br><span class="line">$len1=20;</span><br><span class="line">for ( $i = 0; $i &lt; $len1; $i++ )&#123;</span><br><span class="line">    $str.=substr($str_long1, mt_rand(0, strlen($str_long1) - 1), 1);</span><br><span class="line">&#125;</span><br><span class="line">echo &quot;&lt;p id=&#x27;p1&#x27;&gt;&quot;.$str.&quot;&lt;/p&gt;&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>运行拿到字符串</p>
+<p>直接</p>
+<p><img src="C:\Users\汪涵裕\AppData\Roaming\Typora\typora-user-images\image-20240602144156759.png" alt="image-20240602144156759"></p>
+<p>拿下！！！</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -916,106 +1018,6 @@
 <p><code>ls</code>执行成功说明环境基于Linux</p>
 <p>使用<code>cat</code>访问<code>/flag</code>即可得到FLAG</p>
 <p>例子观察以上题目payload</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/24/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/Zer0pts2020-Can-you-guess-it/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="why">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="why">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | why">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/05/24/buu%E5%88%B7%E9%A2%98%E9%9B%86-web/Zer0pts2020-Can-you-guess-it/" class="post-title-link" itemprop="url">[Zer0pts2020]Can you guess it?</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2024-05-24 20:40:20 / 修改时间：21:45:44" itemprop="dateCreated datePublished" datetime="2024-05-24T20:40:20+08:00">2024-05-24</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240524204834081.png" alt="image-20240524204834081"></p>
-<p>主要是几个函数不认得</p>
-<p>basename</p>
-<p>random_bytes</p>
-<p>hash_equals</p>
-<p>一个个查一下</p>
-<h4 id="basename"><a href="#basename" class="headerlink" title="basename"></a>basename</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240524204859064.png" alt="image-20240524204859064"></p>
-<h4 id="random-bytes"><a href="#random-bytes" class="headerlink" title="random_bytes"></a>random_bytes</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240524210052173.png" alt="image-20240524210052173"></p>
-<p>这个就是随机生成字符串</p>
-<h4 id="hash-equals"><a href="#hash-equals" class="headerlink" title="hash_equals"></a>hash_equals</h4><p><img src="https://raw.githubusercontent.com/201001why/image/master/PicGo/image-20240524210034240.png" alt="image-20240524210034240"></p>
-<p>这个就是比较两个字符串是否相等</p>
-<p>但是后面的好像没什么用吧</p>
-<p>因为返回的flag都不知道是什么…</p>
-<p>所以看看之前的</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if (preg_match(&#x27;/config\.php\/*$/i&#x27;, $_SERVER[&#x27;PHP_SELF&#x27;])) &#123;</span><br><span class="line">  exit(&quot;I don&#x27;t know what you are thinking, but I won&#x27;t let you read it :)&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (isset($_GET[&#x27;source&#x27;])) &#123;</span><br><span class="line">  highlight_file(basename($_SERVER[&#x27;PHP_SELF&#x27;]));</span><br><span class="line">  exit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>也就是说查询的网址不能有config.php</p>
-<p>还一定要传一个source上去</p>
-<p>所以要找一找就是这么绕过一下</p>
-<p>在这里，就是正则匹配</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if (preg_match(&#x27;/config\.php\/*$/i&#x27;, $_SERVER[&#x27;PHP_SELF&#x27;])) &#123;</span><br><span class="line">    echo &quot;匹配尾部&quot;.&quot;&lt;br&gt;&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">if (preg_match(&#x27;/config\.php\//i&#x27;, $_SERVER[&#x27;PHP_SELF&#x27;])) &#123;</span><br><span class="line">    echo &quot;匹配字符串&quot;.&quot;&lt;br&gt;&quot;;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<p>所以前者，如果在末尾加上一个没用的字符不就可以绕过了？</p>
-<p>找到了！！！%ff</p>
-<p>经过测试%aa到%ff都可以用，之后就不行了</p>
-<p>这个是因为，basename函数会过滤文件开头中的非ascii值</p>
-<p>嘻嘻，如果是%ff之后的就不是ascii码可以识别的了</p>
-<p>所以最后的payload：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/index.php/config.php/%ff?source</span><br></pre></td></tr></table></figure>
-
-<p>为什么一定前面要加index，我不太懂，有大佬可以说说不</p>
 
       
     </div>

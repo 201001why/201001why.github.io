@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="考点：集合   考点：二叉树节点   考点：二叉树  考点：堆  考点：拓扑序列  考点：储存方式  考点：二叉排序树   考点：图的遍历  考点：栈和队列  建议使用带入法   考点：有向图临 接矩阵 简单表示   考点：排序算法  考点：排序方法的稳定    模型说明：  考点：循环队列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软考（数据结构）">
+<meta property="og:url" content="http://example.com/2024/10/29/%E8%BD%AF%E8%80%83%EF%BC%88%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%89/index.html">
+<meta property="og:site_name" content="why">
+<meta property="og:description" content="考点：集合   考点：二叉树节点   考点：二叉树  考点：堆  考点：拓扑序列  考点：储存方式  考点：二叉排序树   考点：图的遍历  考点：栈和队列  建议使用带入法   考点：有向图临 接矩阵 简单表示   考点：排序算法  考点：排序方法的稳定    模型说明：  考点：循环队列">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702550.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702551.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702552.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702553.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702554.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702555.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702556.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702557.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702558.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702559.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702560.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702561.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702562.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702563.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702564.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702566.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702567.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702568.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702569.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702570.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702571.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702572.png">
+<meta property="og:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702573.png">
+<meta property="article:published_time" content="2024-10-29T05:57:23.000Z">
+<meta property="article:modified_time" content="2024-10-29T09:02:23.329Z">
+<meta property="article:author" content="why">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702550.png">
+
+
+<link rel="canonical" href="http://example.com/2024/10/29/%E8%BD%AF%E8%80%83%EF%BC%88%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%89/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2024/10/29/%E8%BD%AF%E8%80%83%EF%BC%88%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%89/","path":"2024/10/29/软考（数据结构）/","title":"软考（数据结构）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>软考（数据结构） | why</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">why</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">疯疯癫癫的小辣鸡</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">why</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">120</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/29/%E8%BD%AF%E8%80%83%EF%BC%88%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="why">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="why">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="软考（数据结构） | why">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          软考（数据结构）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-10-29 13:57:23 / 修改时间：17:02:23" itemprop="dateCreated datePublished" datetime="2024-10-29T13:57:23+08:00">2024-10-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702550.png" alt="image-20241029135826399"></p>
+<p>考点：集合</p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702551.png" alt="image-20241029140517131"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702552.png" alt="image-20241029140546947"></p>
+<p>考点：二叉树节点</p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702553.png" alt="image-20241029140724385"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702554.png" alt="image-20241029140840740"></p>
+<p>考点：二叉树</p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702555.png" alt="image-20241029140901018"></p>
+<p>考点：堆</p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702556.png" alt="image-20241029141041489"></p>
+<p>考点：拓扑序列</p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702557.png" alt="image-20241029141159855"></p>
+<p>考点：储存方式</p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702558.png" alt="image-20241029141453560"></p>
+<p>考点：二叉排序树</p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702559.png" alt="image-20241029162201699"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702560.png" alt="image-20241029162400874"></p>
+<p>考点：图的遍历</p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702561.png" alt="image-20241029162624065"></p>
+<p>考点：栈和队列</p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702562.png" alt="image-20241029164750163"></p>
+<p>建议使用带入法</p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702563.png" alt="image-20241029164919037"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702564.png" alt="image-20241029165006386"></p>
+<p>考点：有向图临 接矩阵</p>
+<p>简单表示<img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702566.png" alt="image-20241029165107413"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702567.png" alt="image-20241029165315753"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702568.png" alt="image-20241029165253155"></p>
+<p>考点：排序算法</p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702569.png" alt="image-20241029165943554"></p>
+<p>考点：排序方法的稳定</p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702570.png" alt="image-20241029170106380"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702571.png" alt="image-20241029170112672"></p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702572.png" alt="image-20241029170123676"></p>
+<p>模型说明：</p>
+<p><img src="https://201001why.oss-cn-beijing.aliyuncs.com/PicGo/202410291702573.png" alt="image-20241029170147910"></p>
+<p>考点：循环队列</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/10/28/%E8%BD%AF%E8%80%83/%E8%BD%AF%E8%80%83%EF%BC%88%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%EF%BC%89/" rel="prev" title="软考（程序设计基础知识）">
+                  <i class="fa fa-angle-left"></i> 软考（程序设计基础知识）
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">why</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
